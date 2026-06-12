@@ -7,6 +7,26 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!--　ヘッダーここから　-->
+<header>
+
+
+
+</header>
+<!--　ヘッダーここまで　-->
+<!--　メインここから　-->
+<main>
+
+
+</main>
+<!--　メインここまで　-->
+<!--　フッターここから　-->
+<footer>
+
+
+</footer>
+<!--　ヘッダーここまで　-->
+<!--　フッターここから　-->
 
 </body>
 </html>
