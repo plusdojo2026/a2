@@ -1,4 +1,5 @@
-
+/*データベース作成*/
+CREATE DATABASE a2;
 
 /*ユーザー情報*/
 CREATE TABLE users(
