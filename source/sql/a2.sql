@@ -144,13 +144,13 @@ INSERT INTO backgrounds (background) VALUES
 (5);
 
 /* グループテーブル作成 */
-CREATE TABLE groups (
+CREATE TABLE `groups` (
     group_id INT AUTO_INCREMENT PRIMARY KEY,
     group_name VARCHAR(15) NOT NULL,
     tr_id INT
 );
 /* グループテーブルインサート */
-INSERT INTO groups (group_name, tr_id) VALUES
+INSERT INTO `groups` (group_name, tr_id) VALUES
 ('さやえんどう', 1),
 ('イソフラボンボンボン', 2);
 
@@ -174,7 +174,7 @@ INSERT INTO group_connects (group_id, user_id, number) VALUES
 /* ランキングテーブル作成 */
 CREATE TABLE rankings (
     ranking_id INT AUTO_INCREMENT PRIMARY KEY,
-    group_id INT PRIMARY KEY,
+    group_id INT,
     max_record INT,
     tr_id INT NOT NULL,
     user_id VARCHAR(30)
