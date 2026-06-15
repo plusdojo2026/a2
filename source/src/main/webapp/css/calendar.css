@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/* ----------- カレンダー部分 ----------- */
+body {
+    font-family: "Hiragino Sans", sans-serif;
+    background: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.calendar-container {
+    width: 90%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    width: 14%;
+    height: 70px;
+    border: 1px solid #eee;
+    padding: 5px;
+}
+
+.date-num {
+    font-size: 12px;
+}
+
+/* ----------- モーダル ----------- */
+.modal-bg {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+}
+
+.modal {
+    background: #fff;
+    width: 80%;
+    max-width: 350px;
+    margin: 120px auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.modal h3 {
+    margin-top: 0;
+}
+
+.close-btn {
+    background: #7cc47f;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 15px;
+}
