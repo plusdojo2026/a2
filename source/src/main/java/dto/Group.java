@@ -1,5 +1,7 @@
 package dto;
 
-public class Group {
+import java.io.Serializable;
+
+public class Group implements Serializable{
 
 }
