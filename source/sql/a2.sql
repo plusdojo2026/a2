@@ -2,6 +2,7 @@
 CREATE DATABASE a2;
 
 USE a2;
+
 /*ユーザー情報*/
 CREATE TABLE users(
 number INT AUTO_INCREMENT PRIMARY KEY,	/*管理番号*/
