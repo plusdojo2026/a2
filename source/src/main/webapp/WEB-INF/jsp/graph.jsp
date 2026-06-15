@@ -23,7 +23,6 @@
 <div>
  <select name ="tr_items">
  <%for(int i = 0; i < List.size(); i++) %>
- 
  </select>
 </div>
 
