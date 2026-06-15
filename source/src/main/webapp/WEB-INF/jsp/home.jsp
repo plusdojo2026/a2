@@ -10,7 +10,7 @@
 <body>
 <!--　ヘッダーここから　-->
 <header>
-
+<input type="text">
 
 
 </header>
