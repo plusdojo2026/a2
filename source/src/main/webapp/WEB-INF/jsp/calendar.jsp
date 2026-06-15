@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>マメッスル　カレンダー</title>
-<link rel="stylesheet" href="/WEB-INF/css/calendar.css">
+<link rel="stylesheet" href="/a2/css/calendar.css">
 </head>
 <body>
 <!-----------　ヘッダーここから　----------->
@@ -52,7 +52,6 @@
 			        <c:forEach var="dow" begin="0" end="6">
 			
 			            <c:choose>
-			
 			                <%-- 1週目：1日の曜日まで空白 --%>
 			                <c:when test="${week == 1 && dow < startDay}">
 			                    <td></td>
@@ -70,7 +69,6 @@
 			                    </td>
 			                    <c:set var="day" value="${day + 1}" />
 			                </c:otherwise>
-			
 			            </c:choose>
 			
 			        </c:forEach>
@@ -102,6 +100,18 @@
 
 </footer>
 <!---------------　フッターここまで　--------------->
-
+<script>
+	function openModal(date, tr1, tr2) {
+	    document.getElementById("modal-date").innerText = date;
+	    document.getElementById("modal-tr1").innerText = tr1 || "記録なし";
+	    document.getElementById("modal-tr2").innerText = tr2 || "";
+	
+	    document.getElementById("modal-bg").style.display = "block";
+	}
+	
+	function closeModal() {
+	    document.getElementById("modal-bg").style.display = "none";
+	}
+</script>
 </body>
 </html>
