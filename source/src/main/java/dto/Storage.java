@@ -17,7 +17,7 @@ public class Storage implements Serializable{
 	private int tr_id;
 	private int tr_weight;
 	private int counts;
-	private int set;
+	private int sets;
 	
 	
 	
@@ -91,11 +91,11 @@ public class Storage implements Serializable{
 	public void setCounts(int counts) {
 		this.counts = counts;
 	}
-	public int getSet() {
-		return set;
+	public int getSets() {
+		return sets;
 	}
-	public void setSet(int set) {
-		this.set = set;
+	public void setSets(int sets) {
+		this.sets = sets;
 	}
 	
 	
@@ -114,7 +114,7 @@ public class Storage implements Serializable{
 	
 	
 	public Storage(int storage_id, String user_id, double weight, double fat, String memo,
-			int stamp, Date date, int id, int tr_id, int tr_weight, int counts, int set) {
+			int stamp, Date date, int id, int tr_id, int tr_weight, int counts, int sets) {
 		super();
 		this.storage_id = storage_id;
 		this.user_id = user_id;
@@ -127,7 +127,7 @@ public class Storage implements Serializable{
 		this.tr_id = tr_id;
 		this.tr_weight = tr_weight;
 		this.counts = counts;
-		this.set = set;
+		this.sets = sets;
 	}
 	
 
