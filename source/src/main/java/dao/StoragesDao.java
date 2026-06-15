@@ -92,9 +92,43 @@ public class StoragesDao {
 	}
 
 	/*
-     * 指定した日付の記録を取得するメソッド
+     * スタンプを編集するメソッド（内容ものちに編集できるようにする）
      * 返り値：
      */
+	public boolean updateStamp(String userId, String date, int stamp) {
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+	    	// JDBCドライバ読み込み
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        // DB接続
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/a2?"
+	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        String sql = "UPDATE storages SET stamp = ? WHERE user_id = ? AND date = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, stamp);
+	        ps.setString(2, userId);
+	        ps.setString(3, date);
+
+	        int result = ps.executeUpdate();
+	        return result == 1;  // 成功なら true
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+
+	    } finally {
+	        try { if (ps != null) ps.close(); } catch (Exception e) {}
+	        try { if (conn != null) conn.close(); } catch (Exception e) {}
+	    }
+	}
+
 
 	//-------------カレンダーページのDAOここまで--------------//
 	

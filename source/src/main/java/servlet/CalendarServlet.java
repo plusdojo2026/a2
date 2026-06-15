@@ -87,4 +87,22 @@ public class CalendarServlet extends HttpServlet {
             this.fullDate = fullDate;
         }
     }
+    
+    // 記録編集
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        String date = request.getParameter("date");
+        int stamp = Integer.parseInt(request.getParameter("stamp"));
+        String userId = "user1"; // 本来はセッションから取得
+
+        // DAOを使って更新
+        StoragesDao dao = new StoragesDao();
+        boolean success = dao.updateStamp(userId, date, stamp);
+
+        // カレンダーに戻る
+        response.sendRedirect("/a2/CalendarServlet");
+    }
 }

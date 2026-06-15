@@ -65,7 +65,7 @@
                                 <%-- fullDate を作成（例：2026-07-10） --%>
                                 <c:set var="fullDate"
                                        value="${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}" />
-                                <td onclick="openModal('${month}月${day}日')">
+                                <td onclick="openModal('${fullDate}')">
                                     <div class="date-num">${day}</div>
                                     <%-- スタンプがある日だけ表示 --%>
                                     <c:if test="${stampMap[fullDate] != null}">
@@ -87,7 +87,24 @@
 	<div id="modal-bg" class="modal-bg">
 	    <div class="modal">
 	        <h3 id="modal-date"></h3>
-	
+	        <!-- スタンプ更新 -->
+			<form action="/a2/CalendarServlet" method="post">
+			    <input type="hidden" name="date" id="modalDate">
+			
+			    <label>スタンプ：</label>
+				<select name="stamp">
+				    <option value="0">なし</option>
+				    <option value="1">スクワット</option>
+				    <option value="2">背筋</option>
+				    <option value="3">ダンベル</option>
+				    <option value="4">脚</option>
+				    <option value="5">腹筋</option>
+				    <option value="6">やる気</option>
+				    <option value="7">ビール</option>
+				</select>
+				<button type="submit">更新</button>
+			</form>
+			
 	        <p><strong>トレーニング内容</strong></p>
 	        <p id="modal-tr1"></p>
 	        <p id="modal-tr2"></p>
@@ -115,6 +132,9 @@
 	    document.getElementById("modal-tr2").innerText = tr2 || "記録なし";
 	
 	    document.getElementById("modal-bg").style.display = "block";
+	    
+	    document.getElementById("modalDate").value = date;
+	    document.getElementById("modal").style.display = "block";
 	}
 	
 	function closeModal() {
