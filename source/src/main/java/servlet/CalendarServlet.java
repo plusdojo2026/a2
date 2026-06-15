@@ -22,18 +22,31 @@ public class CalendarServlet extends HttpServlet {
         // ログイン中のユーザーID（本来はセッションから取得）
         String userId = "user1";
 
-        // 表示する年月（パラメータ or デフォルト：今月）
+        // 表示する年月（パラメータないときデフォルトで今月）
         String yearParam = request.getParameter("year");
         String monthParam = request.getParameter("month");
 
         LocalDate today = LocalDate.now();
-        int year = (yearParam == null) ? today.getYear() : Integer.parseInt(yearParam);
-        int month = (monthParam == null) ? today.getMonthValue() : Integer.parseInt(monthParam);
+        int year;
+        if (yearParam == null) {
+            year = today.getYear();
+        } else {
+            year = Integer.parseInt(yearParam);
+        }
+
+        int month;
+        if (monthParam == null) {
+            month = today.getMonthValue();
+        } else {
+            month = Integer.parseInt(monthParam);
+        }
 
         // 1日の曜日（0=日曜〜6=土曜）
         LocalDate first = LocalDate.of(year, month, 1);
         int startDay = first.getDayOfWeek().getValue(); // 1=月曜〜7=日曜
-        startDay = (startDay == 7) ? 0 : startDay;      // 日曜を0に変換
+        if (startDay == 7) {
+            startDay = 0;	// 日曜を0に変換
+        }
 
         // 月末の日付
         int lastDay = first.lengthOfMonth();
