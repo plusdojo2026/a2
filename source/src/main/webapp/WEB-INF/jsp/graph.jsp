@@ -20,15 +20,19 @@
 <!--　メインここから　-->
 <main>
 
-
+<div>
+ <select name ="tr_items">
+ <%for(int i = 0; i < List.size(); i++) %>
+ </select>
+</div>
 
 <!-- 表示変更 -->
 <ul>
 <li>
-<input type="button" name="" value="週">
+<input type="button" name="week" value="週">
 </li>
 <li>
-<input type="button" name="" value="月">
+<input type="button" name="month" value="月">
 </li>
 </ul>
 
@@ -47,5 +51,12 @@
 
 </footer>
 <!--　フッターここまで　-->
+
+<script>
+
+'use strict'
+
+
+</script>
 </body>
 </html>
