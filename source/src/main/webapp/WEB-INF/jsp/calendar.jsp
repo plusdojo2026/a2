@@ -18,24 +18,22 @@
 
 	<form action="CalendarServlet" method="get">
 	    <!-- 年のプルダウン -->
-	    <select name="year" onchange="this.form.submit()">
-	        <c:forEach var="y" begin="2020" end="${currentYear}">
-	            <option value="${y}"
-				    <c:if test="${y == year}">selected</c:if>>
-				    ${y}年
-				</option>
-	        </c:forEach>
-	    </select>
-	
-	    <!-- 月のプルダウン -->
-	    <select name="month" onchange="this.form.submit()">
-	        <c:forEach var="m" begin="1" end="12">
-	        	<option value="${m}"
-				    <c:if test="${m == month}">selected</c:if>>
-				    ${m}月
-				</option>
-	        </c:forEach>
-	    </select>
+        <select name="year" onchange="this.form.submit()">
+            <c:forEach var="y" begin="2020" end="${currentYear}">
+                <option value="${y}" <c:if test="${y == year}">selected</c:if>>
+                    ${y}年
+                </option>
+            </c:forEach>
+        </select>
+
+        <!-- 月のプルダウン -->
+        <select name="month" onchange="this.form.submit()">
+            <c:forEach var="m" begin="1" end="12">
+                <option value="${m}" <c:if test="${m == month}">selected</c:if>>
+                    ${m}月
+                </option>
+            </c:forEach>
+        </select>
 	</form>
 	
 	<div class="calendar-container">
@@ -63,12 +61,19 @@
 			                </c:when>
 			
 			                <%-- 日付表示 --%>
-			                <c:otherwise>
-			                    <td onclick="openModal('${month}月${day}日')">
-			                        <div class="date-num">${day}</div>
-			                    </td>
-			                    <c:set var="day" value="${day + 1}" />
-			                </c:otherwise>
+                            <c:otherwise>
+                                <%-- ★ fullDate を作成（例：2026-07-10） --%>
+                                <c:set var="fullDate"
+                                       value="${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}" />
+                                <td onclick="openModal('${month}月${day}日')">
+                                    <div class="date-num">${day}</div>
+                                    <%-- ★ スタンプがある日だけ表示 --%>
+                                    <c:if test="${stampMap[fullDate] != null}">
+                                        <img src="/a2/img/stamp${stampMap[fullDate]}.png" class="stamp">
+                                    </c:if>
+                                </td>
+                                <c:set var="day" value="${day + 1}" />
+                            </c:otherwise>
 			            </c:choose>
 			
 			        </c:forEach>
@@ -101,10 +106,13 @@
 </footer>
 <!---------------　フッターここまで　--------------->
 <script>
+	//モーダルを開く関数
 	function openModal(date, tr1, tr2) {
+		// モーダル内の日付表示を更新
 	    document.getElementById("modal-date").innerText = date;
+	 	// トレーニングの内容を表示（null/空なら「記録なし」）
 	    document.getElementById("modal-tr1").innerText = tr1 || "記録なし";
-	    document.getElementById("modal-tr2").innerText = tr2 || "";
+	    document.getElementById("modal-tr2").innerText = tr2 || "記録なし";
 	
 	    document.getElementById("modal-bg").style.display = "block";
 	}
