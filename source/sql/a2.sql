@@ -10,12 +10,12 @@ user_name VARCHAR(100) NOT NULL,	/*ユーザー名*/
 height DOUBLE NOT NULL,			/*身長*/
 gender VARCHAR(8),			/*性別*/
 target_weight DOUBLE,			/*目標体重*/
-logical_delete BIT DEFAULT'0',		/*論理削除*/
+logical_delete BIT DEFAULT 0,		/*論理削除*/
 user_id VARCHAR(30) NOT NULL,		/*ユーザーID*/
 password VARCHAR(30) NOT NULL,		/*パスワード*/
-icon_id	INT DEFAULT'0',			/*アイコンID*/
-design_id INT DEFAULT'0',		/*背景ID*/
-point INT DEFAULT'0'			/*豆ポイント*/
+icon_id	INT DEFAULT 0,			/*アイコンID*/
+design_id INT DEFAULT 0,		/*背景ID*/
+point INT DEFAULT 0			/*豆ポイント*/
 );
 /*内容入力*/
 INSERT INTO users VALUES(
