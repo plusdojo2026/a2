@@ -45,7 +45,7 @@ tr_id INT NOT NULL,					/*トレーニングID*/
 tr_weight INT,						/*重さ（距離）*/
 counts INT,							/*回数*/
 sets INT,							/*セット*/
-memo VARCHAR,						/*メモ*/
+memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
@@ -76,7 +76,7 @@ tr_id INT NOT NULL,							/*トレーニングID*/
 tr_weight INT,								/*重さ（距離）*/
 counts INT,									/*回数*/
 sets INT,									/*セット*/
-memo VARCHAR,								/*メモ*/
+memo VARCHAR(100),								/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
