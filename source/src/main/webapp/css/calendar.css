@@ -31,6 +31,13 @@ td {
     font-size: 12px;
 }
 
+.stamp {
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+}
+
+
 /* ----------- モーダル ----------- */
 .modal-bg {
     display: none;

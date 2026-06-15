@@ -62,15 +62,15 @@
 			
 			                <%-- 日付表示 --%>
                             <c:otherwise>
-                                <%-- ★ fullDate を作成（例：2026-07-10） --%>
+                                <%-- fullDate を作成（例：2026-07-10） --%>
                                 <c:set var="fullDate"
                                        value="${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}" />
                                 <td onclick="openModal('${month}月${day}日')">
                                     <div class="date-num">${day}</div>
-                                    <%-- ★ スタンプがある日だけ表示 --%>
+                                    <%-- スタンプがある日だけ表示 --%>
                                     <c:if test="${stampMap[fullDate] != null}">
-                                        <img src="/a2/img/stamp${stampMap[fullDate]}.png" class="stamp">
-                                    </c:if>
+									    <img src="/a2/img/stamp${stampMap[fullDate]}.png" class="stamp">
+									</c:if>
                                 </td>
                                 <c:set var="day" value="${day + 1}" />
                             </c:otherwise>
