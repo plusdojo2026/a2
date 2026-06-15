@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.StoragesDao;
-import dto.Storage;
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +32,8 @@ public class HomeServlet extends HttpServlet {
 //		sessionから、ログインしているユーザーの情報を取得する
 		
 //		そのログインしているユーザーのIDを使って、豆のリクエスト情報を取得する
+		
+		int number = Integer.parseInt(request.getParameter("number"));
 		
 		
 		
@@ -74,8 +72,8 @@ public class HomeServlet extends HttpServlet {
 		int sets = Integer.parseInt(request.getParameter("sets"));
 		
 		
-		StoragesDao sDao = new StoragesDao();
-		List<Storage> cardList = sDao.insert(new Storage(user_id, weight, fat, memo, stamp, id, tr_id, tr_weight, counts, sets ));
+//		StoragesDao sDao = new StoragesDao();
+//		List<Storage> cardList = sDao.insert(new Storage(user_id, weight, fat, memo, stamp, id, tr_id, tr_weight, counts, sets ));
 		
 	}
 
