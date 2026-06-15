@@ -18,7 +18,8 @@ design_id INT DEFAULT 0,				/*背景ID*/
 point INT DEFAULT 0						/*豆ポイント*/
 );
 /*内容入力*/
-INSERT INTO users VALUES(
+INSERT INTO users (user_name,height,target_weight,logical_delete,user_id,
+password) VALUES(
 
 );
 
@@ -33,7 +34,7 @@ stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
-INSERT INTO storages VALUES(
+INSERT INTO storages (user_id,weight,fat,memo) VALUES(
 
 );
 
@@ -49,7 +50,7 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_strages VALUES(
+INSERT INTO tr_strages (user_id,tr_id,tr_weight.counts,sets,memo) VALUES(
 
 );
 
@@ -84,7 +85,7 @@ friend_user_id INT,							/*フレンドのユーザーID*/
 friend_request BIT DEFAULT 0				/*申請の承認フラグ*/
 );
 /*内容入力*/
-INSERT INTO friends VALUES(
+INSERT INTO friends (user_id,friend_user_id) VALUES(
 
 );
 
@@ -100,12 +101,12 @@ INSERT INTO logs VALUES(
 );
 
 /*トレーニング項目*/
-CREATE TABLE tr_items(
+CREATE TABLE tr_item(
 tr_id INT AUTO_INCREMENT PRIMARY KEY,			/*トレーニングID*/
 tr_item	VARCHAR(15) NOT NULL					/*トレーニング項目*/
 );
 /*内容入力*/
-INSERT INTO tr_items VALUES(
+INSERT INTO tr_item (tr_item) VALUES(
 
 );
 
