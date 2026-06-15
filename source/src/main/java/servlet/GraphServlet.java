@@ -55,9 +55,9 @@ public class GraphServlet extends HttpServlet {
 		int counts= Integer.parseInt(request.getParameter("counts"));
 		int set= Integer.parseInt(request.getParameter("set"));
 
-		//グラフ内容の検索処理を行う
+		//グラフの作成処理を行う
 		
-		//検索結果を格納する
+		//グラフとトレーニング項目を格納する
 		
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/graph.jsp");
