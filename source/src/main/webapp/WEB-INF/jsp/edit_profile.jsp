@@ -19,15 +19,19 @@
 	<table>
 		<tr>
 			<th>ユーザー名</th>
-			<td><input type="text"></td>
+			<td><input type="text" value="${user_name}"></td>
 		<tr>
 		<tr>
 			<th>身長</th>
-			<td><input type="text"></td>
+			<td><input type="text" value="${height}"></td>
 		<tr>
 		<tr>
 			<th>性別</th>
-			<td><input type="radio"></td>
+			<td>
+				<input type="radio" name="gender" value="woman">
+				<input type="radio" name="gender" value="man">
+				<input type="radio" name="gender" value="other">
+			</td>
 		<tr>
 		<tr>
 			<th>目標体重</th>

@@ -36,15 +36,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--ヘッダーここまで-->
 <!--メインここから-->
 
-<p class="point">豆ポイント：1235pt</p>
+<p class="point">${point}</p>
 <main>
 <div class="my_page_user_info">
     <div class="circle">
     </div>
     <div class="user_id_name">
-        <p>ID:710710</p>
+        <p>ID:${user_id}</p>
             <br>
-        <p>name：ずんだモン</p>
+        <p>name：${user_name}</p>
     </div>
 </div>
 <div>
