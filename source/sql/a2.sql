@@ -13,7 +13,7 @@ user_id VARCHAR(30) NOT NULL,		/*ユーザーID*/
 password VARCHAR(30) NOT NULL,		/*パスワード*/
 icon_id	INT DEFAULT'0',			/*アイコンID*/
 design_id INT DEFAULT'0',		/*背景ID*/
-point INT DEFAULT'0',			/*豆ポイント*/
+point INT DEFAULT'0'			/*豆ポイント*/
 );
 /*内容入力*/
 INSERT INTO users VALUES(
