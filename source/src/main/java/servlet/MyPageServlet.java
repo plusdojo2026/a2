@@ -1,9 +1,21 @@
 package servlet;
 
+import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.UsersDao;
+import dto.User;
 
 @WebServlet("/MyPageServlet")
-public class ListServlet extends HttpServlet {
+public class MyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -20,9 +32,9 @@ public class ListServlet extends HttpServlet {
 			response.sendRedirect("/a2/LoginServlet");
 			return;
 		}
-		
-		UserDAO userDao = new UserDAO();
-		List<User> userinfo = userDao.list(new User());
+		//DAOが出来たら変える。
+		UsersDao userDao = new UsersDao();
+		List<User> userinfo = userDao.info(new User());
 		
 	
 	
