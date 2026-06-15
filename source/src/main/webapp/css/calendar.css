@@ -2,10 +2,7 @@
 
 /* ----------- カレンダー部分 ----------- */
 body {
-    font-family: "Hiragino Sans", sans-serif;
     background: #f8f8f8;
-    margin: 0;
-    padding: 0;
     text-align: center;
 }
 
@@ -47,16 +44,12 @@ td {
 
 .modal {
     background: #fff;
-    width: 80%;
+    width: 90%;
     max-width: 350px;
     margin: 120px auto;
     padding: 20px;
     border-radius: 10px;
     text-align: left;
-}
-
-.modal h3 {
-    margin-top: 0;
 }
 
 .close-btn {
