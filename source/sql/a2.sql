@@ -174,7 +174,7 @@ INSERT INTO group_connects (group_id, user_id, number) VALUES
 /* ランキングテーブル作成 */
 CREATE TABLE rankings (
     ranking_id INT AUTO_INCREMENT PRIMARY KEY,
-    group_id INT PRIMARY KEY,
+    group_id INT,
     max_record INT,
     tr_id INT NOT NULL,
     user_id VARCHAR(30)
