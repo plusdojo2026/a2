@@ -144,13 +144,13 @@ INSERT INTO backgrounds (background) VALUES
 (5);
 
 /* グループテーブル作成 */
-CREATE TABLE `groups` (
+CREATE TABLE group_list (
     group_id INT AUTO_INCREMENT PRIMARY KEY,
     group_name VARCHAR(15) NOT NULL,
     tr_id INT
 );
 /* グループテーブルインサート */
-INSERT INTO `groups` (group_name, tr_id) VALUES
+INSERT INTO group_list (group_name, tr_id) VALUES
 ('さやえんどう', 1),
 ('イソフラボンボンボン', 2);
 
