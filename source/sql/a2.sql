@@ -6,16 +6,16 @@ USE a2;
 /*ユーザー情報*/
 CREATE TABLE users(
 number INT AUTO_INCREMENT PRIMARY KEY,	/*管理番号*/
-user_name VARCHAR(100) NOT NULL,	/*ユーザー名*/
-height DOUBLE NOT NULL,			/*身長*/
-gender VARCHAR(8),			/*性別*/
-target_weight DOUBLE,			/*目標体重*/
-logical_delete BIT DEFAULT 0,		/*論理削除*/
-user_id VARCHAR(30) NOT NULL,		/*ユーザーID*/
-password VARCHAR(30) NOT NULL,		/*パスワード*/
-icon_id	INT DEFAULT 0,			/*アイコンID*/
-design_id INT DEFAULT 0,		/*背景ID*/
-point INT DEFAULT 0			/*豆ポイント*/
+user_name VARCHAR(100) NOT NULL,		/*ユーザー名*/
+height DOUBLE NOT NULL,				/*身長*/
+gender VARCHAR(8),						/*性別*/
+target_weight DOUBLE,					/*目標体重*/
+logical_delete BIT DEFAULT 0,			/*論理削除*/
+user_id VARCHAR(30) NOT NULL,			/*ユーザーID*/
+password VARCHAR(30) NOT NULL,			/*パスワード*/
+icon_id	INT DEFAULT 0,					/*アイコンID*/
+design_id INT DEFAULT 0,				/*背景ID*/
+point INT DEFAULT 0						/*豆ポイント*/
 );
 /*内容入力*/
 INSERT INTO users VALUES(
@@ -25,12 +25,12 @@ INSERT INTO users VALUES(
 /*記録情報*/
 CREATE TABLE storages(
 storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
-user_id VARCHAR(30) NOT NULL,			/*ユーザーID*/
-weight DOUBLE,					/*体重*/
-fat DOUBLE,					/*体脂肪率*/
-memo VARCHAR(100),				/*メモ*/
-stamp INT,					/*スタンプ*/
-date DATE DEFAULT (CURRENT_DATE)		/*日付*/
+user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
+weight DOUBLE,								/*体重*/
+fat DOUBLE,									/*体脂肪率*/
+memo VARCHAR(100),							/*メモ*/
+stamp INT,									/*スタンプ*/
+date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
 INSERT INTO storages VALUES(
@@ -41,11 +41,11 @@ INSERT INTO storages VALUES(
 CREATE TABLE tr_strages(
 id INT AUTO_INCREMENT PRIMARY KEY,	/*TR内容保存ID*/
 user_id VARCHAR(30) NOT NULL,		/*ユーザーID*/	
-tr_id INT NOT NULL,			/*トレーニングID*/
-tr_weight INT,				/*重さ（距離）*/
-counts INT,				/*回数*/
-set INT,				/*セット*/
-memo VARCHAR,				/*メモ*/
+tr_id INT NOT NULL,					/*トレーニングID*/
+tr_weight INT,						/*重さ（距離）*/
+counts INT,							/*回数*/
+sets INT,							/*セット*/
+memo VARCHAR,						/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
@@ -56,12 +56,12 @@ INSERT INTO tr_strages VALUES(
 /*一時保存*/
 CREATE TABLE saves(
 storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
-user_id VARCHAR(30) NOT NULL,			/*ユーザーID*/
-weight DOUBLE,					/*体重*/
-fat DOUBLE,					/*体脂肪率*/
-memo VARCHAR(100),				/*メモ*/
-stamp INT,					/*スタンプ*/
-date DATE DEFAULT (CURRENT_DATE)		/*日付*/
+user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
+weight DOUBLE,								/*体重*/
+fat DOUBLE,									/*体脂肪率*/
+memo VARCHAR(100),							/*メモ*/
+stamp INT,									/*スタンプ*/
+date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
 INSERT INTO saves VALUES(
@@ -70,14 +70,14 @@ INSERT INTO saves VALUES(
 
 /*トレーニング内容（一時保存）*/
 CREATE TABLE tr_saves(
-id INT AUTO_INCREMENT PRIMARY KEY,	/*TR内容保存ID*/
-user_id VARCHAR(30) NOT NULL,		/*ユーザーID*/	
-tr_id INT NOT NULL,			/*トレーニングID*/
-tr_weight INT,				/*重さ（距離）*/
-counts INT,				/*回数*/
-set INT,				/*セット*/
-memo VARCHAR,				/*メモ*/
-date DATE DEFAULT (CURRENT_DATE)	/*日付*/
+id INT AUTO_INCREMENT PRIMARY KEY,			/*TR内容保存ID*/
+user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/	
+tr_id INT NOT NULL,							/*トレーニングID*/
+tr_weight INT,								/*重さ（距離）*/
+counts INT,									/*回数*/
+sets INT,									/*セット*/
+memo VARCHAR,								/*メモ*/
+date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
 INSERT INTO tr_saves VALUES(
@@ -87,9 +87,9 @@ INSERT INTO tr_saves VALUES(
 /*フレンド*/
 CREATE TABLE friends(
 friend_id INT AUTO_INCREMENT PRIMARY KEY,	/*フレンドID*/
-user_id	VARCHAR(30) NOT NULL,			/*ユーザーID*/
-friend_user_id INT,				/*フレンドのユーザーID*/
-friend_request BIT				/*申請の承認フラグ*/
+user_id	VARCHAR(30) NOT NULL,				/*ユーザーID*/
+friend_user_id INT,							/*フレンドのユーザーID*/
+friend_request BIT							/*申請の承認フラグ*/
 );
 /*内容入力*/
 INSERT INTO friends VALUES(
@@ -98,8 +98,8 @@ INSERT INTO friends VALUES(
 
 /*ログイン記録*/
 CREATE TABLE logs(
-log_id INT AUTO_INCREMENT PRIMARY KEY,		/*ログイン記録ID*/
-user_id	VARCHAR(30),				/*ユーザーID*/
+log_id INT AUTO_INCREMENT PRIMARY KEY,			/*ログイン記録ID*/
+user_id	VARCHAR(30),							/*ユーザーID*/
 date_time DATETIME DEFAULT (CURRENT_TIMESTAMP)	/*時間付き日付*/
 );
 /*内容入力*/
@@ -109,8 +109,8 @@ INSERT INTO logs VALUES(
 
 /*トレーニング項目*/
 CREATE TABLE tr_items(
-tr_id INT AUTO_INCREMENT PRIMARY KEY,	/*トレーニングID*/
-tr_item	VARCHAR(15) NOT NULL		/*トレーニング項目*/
+tr_id INT AUTO_INCREMENT PRIMARY KEY,			/*トレーニングID*/
+tr_item	VARCHAR(15) NOT NULL					/*トレーニング項目*/
 );
 /*内容入力*/
 INSERT INTO tr_items VALUES(
