@@ -50,7 +50,7 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_strages (user_id,tr_id,tr_weight.counts,sets,memo) VALUES(
+INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo) VALUES(
 
 );
 
