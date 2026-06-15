@@ -1,1 +1,110 @@
 @charset "UTF-8";
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#f3fff2;
+  color:#000000;
+  font-family:sans-serif;
+  min-height:300vh;
+}
+
+
+/*========================ヘッダー=========================*/
+header{
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items:center;
+    width:100%;
+    font: size 14px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background-color: #22fc4d;
+    border-bottom:solid 2px #000000;
+}
+.header-left{
+    justify-self:start;
+    display:flex;
+    flex-direction:column;
+    padding-left: 15px;
+
+}
+.header-left .anniversary{
+    text-align: center;
+}
+.logo{
+    justify-self:center;
+}
+.bean-info{
+    justify-self:end;
+    padding-right: 15px;
+}
+
+
+/*======================== メイン =========================*/
+
+
+/*========================フッター=========================*/
+/* アイコンバー */
+.bottom-bar{
+  position:fixed;/*アイコンバー位置固定*/
+  left:12px;/*バーの配置*/
+  right:12px;
+  bottom:18px;
+  height:72px;
+  display:flex;
+  align-items:center;                   /*上下を整える*/
+  justify-content:space-around;
+  border-radius:40px;                   /*角を丸くする*/
+  background:rgba(55, 55, 55, 0.22);  /*色設定*/
+  backdrop-filter:blur(3px);            /*ぼかし*/
+  border:3px solid rgba(62, 62, 62, 0.525);/*枠色*/
+  /* ===アニメーションの変化にかける時間=== */
+  transition:
+    height .4s cubic-bezier(.2,.8,.2,1),
+    transform .4s cubic-bezier(.2,.8,.2,1),
+    background .4s ease,
+    border-radius .4s ease;
+  z-index:999;/*手前に配置*/
+}
+/* アイコンバー（縮小時） */
+.bottom-bar.small{
+  background:rgba(0, 0, 0, 0.2);       /*アイコンバーぼかし*/
+  height:58px;
+  transform:
+    translateY(6px)                      /*縮小時の下げ幅*/
+    scale(0.94);                         /*縮小率*/
+  border-radius:30px;                    /*角の丸まり具合*/
+}
+/* アイコン */
+.bottom-bar i{
+  font-size:27px;
+  width:60px;
+  height:40px;
+  color:rgba(0, 0, 0, 0.778);
+  transition:
+    transform .4s cubic-bezier(.2,.8,.2,1),
+    opacity .25s ease;
+  display:flex;
+  align-items:center;                   /*上下を整える*/
+  justify-content:space-around;
+}
+/*現在ページのアイコン*/
+.nowpage{
+    background-color: #ffffffa6;
+    border-radius:15px;
+    box-shadow: 0 0 5px #ffffff;
+}
+.bottom-bar.shrink i{
+  transform:scale(0.82);
+  opacity:0.88;
+}
+/* アイコンバーのデコレーションオフ */
+.bottom-bar a:link{text-decoration:none;}
+.bottom-bar a:visited{text-decoration:none;}
+.bottom-bar a:hover{text-decoration:none;}
+.bottom-bar a:active{text-decoration:none;}

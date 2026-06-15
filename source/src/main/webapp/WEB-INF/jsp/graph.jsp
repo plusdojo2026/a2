@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>マメッスル|成長記録</title>
 </head>
 <body>
 <!--　ヘッダーここから　-->
@@ -20,6 +20,17 @@
 <!--　メインここから　-->
 <main>
 
+
+
+<!-- 表示変更 -->
+<ul>
+<li>
+<input type="button" name="" value="週">
+</li>
+<li>
+<input type="button" name="" value="月">
+</li>
+</ul>
 
 </main>
 <!--　メインここまで　-->
