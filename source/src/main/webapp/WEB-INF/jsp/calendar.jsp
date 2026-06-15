@@ -5,27 +5,103 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>マメッスル　カレンダー</title>
+<link rel="stylesheet" href="/WEB-INF/css/calendar.css">
 </head>
 <body>
-<!--　ヘッダーここから　-->
+<!-----------　ヘッダーここから　----------->
 <header>
-
-
-
 </header>
-<!--　ヘッダーここまで　-->
-<!--　メインここから　-->
+<!-------------　ヘッダーここまで　------------->
+<!-------------　メインここから　------------->
 <main>
+
+	<form action="CalendarServlet" method="get">
+	    <!-- 年のプルダウン -->
+	    <select name="year" onchange="this.form.submit()">
+	        <c:forEach var="y" begin="2020" end="${currentYear}">
+	            <option value="${y}"
+				    <c:if test="${y == year}">selected</c:if>>
+				    ${y}年
+				</option>
+	        </c:forEach>
+	    </select>
+	
+	    <!-- 月のプルダウン -->
+	    <select name="month" onchange="this.form.submit()">
+	        <c:forEach var="m" begin="1" end="12">
+	        	<option value="${m}"
+				    <c:if test="${m == month}">selected</c:if>>
+				    ${m}月
+				</option>
+	        </c:forEach>
+	    </select>
+	</form>
+	
+	<div class="calendar-container">
+	    <table>
+	        <tr>
+	            <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+	        </tr>
+	
+	        <!-- カレンダー作成 -->
+	        <c:set var="day" value="1" />
+			
+			<c:forEach var="week" begin="1" end="6">
+			    <tr>
+			        <c:forEach var="dow" begin="0" end="6">
+			
+			            <c:choose>
+			
+			                <%-- 1週目：1日の曜日まで空白 --%>
+			                <c:when test="${week == 1 && dow < startDay}">
+			                    <td></td>
+			                </c:when>
+			
+			                <%-- 月末を超えたら空白 --%>
+			                <c:when test="${day > lastDay}">
+			                    <td></td>
+			                </c:when>
+			
+			                <%-- 日付表示 --%>
+			                <c:otherwise>
+			                    <td onclick="openModal('${month}月${day}日')">
+			                        <div class="date-num">${day}</div>
+			                    </td>
+			                    <c:set var="day" value="${day + 1}" />
+			                </c:otherwise>
+			
+			            </c:choose>
+			
+			        </c:forEach>
+			    </tr>
+			</c:forEach>
+
+	
+	    </table>
+	</div>
+	<!-- モーダル -->
+	<div id="modal-bg" class="modal-bg">
+	    <div class="modal">
+	        <h3 id="modal-date"></h3>
+	
+	        <p><strong>トレーニング内容</strong></p>
+	        <p id="modal-tr1"></p>
+	        <p id="modal-tr2"></p>
+	
+	        <div class="close-btn" onclick="closeModal()">閉じる</div>
+	    </div>
+	</div>
 
 
 </main>
-<!--　メインここまで　-->
-<!--　フッターここから　-->
+<!---------------　メインここまで　--------------->
+<!---------------　フッターここから　--------------->
 <footer>
 
 
 </footer>
-<!--　フッターここまで　-->
+<!---------------　フッターここまで　--------------->
+
 </body>
 </html>
