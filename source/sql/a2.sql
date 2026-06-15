@@ -63,10 +63,6 @@ memo VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
-/*内容入力*/
-INSERT INTO saves VALUES(
-
-);
 
 /*トレーニング内容（一時保存）*/
 CREATE TABLE tr_saves(
@@ -76,12 +72,8 @@ tr_id INT NOT NULL,							/*トレーニングID*/
 tr_weight INT,								/*重さ（距離）*/
 counts INT,									/*回数*/
 sets INT,									/*セット*/
-memo VARCHAR(100),								/*メモ*/
+memo VARCHAR(100),							/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
-);
-/*内容入力*/
-INSERT INTO tr_saves VALUES(
-
 );
 
 /*フレンド*/
@@ -89,7 +81,7 @@ CREATE TABLE friends(
 friend_id INT AUTO_INCREMENT PRIMARY KEY,	/*フレンドID*/
 user_id	VARCHAR(30) NOT NULL,				/*ユーザーID*/
 friend_user_id INT,							/*フレンドのユーザーID*/
-friend_request BIT							/*申請の承認フラグ*/
+friend_request BIT DEFAULT 0				/*申請の承認フラグ*/
 );
 /*内容入力*/
 INSERT INTO friends VALUES(
