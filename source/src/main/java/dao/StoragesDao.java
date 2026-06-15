@@ -10,4 +10,6 @@ public class StoragesDao {
 	public List<Storage> select(Storage ???) {
 		Connection conn = null;
 		List<Storage> cardList = new ArrayList<Storage>();
+		
+		
 }
