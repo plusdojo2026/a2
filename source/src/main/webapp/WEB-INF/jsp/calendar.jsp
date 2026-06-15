@@ -103,19 +103,5 @@
 </footer>
 <!---------------　フッターここまで　--------------->
 
-<script>
-function openModal(date, tr1, tr2) {
-    document.getElementById("modal-date").innerText = date;
-    document.getElementById("modal-tr1").innerText = tr1 || "記録なし";
-    document.getElementById("modal-tr2").innerText = tr2 || "";
-
-    document.getElementById("modal-bg").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("modal-bg").style.display = "none";
-}
-</script>
-
 </body>
 </html>

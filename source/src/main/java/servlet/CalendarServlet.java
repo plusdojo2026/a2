@@ -47,14 +47,14 @@ public class CalendarServlet extends HttpServlet {
         // 今何年か（2026）
         int currentYear = LocalDate.now().getYear();
 
-        // JSP に渡す
+        // JSPに渡す
         request.setAttribute("year", year);
         request.setAttribute("month", month);
         request.setAttribute("startDay", startDay);
         request.setAttribute("lastDay", lastDay);
         request.setAttribute("currentYear", currentYear);
 
-        // JSP へフォワード
+        // JSPへフォワード
         request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp").forward(request, response);
     }
 }
