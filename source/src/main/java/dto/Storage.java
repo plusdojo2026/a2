@@ -3,6 +3,8 @@ package dto;
 import java.io.Serializable;
 import java.util.Date;
 
+
+//tr_storagesと　storages　というテーブルが入っている。　記録の保存用のdto
 public class Storage implements Serializable{
 	private int storage_id;
 	private String user_id;
