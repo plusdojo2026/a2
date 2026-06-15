@@ -20,7 +20,7 @@ public class StoragesDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/         ここにデーターベースの大元の名前?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
