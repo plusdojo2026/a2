@@ -10,8 +10,10 @@
 <body>
 <!--　ヘッダーここから　-->
 <header>
-
-
+	<span class ="date" id="date"></span>
+	<a href="/webapp/HomeServlet">ロゴ</a>
+	今日は○の日
+	<a href="/webapp/InfoServlet">今日の豆情報</a>
 
 </header>
 <!--　ヘッダーここまで　-->
@@ -23,7 +25,14 @@
 <!--　メインここまで　-->
 <!--　フッターここから　-->
 <footer>
-
+<ul>
+  <li><a href="/webapp/GraphServlet">成長記録</a></li>
+  <li><a href="/webapp/FriendListServlet">共有</a></li>
+  <li><a href="/webapp/HomeServlet">ホーム</a></li>
+  <li><a href="/webapp/CalendarServlet">カレンダー</a></li>
+  <li><a href="/webapp/MyPageServlet">マイページ</a></li>
+  
+</ul>
 
 </footer>
 <!--　フッターここまで　-->
