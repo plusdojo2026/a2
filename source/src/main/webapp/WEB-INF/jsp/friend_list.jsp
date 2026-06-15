@@ -93,7 +93,7 @@
     }); 
 
     // モーダル
-    //function openModal(name, point) {
+    function openModal(name, point) {
         document.getElementById("modal-name").innerText = name;
         document.getElementById("modal-point").innerText = point;
         document.getElementById("friend-modal").style.display = "block";
