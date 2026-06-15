@@ -18,7 +18,7 @@ public class Save implements Serializable{
 	private int tr_id;
 	private int tr_weight;
 	private int counts;
-	private int set;
+	private int sets;
 	
 	
 	
@@ -92,11 +92,11 @@ public class Save implements Serializable{
 	public void setCounts(int counts) {
 		this.counts = counts;
 	}
-	public int getSet() {
-		return set;
+	public int getSets() {
+		return sets;
 	}
-	public void setSet(int set) {
-		this.set = set;
+	public void setSets(int sets) {
+		this.sets = sets;
 	}
 	
 	
@@ -114,7 +114,7 @@ public class Save implements Serializable{
 	
 	
 	public Save(int save_id, String user_id, double weight, double fat, String memo,
-			int stamp, Date date, int id, int tr_id, int tr_weight, int counts, int set) {
+			int stamp, Date date, int id, int tr_id, int tr_weight, int counts, int sets) {
 		super();
 		this.save_id = save_id;
 		this.user_id = user_id;
@@ -127,7 +127,7 @@ public class Save implements Serializable{
 		this.tr_id = tr_id;
 		this.tr_weight = tr_weight;
 		this.counts = counts;
-		this.set = set;
+		this.sets = sets;
 	}
 	
 }

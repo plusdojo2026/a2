@@ -10,8 +10,8 @@
 
 <title>マイページ</title>
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/my_page_top_style.css">
+<link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet" href="/a2/css/mypage.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <!-- <style>
