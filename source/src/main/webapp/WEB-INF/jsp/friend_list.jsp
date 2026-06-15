@@ -17,8 +17,20 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-
-
+	<nav class="tab-menu">
+		<ul>
+			<li><a href="FriendListServlet" class="active"></a></li>
+			<li><a href="GroupListServlet">グループ</a></li>
+            <li><a href="RequestServlet">リクエスト</a></li>
+            <li><a href="RankingServlet">ランキング</a></li>
+		</ul>
+	</nav>
+	
+	<section class="friend-list-section">
+        <h2>フレンド一覧 🗑️</h2>
+        
+        
+        </section>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
