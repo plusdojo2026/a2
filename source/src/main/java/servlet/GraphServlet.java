@@ -58,7 +58,7 @@ public class GraphServlet extends HttpServlet {
 		
 		//グラフとトレーニング項目を格納する
 		
-		// 結果ページにフォワードする
+		// 成長記録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/graph.jsp");
 		dispatcher.forward(request, response);
 	}
