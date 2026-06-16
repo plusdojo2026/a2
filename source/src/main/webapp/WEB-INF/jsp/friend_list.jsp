@@ -39,7 +39,7 @@
                         <li class="friend-item">
                             <div class="friend-info">
                                 <span class="friend-icon"style="cursor: pointer;" 
-      							onclick="openModal('${friend.userName}', '${friend.beanPoints}')">🟢</span>
+      							onclick="openModal('${friend.userId}','${friend.Name}', '${friend.Point}', '${friend.training}')">🟢</span>
                                 <span class="friend-id">${friend.userId}</span><br>
                                 <span class="friend-name">${friend.Name}</span><br>
                                 <span class="friend-point">${friend.Point}</span><br>
@@ -67,8 +67,10 @@
 <div id="friend-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
     <div style="background: white; width: 300px; margin: 100px auto; padding: 20px; border-radius: 10px; text-align: center;">
         <h3>フレンド詳細</h3>
+        <p>ID: <span id="modal-Id"></span></p>
         <p>名前: <span id="modal-name"></span></p>
         <p>豆ぽ: <span id="modal-point"></span></p>
+        <p>トレーニングメニュー: <span id="modal-training"></span></p>
         <button type="button" onclick="closeModal()">閉じる</button>
     </div>
 </div>
@@ -93,9 +95,11 @@
     }); 
 
     // モーダル
-    function openModal(name, point) {
+    function openModal(Id,name, point, training) {
+    	document.getElementById("modal-Id").innerText = Id;
         document.getElementById("modal-name").innerText = name;
         document.getElementById("modal-point").innerText = point;
+        document.getElementById("modal-training").innerText = training;
         document.getElementById("friend-modal").style.display = "block";
     }
 

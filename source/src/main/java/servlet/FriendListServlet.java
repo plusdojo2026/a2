@@ -27,12 +27,14 @@ List<Map<String, String>> friendList = new ArrayList<>();
         f1.put("userId", "123456");
         f1.put("Name", "枝豆");
         f1.put("Point", "1200");
+        f1.put("training", "ベンチプレス50kg×10回×3セット　ランニング");
         friendList.add(f1);
         
         Map<String, String> f2 = new HashMap<>();
         f2.put("userId", "123458");
         f2.put("Name", "のっけ");
         f2.put("Point", "500");
+        f2.put("training", "ベンチプレス50kg×10回×3セット　ランニング");
         friendList.add(f2);
         
         
