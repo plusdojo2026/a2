@@ -39,7 +39,7 @@
                         <li class="friend-item">
                             <div class="friend-info">
                                 <span class="friend-icon"style="cursor: pointer;" 
-      							onclick="openModal('${friend.userId}','${friend.Name}', '${friend.Point}', '${friend.training}')">🟢</span>
+      							onclick="openModal('${friend.icon}','${friend.userId}','${friend.Name}', '${friend.Point}', '${friend.training}')">${friend.icon}</span>
                                 <span class="friend-id">${friend.userId}</span><br>
                                 <span class="friend-name">${friend.Name}</span><br>
                                 <span class="friend-point">${friend.Point}</span><br>
@@ -67,6 +67,7 @@
 <div id="friend-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
     <div style="background: white; width: 300px; margin: 100px auto; padding: 20px; border-radius: 10px; text-align: center;">
         <h3>フレンド詳細</h3>
+        <p><span id="modal-icon"></span></p>
         <p>ID: <span id="modal-Id"></span></p>
         <p>名前: <span id="modal-name"></span></p>
         <p>豆ぽ: <span id="modal-point"></span></p>
@@ -95,7 +96,8 @@
     }); 
 
     // モーダル
-    function openModal(Id,name, point, training) {
+    function openModal(icon,Id,name, point, training) {
+    	document.getElementById("modal-icon").innerText = icon;
     	document.getElementById("modal-Id").innerText = Id;
         document.getElementById("modal-name").innerText = name;
         document.getElementById("modal-point").innerText = point;

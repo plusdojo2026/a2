@@ -1,5 +1,27 @@
 package servlet;
+import java.io.IOException;
 
-public class RequestServlet {
+//import java.util.List;
+//import dao.FriendsDao;
+//import model.User; //
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/RequestServlet")
+public class RequestServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	
+        
+	request.getRequestDispatcher("/WEB-INF/jsp/request.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+    }
 }
