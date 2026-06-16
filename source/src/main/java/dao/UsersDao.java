@@ -12,9 +12,10 @@ import dto.User;
 
 public class UsersDao {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
-		public List<User> select(User card) {
+		public boolean insert(User us) {
+			System.out.println("UsersDaoのinsertに入ったよ");
 			Connection conn = null;
-			List<User> cardList = new ArrayList<User>();
+			boolean ans = false;
 
 			try {
 				// JDBCドライバを読み込む
@@ -26,64 +27,46 @@ public class UsersDao {
 						"root", "password");
 
 				// SQL文を準備する
-				String sql = "INSERT INTO Users VALUES (0, ?, ?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO Users(number,user_name,height,gender,target_weight,user_id,password) "
+						+ "VALUES (0, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 
-				// SQL文を完成させる
-				System.out.println(card.getNumber());
-				if (card.getUserId() != null) {
-					pStmt.setString(1, card.getUserId());
-				} else {
+				// SQL文を完成させる(?を左から順に埋めていく）
+		
+				System.out.println(us.getUserName());			
+				pStmt.setString(1, us.getUserName());
 				
-				}
+				System.out.println(us.getHeight());				
+				pStmt.setDouble(2, us.getHeight());				
 
+				System.out.println(us.getGender());				
+				pStmt.setString(3, us.getGender());			
 				
-				System.out.println(card.getNumber());
-				if (card.getPassword() != null) {
-					pStmt.setString(1, card.getPassword());
-				} else {
+				System.out.println(us.getTargetWeight());				
+				pStmt.setDouble(4, us.getTargetWeight());				
 				
-				}
-
-				System.out.println(card.getNumber());
-				if (card.getPassword() != null) {
-					pStmt.setString(1, card.getPassword());
-				} else {
+				System.out.println(us.getUserId());				
+				pStmt.setString(5, us.getUserId());			
 				
-				}
-				
-				System.out.println(card.getNumber());
-				if (card.getGender() != null) {
-					pStmt.setString(1, card.getGender());
-				} else {
-					pStmt.setString(1, "");
-				}
-				
-				System.out.println(card.getNumber());
-				if (card.getHeight() != null) {
-					pStmt.setString(1, card.getHeight());
-				} else {
-				
-				}
-				
-				System.out.println(card.getNumber());
-				if (card.getTarget_weight() != null) {
-					pStmt.setString(1, card.getTarget_weight());
-				} else {
-				
-				}
+				System.out.println(us.getPassword());				
+				pStmt.setString(6, us.getPassword());
+			
 				
 				// SQL文を実行し、結果表を取得する
-				ResultSet rs = pStmt.executeQuery();
+				int result = pStmt.executeUpdate();
+				System.out.println(result+"件追加されました");
+				if(result ==1) {
+					ans = true;
+				}
 
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
-				cardList = null;
+				
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				cardList = null;
+				
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -91,13 +74,13 @@ public class UsersDao {
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						cardList = null;
+						
 					}
 				}
 			}
 
 			// 結果を返す
-			return cardList;
+			return ans;
 		}
 		
 		

@@ -5,24 +5,28 @@ import java.io.Serializable;
 public class User implements Serializable {
 	private int 	number;				/*管理番号*/
 	private String 	userName;			/*ユーザーネーム*/
-	private String 	height;				/*身長*/
+	private Double 	height;				/*身長*/
 	private String 	gender;				/*性別*/
-	private String 	target_weight;		/*目標体重*/
-	private String 	logicalDelete;		/*論理削除*/
+	private Double 	targetWeight;		/*目標体重*/
+	private int 	logicalDelete;		/*論理削除*/
 	private String 	userId;			/*ユーザーID*/
 	private String 	password;			/*パスワード*/
-	private String 	iconId;			/*アイコン番号*/
-	private String 	designId;			/*着せ替え番号*/
-	private String 	point;				/*豆ポイント*/
-	private String 	dateTime;			/*ログインの時間*/
-	public User(int number, String userName, String height, String gender, String target_weight, String logicalDelete,
-			String userId, String password, String iconId, String designId, String point, String dateTime) {
+	private int 	iconId;			/*アイコン番号*/
+	private int 	designId;			/*着せ替え番号*/
+	private int 	point;				/*豆ポイント*/
+	private String 	dateTime;
+	
+	public User() {
+		
+	}
+	public User(int number, String userName, Double height, String gender, Double targetWeight, int logicalDelete,
+			String userId, String password, int iconId, int designId, int point, String dateTime) {
 		super();
 		this.number = number;
 		this.userName = userName;
 		this.height = height;
 		this.gender = gender;
-		this.target_weight = target_weight;
+		this.targetWeight = targetWeight;
 		this.logicalDelete = logicalDelete;
 		this.userId = userId;
 		this.password = password;
@@ -30,9 +34,7 @@ public class User implements Serializable {
 		this.designId = designId;
 		this.point = point;
 		this.dateTime = dateTime;
-	}
-	public User() {
-		super();
+		
 	}
 	public int getNumber() {
 		return number;
@@ -46,10 +48,10 @@ public class User implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getHeight() {
+	public Double getHeight() {
 		return height;
 	}
-	public void setHeight(String height) {
+	public void setHeight(Double height) {
 		this.height = height;
 	}
 	public String getGender() {
@@ -58,16 +60,16 @@ public class User implements Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getTarget_weight() {
-		return target_weight;
+	public Double getTargetWeight() {
+		return targetWeight;
 	}
-	public void setTarget_weight(String target_weight) {
-		this.target_weight = target_weight;
+	public void setTargetWeight(Double targetWeight) {
+		this.targetWeight = targetWeight;
 	}
-	public String getLogicalDelete() {
+	public int getLogicalDelete() {
 		return logicalDelete;
 	}
-	public void setLogicalDelete(String logicalDelete) {
+	public void setLogicalDelete(int logicalDelete) {
 		this.logicalDelete = logicalDelete;
 	}
 	public String getUserId() {
@@ -82,22 +84,22 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getIconId() {
+	public int getIconId() {
 		return iconId;
 	}
-	public void setIconId(String iconId) {
+	public void setIconId(int iconId) {
 		this.iconId = iconId;
 	}
-	public String getDesignId() {
+	public int getDesignId() {
 		return designId;
 	}
-	public void setDesignId(String designId) {
+	public void setDesignId(int designId) {
 		this.designId = designId;
 	}
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 	public String getDateTime() {
@@ -105,6 +107,5 @@ public class User implements Serializable {
 	}
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
-	}
-	
+	}			/*ログインの時間*/
 }
