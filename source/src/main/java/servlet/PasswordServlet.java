@@ -2,12 +2,16 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.UsersDao;
+import dto.User;
 
 @WebServlet("/PasswordServlet")
 public class PasswordServlet extends HttpServlet {
@@ -22,25 +26,53 @@ public class PasswordServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-
 //		HttpSession session = request.getSession();
-		
-//		if (session.getAttribute("id") == null) {
+//		if (session.getAttribute("user_id") == null) {
 //			response.sendRedirect("/a2/LoginServlet");
 //			return;
 //		}
-//		//DAOが出来たら変える。
-//		UsersDao userDao = new UsersDao();
-//		List<User> userinfo = userDao.info(new User());
+//		//セッションのuser_idをuserIdに代入
+//		String userId=(String)session.getAttribute("user_id");
+//		
 		
+		String userId="User1";//本来はセッションから取得
+		
+		UsersDao uDao = new UsersDao();
+		User userInfo = uDao.userInfo(new User
+				(0,null,null,null,null,null,userId,null,null,null,null,null));
 	
-//	
-//		// 検索結果をリクエストスコープに格納する
-//		request.setAttribute("userinfo", userinfo);
-		
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("userInfo", userInfo);
 		
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/password.jsp");
+		dispatcher.forward(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+//		HttpSession session = request.getSession();
+//		if (session.getAttribute("user_id") == null) {
+//			response.sendRedirect("/a2/LoginServlet");
+//			return;
+//		}
+		
+		request.setCharacterEncoding("UTF-8");
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		UsersDao pDao =new UsersDao();
+		
+		Password passwordChange = pDao.passwordChange(new User
+				(0,null,null,null,null,null,userId,password,null,null,null,null));
+		
+		if (pDao.passwordChange(new User
+				(0,null,null,null,null,null,userId,password,null,null,null,null))) { // 変更成功
+			request.setAttribute("result", new Result( "パスワードを変更しました。"));
+		} else { // 変更失敗
+			request.setAttribute("result", new Result("パスワードを変更できませんでした。"));
+		}
+		// 結果ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(request, response);
 	}
 
