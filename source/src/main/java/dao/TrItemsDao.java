@@ -15,7 +15,7 @@ public class TrItemsDao {
 	
 	public List<String> getTrainingItems(String userId){
 		
-		List<String> cardList = new ArrayList<String>();
+		List<String> itemList = new ArrayList<String>();
 		
 		Connection conn = null;
 	    PreparedStatement ps = null;
