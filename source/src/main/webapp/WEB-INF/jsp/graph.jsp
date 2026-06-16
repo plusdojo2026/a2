@@ -20,9 +20,10 @@
 <!--　メインここから　-->
 <main>
 
+
 <div>
 	トレーニング項目<select name="tr_items">
-		<c:forEach var="e" items="${}">
+		<c:forEach var="e" items="${List}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
 		 <option value="${e.id}"><c:out value="${e.name}" />
 		 </option>
