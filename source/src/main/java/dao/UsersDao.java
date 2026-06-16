@@ -127,17 +127,17 @@ public class UsersDao {
 				// 結果表をコレクションにコピーする
 				if(rs.next()) {
 					userInfo = new User(
-							rs.getInt("number"),
+							rs.getInt	("number"),
 							rs.getString("user_name"),
-							rs.getString("height"),
+							rs.getDouble("height"),
 							rs.getString("gender"),
-							rs.getString("target_weight"),
-							rs.getString("logical_delete"),
+							rs.getDouble("target_weight"),
+							rs.getInt	("logical_delete"),
 							rs.getString("user_id"),
 							rs.getString("password"),
-							rs.getString("icon_id"),
-							rs.getString("design_id"),
-							rs.getString("point"),
+							rs.getInt	("icon_id"),
+							rs.getInt	("design_id"),
+							rs.getInt	("point"),
 							null
 							);
 				}
@@ -161,5 +161,125 @@ public class UsersDao {
 			// 結果を返す
 			return userInfo;
 		}
+//==========================パスワード変更用=============================
+		
+		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		public boolean passwordChange(User psChange) {
+			Connection conn = null;
+			boolean result = false;
 
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+
+				// SQL文を準備する
+				String sql = "UPDATE Users SET "
+						+" password=?,"
+						+" WHERE user_id=? ";
+				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				// SQL文を完成させる
+				if (psChange.getPassword() != null 
+						&& psChange.getPassword() !="") {
+					pStmt.setString(1, psChange.getPassword());
+				} else {
+					throw new SQLException("パスワードが未入力です");
+				}
+				pStmt.setString(2, psChange.getUserId());
+				
+				
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+//===========================基本情報変更用==============================
+		
+		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		public boolean userInfoChange(User uiChange) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+
+				// SQL文を準備する
+				String sql = "UPDATE Users SET "
+						+" user_name=?,"
+						+" height=?,"
+						+" gender=?,"
+						+" target_weight=?,"
+						+" WHERE user_id=? ";
+				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				// SQL文を完成させる
+				if (uiChange.getUserName() != null) {
+					pStmt.setString(1, uiChange.getUserName());
+				} else {
+					pStmt.setString(1, "");
+				}
+				if (uiChange.getHeight() != null) {
+					pStmt.setDouble(2, uiChange.getHeight());
+				} else {
+					pStmt.setString(2, "");
+				}
+				if (uiChange.getGender() != null) {
+					pStmt.setString(3, uiChange.getGender());
+				} else {
+					pStmt.setString(3, "");
+				}
+				if (uiChange.getTargetWeight() != null) {
+					pStmt.setDouble(4, uiChange.getTargetWeight());
+				} else {
+					pStmt.setString(4, "");
+				}
+				pStmt.setString(5, uiChange.getUserId());
+				
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// 結果を返す
+			return result;
+		}
 }
