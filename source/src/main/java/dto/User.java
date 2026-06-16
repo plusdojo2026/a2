@@ -7,22 +7,22 @@ public class User implements Serializable {
 	private String 	userName;			/*ユーザーネーム*/
 	private String 	height;				/*身長*/
 	private String 	gender;				/*性別*/
-	private String 	target_weight;		/*目標体重*/
+	private String 	targetWeight;		/*目標体重*/
 	private String 	logicalDelete;		/*論理削除*/
-	private String 	userId;			/*ユーザーID*/
+	private String 	userId;				/*ユーザーID*/
 	private String 	password;			/*パスワード*/
-	private String 	iconId;			/*アイコン番号*/
+	private String 	iconId;				/*アイコン番号*/
 	private String 	designId;			/*着せ替え番号*/
 	private String 	point;				/*豆ポイント*/
 	private String 	dateTime;			/*ログインの時間*/
-	public User(int number, String userName, String height, String gender, String target_weight, String logicalDelete,
+	public User(int number, String userName, String height, String gender, String targetWeight, String logicalDelete,
 			String userId, String password, String iconId, String designId, String point, String dateTime) {
 		super();
 		this.number = number;
 		this.userName = userName;
 		this.height = height;
 		this.gender = gender;
-		this.target_weight = target_weight;
+		this.targetWeight = targetWeight;
 		this.logicalDelete = logicalDelete;
 		this.userId = userId;
 		this.password = password;
@@ -58,11 +58,11 @@ public class User implements Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getTarget_weight() {
-		return target_weight;
+	public String getTargetWeight() {
+		return targetWeight;
 	}
-	public void setTarget_weight(String target_weight) {
-		this.target_weight = target_weight;
+	public void setTargetWeight(String targetWeight) {
+		this.targetWeight = targetWeight;
 	}
 	public String getLogicalDelete() {
 		return logicalDelete;

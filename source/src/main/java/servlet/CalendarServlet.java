@@ -65,8 +65,8 @@ public class CalendarServlet extends HttpServlet {
 
         int currentYear = LocalDate.now().getYear();
         
-        // トレーニング内容の取得
-        Map<String, String> trainingMap = dao.getTrainingByMonth(userId, yearMonth);
+        // メモ内容の取得
+        Map<String, String> trainingMap = dao.getMemo(userId, yearMonth);
 
         // JSPに渡す
         request.setAttribute("year", year);
@@ -94,11 +94,8 @@ public class CalendarServlet extends HttpServlet {
         String userId = "user1"; // 本来はセッションから取得
         
         StoragesDao dao = new StoragesDao();
-        // スタンプ更新
-        dao.updateStamp(userId, date, stamp);
-
-        // トレーニング内容更新
-        dao.updateTraining(userId, date, memo);
+        // 更新か新規追加
+        dao.saveRecord(userId, date, stamp, memo);
 
         // カレンダーに戻る
         response.sendRedirect("/a2/CalendarServlet");
