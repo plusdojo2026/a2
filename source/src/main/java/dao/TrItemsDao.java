@@ -55,11 +55,9 @@ public class TrItemsDao {
 	    	
 	    	
 	    	while (rs.next()) {
-	    		
-	    		itemList.add(
-	                    rs.getString("tr_item")
-	    			);
-	    		System.out.print(rs.getString("tr_item"));
+	    		String item = rs.getString("tr_item");
+	    	    System.out.println("取得: " + item);
+	    	    itemList.add(item);
 	    	}
 	    	
 	    }catch (Exception e) {
