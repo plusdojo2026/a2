@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.UsersDao;
+import dto.User;
+
 @WebServlet("/MyPageServlet")
 public class MyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,22 +25,25 @@ public class MyPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-
 //		HttpSession session = request.getSession();
-		
-//		if (session.getAttribute("id") == null) {
+//		if (session.getAttribute("user_id") == null) {
 //			response.sendRedirect("/a2/LoginServlet");
 //			return;
 //		}
-//		//DAOが出来たら変える。
-//		UsersDao userDao = new UsersDao();
-//		List<User> userinfo = userDao.info(new User());
+//		//セッションのuser_idをuserIdに代入
+//		String userId=(String)session.getAttribute("user_id");
+//		
 		
+		
+		String userId="User1";//本来はセッションから取得
+		
+		
+		UsersDao uDao = new UsersDao();
+		User userInfo = uDao.userInfo(new User
+				(0,null,null,null,null,null,userId,null,null,null,null,null));
 	
-//	
-//		// 検索結果をリクエストスコープに格納する
-//		request.setAttribute("userinfo", userinfo);
-		
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("userInfo", userInfo);
 		
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/my_page.jsp");
