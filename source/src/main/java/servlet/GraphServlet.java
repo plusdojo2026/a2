@@ -36,7 +36,7 @@ public class GraphServlet extends HttpServlet {
 		String  word_of_day= request.getParameter("word_of_day");		
 		//トレーニング項目を取得する
 		String tr_item= request.getParameter("tr_item");
-		//ユーザー情報を取得する
+		//ユーザー情報と初期画面表示のデータを取得する
 		String user_name= request.getParameter("user_name");
 		String user_id= request.getParameter("user_id");
 		String desin_id= request.getParameter("desin_id");
@@ -47,14 +47,16 @@ public class GraphServlet extends HttpServlet {
 		double fat= Double.parseDouble(request.getParameter("fat"));
 		String memo= request.getParameter("memo");
 		LocalDate date= LocalDate.parse(request.getParameter("date"));
-		//トレーニング内容を記録する
+		//トレーニング内容を取得する
 		int id= Integer.parseInt(request.getParameter("id"));
 		int tr_id= Integer.parseInt(request.getParameter("tr_id"));
 		int tr_weight= Integer.parseInt(request.getParameter("tr_weight"));
 		int counts= Integer.parseInt(request.getParameter("counts"));
 		int set= Integer.parseInt(request.getParameter("set"));
 
-		//グラフの作成処理を行う
+		//記録情報の検索処理を行う
+		
+		//記録情報にあるトレーニング項目を検索する
 		
 		//グラフとトレーニング項目を格納する
 		

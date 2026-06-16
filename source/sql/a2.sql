@@ -18,10 +18,10 @@ design_id INT DEFAULT 0,				/*背景ID*/
 point INT DEFAULT 0						/*豆ポイント*/
 );
 /*内容入力*/
-INSERT INTO users (user_name,height,target_weight,logical_delete,user_id,
-password) VALUES(
-
-);
+INSERT INTO users (user_name, height, target_weight, logical_delete, user_id, password)
+VALUES
+('テスト太郎', 170.5, 60.0, 0, 'user1', 'pass1'),
+('サンプル花子', 158.2, 50.0, 0, 'user2', 'pass2');
 
 /*記録情報*/
 CREATE TABLE storages(
@@ -34,9 +34,14 @@ stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
-INSERT INTO storages (user_id,weight,fat,memo) VALUES(
-
-);
+INSERT INTO storages (user_id, weight, fat, memo, stamp, date) VALUES
+('user1', 60.5, 20.1, '胸トレ', 1, '2026-06-01'),
+('user1', 60.3, 20.0, '背中トレ', 2, '2026-06-03'),
+('user1', 60.2, 19.8, '脚トレ', 3, '2026-06-05'),
+('user1', 60.1, 19.7, '休息日', 0, '2026-06-10'),
+('user1', 60.0, 19.6, '肩トレ', 1, '2026-06-15'),
+('user1', 59.8, 19.5, '腕トレ', 2, '2026-06-20'),
+('user1', 59.7, 19.4, '胸トレ', 3, '2026-06-25');
 
 /*トレーニング内容（記録情報）*/
 CREATE TABLE tr_strages(
@@ -50,9 +55,14 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo) VALUES(
-
-);
+INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
 
 /*一時保存*/
 CREATE TABLE saves(
@@ -95,15 +105,11 @@ log_id INT AUTO_INCREMENT PRIMARY KEY,			/*ログイン記録ID*/
 user_id	VARCHAR(30),							/*ユーザーID*/
 date_time DATETIME DEFAULT (CURRENT_TIMESTAMP)	/*時間付き日付*/
 );
-/*内容入力*/
-INSERT INTO logs VALUES(
-
-);
 
 /*トレーニング項目*/
 CREATE TABLE tr_item(
 tr_id INT AUTO_INCREMENT PRIMARY KEY,			/*トレーニングID*/
-tr_item	VARCHAR(15) NOT NULL					/*トレーニング項目*/
+tr_item	VARCHAR(50) NOT NULL					/*トレーニング項目*/
 );
 /*内容入力*/
 INSERT INTO tr_item (tr_item) VALUES

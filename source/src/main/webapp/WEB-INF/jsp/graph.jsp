@@ -20,12 +20,16 @@
 <!--　メインここから　-->
 <main>
 
-<div>
- <select name ="tr_items">
- <%for(int i = 0; i < List.size(); i++) %>
- </select>
-</div>
 
+<div>
+	トレーニング項目<select name="tr_items">
+		<c:forEach var="e" items="${List}">
+<!-- データ上ではid、ユーザー側では項目名が表示される -->
+		 <option value="${e.id}"><c:out value="${e.name}" />
+		 </option>
+	 	</c:forEach> 
+	</select><br>
+</div> 
 <!-- 表示変更 -->
 <ul>
 <li>

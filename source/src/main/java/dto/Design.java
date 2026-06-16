@@ -4,49 +4,40 @@ import java.io.Serializable;
 
 public class Design implements Serializable{
 
-	private int icon_id;		//アイコンid
-	private int icon;			//アイコン
-	private int background_id;	//背景id
-	private int background;		//背景
-
-public Design(int icon_id, int icon, int background_id, int background) {
-	super();
-	this.icon_id = icon_id;
-	this.icon = icon;
-	this.background_id = background_id;
-	this.background = background;
- }
-
-public int getIcon_id() {
-	return icon_id;
-}
-
-public void setIcon_id(int icon_id) {
-	this.icon_id = icon_id;
-}
-
-public int getIcon() {
-	return icon;
-}
-
-public void setIcon(int icon) {
-	this.icon = icon;
-}
-
-public int getBackground_id() {
-	return background_id;
-}
-
-public void setBackground_id(int background_id) {
-	this.background_id = background_id;
-}
-
-public int getBackground() {
-	return background;
-}
-
-public void setBackground(int background) {
-	this.background = background;
-}
+	private int IconId;		//アイコンid
+	private int Icon;			//アイコン
+	private int BackgroundId;	//背景id
+	private int Background;		//背景
+	public int getIconId() {
+		return IconId;
+	}
+	public void setIconId(int iconId) {
+		IconId = iconId;
+	}
+	public int getIcon() {
+		return Icon;
+	}
+	public void setIcon(int icon) {
+		Icon = icon;
+	}
+	public int getBackgroundId() {
+		return BackgroundId;
+	}
+	public void setBackgroundId(int backgroundId) {
+		BackgroundId = backgroundId;
+	}
+	public int getBackground() {
+		return Background;
+	}
+	public void setBackground(int background) {
+		Background = background;
+	}
+	public Design(int iconId, int icon, int backgroundId, int background) {
+		super();
+		IconId = iconId;
+		Icon = icon;
+		BackgroundId = backgroundId;
+		Background = background;
+	}
 
 }
