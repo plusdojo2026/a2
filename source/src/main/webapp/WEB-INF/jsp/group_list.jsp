@@ -35,17 +35,24 @@
      <li class="group-item">
         
         <div class="group-info" style="cursor: pointer;" 
-             onclick="openGroupModal('${group.groupId}', '${group.GroupName}')">
+             onclick="openGroupModal(this, '${group.groupId}', '${group.GroupName}')">
             
             <h3 class="group-name">${group.GroupName}</h3>
             
-            <div class="member-icons">
-                <c:forEach var="icon" items="${group.iconList}">
-                    
-                    <span class="Group-icon">${icon}</span>
-                    
+            <div class="member-icons" style="display: flex; gap: 5px;">
+                <c:forEach var="member" items="${group.memberList}">
+                    <span class="Group-icon">${member.icon}</span>
                 </c:forEach>
-                </div>
+            </div>
+            
+            <div class="modal-members-data" style="display: none;">
+                <c:forEach var="member" items="${group.memberList}">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 16px;">
+                        <span>${member.icon}</span>
+                        <span>${member.name}</span>
+                    </div>
+                </c:forEach>
+            </div>
             
         </div>
         
@@ -71,16 +78,28 @@
 
 </footer>
 
-<div id="create-modal" style="display: none;">
-    <div class="modal-content">
-        <h3>グループ作成</h3>
-        <p>※ここに後で作成フォームを作ります！</p>
-        <button type="button" onclick="closeCreateModal()">閉じる</button>
+<div id="group-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background: white; width: 300px; margin: 100px auto; padding: 20px; border-radius: 10px; text-align: center;">
+        
+        <h3 id="modal-group-name">グループ名</h3>
+        
+        <p style="font-size: 14px; color: #666; margin-bottom: 5px;">現在のメンバー：</p>
+        
+        <div id="modal-members-area" style="max-height: 120px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px; background: #f9f9f9; border-radius: 5px;">
+            </div>
+        
+        <div style="margin: 20px 0;">
+            <a id="modal-add-member-btn" href="#" style="display: block;  padding: 10px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 10px;">
+                ➕ メンバーを追加する
+            </a>
+        </div>
+        
+        <button type="button" onclick="closeGroupModal()" style="padding: 5px 20px; cursor: pointer;">閉じる</button>
     </div>
 </div>
 
 <script>
-    // 脱退モードの切り替え
+    
     document.addEventListener("DOMContentLoaded", function() {
         const toggleBtn = document.getElementById("toggle-leave-btn");
         const leaveTargets = document.querySelectorAll(".leave-target");
@@ -98,13 +117,20 @@
         }
     }); 
 
-    // 新規作成モーダルを開く・閉じる
-    function openCreateModal() {
-        document.getElementById("create-modal").style.display = "block";
+   
+    function openGroupModal(element, groupId, groupName) {
+        document.getElementById("modal-group-name").innerText = groupName;
+        
+       
+        const membersHtml = element.querySelector(".modal-members-data").innerHTML;
+        document.getElementById("modal-members-area").innerHTML = membersHtml;
+        
+        document.getElementById("modal-add-member-btn").href = "GroupMemberAddServlet?groupId=" + groupId;
+        document.getElementById("group-modal").style.display = "block";
     }
 
-    function closeCreateModal() {
-        document.getElementById("create-modal").style.display = "none";
+    function closeGroupModal() {
+        document.getElementById("group-modal").style.display = "none";
     }
 </script>
 </body>
