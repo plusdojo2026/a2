@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.TrItemsDao;
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,20 +16,6 @@ public class HomeServlet extends HttpServlet {
 	//直接servletを実行したときに動くメソッド（リダイレクトもこっちが動く）
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
-		
-//		TrItemsDaoをインスタンス化するnewする
-		
-		TrItemsDao trdao = new TrItemsDao();
-
-//		トレーニング項目が items に入った
-		List<String> items = trdao.getTrainingItems();
-		
-		
-		
-		request.setAttribute("itemList", items);
-		
 		/*
 	
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
@@ -50,20 +33,6 @@ public class HomeServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//<form method = "POST" でservletを指定したときに動くメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
