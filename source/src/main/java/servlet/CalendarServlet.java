@@ -60,7 +60,7 @@ public class CalendarServlet extends HttpServlet {
         List<DayData> dayList = new ArrayList<>();
         for (int d = 1; d <= lastDay; d++) {
             LocalDate date = LocalDate.of(year, month, d);
-            dayList.add(new DayData(d, date.toString())); // 例:"2026-07-10"
+            dayList.add(new DayData(d, date.toString())); // 例:"2026-06-10"
         }
 
         int currentYear = LocalDate.now().getYear();
@@ -90,7 +90,7 @@ public class CalendarServlet extends HttpServlet {
 
         String date = request.getParameter("date");
         int stamp = Integer.parseInt(request.getParameter("stamp"));
-        String training = request.getParameter("training");
+        String memo = request.getParameter("memo");
         String userId = "user1"; // 本来はセッションから取得
         
         StoragesDao dao = new StoragesDao();
@@ -98,7 +98,7 @@ public class CalendarServlet extends HttpServlet {
         dao.updateStamp(userId, date, stamp);
 
         // トレーニング内容更新
-        dao.updateTraining(userId, date, training);
+        dao.updateTraining(userId, date, memo);
 
         // カレンダーに戻る
         response.sendRedirect("/a2/CalendarServlet");

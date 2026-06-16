@@ -74,7 +74,7 @@ public class StoragesDao {
 	        rs = ps.executeQuery();
 	        //stampMapに日付とスタンプをセットで入れ込む
 	        while (rs.next()) {
-	            String date = rs.getString("date"); // 例: 2026-06-10
+	            String date = rs.getString("date"); // 例:2026-06-10
 	            int stamp = rs.getInt("stamp");
 	            stampMap.put(date, stamp);
 	        }
@@ -123,7 +123,7 @@ public class StoragesDao {
 	        ps.setString(3, date);
 
 	        int result = ps.executeUpdate();
-	        return result == 1;  // 成功なら true
+	        return result == 1;  // 成功ならtrue
 
 	    } catch (SQLException e) {
 			e.printStackTrace();
@@ -147,7 +147,7 @@ public class StoragesDao {
      * トレーニング項目を編集するメソッド
      * 返り値：
      */
-	public boolean updateTraining(String userId, String date, String training) {
+	public boolean updateTraining(String userId, String date, String memo) {
 
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -162,9 +162,9 @@ public class StoragesDao {
 					"root", "password");
 			
 			// SQL文を準備する
-	        String sql = "UPDATE storages SET training = ? WHERE user_id = ? AND date = ?";
+	        String sql = "UPDATE storages SET memo = ? WHERE user_id = ? AND date = ?";
 	        ps = conn.prepareStatement(sql);
-	        ps.setString(1, training);
+	        ps.setString(1, memo);
 	        ps.setString(2, userId);
 	        ps.setString(3, date);
 
@@ -212,8 +212,8 @@ public class StoragesDao {
 					"root", "password");
 			
 			// SQL文を準備する
-	        // yearMonth = "2026-06" のような形式
-	        String sql = "SELECT date, training FROM storages "
+	        // yearMonth = "2026-06"のような形式
+	        String sql = "SELECT date, memo FROM storages "
 	                   + "WHERE user_id = ? "
 	                   + "AND DATE_FORMAT(date, '%Y-%m') = ?";
 
@@ -224,9 +224,9 @@ public class StoragesDao {
 	        rs = ps.executeQuery();
 
 	        while (rs.next()) {
-	            String date = rs.getString("date");        // 例: 2026-06-10
-	            String training = rs.getString("training"); // null の可能性あり
-	            trainingMap.put(date, training);
+	            String date = rs.getString("date");        // 例:2026-06-10
+	            String memo = rs.getString("memo"); // nullの可能性あり
+	            trainingMap.put(date, memo);
 	        }
 
 	    } catch (SQLException e) {

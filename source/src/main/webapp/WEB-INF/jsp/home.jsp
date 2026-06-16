@@ -65,14 +65,17 @@
 体脂肪率(％)<input type="text" name="fat"><br>
 
 <br>
-<h2>カスタムデータ</h2><br>
+<h2>カスタムデータ</h2>
 
+<div id="memoArea"></div><br>
 
 <input type="submit" name="saveb" value="保存">
 <button onclick="openModal()">＋項目を追加</button>
 <input type="submit" name="deli" value="ー項目を削除">
 
 <!-- <form method="POST" action="/a2/HomeServlet"> -->
+
+<div id="memoArea"></div>
   
    <div id="modal" class="modal-background">
     <div class="modal-content">
@@ -87,7 +90,7 @@
       </div>
 <!-- </form> -->
       <button class="close-btn" onclick="closeModal()">閉じる</button>
-      <button class="addi-btn" onclick="closeModal()">追加する</button>
+      <button class="addi-btn" onclick="addItem()">追加する</button>
     </div>
   </div>
 
@@ -114,9 +117,35 @@
     
     
     
-    /* document.getElementById("tx").style.display = "none"; */
+    function addItem(){
+    	const memo = document.querySelector('input[name="memo"]:checked').value;
+    	
+    	const memoArea = document.getElementById("memoArea");
+    	
+    	if(memo == "1"){
+    		
+    		 memoArea.innerHTML ='<textarea name="memo"></textarea>';
+    	}
+    	
+    	document.getElementById("modal").style.display = "none";
+    }
     
-   // モーダル表示
+    
+    function openModal() {
+        document.getElementById("modal").style.display = "block";
+    }
+    
+    
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+    
+    
+    
+    const textarea = document.createElement("textarea");
+    memoArea.appendChild(textarea);
+    
+   /* // モーダル表示
     function openModal() {
       document.getElementById("modal").style.display = "block";
     }
@@ -125,9 +154,9 @@
     function closeModal() {
       document.getElementById("modal").style.display = "none";
     }
+     */
     
-    
-  //メモの有無でメモ欄を表示
+/*   //メモの有無でメモ欄を表示
     function closeModal(){
     	//JSPの内容を取ってきている　memoという変数を作っている
     	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
@@ -146,7 +175,7 @@
     		 document.getElementById("tx").style.display = "none";
     	}
     	
-    }
+    } */
     
     
    /*  function closeModal() {

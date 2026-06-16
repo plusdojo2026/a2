@@ -109,8 +109,10 @@
 				    <option value="6">やる気</option>
 				    <option value="7">ビール</option>
 				</select>
-				<label>トレーニング内容：</label>
-			    <textarea name="training" id="modal-training" rows="3"></textarea>
+				<br>
+				<label>メモ：</label>
+				<br>
+			    <textarea name="memo" id="modal-memo" rows="3"></textarea>
 			
 			    <button type="submit">更新</button>
 			</form>
@@ -130,7 +132,7 @@
 <!---------------　フッターここまで　--------------->
 <script>
 	//モーダルを開く関数
-	function openModal(date, stamp, training) {
+	function openModal(date, stamp, memo) {
 	    document.getElementById("modal-date").innerText = date;
 	    document.getElementById("modalDate").value = date;
 	
@@ -138,7 +140,7 @@
 	    document.querySelector("select[name='stamp']").value = stamp;
 	
 	    // トレーニング内容初期値
-	    document.getElementById("modal-training").value = training || "";
+	    document.getElementById("modal-memo").value = memo || "";
 	
 	    document.getElementById("modal-bg").style.display = "block";
 	}
