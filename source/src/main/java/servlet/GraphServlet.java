@@ -47,14 +47,16 @@ public class GraphServlet extends HttpServlet {
 		double fat= Double.parseDouble(request.getParameter("fat"));
 		String memo= request.getParameter("memo");
 		LocalDate date= LocalDate.parse(request.getParameter("date"));
-		//トレーニング内容を記録する
+		//トレーニング内容を取得する
 		int id= Integer.parseInt(request.getParameter("id"));
 		int tr_id= Integer.parseInt(request.getParameter("tr_id"));
 		int tr_weight= Integer.parseInt(request.getParameter("tr_weight"));
 		int counts= Integer.parseInt(request.getParameter("counts"));
 		int set= Integer.parseInt(request.getParameter("set"));
 
-		//グラフの作成処理を行う
+		//記録情報の検索処理を行う
+		
+		//記録情報にあるトレーニング項目を検索する
 		
 		//グラフとトレーニング項目を格納する
 		

@@ -3,30 +3,24 @@ package dto;
 import java.io.Serializable;
 
 public class  TrItem implements Serializable{
-	private int tr_id;			//トレーニングid
-	private String tr_item;		//トレーニング項目
-	
-	public TrItem(int tr_id, String tr_item) {
+	private int TrId;			//トレーニングid
+	private String TrItem;		//トレーニング項目
+	public int getTrId() {
+		return TrId;
+	}
+	public void setTrId(int trId) {
+		TrId = trId;
+	}
+	public String getTrItem() {
+		return TrItem;
+	}
+	public void setTrItem(String trItem) {
+		TrItem = trItem;
+	}
+	public TrItem(int trId, String trItem) {
 		super();
-		this.tr_id = tr_id;
-		this.tr_item = tr_item;
+		TrId = trId;
+		TrItem = trItem;
 	}
 
-	public int getTr_id() {
-		return tr_id;
-	}
-
-	public void setTr_id(int tr_id) {
-		this.tr_id = tr_id;
-	}
-
-	public String getTr_item() {
-		return tr_item;
-	}
-
-	public void setTr_item(String tr_item) {
-		this.tr_item = tr_item;
-	}
-	
-	
 }
