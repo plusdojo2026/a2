@@ -36,7 +36,7 @@ public class GraphServlet extends HttpServlet {
 		String  word_of_day= request.getParameter("word_of_day");		
 		//トレーニング項目を取得する
 		String tr_item= request.getParameter("tr_item");
-		//ユーザー情報を取得する
+		//ユーザー情報と初期画面表示のデータを取得する
 		String user_name= request.getParameter("user_name");
 		String user_id= request.getParameter("user_id");
 		String desin_id= request.getParameter("desin_id");
