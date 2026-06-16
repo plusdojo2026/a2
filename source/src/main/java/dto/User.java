@@ -1,7 +1,7 @@
 package dto;
 
 import java.io.Serializable;
-
+	//フィールド
 public class User implements Serializable {
 	private int 	number;				/*管理番号*/
 	private String 	user_name;			/*ユーザーネーム*/
@@ -15,7 +15,7 @@ public class User implements Serializable {
 	private String 	design_id;			/*着せ替え番号*/
 	private String 	point;				/*豆ポイント*/
 	private String 	date_time;			/*ログインの時間*/
-	
+	//↓因数ありコンストラクタ
 	public User(int number, String user_name, String height, String gender, String target_weight, String logical_delete,
 			String user_id, String password, String icon_id, String design_id, String point, String date_time) {
 		super();
@@ -32,7 +32,11 @@ public class User implements Serializable {
 		this.point = point;
 		this.date_time = date_time;
 	}
-
+	//因数なしコンストラクタ
+	public User() {
+		super();
+	}
+	//ゲッター・セッター
 	public int getNumber() {
 		return number;
 	}
@@ -129,7 +133,4 @@ public class User implements Serializable {
 		this.date_time = date_time;
 	}
 
-	public User() {
-		super();
-	}
 }
