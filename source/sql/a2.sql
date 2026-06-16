@@ -55,9 +55,14 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo) VALUES(
-
-);
+INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
 
 /*一時保存*/
 CREATE TABLE saves(
@@ -100,15 +105,11 @@ log_id INT AUTO_INCREMENT PRIMARY KEY,			/*ログイン記録ID*/
 user_id	VARCHAR(30),							/*ユーザーID*/
 date_time DATETIME DEFAULT (CURRENT_TIMESTAMP)	/*時間付き日付*/
 );
-/*内容入力*/
-INSERT INTO logs VALUES(
-
-);
 
 /*トレーニング項目*/
 CREATE TABLE tr_item(
 tr_id INT AUTO_INCREMENT PRIMARY KEY,			/*トレーニングID*/
-tr_item	VARCHAR(15) NOT NULL					/*トレーニング項目*/
+tr_item	VARCHAR(50) NOT NULL					/*トレーニング項目*/
 );
 /*内容入力*/
 INSERT INTO tr_item (tr_item) VALUES
