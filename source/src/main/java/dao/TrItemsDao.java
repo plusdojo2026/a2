@@ -13,7 +13,7 @@ public class TrItemsDao {
 	//-------------ホームページのDAOここから--------------//
 	//項目取得用//
 	
-	public List<String> getTrainingItems(String userId){
+	public List<String> getTrainingItems(){
 		
 		List<String> itemList = new ArrayList<String>();
 		
@@ -41,15 +41,14 @@ public class TrItemsDao {
 	    	// SQL文を準備する
 	    	
 	    	String sql =
-	                "SELECT training_name FROM training_item WHERE user_id = ?";
+	                "SELECT tr_item FROM tr_item";
 	    	
 	    	
 	    	
 	    	//SQLを実行できる状態にする文章　SQL文の後にこれがないと動かない
 	    	ps = conn.prepareStatement(sql);
 	    	
-	    	//上のSQL文の？に入れてあげている
-	    	ps.setString(1, userId);
+	   
 	    	
 	    	//SQLを実行する　実行結果はrsへ入る
 	    	rs = ps.executeQuery();
@@ -58,13 +57,16 @@ public class TrItemsDao {
 	    	while (rs.next()) {
 	    		
 	    		itemList.add(
-	                    rs.getString("training_name")
-	                );
+	                    rs.getString("tr_item")
+	    			);
+	    		System.out.print(rs.getString("tr_item"));
 	    	}
 	    	
 	    }catch (Exception e) {
 	    	e.printStackTrace();
 	    }
+	    
+	    return itemList;
 	}
 
 	

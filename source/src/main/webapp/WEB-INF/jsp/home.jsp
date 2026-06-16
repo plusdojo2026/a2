@@ -82,7 +82,15 @@
       <p>項目を追加</p>
       
       項目：
-      <input type="text" name="text" value="aaaa"><br>
+     <select name="trainingItem">
+ 		<c:forEach var="item" items="${itemList}">
+        	<option value="${itemList}">
+            	${itemList}
+        	</option>
+		</c:forEach>
+    	
+    </select>
+	
       メモ：<input type="radio" name="memo" value="1">有
       		<input type="radio" name="memo" value="2" checked>無<br>
       <div style="display: none" id="tx">
@@ -118,12 +126,23 @@
     
     
     function addItem(){
+    	
+    	//JSPの内容を取ってきている　memoという変数を作っている
+    	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
+    	//valueは取得する物自体。今回の場合は（1,2のどちらか）
     	const memo = document.querySelector('input[name="memo"]:checked').value;
     	
+    	
+    	
+    	//memoAreaというものはjspの<div id="memoArea"></div>をさす
     	const memoArea = document.getElementById("memoArea");
     	
+    	
+    	
+    	
     	if(memo == "1"){
-    		
+    		// memoArea.innerHTMLはここでいうと<div id="memoArea">○○○○</div>の○○○○の部分
+    		//ここでは○○○○が　=の後の　'<textarea name="memo"></textarea>'　に書き換わる　つまりtextbox追加！
     		 memoArea.innerHTML ='<textarea name="memo"></textarea>';
     	}
     	
@@ -158,9 +177,7 @@
     
 /*   //メモの有無でメモ欄を表示
     function closeModal(){
-    	//JSPの内容を取ってきている　memoという変数を作っている
-    	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
-    	//valueは取得する物自体。今回の場合は（1,2のどちらか）
+    	
     	
     	const memo = document.querySelector('input[name="memo"]:checked').value;
     	
