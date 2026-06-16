@@ -66,7 +66,7 @@
 
 <br>
 <h2>カスタムデータ</h2>
-
+<div id="itemArea"></div>
 <div id="memoArea"></div><br>
 
 <input type="submit" name="saveb" value="保存">
@@ -82,10 +82,10 @@
       <p>項目を追加</p>
       
       項目：
-     <select name="trainingItem">
+     <select name="trainingItem" id="item">
  		<c:forEach var="item" items="${itemList}">
-        	<option value="${itemList}">
-            	${itemList}
+        	<option value="${item}" >
+            	${item}
         	</option>
 		</c:forEach>
     	
@@ -98,7 +98,7 @@
       </div>
 <!-- </form> -->
       <button class="close-btn" onclick="closeModal()">閉じる</button>
-      <button class="addi-btn" onclick="addItem()">追加する</button>
+      <button class="addi-btn" onclick="addItem()" >追加する</button>
     </div>
   </div>
 
@@ -119,13 +119,26 @@
 <!--　フッターここまで　-->
 
 <script>
-
-
+	function addButton(){	
+		
+	}
+	
 
     
     
     
     function addItem(){
+    	
+    	//セレクトboxのデーターを取得（ダンベルとか）
+		let it = document.getElementById("item").value;
+		//それを追加する場所のデータを取得してくる
+		let itemArea=document.getElementById("itemArea");
+		//pタグを作り出して、pという名前をつける
+		let p = document.createElement("p");
+		//上のpタグの中にダンベルとかの情報を入れる<p>ダンベル</p>みたいになる
+		p.textContent = it;
+		//上の<p>ダンベル</p>みたいなのを規定の場所に追加する
+		itemArea.appendChild(p);
     	
     	//JSPの内容を取ってきている　memoという変数を作っている
     	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
@@ -138,12 +151,20 @@
     	const memoArea = document.getElementById("memoArea");
     	
     	
+    	const div = document.createElement("div");
+    	
+    	const item =document.querySelector('select[name="trainingItem"]').value;
+    	
+    	div.innerHTML = item + "<br>";
     	
     	
     	if(memo == "1"){
     		// memoArea.innerHTMLはここでいうと<div id="memoArea">○○○○</div>の○○○○の部分
     		//ここでは○○○○が　=の後の　'<textarea name="memo"></textarea>'　に書き換わる　つまりtextbox追加！
-    		 memoArea.innerHTML ='<textarea name="memo"></textarea>';
+    		memoArea.innerHTML ='<textarea name="memo"></textarea>';
+    		 
+    		 
+    		 const textarea = document.createElement("textarea");
     	}
     	
     	document.getElementById("modal").style.display = "none";
@@ -161,8 +182,11 @@
     
     
     
-    const textarea = document.createElement("textarea");
-    memoArea.appendChild(textarea);
+   /*  const textarea = document.createElement("textarea");
+    memoArea.appendChild(textarea); */
+    
+    
+    
     
    /* // モーダル表示
     function openModal() {
