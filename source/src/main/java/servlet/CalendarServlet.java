@@ -64,6 +64,9 @@ public class CalendarServlet extends HttpServlet {
         }
 
         int currentYear = LocalDate.now().getYear();
+        
+        // トレーニング内容の取得
+        Map<String, String> trainingMap = dao.getTrainingByMonth(userId, yearMonth);
 
         // JSPに渡す
         request.setAttribute("year", year);
@@ -73,20 +76,11 @@ public class CalendarServlet extends HttpServlet {
         request.setAttribute("dayList", dayList);
         request.setAttribute("stampMap", stampMap);
         request.setAttribute("currentYear", currentYear);
+        request.setAttribute("trainingMap", trainingMap);
 
         request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp").forward(request, response);
     }
 
-    // 日付データをまとめる内部クラス
-    public static class DayData {
-        public int day;
-        public String fullDate;
-
-        public DayData(int day, String fullDate) {
-            this.day = day;
-            this.fullDate = fullDate;
-        }
-    }
     
     // 記録編集
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -96,13 +90,38 @@ public class CalendarServlet extends HttpServlet {
 
         String date = request.getParameter("date");
         int stamp = Integer.parseInt(request.getParameter("stamp"));
+        String training = request.getParameter("training");
         String userId = "user1"; // 本来はセッションから取得
-
-        // DAOを使って更新
+        
         StoragesDao dao = new StoragesDao();
-        boolean success = dao.updateStamp(userId, date, stamp);
+        // スタンプ更新
+        dao.updateStamp(userId, date, stamp);
+
+        // トレーニング内容更新
+        dao.updateTraining(userId, date, training);
 
         // カレンダーに戻る
         response.sendRedirect("/a2/CalendarServlet");
+    }
+    
+    
+    // 日付データをまとめる内部クラス
+    public static class DayData {
+        public int day;
+        public String fullDate;
+
+        public DayData(int day, String fullDate) {
+            this.day = day;
+            this.fullDate = fullDate;
+        }
+
+        // JSPが読むためのgetter
+        public int getDay() {
+            return day;
+        }
+
+        public String getFullDate() {
+            return fullDate;
+        }
     }
 }

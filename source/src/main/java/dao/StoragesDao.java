@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,15 +53,13 @@ public class StoragesDao {
 	    ResultSet rs = null;
 
 	    try {
-	        // JDBCドライバ読み込み
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-
-	        // DB接続
-	        conn = DriverManager.getConnection(
-	                "jdbc:mysql://localhost:3306/a2?"
-	                + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-	                "root", "password"
-	        );
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+	
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
 	        
 	        // SQL文を準備する
 	        String sql = "SELECT date, stamp FROM storages "
@@ -80,19 +79,26 @@ public class StoragesDao {
 	            stampMap.put(date, stamp);
 	        }
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        try { if (rs != null) rs.close(); } catch (Exception e) {}
-	        try { if (ps != null) ps.close(); } catch (Exception e) {}
-	        try { if (conn != null) conn.close(); } catch (Exception e) {}
-	    }
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 	    return stampMap;
 	}
 
 	/*
-     * スタンプを編集するメソッド（内容ものちに編集できるようにする）
+     * スタンプを編集するメソッド
      * 返り値：
      */
 	public boolean updateStamp(String userId, String date, int stamp) {
@@ -101,15 +107,15 @@ public class StoragesDao {
 	    PreparedStatement ps = null;
 
 	    try {
-	    	// JDBCドライバ読み込み
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        // DB接続
-	        conn = DriverManager.getConnection(
-	            "jdbc:mysql://localhost:3306/a2?"
-	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
-	            "root", "password"
-	        );
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
 	        String sql = "UPDATE storages SET stamp = ? WHERE user_id = ? AND date = ?";
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, stamp);
@@ -119,15 +125,128 @@ public class StoragesDao {
 	        int result = ps.executeUpdate();
 	        return result == 1;  // 成功なら true
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-
-	    } finally {
-	        try { if (ps != null) ps.close(); } catch (Exception e) {}
-	        try { if (conn != null) conn.close(); } catch (Exception e) {}
-	    }
+	    } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
+	
+	/*
+     * トレーニング項目を編集するメソッド
+     * 返り値：
+     */
+	public boolean updateTraining(String userId, String date, String training) {
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        String sql = "UPDATE storages SET training = ? WHERE user_id = ? AND date = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, training);
+	        ps.setString(2, userId);
+	        ps.setString(3, date);
+
+	        int result = ps.executeUpdate();
+	        return result == 1;
+
+	    } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
+	/*
+     * トレーニング内容を取得するメソッド
+     * 返り値：
+     */
+	public Map<String, String> getTrainingByMonth(String userId, String yearMonth) {
+
+	    Map<String, String> trainingMap = new HashMap<>();
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        // yearMonth = "2026-06" のような形式
+	        String sql = "SELECT date, training FROM storages "
+	                   + "WHERE user_id = ? "
+	                   + "AND DATE_FORMAT(date, '%Y-%m') = ?";
+
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, userId);
+	        ps.setString(2, yearMonth);
+
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            String date = rs.getString("date");        // 例: 2026-06-10
+	            String training = rs.getString("training"); // null の可能性あり
+	            trainingMap.put(date, training);
+	        }
+
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	    return trainingMap;
+	}
+
 
 
 	//-------------カレンダーページのDAOここまで--------------//
