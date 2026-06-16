@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.TrItemsDao;
-import dto.TrItem;
+import dao.StoragesDao;
+import dto.Storage;
 	
 /**
  * Servlet implementation class GraphServlet
@@ -62,8 +62,8 @@ public class GraphServlet extends HttpServlet {
 		//記録情報の検索処理を行う
 		
 		//記録情報にあるトレーニング項目を検索する
-		TrItemsDao tritem = new TrItemsDao();
-		List<TrItem> List = tritem.select();
+		StoragesDao tritem = new StoragesDao();
+		List<Storage> List = tritem.select();
 		//グラフとトレーニング項目を格納する
 		
 		// 成長記録ページにフォワードする
