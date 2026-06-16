@@ -275,3 +275,6 @@ INSERT INTO words (word, word_of_day) VALUES
 (3, '昨日の自分を超えよう！'),
 (4, '無理なく、でも確実に！'),
 (5, '小さな積み重ねが大きな力に！');
+
+/* 1ユーザーにつき1日1回しか登録できない仕組みを作る文 */
+ALTER TABLE storages ADD UNIQUE KEY unique_user_date (user_id, date);
