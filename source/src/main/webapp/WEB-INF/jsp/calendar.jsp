@@ -36,53 +36,60 @@
         </select>
 	</form>
 	
+	<!-- カレンダー作成 -->
 	<div class="calendar-container">
 	    <table>
 	        <tr>
 	            <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
 	        </tr>
 	
-	        <!-- カレンダー作成 -->
-	        <c:set var="day" value="1" />
+	        <!-- dayList のインデックス -->
+            <c:set var="index" value="0" />
 			
-			<c:forEach var="week" begin="1" end="6">
+			<!-- 6週分ループ -->
+            <c:forEach var="week" begin="1" end="6">
 			    <tr>
+			    	<!-- 曜日0〜6 -->
 			        <c:forEach var="dow" begin="0" end="6">
 			
 			            <c:choose>
-			                <%-- 1週目：1日の曜日まで空白 --%>
+			                <%-- 1週目：1日の曜日まで空白いれる --%>
 			                <c:when test="${week == 1 && dow < startDay}">
 			                    <td></td>
 			                </c:when>
 			
-			                <%-- 月末を超えたら空白 --%>
-			                <c:when test="${day > lastDay}">
-			                    <td></td>
-			                </c:when>
+			                <%-- 日付がもう無い場合 --%>
+                            <c:when test="${index >= dayList.size()}">
+                                <td></td>
+                            </c:when>
 			
 			                <%-- 日付表示 --%>
                             <c:otherwise>
-                                <%-- fullDate を作成（例：2026-07-10） --%>
-                                <c:set var="fullDate"
-                                       value="${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}" />
-                                <td onclick="openModal('${fullDate}')">
-                                    <div class="date-num">${day}</div>
-                                    <%-- スタンプがある日だけ表示 --%>
-                                    <c:if test="${stampMap[fullDate] != null}">
-									    <img src="/a2/img/stamp${stampMap[fullDate]}.png" class="stamp">
-									</c:if>
-                                </td>
-                                <c:set var="day" value="${day + 1}" />
+                            	<%-- dayList から日付データを取得 --%>
+                                <c:set var="dayData" value="${dayList[index]}" />
+                            	<%-- モーダル開くときに日付とスタンプ、トレーニング内容を渡す --%>
+                            	<td onclick="openModal(
+							            '${dayData.fullDate}',
+							            '${stampMap[dayData.fullDate]}',
+							            '${trainingMap[dayData.fullDate]}')">
+									<%-- 日付数字 --%>
+							        <div class="date-num">${dayData.day}</div>
+									
+									<%-- スタンプがある日だけ表示、0（スタンプなし）のときは表示しない --%>
+							        <c:if test="${stampMap[dayData.fullDate] != null && stampMap[dayData.fullDate] != 0}">
+							            <img src="/a2/img/stamp${stampMap[dayData.fullDate]}.png" class="stamp">
+							        </c:if>
+							
+							    </td>
+                                <c:set var="index" value="${index + 1}" />
                             </c:otherwise>
-			            </c:choose>
-			
+			            </c:choose>	
 			        </c:forEach>
 			    </tr>
 			</c:forEach>
-
-	
 	    </table>
 	</div>
+	
 	<!-- モーダル -->
 	<div id="modal-bg" class="modal-bg">
 	    <div class="modal">
@@ -102,12 +109,11 @@
 				    <option value="6">やる気</option>
 				    <option value="7">ビール</option>
 				</select>
-				<button type="submit">更新</button>
-			</form>
+				<label>トレーニング内容：</label>
+			    <textarea name="training" id="modal-training" rows="3"></textarea>
 			
-	        <p><strong>トレーニング内容</strong></p>
-	        <p id="modal-tr1"></p>
-	        <p id="modal-tr2"></p>
+			    <button type="submit">更新</button>
+			</form>
 	
 	        <div class="close-btn" onclick="closeModal()">閉じる</div>
 	    </div>
@@ -124,18 +130,20 @@
 <!---------------　フッターここまで　--------------->
 <script>
 	//モーダルを開く関数
-	function openModal(date, tr1, tr2) {
-		// モーダル内の日付表示を更新
+	function openModal(date, stamp, training) {
 	    document.getElementById("modal-date").innerText = date;
-	 	// トレーニングの内容を表示（null/空なら「記録なし」）
-	    document.getElementById("modal-tr1").innerText = tr1 || "記録なし";
-	    document.getElementById("modal-tr2").innerText = tr2 || "記録なし";
+	    document.getElementById("modalDate").value = date;
+	
+	    // スタンプ初期値
+	    document.querySelector("select[name='stamp']").value = stamp;
+	
+	    // トレーニング内容初期値
+	    document.getElementById("modal-training").value = training || "";
 	
 	    document.getElementById("modal-bg").style.display = "block";
-	    
-	    document.getElementById("modalDate").value = date;
-	    document.getElementById("modal").style.display = "block";
 	}
+
+
 	
 	function closeModal() {
 	    document.getElementById("modal-bg").style.display = "none";
