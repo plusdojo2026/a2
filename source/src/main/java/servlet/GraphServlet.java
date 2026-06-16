@@ -59,12 +59,31 @@ public class GraphServlet extends HttpServlet {
 		int counts= Integer.parseInt(request.getParameter("counts"));
 		int set= Integer.parseInt(request.getParameter("set"));
 
-		//記録情報の検索処理を行う
+		//ログインユーザー情報の取得
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", loginUser);
+		
+        User user = (User) session.getAttribute("loginUser");
+        String userId = user.getId();
+		
+		//記録情報のトレーニング内容の検索処理を行う
+		
+		//記録情報トレーニング内容を格納する
+		request.setAttribute("", );
 		
 		//記録情報にあるトレーニング項目を検索する
 		StoragesDao tritem = new StoragesDao();
-		List<Storage> List = tritem.select();
-		//グラフとトレーニング項目を格納する
+		List<Storage> ItemList = tritem.select(userId);
+		//トレーニング項目を格納する
+		request.setAttribute("TrItem",ItemList );
+		
+		//一言セリフを受け取る
+		
+		//一言セリフを格納する
+		
+		//ユーザー情報を受け取る
+		
+		//ユーザー情報を格納する
 		
 		// 成長記録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/graph.jsp");
