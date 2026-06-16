@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +37,30 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		// リクエストパラメータを取得する
+		request.setCharacterEncoding("UTF-8");
+		
+		int storageId = Integer.parseInt(request.getParameter("storage_id"));
+		String user_id = request.getParameter("user_id");
+		double weight = Double.parseDouble(request.getParameter("weight"));
+		double fat = Double.parseDouble(request.getParameter("fat"));
+		String memo = request.getParameter("memo");
+		int stamp = Integer.parseInt(request.getParameter("stamp"));
+		
+		
+		String dateStr = request.getParameter("date");
+		LocalDate date=null;
+		if(!dateStr.equals("")) {
+			date = LocalDate.parse(dateStr);
+		}
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		int tr_id = Integer.parseInt(request.getParameter("tr_id"));
+		int tr_weight = Integer.parseInt(request.getParameter("tr_weight"));
+		int counts = Integer.parseInt(request.getParameter("counts"));
+		int sets = Integer.parseInt(request.getParameter("sets"));
+	
+	
 	}
 
 }
