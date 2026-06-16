@@ -114,14 +114,14 @@ public class UsersDao {
 
 				// SQL文を準備する//
 				String sql = 
-				"SELECT users.number,user_name,height,gender,"
-				+" target_weight,logical_delete,user_id,password,icon_id,"
-				+" design_id,point,datetime"
-				+" FROM users "
-				+" JOIN logs"//接続先
-				+" ON users.user_id=logs.user_id"//接続条件
+				"SELECT U.number,U.user_name,U.height,U.gender,"
+				+" U.target_weight,U.logical_delete,U.user_id,U.password,U.icon_id,"
+				+" U.design_id,U.point,L.date_time"
+				+" FROM users AS U "
+				+" JOIN logs AS L"//接続先
+				+" ON U.user_id=L.user_id"//接続条件
 				+" WHERE "//検索条件
-				+" users.user_id = ?";
+				+" U.user_id = ?";
 				
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
