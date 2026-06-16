@@ -32,8 +32,8 @@ public class UsersDao {
 
 				// SQL文を完成させる
 				System.out.println(card.getNumber());
-				if (card.getUser_id() != null) {
-					pStmt.setString(1, card.getUser_id());
+				if (card.getUserId() != null) {
+					pStmt.setString(1, card.getUserId());
 				} else {
 				
 				}
@@ -100,6 +100,10 @@ public class UsersDao {
 			return cardList;
 		}
 		
+		
+		
+//===========================マイページ用===============================
+		
 		public List<User> user_info(User searchUser) {
 			Connection conn = null;
 			List<User> userInfo = new ArrayList<User>();
@@ -126,7 +130,7 @@ public class UsersDao {
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 				//もし何か入ってたらパーセントで囲んでSQLに代入する
-				pStmt.setString(1,searchUser.getUser_id());
+				pStmt.setString(1,searchUser.getUserId());
 
 				
 				// SQL文を実行し、結果表を取得する
