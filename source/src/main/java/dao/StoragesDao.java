@@ -41,6 +41,60 @@ public class StoragesDao {
 	
 	//-------------カレンダーページのDAOここから--------------//
 	/*
+     * スタンプやメモを更新、新規追加するメソッド
+     * 返り値：
+     */
+	public boolean saveRecord(String userId, String date, Integer stamp, String memo) {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+        	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+	
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+            // INSERTかUPDATEを1回で実行するSQL
+            String sql =
+                "INSERT INTO storages (user_id, date, stamp, memo) " +
+                "VALUES (?, ?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE " +
+                "stamp = VALUES(stamp), " +
+                "memo = VALUES(memo)";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, userId);
+            ps.setString(2, date);
+            ps.setObject(3, stamp);
+            ps.setString(4, memo);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+        return false;
+    }
+	
+	
+	
+	/*
      * 指定したユーザーの、指定した年月のスタンプ一覧を取得するメソッド
      * 返り値：Map<"2026-07-10", stamp番号>
      */
@@ -97,104 +151,12 @@ public class StoragesDao {
 	    return stampMap;
 	}
 
-	/*
-     * スタンプを編集するメソッド
-     * 返り値：
-     */
-	public boolean updateStamp(String userId, String date, int stamp) {
-
-	    Connection conn = null;
-	    PreparedStatement ps = null;
-
-	    try {
-	    	// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
-			
-			// SQL文を準備する
-	        String sql = "UPDATE storages SET stamp = ? WHERE user_id = ? AND date = ?";
-	        ps = conn.prepareStatement(sql);
-	        ps.setInt(1, stamp);
-	        ps.setString(2, userId);
-	        ps.setString(3, date);
-
-	        int result = ps.executeUpdate();
-	        return result == 1;  // 成功ならtrue
-
-	    } catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 	
 	/*
-     * トレーニング項目を編集するメソッド
+     * めも内容を取得するメソッド
      * 返り値：
      */
-	public boolean updateTraining(String userId, String date, String memo) {
-
-	    Connection conn = null;
-	    PreparedStatement ps = null;
-
-	    try {
-	    	// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
-			
-			// SQL文を準備する
-	        String sql = "UPDATE storages SET memo = ? WHERE user_id = ? AND date = ?";
-	        ps = conn.prepareStatement(sql);
-	        ps.setString(1, memo);
-	        ps.setString(2, userId);
-	        ps.setString(3, date);
-
-	        int result = ps.executeUpdate();
-	        return result == 1;
-
-	    } catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	
-	/*
-     * トレーニング内容を取得するメソッド
-     * 返り値：
-     */
-	public Map<String, String> getTrainingByMonth(String userId, String yearMonth) {
+	public Map<String, String> getMemo(String userId, String yearMonth) {
 
 	    Map<String, String> trainingMap = new HashMap<>();
 
@@ -222,7 +184,7 @@ public class StoragesDao {
 	        ps.setString(2, yearMonth);
 
 	        rs = ps.executeQuery();
-
+	        
 	        while (rs.next()) {
 	            String date = rs.getString("date");        // 例:2026-06-10
 	            String memo = rs.getString("memo"); // nullの可能性あり
@@ -250,6 +212,7 @@ public class StoragesDao {
 
 
 	//-------------カレンダーページのDAOここまで--------------//
+
 	
 	
 //public class StoragesDao {
