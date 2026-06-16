@@ -20,23 +20,22 @@
 <main>
 <h1>新規会員登録</h1>
 <hr>
-<form method="POST" action="/a2/RegistServlet" id="fr">
-	ユーザーID*<input type="text" name="user_id"><br>
-	パスワード*<input type="text" name="password"><br>
-	ユーザー名*<input type="text" name="user"><br>
-	性別<input type="radio" name="gender" value="male"> 男性
-	　　　<input type="radio" name="gender" value="female"> 女性
-	　　　<input type="radio" name="gender" value="other"> その他<br>
-	身長*<input type="number" step="0.1" name="height"><br>
-	目標体重*<input type="number" step="0.1" name="target_weight"><br>
-	
-	<p id="msg" style="color:red">*必須項目</p>
-	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
-	
-	<input type="submit" name="regist" value="リセット"><br>
-	<input type="submit" name="regist" value="登録"><br>
+<form method="POST" action="/a2 main/RegistServlet">
+ユーザーID*<input type="text" name="userID"><br>
+パスワード*<input type="text" name="password"><br>
+ユーザー名*<input type="text" name="user"><br>
+性別<input type="radio" name="gender" value="male"> 男性
+　　　<input type="radio" name="gender" value="female"> 女性
+　　　<input type="radio" name="gender" value="other"> その他<br>
+身長*<input type="double" name="height"><br>
+目標体重*<input type="double" name="target weight"><br>
 
-</form>
+<p>*必須項目</p>
+
+<input type="submit" name="regist" value="リセット"><br>
+<input type="submit" name="regist" value="登録"><br>
+
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -44,16 +43,16 @@
 <script>
 'use strict';
 
-document.getElementById('fr').onsubmit = function(event){
-	let id = document.getElementById('fr').user_id.value;
-	let pw = document.getElementById('fr').password.value;
-	let name = document.getElementById('fr').user.value;
-	let height = document.getElementById('fr').height.value;
-	let weight = document.getElementById('fr').target_weight.value;
-	if (id === '' || pw === '' || name === '' || height === '' || weight === ''){
-		document.getElementById('msg').textContent = '必須項目を入力してください';
-		event.preventDefault();
- 	}
+document.getElementById('form').onsubmit = function(event){
+let id = document.getElementById('form').userID.value;
+let pw = document.getElementById('form').password.value;
+let name = document.getElementById('form').name.value;
+let height = document.getElementById('form').height.value;
+let weight = document.getElementById('form').weight.value;
+if (id === '' || pw === '' || name === '' || height === '' || weight === ''){
+document.getElementById('msg').textContent = '必須項目を入力してください';
+event.preventDefault();
+  }
 }
 
 </script>
