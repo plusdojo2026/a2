@@ -42,9 +42,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <div class="circle">
     </div>
     <div class="user_id_name">
-		<c:out value="${userInfo.userId}"/>
+		<p>　ID：</p><c:out value="${userInfo.userId}"/>
             <br>
-        <c:out value="${userInfo.userName}"/>
+        <p>名前：</p><c:out value="${userInfo.userName}"/>
     </div>
 </div>
 

@@ -34,7 +34,6 @@ public class MyPageServlet extends HttpServlet {
 //		String userId=(String)session.getAttribute("user_id");
 //		
 		
-		
 		String userId="User1";//本来はセッションから取得
 		
 		
