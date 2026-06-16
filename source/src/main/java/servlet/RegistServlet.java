@@ -56,7 +56,6 @@ public class RegistServlet extends HttpServlet {
 		// 登録処理を行う
 		UsersDao uDao = new UsersDao();
 
-		
 		User us = new User(0,  userName,  height,  gender,  targetWeight,  0,
 				 userId,  password,  0,  0,  0,  dateTime);
 		if (uDao.insert(us)) { // 登録成功

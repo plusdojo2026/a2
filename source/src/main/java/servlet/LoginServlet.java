@@ -2,16 +2,14 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dto.LoginUser;
+import dto.User;
 
 @WebServlet("/a2/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -29,27 +27,29 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("ID");
-		String pw = request.getParameter("PW");
+		String userId = request.getParameter("user_id");
+		String password = request.getParameter("password");
 
 		// ログイン処理を行う
-		UsersDAO iDao = new UsersDAO();
-		if (iDao.isLoginOK(new Users(id, pw))) { // ログイン成功
+		UsersDAO uDao = new UsersDAO();
+		User us = new User( userId,  password);
+		//if (uDao.insert(us)) { // ログイン成功
+		//	request.setAttribute("result","登録成功しました");
 			// セッションスコープにIDを格納する
-			HttpSession session = request.getSession();
-			session.setAttribute("id", new LoginUser(id));
+			//HttpSession session = request.getSession();
+			//session.setAttribute("id", new LoginUser(id));
 			
 			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/MenuServlet");
-		} else { // ログイン失敗
+			//response.sendRedirect("/webapp/Servlet");
+		//} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
+			//request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
 
 			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-}
+
 			
 			
