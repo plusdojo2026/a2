@@ -56,7 +56,13 @@ date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
 INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
-('user1','',,,,'','');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
+('user1','',,,,'','2026-06-01');
 
 /*一時保存*/
 CREATE TABLE saves(
