@@ -289,12 +289,24 @@ public class StoragesDao {
 					+ "counts, sets, date "
 					+ "FROM tr_storages AS TS INNER JOIN tr_items AS TI"
 					+ "ON TS.tr_id = TI.tr_item"
-					+ "WHERE ? = TS.user_id";
-		
+					+ "WHERE ? = TS.user_id AND";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+////			pStmt.setString(1,);
+//
+//			// SQL文を実行し、結果表を取得する
+//			ResultSet rs = pStmt.executeQuery();
+//
+//			// 結果表をコレクションにコピーする
+//			while (rs.next()) {
+//				Storage graph = new Bc(rs.getInt(""), rs.getString(""), 
+//				);
+//				GraphList.add(graph);
+//			}
+
 			
-			
-			
-			
+	
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
