@@ -35,18 +35,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </header>
 <!--ヘッダーここまで-->
 <!--メインここから-->
-
-<p class="point">${point}</p>
 <main>
+
+<c:out value="${userInfo.point}"/>
 <div class="my_page_user_info">
     <div class="circle">
     </div>
     <div class="user_id_name">
-        <p>ID:${user_id}</p>
+		<c:out value="${userInfo.userId}"/>
             <br>
-        <p>name：${user_name}</p>
+        <c:out value="${userInfo.userName}"/>
     </div>
 </div>
+
 <div>
 <a href="/a2/DesignServlet.java" class="design">
 	背景・アイコンの変更
@@ -95,12 +96,13 @@ const year = now.getFullYear();
 const month= now.getMonth()+1;
 const date = now.getDate();
 const text = `${year}年${month}月${date}日`;
+document.getElementById('today').textContent=text;
 if(text==="2026年6月13日"){
     document.getElementById('anniversary').textContent='テスト用';
 }else if(text==="2026年7月10日"){
     document.getElementById('anniversary').textContent='納豆の日';
 }
-document.getElementById('today').textContent=text;
+
 
 //スクロールに合わせたアイコンバーの変更
 /*id=barを定数barに代入*/
