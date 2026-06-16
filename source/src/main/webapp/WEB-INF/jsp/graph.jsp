@@ -20,12 +20,16 @@
 <!--　メインここから　-->
 <main>
 
-<div>
- <select name ="tr_items">
- <%for(int i = 0; i < List.size(); i++) %>
- </select>
-</div>
 
+<div>
+	トレーニング項目<select name="tr_items">
+		<c:forEach var="e" items="${TrItem}">
+<!-- データ上ではid、ユーザー側では項目名が表示される -->
+		 <option value="${e.id}"><c:out value="${e.name}" />
+		 </option>
+	 	</c:forEach> 
+	</select><br>
+</div> 
 <!-- 表示変更 -->
 <ul>
 <li>
@@ -56,6 +60,20 @@
 
 'use strict'
 
+//現在時刻の表示innerHTMLで中身を書き換える
+const days=["日","月","火","水","木","金","土"];
+document.getElementById("date").innerHTML = showDay();
+function showDay(){
+	var now = new Date();
+	var year =now.getFullYear();
+	var month = now.getMonth();
+	var day = now.getDate();
+	var youbi = now.getDay();
+	
+	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
+}
+
+//
 
 </script>
 </body>

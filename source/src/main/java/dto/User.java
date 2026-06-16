@@ -1,135 +1,110 @@
 package dto;
 
 import java.io.Serializable;
-
+	//フィールド
 public class User implements Serializable {
 	private int 	number;				/*管理番号*/
-	private String 	user_name;			/*ユーザーネーム*/
+	private String 	userName;			/*ユーザーネーム*/
 	private String 	height;				/*身長*/
 	private String 	gender;				/*性別*/
 	private String 	target_weight;		/*目標体重*/
-	private String 	logical_delete;		/*論理削除*/
-	private String 	user_id;			/*ユーザーID*/
+	private String 	logicalDelete;		/*論理削除*/
+	private String 	userId;			/*ユーザーID*/
 	private String 	password;			/*パスワード*/
-	private String 	icon_id;			/*アイコン番号*/
-	private String 	design_id;			/*着せ替え番号*/
+	private String 	iconId;			/*アイコン番号*/
+	private String 	designId;			/*着せ替え番号*/
 	private String 	point;				/*豆ポイント*/
-	private String 	date_time;			/*ログインの時間*/
-	
-	public User(int number, String user_name, String height, String gender, String target_weight, String logical_delete,
-			String user_id, String password, String icon_id, String design_id, String point, String date_time) {
+	private String 	dateTime;			/*ログインの時間*/
+	public User(int number, String userName, String height, String gender, String target_weight, String logicalDelete,
+			String userId, String password, String iconId, String designId, String point, String dateTime) {
 		super();
 		this.number = number;
-		this.user_name = user_name;
+		this.userName = userName;
 		this.height = height;
 		this.gender = gender;
 		this.target_weight = target_weight;
-		this.logical_delete = logical_delete;
-		this.user_id = user_id;
+		this.logicalDelete = logicalDelete;
+		this.userId = userId;
 		this.password = password;
-		this.icon_id = icon_id;
-		this.design_id = design_id;
+		this.iconId = iconId;
+		this.designId = designId;
 		this.point = point;
-		this.date_time = date_time;
+		this.dateTime = dateTime;
 	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public String getUser_name() {
-		return user_name;
-	}
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
-
-	public String getHeight() {
-		return height;
-	}
-
-	public void setHeight(String height) {
-		this.height = height;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getTarget_weight() {
-		return target_weight;
-	}
-
-	public void setTarget_weight(String target_weight) {
-		this.target_weight = target_weight;
-	}
-
-	public String getLogical_delete() {
-		return logical_delete;
-	}
-
-	public void setLogical_delete(String logical_delete) {
-		this.logical_delete = logical_delete;
-	}
-
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getIcon_id() {
-		return icon_id;
-	}
-
-	public void setIcon_id(String icon_id) {
-		this.icon_id = icon_id;
-	}
-
-	public String getDesign_id() {
-		return design_id;
-	}
-
-	public void setDesign_id(String design_id) {
-		this.design_id = design_id;
-	}
-
-	public String getPoint() {
-		return point;
-	}
-
-	public void setPoint(String point) {
-		this.point = point;
-	}
-
-	public String getDate_time() {
-		return date_time;
-	}
-
-	public void setDate_time(String date_time) {
-		this.date_time = date_time;
-	}
-
 	public User() {
 		super();
 	}
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getHeight() {
+		return height;
+	}
+	public void setHeight(String height) {
+		this.height = height;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getTarget_weight() {
+		return target_weight;
+	}
+	public void setTarget_weight(String target_weight) {
+		this.target_weight = target_weight;
+	}
+	public String getLogicalDelete() {
+		return logicalDelete;
+	}
+	public void setLogicalDelete(String logicalDelete) {
+		this.logicalDelete = logicalDelete;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getIconId() {
+		return iconId;
+	}
+	public void setIconId(String iconId) {
+		this.iconId = iconId;
+	}
+	public String getDesignId() {
+		return designId;
+	}
+	public void setDesignId(String designId) {
+		this.designId = designId;
+	}
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}
+	public String getDateTime() {
+		return dateTime;
+	}
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
+	}
+	
 }
