@@ -214,8 +214,8 @@ public class StoragesDao {
 	}
 
 	/*
-     * トレーニング内容を取得するメソッド
-     * 返り値：List<Storage>
+     * 指定された日付のトレーニング内容を取得するメソッド
+     * 返り値：List<Storage>（list）
      */
 	public List<Storage> getTrainingByDate(String userId, String date) {
 
