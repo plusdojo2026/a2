@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.StoragesDao;
-import dto.Storage;
+import dto.Graph;
+
 	
 /**
  * Servlet implementation class GraphServlet
@@ -74,12 +75,12 @@ public class GraphServlet extends HttpServlet {
 		String userId = "user1";
 		
 		//記録情報のトレーニング内容を取得する	
-		StoragesDao Trgraph = new StoragesDao();
-		List<Storage> getGraphList = Trgraph.getGraphList(userId,year,monthNumber);
+		StoragesDao TrGraph = new StoragesDao();
+		List<Graph> getGraphList = TrGraph.getGraphList(userId,year,monthNumber);
 		
-		//トレーニング項目を検索する
-		StoragesDao tritem = new StoragesDao();
-		List<Storage> List = tritem.(year,monthNumber,userId);
+		//記録したことのあるトレーニング項目を検索する
+		StoragesDao ItemGraph = new StoragesDao();
+		List<Graph> gItemList = ItemGraph.getItemGraph(userId,year);
 		
 		//一言セリフを受け取る
 		
@@ -88,7 +89,7 @@ public class GraphServlet extends HttpServlet {
 		
 		//JSPに送る
 		request.setAttribute("GraphList",getGraphList );
-		request.setAttribute("TrItem",ItemList );
+		request.setAttribute("gItem",gItemList );
 		
 		
 		

@@ -107,12 +107,12 @@ date_time DATETIME DEFAULT (CURRENT_TIMESTAMP)	/*時間付き日付*/
 );
 
 /*トレーニング項目*/
-CREATE TABLE tr_item(
+CREATE TABLE tr_items(
 tr_id INT AUTO_INCREMENT PRIMARY KEY,			/*トレーニングID*/
 tr_item	VARCHAR(50) NOT NULL					/*トレーニング項目*/
 );
 /*内容入力*/
-INSERT INTO tr_item (tr_item) VALUES
+INSERT INTO tr_items (tr_item) VALUES
 ('ベンチプレス'),
 ('インクラインベンチプレス'),
 ('ダンベルベンチプレス'),

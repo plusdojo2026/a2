@@ -4,28 +4,34 @@ import java.io.Serializable;
 
 public class Graph implements Serializable{
 	//グラフ作成用DTO
-	private int tr_id; 
+	private String tr_item; 
 	private int tr_weight;
 	private int counts;
 	private int sets;
 	private String group_date;
 	
 	//コンストラクタ
-	public int getTr_id() {
-		return tr_id;
-	}
-	public Graph(int tr_id, int tr_weight, int counts, int sets, String group_date) {
+	public Graph(String tr_item, int tr_weight, int counts, int sets, String group_date) {
 		super();
-		this.tr_id = tr_id;
+		this.tr_item = tr_item;
 		this.tr_weight = tr_weight;
 		this.counts = counts;
 		this.sets = sets;
 		this.group_date = group_date;
 	}
-	
+
+	//項目用コンストラクタ
+	public Graph(String tr_item) {
+		super();
+		this.tr_item = tr_item;
+	}
+
 	//getter setter
-	public void setTr_id(int tr_id) {
-		this.tr_id = tr_id;
+	public String getTr_item() {
+		return tr_item;
+	}
+	public void setTr_item(String tr_item) {
+		this.tr_item = tr_item;
 	}
 	public int getTr_weight() {
 		return tr_weight;
@@ -52,5 +58,5 @@ public class Graph implements Serializable{
 		this.group_date = group_date;
 	}
 	
-
+	
 }
