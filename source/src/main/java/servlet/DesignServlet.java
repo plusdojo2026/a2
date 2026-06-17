@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
 import dto.Message;
@@ -61,16 +62,19 @@ public class DesignServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
-		int number = Integer.parseInt(request.getParameter("submit"));
+		String numberStr = request.getParameter("number");
+		int number=Integer.parseInt(numberStr);
 		
-
 		// 数字によって振り分ける
 		UsersDao bDao = new UsersDao();
 		if (number<=7) {
 			int iconId = number;
 			if (bDao.iconChange(new User
 					(0,null,0.0,null,0.0,0,userId,null,iconId,0,0,null))) { // 更新成功
-				request.setAttribute("message", new Message("アイコンを更新しました。"));
+				HttpSession session = request.getSession();
+				session.setAttribute("message", "アイコンを更新しました");
+				session.removeAttribute("message");
+				
 			} else { // 更新失敗
 				request.setAttribute("message", new Message("アイコンを更新できませんでした。"));
 			}

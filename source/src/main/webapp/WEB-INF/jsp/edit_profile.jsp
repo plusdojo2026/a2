@@ -14,7 +14,7 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-
+<c:out value="${message.message}"/>
 <form method=POST action="/a2/EditProfileServlet">
 <p>　ID：<c:out value="${userInfo.userId}"/></p>
 <input type="hidden" name="userId" value="${userInfo.userId}">
@@ -31,11 +31,11 @@
 		<tr>
 			<th>性別</th>
 			<td>
-				女姓<input type="radio" name="gender" value="woman" 
-				${userInfo.gender == 'woman' ? 'checked' : ''}>
-				男性<input type="radio" name="gender" value="man" 
+				男:<input type="radio" name="gender" value="man" 
 				${userInfo.gender == 'man' ? 'checked' : ''}>
-				その他<input type="radio" name="gender" value="other" 
+				女:<input type="radio" name="gender" value="woman" 
+				${userInfo.gender == 'woman' ? 'checked' : ''}>
+				その他:<input type="radio" name="gender" value="other" 
 				${userInfo.gender == 'other' ? 'checked' : ''}>
 			</td>
 		<tr>
