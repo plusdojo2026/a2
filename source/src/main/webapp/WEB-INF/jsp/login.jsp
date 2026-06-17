@@ -17,6 +17,7 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
+<h1>マメッスル</h1>
 <section>
 <form action="/webapp/LoginServlet" id="form" method="post">
 <p>
@@ -28,8 +29,7 @@ PW<input type="password" name="PW">
 <p>
 <input type="submit" value="ログイン">
 </p>
-<p>新規会員登録はこちら</p>
-<a href="/webapp/jsp/resist.jsp">こちら</a>
+<p>新規会員登録は</p><a href="/webapp/jsp/resist.jsp">こちら</a>
 </form>
 </section>
 

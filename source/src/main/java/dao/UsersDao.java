@@ -9,6 +9,59 @@ import java.sql.SQLException;
 import dto.User;
 
 public class UsersDao {
+	//==========================ログイン用=============================
+	public User login(User us) {
+		User user = null;
+		Connection conn = null;
+		boolean loginResult = false;
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SELECT文を準備する
+			String sql = "SELECT count(*) FROM users WHERE user_id=? AND password=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, users.getId());
+			pStmt.setString(2, users.getPw());
+
+			// SELECT文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// ユーザーIDとパスワードが一致するユーザーがいれば結果をtrueにする
+			rs.next();
+			if (rs.getInt("count(*)") == 1) {
+				loginResult = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			loginResult = false;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			loginResult = false;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					loginResult = false;
+				}
+			}
+		}
+
+		// 結果を返す
+		return us;
+	}
+	
+	
+	//==========================新規登録用=============================
+	
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 		public boolean insert(User us) {
 			System.out.println("UsersDaoのinsertに入ったよ");
