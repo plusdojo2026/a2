@@ -15,15 +15,16 @@
 <!--　メインここから　-->
 <main>
 <form method=POST action="/a2/EditProfileServlet.java">
+<p>　ID：</p><c:out value="${userInfo.userId}"/>
 <div>
 	<table>
 		<tr>
 			<th>ユーザー名</th>
-			<td><input type="text" value="${user_name}"></td>
+			<td><input type="text" value="${userInfo.userName}"></td>
 		<tr>
 		<tr>
 			<th>身長</th>
-			<td><input type="text" value="${height}"></td>
+			<td><input type="text" value="${userInfo.height}"></td>
 		<tr>
 		<tr>
 			<th>性別</th>
@@ -35,7 +36,7 @@
 		<tr>
 		<tr>
 			<th>目標体重</th>
-			<td><input type="text"></td>
+			<td><input type="text" value="${userInfo.targetWheight}"></td>
 		<tr>
 	</table>
 </div>
@@ -51,5 +52,7 @@
 
 </footer>
 <!--　フッターここまで　-->
+
+
 </body>
 </html>

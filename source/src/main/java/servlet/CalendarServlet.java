@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.StoragesDao;
+import dto.Storage;
 
 @WebServlet("/CalendarServlet")
 public class CalendarServlet extends HttpServlet {
@@ -66,7 +68,9 @@ public class CalendarServlet extends HttpServlet {
         int currentYear = LocalDate.now().getYear();
         
         // メモ内容の取得
-        Map<String, String> trainingMap = dao.getMemo(userId, yearMonth);
+        Map<String, String> memoMap = dao.getMemo(userId, yearMonth);
+        
+        Map<String, List<Storage>> trainingMap = new HashMap<>();
 
         // JSPに渡す
         request.setAttribute("year", year);
@@ -76,7 +80,7 @@ public class CalendarServlet extends HttpServlet {
         request.setAttribute("dayList", dayList);
         request.setAttribute("stampMap", stampMap);
         request.setAttribute("currentYear", currentYear);
-        request.setAttribute("trainingMap", trainingMap);
+        request.setAttribute("memoMap", memoMap);
 
         request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp").forward(request, response);
     }

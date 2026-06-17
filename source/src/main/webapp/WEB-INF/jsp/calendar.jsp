@@ -71,7 +71,7 @@
                             	<td onclick="openModal(
 							            '${dayData.fullDate}',
 							            '${stampMap[dayData.fullDate]}',
-							            '${trainingMap[dayData.fullDate]}')">
+							            '${memoMap[dayData.fullDate]}')">
 									<%-- 日付数字 --%>
 							        <div class="date-num">${dayData.day}</div>
 									

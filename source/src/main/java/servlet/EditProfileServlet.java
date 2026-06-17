@@ -72,8 +72,7 @@ public class EditProfileServlet extends HttpServlet {
 		} else { // 変更失敗
 			request.setAttribute("message", new Message("ユーザー情報を変更できませんでした。"));
 		}
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/my_page.jsp");
-		dispatcher.forward(request, response);
+		// マイページにリダイレクト
+		response.sendRedirect("/a2/MyPageServlet");
 	}
 }

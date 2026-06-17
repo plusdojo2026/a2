@@ -13,7 +13,9 @@ public class TrItemsDao {
 	//-------------ホームページのDAOここから--------------//
 	//項目取得用//
 	
+
 		public List<String> getTrainingItems(){
+
 		
 		List<String> itemList = new ArrayList<String>();
 		
@@ -54,6 +56,7 @@ public class TrItemsDao {
 	    }catch (Exception e) {
 	    	e.printStackTrace();
 	    }
+	    
 	    return itemList;
 	}
 
