@@ -39,7 +39,7 @@ public class MyPageServlet extends HttpServlet {
 		
 		UsersDao uDao = new UsersDao();
 		User userInfo = uDao.userInfo(new User
-				(0,null,null,null,null,null,userId,null,null,null,null,null));
+				(0,null,0.0,null,0.0,0,userId,null,0,0,0,null));
 	
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("userInfo", userInfo);

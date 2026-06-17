@@ -132,15 +132,23 @@
     	
     	//セレクトboxのデーターを取得（ダンベルとか）
 		let it = document.getElementById("item").value;
+    	
 		//それを追加する場所のデータを取得してくる
 		let itemArea=document.getElementById("itemArea");
+		
+		
 		//pタグを作り出して、pという名前をつける
 		let p = document.createElement("p");
+		
+		
 		//上のpタグの中にダンベルとかの情報を入れる<p>ダンベル</p>みたいになる
 		p.textContent = it;
+		
+		
 		//上の<p>ダンベル</p>みたいなのを規定の場所に追加する
 		itemArea.appendChild(p);
     	
+		
     	//JSPの内容を取ってきている　memoという変数を作っている
     	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
     	//valueは取得する物自体。今回の場合は（1,2のどちらか）

@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import dto.Storage;
 public class StoragesDao {
 	/*
 	 * public List<Storage> select(Storage ???) { Connection conn = null;
@@ -269,7 +272,62 @@ public class StoragesDao {
 //}						
 	
 	//-----------成長記録ページDAOここから---------------//
+	public List<Storage> getGraphList(){
+		//
+		Connection conn = null;
+		List<Storage> GraphList = new ArrayList<Storage>();
+	try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
+			String sql = "SELECT tr_id, tr_weight,"
+					+ "counts, sets, date "
+					+ "FROM tr_storages AS TS INNER JOIN tr_items AS TI"
+					+ "ON TS.tr_id = TI.tr_item"
+					+ "WHERE ? = TS.user_id AND";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+////			pStmt.setString(1,);
+//
+//			// SQL文を実行し、結果表を取得する
+//			ResultSet rs = pStmt.executeQuery();
+//
+//			// 結果表をコレクションにコピーする
+//			while (rs.next()) {
+//				Storage graph = new Bc(rs.getInt(""), rs.getString(""), 
+//				);
+//				GraphList.add(graph);
+//			}
+
+			
 	
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+			// 結果を返す
+			return GraphList;
+	}
+	//-----------成長記録ページDAOここまで---------------//
+
 
 	
 }

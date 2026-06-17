@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.UsersDao;
+import dto.Message;
 import dto.User;
 
 @WebServlet("/PasswordServlet")
@@ -39,7 +39,7 @@ public class PasswordServlet extends HttpServlet {
 		
 		UsersDao uDao = new UsersDao();
 		User userInfo = uDao.userInfo(new User
-				(0,null,null,null,null,null,userId,null,null,null,null,null));
+				(0,null,0.0,null,0.0,0,userId,null,0,0,0,null));
 	
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("userInfo", userInfo);
@@ -62,17 +62,14 @@ public class PasswordServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		UsersDao pDao =new UsersDao();
 		
-		Password passwordChange = pDao.passwordChange(new User
-				(0,null,null,null,null,null,userId,password,null,null,null,null));
-		
 		if (pDao.passwordChange(new User
-				(0,null,null,null,null,null,userId,password,null,null,null,null))) { // 変更成功
-			request.setAttribute("result", new Result( "パスワードを変更しました。"));
+				(0,null,0.0,null,0.0,0,userId,password,0,0,0,null))) { // 変更成功
+			request.setAttribute("message", new Message( "パスワードを変更しました。"));
 		} else { // 変更失敗
-			request.setAttribute("result", new Result("パスワードを変更できませんでした。"));
+			request.setAttribute("message", new Message("パスワードを変更できませんでした。"));
 		}
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/my_page.jsp");
 		dispatcher.forward(request, response);
 	}
 
