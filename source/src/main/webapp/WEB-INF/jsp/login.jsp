@@ -19,17 +19,21 @@
 <main>
 <h1>マメッスル</h1>
 <section>
-<form action="/webapp/LoginServlet" id="form" method="post">
+<!-- /プロジェクト名/サーブレットの名前 -->
+<form action="/a2/LoginServlet" id="form" method="post">
 <p>
-ID<input type="text" name="ID">
+ID<input type="text" name="user_id" value="${param.user_id}">
 </p>
 <p>
-PW<input type="password" name="PW">      
+PW<input type="password" name="password">      
 </p>
 <p>
 <input type="submit" value="ログイン">
+	<div style="color:red">
+		${result}
+	</div>
 </p>
-<p>新規会員登録は</p><a href="/a2/webapp/jsp/resist.jsp">こちら</a>
+<p>新規会員登録は</p><a href="/a2/NewRegistServlet">こちら</a>
 </form>
 </section>
 

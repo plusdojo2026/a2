@@ -24,18 +24,22 @@ public class UsersDao {
 					"root", "password");
 
 			// SELECT文を準備する
-			String sql = "SELECT count(*) FROM users WHERE user_id=? AND password=?";
+			String sql = "SELECT * FROM users WHERE user_id=? AND password=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, users.getId());
-			pStmt.setString(2, users.getPw());
+			pStmt.setString(1, us.getUserId());
+			pStmt.setString(2, us.getPassword());
 
 			// SELECT文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 
 			// ユーザーIDとパスワードが一致するユーザーがいれば結果をtrueにする
-			rs.next();
-			if (rs.getInt("count(*)") == 1) {
-				loginResult = true;
+			
+			if (rs.next()) {
+		
+				user = new User(rs.getInt("number"), rs.getString("user_name"), rs.getDouble("height"),
+						rs.getString("gender"), rs.getDouble("target_weight"), rs.getInt("logical_delete"), 
+						rs.getString("user_id"), rs.getString("password"), rs.getInt("icon_id"), rs.getInt("design_id")
+						, rs.getInt("point"), "");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,7 +60,7 @@ public class UsersDao {
 		}
 
 		// 結果を返す
-		return us;
+		return user;
 	}
 	
 	
