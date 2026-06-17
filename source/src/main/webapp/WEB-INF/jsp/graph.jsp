@@ -20,9 +20,8 @@
 <!--　メインここから　-->
 <main>
 
-
 <div>
-	トレーニング項目<select name="tr_items">
+	トレーニング項目<select name="tr_item">
 		<c:forEach var="e" items="${gItem}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
 		 <option value="${e.tr_id}"><c:out value="${e.tr_item}" />
@@ -33,7 +32,7 @@
 
 <!-- グラフデータ -->
 <div>
- <c:forEach ver="gi" items="${GraphList}">
+ <c:forEach var="gi" items="${GraphList}">
  	<c:out value="${gi.tr_weight}">
  	</c:out><br>
  	 <c:out value="${gi.counts}">

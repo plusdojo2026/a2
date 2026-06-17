@@ -290,13 +290,13 @@ public class StoragesDao {
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
 			//１か月分日別に取得
 			String sql = "SELECT tr_item, tr_weight,"
-					+ "counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TD_date"
-					+ "FROM tr_storages AS TS "
-					+ "INNER JOIN tr_items AS TI"
-					+ "ON TS.tr_id = TI.tr_id"
-					+ "WHERE TS.user_id = ?"
-					+ "AND DATE_FORMAT(date,'%Y-%m') = ?"
-					+ "ORDER BY TS_date";
+					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TD_date "
+					+ " FROM tr_storages AS TS "
+					+ " INNER JOIN tr_items AS TI "
+					+ " ON TS.tr_id = TI.tr_id "
+					+ " WHERE TS.user_id = ? "
+					+ " AND DATE_FORMAT(date,'%Y-%m') = ? "
+					+ " ORDER BY TD_date ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -353,12 +353,12 @@ public class StoragesDao {
 			
 			// SQL文を準備する,SELECTでtr_storagesの中のtr_itemを選ぶ
 			//１か月分日別に取得
-			String sql = "SELECT TS.tr_id , distinct tr_item"
-					+ "FROM tr_storages AS TS INNER JOIN tr_items AS TI"
-					+ "ON TS.tr_id = TI.tr_id"
-					+ "WHERE TS.user_id = ?"
-					+ "AND DATE_FORMAT(date,'%Y') = ?"
-					+ "ORDER BY TS.tr_id";
+			String sql = "SELECT DISTINCT tr_item,TS.tr_id "
+					+ " FROM tr_storages AS TS INNER JOIN tr_items AS TI "
+					+ " ON TS.tr_id = TI.tr_id "
+					+ " WHERE TS.user_id = ? "
+					+ " AND DATE_FORMAT(date,'%Y') = ? "
+					+ " ORDER BY TS.tr_id ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -370,7 +370,7 @@ public class StoragesDao {
 
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
-				Graph graphItem = new Graph(rs.getString("tr_item"));
+				Graph graphItem = new Graph(rs.getString("tr_item"),rs.getInt("tr_id"));
 				gItemList.add(graphItem);
 			}
 
