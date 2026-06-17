@@ -62,7 +62,7 @@ public class RegistServlet extends HttpServlet {
 			request.setAttribute("result","登録成功しました");
 		// 結果ページにリダイレクトする
 			// ホームサーブレットにリダイレクトする
-			response.sendRedirect("/a2/HomeServlet");
+			response.sendRedirect("/a2/HomeServlet");	
 		   
 
 		} else { // 登録失敗			
