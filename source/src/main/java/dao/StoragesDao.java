@@ -45,7 +45,7 @@ public class StoragesDao {
 	//-------------カレンダーページのDAOここから--------------//
 	/*
      * スタンプやメモを更新、新規追加するメソッド
-     * 返り値：
+     * 返り値：trueかfaulse
      */
 	public boolean saveRecord(String userId, String date, Integer stamp, String memo) {
 
@@ -74,7 +74,8 @@ public class StoragesDao {
             ps.setString(2, date);
             ps.setObject(3, stamp);
             ps.setString(4, memo);
-
+            
+            //ps.executeUpdate()で１件以上更新されてたらtrueが返る
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -95,8 +96,7 @@ public class StoragesDao {
         return false;
     }
 	
-	
-	
+
 	/*
      * 指定したユーザーの、指定した年月のスタンプ一覧を取得するメソッド
      * 返り値：Map<"2026-07-10", stamp番号>
@@ -127,7 +127,7 @@ public class StoragesDao {
 	        ps.setString(1, userId);
 	        ps.setString(2, yearMonth);
 	        
-	        // SQL文を実行し、結果表を取得する
+	        // SQL文を実行
 	        rs = ps.executeQuery();
 	        //stampMapに日付とスタンプをセットで入れ込む
 	        while (rs.next()) {
@@ -155,8 +155,8 @@ public class StoragesDao {
 	}
 
 	/*
-     * めも内容を取得するメソッド
-     * 返り値：
+     * メモ内容を取得するメソッド
+     * 返り値：Map<"2026-06-10", "メモの内容">
      */
 	public Map<String, String> getMemo(String userId, String yearMonth) {
 
@@ -184,12 +184,13 @@ public class StoragesDao {
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, userId);
 	        ps.setString(2, yearMonth);
-
+	        
+	        // SQL文を実行
 	        rs = ps.executeQuery();
 
 	        while (rs.next()) {
 	            String date = rs.getString("date");        // 例:2026-06-10
-	            String memo = rs.getString("memo"); // nullの可能性あり
+	            String memo = rs.getString("memo");
 	            trainingMap.put(date, memo);
 	        }
 
@@ -210,7 +211,6 @@ public class StoragesDao {
 
 	    return trainingMap;
 	}
-
 
 
 	//-------------カレンダーページのDAOここまで--------------//
