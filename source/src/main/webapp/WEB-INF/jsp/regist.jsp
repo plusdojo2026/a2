@@ -35,7 +35,7 @@
 	
 
 </form>
-<input type="reset" onclick="location.href='regist.jsp'" value="リセット">
+<input type="button"  onclick="re()" value="リセット">
 <input type="submit" onclick="location.href='home.jsp'" value="登録">
 
 </main>
@@ -55,6 +55,17 @@ document.getElementById('fr').onsubmit = function(event){
 		document.getElementById('msg').textContent = '必須項目を入力してください';
 		event.preventDefault();
  	}
+}
+//リセットボタンを押したときの処理
+function re(){	
+	document.getElementById('fr').user_id.value="";
+	document.getElementById('fr').password.value="";
+	document.getElementById('fr').user.value="";
+	document.getElementById('fr').gender.value="";
+	document.getElementById('fr').height.value="";
+	document.getElementById('fr').target_weight.value="";
+	
+	
 }
 
 </script>
