@@ -235,18 +235,14 @@ public class UsersDao {
 						"root", "password");
 
 				// SQL文を準備する
-				String sql = "UPDATE Users SET "
-						+" password=?,"
+				String sql = "UPDATE users SET "
+						+" password=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);		
 				// SQL文を完成させる
-				if (psChange.getPassword() != null 
-						&& psChange.getPassword() !="") {
+
 					pStmt.setString(1, psChange.getPassword());
-				} else {
-					throw new SQLException("パスワードが未入力です");
-				}
-				pStmt.setString(2, psChange.getUserId());
+					pStmt.setString(2, psChange.getUserId());
 				
 				
 				// SQL文を実行する
@@ -290,7 +286,7 @@ public class UsersDao {
 
 				// SQL文を準備する
 				String sql = "SELECT password "
-						+" FROM Users"
+						+" FROM users "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);		
 				// SQL文を完成させる
