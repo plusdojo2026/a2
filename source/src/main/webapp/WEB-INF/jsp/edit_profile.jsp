@@ -15,7 +15,7 @@
 <!--　メインここから　-->
 <main>
 <form method=POST action="/a2/EditProfileServlet.java">
-<p>　ID：</p><c:out value="${userInfo.userId}"/>
+<p>　ID：<c:out value="${userInfo.userId}"/></p>
 <div>
 	<table>
 		<tr>
@@ -36,11 +36,11 @@
 		<tr>
 		<tr>
 			<th>目標体重</th>
-			<td><input type="text" value="${userInfo.targetWheight}"></td>
+			<td><input type="text" value="${userInfo.targetWeight}"></td>
 		<tr>
 	</table>
 </div>
-<a href="/a2/MyPageServlet.java">戻る</a>
+<a href="/a2/MyPageServlet">戻る</a>
 <input type="submit" value="更新">
 </form>
 
