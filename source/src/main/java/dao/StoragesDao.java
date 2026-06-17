@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.Graph;
+import dto.Storage;
 public class StoragesDao {
 	/*
 	 * public List<Storage> select(Storage ???) { Connection conn = null;
@@ -160,7 +161,7 @@ public class StoragesDao {
      */
 	public Map<String, String> getMemo(String userId, String yearMonth) {
 
-	    Map<String, String> trainingMap = new HashMap<>();
+	    Map<String, String> memoMap = new HashMap<>();
 
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -191,7 +192,7 @@ public class StoragesDao {
 	        while (rs.next()) {
 	            String date = rs.getString("date");        // 例:2026-06-10
 	            String memo = rs.getString("memo");
-	            trainingMap.put(date, memo);
+	            memoMap.put(date, memo);
 	        }
 
 	    } catch (SQLException e) {
@@ -209,9 +210,71 @@ public class StoragesDao {
 			}
 		}
 
-	    return trainingMap;
+	    return memoMap;
 	}
 
+	/*
+     * トレーニング内容を取得するメソッド
+     * 返り値：List<Storage>
+     */
+	public List<Storage> getTrainingByDate(String userId, String date) {
+
+	    List<Storage> list = new ArrayList<>();
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        String sql = "SELECT id, tr_id, tr_weight, counts, sets, memo "
+	                   + "FROM tr_strages "
+	                   + "WHERE user_id = ? AND date = ? "
+	                   + "ORDER BY id";
+
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, userId);
+	        ps.setString(2, date);
+
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Storage s = new Storage();
+	            s.setId(rs.getInt("id"));
+	            s.setTr_id(rs.getInt("tr_id"));
+	            s.setTr_weight(rs.getInt("tr_weight"));
+	            s.setCounts(rs.getInt("counts"));
+	            s.setSets(rs.getInt("sets"));
+	            s.setMemo(rs.getString("memo"));
+
+	            list.add(s);
+	        }
+
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	    return list;
+	}
 
 	//-------------カレンダーページのDAOここまで--------------//
 
@@ -309,7 +372,7 @@ public class StoragesDao {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Graph graph = new Graph(rs.getString("tr_item"), rs.getInt("tr_weight"),
-						rs.getInt("counts"),rs.getInt("sets"),rs.getString("group_date") 
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("TD_date") 
 				);
 				GraphList.add(graph);
 			}
@@ -353,7 +416,7 @@ public class StoragesDao {
 			
 			// SQL文を準備する,SELECTでtr_storagesの中のtr_itemを選ぶ
 			//１か月分日別に取得
-			String sql = "SELECT DISTINCT tr_item,TS.tr_id "
+			String sql = "SELECT DISTINCT tr_item,TS.tr_id"
 					+ " FROM tr_storages AS TS INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
 					+ " WHERE TS.user_id = ? "

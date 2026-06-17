@@ -33,12 +33,14 @@
 <!-- グラフデータ -->
 <div>
  <c:forEach var="gi" items="${GraphList}">
+ 	<c:out value="${gi.tr_item }">
+ 	</c:out>
  	<c:out value="${gi.tr_weight}">
- 	</c:out><br>
- 	 <c:out value="${gi.counts}">
- 	</c:out><br> 	
- 	<c:out value="${gi.sets}">
- 	</c:out><br> 	
+ 	</c:out>kg
+ 	 <c:out value="${gi.counts}">回
+ 	</c:out> 回	
+ 	<c:out value="${gi.sets}">セット
+ 	</c:out> セット	
  	<c:out value="${gi.TD_date}">
  	</c:out><br>
  </c:forEach>
