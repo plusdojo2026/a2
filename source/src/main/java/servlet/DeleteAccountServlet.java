@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.UsersDao;
+import dto.Message;
+import dto.User;
+
 @WebServlet("/DeleteAccountServlet")
 public class DeleteAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,26 +24,52 @@ public class DeleteAccountServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-
 //		HttpSession session = request.getSession();
-		
-//		if (session.getAttribute("id") == null) {
+//		if (session.getAttribute("user_id") == null) {
 //			response.sendRedirect("/a2/LoginServlet");
 //			return;
 //		}
-//		//DAOが出来たら変える。
-//		UsersDao userDao = new UsersDao();
-//		List<User> userinfo = userDao.info(new User());
+//		//セッションのuser_idをuserIdに代入
+//		String userId=(String)session.getAttribute("user_id");
+//		
 		
+		String userId="User1";//本来はセッションから取得
+		
+		
+		UsersDao uDao = new UsersDao();
+		User userInfo = uDao.userInfo(new User
+				(0,null,0.0,null,0.0,0,userId,null,0,0,0,null));
 	
-//	
-//		// 検索結果をリクエストスコープに格納する
-//		request.setAttribute("userinfo", userinfo);
-		
-		
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("userInfo", userInfo);
+
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/delete_account.jsp");
 		dispatcher.forward(request, response);
 	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+//		HttpSession session = request.getSession();
+//		if (session.getAttribute("id") == null) {
+//			response.sendRedirect("/webapp/LoginServlet");
+//			return;
+//		}
+
+		// リクエストパラメータを取得する
+		request.setCharacterEncoding("UTF-8");
+		String userId = request.getParameter("userId");
+
+		UsersDao bDao = new UsersDao();
+			if (bDao.deleteAccount(new User
+					(0,null,0.0,null,0.0,0,userId,null,0,0,0,null))) { // 更新成功
+				// 結果ページにフォワードする
+				response.sendRedirect("/a2/LoginServlet");
+			} else { // 更新失敗
+				request.setAttribute("message", new Message("アカウントを削除できませんでした。"));
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/delete_account.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
 
 }

@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
 <body>
 <!--　ヘッダーここから　-->
@@ -17,25 +19,36 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
+<form method=POST action="/a2/PasswordServlet.java">
 <table>
     <tr>
-        <td>古いパスワード</td>
+        <td>現在のパスワード</td>
         <td>
         	<input type="password" id="password1">
-        	<span id="show">
-        		<i class="far fa-eye-slash"></i>
-        	</span>
         </td>
+
     </tr>
     <tr>
         <td>新しいパスワード</td>
-        <td><input type="password" id="password2"></td>
+        <td>
+        	<input type="password" id="password2">
+        </td>
+
     </tr>
     <tr>
         <td>新しいパスワード</td>
-        <td><input type="password" id="password3"></td>
+        <td>
+        	<input type="password" id="password3">
+        </td>
+ 
     </tr>
-</table>
+</table>  
+    <button id="show">
+    	<i class="far fa-eye-slash" id="icon"></i>
+    </button>
+    
+    <input type="submit" value="変更">
+</form>
 
 </main>
 <!--　メインここまで　-->
@@ -47,17 +60,25 @@
 <!--　フッターここまで　-->
 <script>
 	'USE STRICT';
-	let show=document.getElementById('show');
-	let noshow=document.getElementById('password');
-	$('#show').on('click',function(){
-		if(noshow.type==='password'){
-			noshow.type ='text';
-			show.innerHTML='<i class="far fa-eye"></i>';	
+	//パスワード表示切替１
+	const pas1=document.getElementById('password1');
+	const pas2=document.getElementById('password2');
+	const pas3=document.getElementById('password3');
+	const ele=document.getElementById('icon');
+	document.getElementById('show').onclick = function(){
+		if(pas1.type==="password"){
+			pas1.type="text";
+			pas2.type="text";
+			pas3.type="text";
+			ele.className="fa-regular fa-eye";
 		}else{
-			noshow.type ='password';
-			show.innerHTML='<i class="far fa-eye-slash"></i>';
+			pas1.type="password";
+			pas2.type="password";
+			pas3.type="password";
+			ele.className="far fa-eye-slash";
 		}
-	});
+	}
+
 </script>
 </body>
 </html>
