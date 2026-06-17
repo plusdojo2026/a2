@@ -309,7 +309,7 @@ public class StoragesDao {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Graph graph = new Graph(rs.getString("tr_item"), rs.getInt("tr_weight"),
-						rs.getInt("counts"),rs.getInt("sets"),rs.getString("group_date") 
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("TD_date") 
 				);
 				GraphList.add(graph);
 			}
@@ -353,7 +353,7 @@ public class StoragesDao {
 			
 			// SQL文を準備する,SELECTでtr_storagesの中のtr_itemを選ぶ
 			//１か月分日別に取得
-			String sql = "SELECT DISTINCT tr_item,TS.tr_id "
+			String sql = "SELECT DISTINCT tr_item,TS.tr_id"
 					+ " FROM tr_storages AS TS INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
 					+ " WHERE TS.user_id = ? "
