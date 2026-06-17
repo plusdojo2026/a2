@@ -54,7 +54,8 @@
 
 
 
-<h1>入力欄</h1>
+<h1>今日の記録</h1>
+<input type="submit" name="savetime" value="一時保存">
 
 
 
@@ -65,7 +66,7 @@
 体脂肪率(％)<input type="text" name="fat"><br>
 <br>
 スタンプ：
-	<select name="fstamp" id="stamp">
+	<select id="stamp" onchange="changestamp()">
     	<option value="1">なし</option>
 	    <option value="2">足トレ</option>
 	    <option value="3">背中トレ</option>
@@ -75,48 +76,12 @@
 	    <option value="7">酒</option>
 	</select>
 
+	<br>
+	<br>
 
-
-     <%-- <select name="fstamp" id="stamp">
-     
-     	<c:forEach var="s" items="${stampList}">
-        	<option value="${s}">
-            	${s}
-        	</option>
-    	</c:forEach> --%>
-
-	</select>
-     	<%-- <c:if test="${stamp == 1}">
-        	<option value="1">筋トレスタンプ１</option>
-    	</c:if>
-
-    	<c:if test="${stamp == 2}">
-        	<option value="2">筋トレスタンプ２</option>
-    	</c:if>
-
-    	<c:if test="${stamp == 3}">
-        	<option value="3">筋トレスタンプ３</option>
-    	</c:if>
-    	
-    	<c:if test="${stamp == 4}">
-        	<option value="4">筋トレスタンプ４</option>
-    	</c:if>
-    	
-    	<c:if test="${stamp == 5}">
-        	<option value="5">筋トレスタンプ５</option>
-    	</c:if>
-    
-    
-     --%>
- 		<%-- <c:forEach var="sestamp" items="${stampList}">
-        	<option value="${sestamp}" >
-            	${sestamp}
-        	</option>
-		</c:forEach>    	
-    </select> --%>
-
-
-
+	<img id="stampImage" src="" width="200">
+	
+	
 <br>
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
@@ -177,6 +142,45 @@
 	}
 	
 
+    //画像表示する
+    
+    
+    function changestamp(){
+    	
+    	/* alert("動いた"); */
+    	
+    	const stamp = document.getElementById("stamp").value;
+
+        const image = document.getElementById("stampImage");
+        
+  
+        
+        if (stamp == "2") {
+        	image.src = "img/stamp1.png";
+        }else if (stamp == "3") {
+        	image.src = "img/stamp2.png";
+        }else if (stamp == "4") {
+        	image.src = "img/stamp3.png";
+        }else if (stamp == "5") {
+        	image.src = "img/stamp4.png";
+        }else if (stamp == "6") {
+        	image.src = "img/stamp5.png";
+        }else if (stamp == "7") {
+        	image.src = "img/stamp6.png";
+        }else if (stamp == "8") {
+        	image.src = "img/stamp7.png";
+        }else{
+        	image.src = "";
+        }
+    	
+    	
+    }
+	
+	
+    
+
+    
+    
     
     
     let count=0;
@@ -188,18 +192,34 @@
     	const br = document.createElement("br");
     	
     	
+    	//新しく <div> タグを作って,丸みを付けた四角い枠を作ってる
+    	let box = document.createElement("div");
+        box.style.border = "2px solid #999";
+        box.style.padding = "10px";
+        box.style.margin = "10px";
+        box.style.borderRadius = "8px";
+    	
+    	
     	
     	//テキストボックスに追加アイテムの作成（nameはit1~itn）
     	//ここではjspでは一行で書くものをJavaScriptから入れるので細分化している
-    	const input = document.createElement("input");//<input　inputをjspに入れるよ
-    	input.type="text";//<input type="text"　input typeはtextですよ
-    	input.name="it"+count; //<input type="text" name="it?"　名前はitにします。+countを付けているのでit1,it2のように順番につきます
-    	input.readOnly="true";//<input type="text" name="it?" readOnry　textの中身は変えられません。項目の部分なので書き換えられないようにする
-    	input.value=document.getElementById("item").value; //<input type="text" name="it?" readOnry value="ダンベル">　
-    														//上でユーザーが選択したでーたをvalue=に入れる文
     	
-    														
-    														
+    	
+    	//<input　inputをjspに入れるよ
+    	const input = document.createElement("input");
+    	//<input type="text"　input typeはtextですよ
+    	input.type="text";
+    	 //<input type="text" name="it?"　名前はitにします。+countを付けているのでit1,it2のように順番につきます
+    	input.name="it"+count;
+    	//<input type="text" name="it?" readOnry　textの中身は変えられません。項目の部分なので書き換えられないようにする
+    	input.readOnly="true";
+    	//<input type="text" name="it?" readOnry value="ダンベル">　
+		//上でユーザーが選択したでーたをvalue=に入れる文
+    	input.value=document.getElementById("item").value; 
+    	
+    	
+		
+		
     	//テキストエリアのデータを作成
    		const textarea = document.createElement("textarea");
     	//ここもカウントを入れることで項目に着けた名前と連動する　it１が追加されたらmemo１
@@ -214,6 +234,15 @@
    		itemArea.appendChild(pi);
    		//inputもitemArea (jspのitemAreaの位置）の中に追加
    		itemArea.appendChild(input);
+   		
+   		
+   		 let input1 = document.createElement("input");
+     	input1.type = "text";
+
+    	 box.appendChild(pi);
+    	 box.appendChild(input1);
+
+     	itemArea.appendChild(box);
    		
    		
    		//JSPの内容を取ってきている　memoという変数を作っている
@@ -239,6 +268,8 @@
 			itemArea.appendChild(weightinput);
 			
 			
+			box.appendChild(w);
+			box.appendChild(weightinput);
 			
 			
 			//回数を追加する文
@@ -255,7 +286,8 @@
 
 			itemArea.appendChild(countinput);
    			
-   			
+			box.appendChild(k);
+			box.appendChild(countinput);
 			
 			
    			
@@ -273,7 +305,8 @@
 
 			itemArea.appendChild(setinput);
    			
-   			
+			box.appendChild(s);
+			box.appendChild(setinput);
 			
 			
    			//メモを追加するための文
@@ -289,7 +322,11 @@
    			//文字が書けるテキストボックスを入れている。
    			itemArea.appendChild(textarea); 
    			
-   			
+   			box.appendChild(p);
+			box.appendChild(textarea);
+			
+			
+			itemArea.appendChild(box);
    			
     	}else{
     		
@@ -307,6 +344,8 @@
 
 			itemArea.appendChild(weightinput);
 			
+			box.appendChild(w);
+			box.appendChild(weightinput);
 			
 			
 			
@@ -316,7 +355,10 @@
    			let k = document.createElement("div");
    			k.textContent = "回数";
    			
-   			itemArea.appendChild(k); 
+   			itemArea.appendChild(k);
+   			
+   			box.appendChild(k);
+			box.appendChild(countinput);
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
@@ -341,6 +383,11 @@
 			setinput.type = "text";
 
 			itemArea.appendChild(setinput);
+			
+			box.appendChild(s);
+			box.appendChild(setinput);
+			
+			itemArea.appendChild(box);
     		
     	}
     	
