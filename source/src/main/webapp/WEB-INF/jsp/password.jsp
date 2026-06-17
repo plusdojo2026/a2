@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,20 +19,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
+<c:out value="${message.message}"/>
 <form method=POST action="/a2/PasswordServlet" id="form">
-<input type="hidden" value="${userInfo.userId}">
+<input type="hidden" name="userId" value="${userInfo.userId}">
 <table>
     <tr>
         <td>現在のパスワード</td>
         <td>
-        	<input type="password" id="password1">
+        	<input type="password" name="inputPassword" id="password1">
         </td>
 
     </tr>
     <tr>
         <td>新しいパスワード</td>
         <td>
-        	<input type="password" name="password" id="password2">
+        	<input type="password" name="newPassword" id="password2">
         </td>
 
     </tr>
@@ -50,7 +51,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     
     <input type="submit" value="変更">
 </form>
-
+<p id="msg"></p>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -80,7 +81,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		}
 	}
 	//現在のパスワードと照らし合わせ
-	const nowPw = '${userInfo.password}';
     document.getElementById('form').onsubmit = function(event){
 
         const pasCheck1 = document.getElementById('password1').value;
@@ -89,10 +89,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		//空白をはじく
          if( pasCheck1 === '' || pasCheck2 === '' || pasCheck3 ===''){
             document.getElementById('msg').textContent = '※すべてのパスワードを入力してください。';
-            event.preventDefault();
-        //現在のパスワード不一致をはじく
-        }else if(nowPw !== pasCheck1){
-        	document.getElementById('msg').textContent = '※現在のパスワードが間違っています。';
             event.preventDefault();
         //新しいパスワード不一致をはじく
         }else if(pasCheck2 !== pasCheck3){
