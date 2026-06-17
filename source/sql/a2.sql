@@ -44,7 +44,7 @@ INSERT INTO storages (user_id, weight, fat, memo, stamp, date) VALUES
 ('user1', 59.7, 19.4, '胸トレ', 3, '2026-06-25');
 
 /*トレーニング内容（記録情報）*/
-CREATE TABLE tr_strages(
+CREATE TABLE tr_storages(
 id INT AUTO_INCREMENT PRIMARY KEY,	/*TR内容保存ID*/
 user_id VARCHAR(30) NOT NULL,		/*ユーザーID*/	
 tr_id INT NOT NULL,					/*トレーニングID*/
@@ -55,7 +55,7 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_strages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
+INSERT INTO tr_storages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
 ('user1','',,,,'','2026-06-01');
 ('user1','',,,,'','2026-06-01');
 ('user1','',,,,'','2026-06-01');

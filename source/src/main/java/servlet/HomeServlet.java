@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.StoragesDao;
 import dao.TrItemsDao;
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
@@ -35,6 +36,19 @@ public class HomeServlet extends HttpServlet {
 
 		
 		
+		//スタンプを取得している
+		String userId = request.getParameter("user_id");
+		
+		StoragesDao stdao = new StoragesDao();
+		
+		int stamp = stdao.getStamp(userId);
+		
+		request.setAttribute("stamp", stamp);
+		
+		
+		
+		
+		
 		/*
 	
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
@@ -51,6 +65,9 @@ public class HomeServlet extends HttpServlet {
 		// メニューページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
+		
+		
+		
 	}
 	//<form method = "POST" でservletを指定したときに動くメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
