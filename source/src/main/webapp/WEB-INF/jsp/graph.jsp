@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- グラフ作成用Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <title>マメッスル|成長記録</title>
 </head>
 <body>
@@ -24,11 +26,13 @@
 	トレーニング項目<select name="tr_item">
 		<c:forEach var="e" items="${gItem}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
-		 <option value="${e.tr_id}"><c:out value="${e.tr_item}" />
+		 <option><c:out value="${e.tr_item}" />
 		 </option>
 	 	</c:forEach> 
 	</select><br>
 </div> 
+<!-- グラフを表示する場所 -->
+<canvas id = "lineChart"></canvas>
 
 <!-- グラフデータ -->
 <div>
@@ -71,7 +75,6 @@
 
 </footer>
 <!--　フッターここまで　-->
-
 <script>
 
 'use strict'
@@ -89,7 +92,9 @@ function showDay(){
 	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
 }
 
-//
+//グラフ作成
+
+
 
 </script>
 </body>
