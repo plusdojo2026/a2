@@ -273,56 +273,40 @@ public class UsersDao {
 		}
 //==========================パスワード確認用=============================
 		
-		public User passwordCheck(User psCheck) {
+		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		//DTOを使わず生でデータを渡す
+		public boolean passwordCheck(String userId,String inputPassword) {
 			Connection conn = null;
-			User userInfo = null;
+			boolean result = false;
 
 			try {
 				// JDBCドライバを読み込む
 				Class.forName("com.mysql.cj.jdbc.Driver");
+
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 						"root", "password");
 
-				// SQL文を準備する//
-				String sql = 
-				"SELECT "
-				+" number"				//管理番号
-				+" FROM users "			//テーブル
-				+" WHERE user_id = ?";	//条件
+				// SQL文を準備する
+				String sql = "SELECT password "
+						+" FROM Users"
+						+" WHERE user_id=? ";
+				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				// SQL文を完成させる
+				pStmt.setString(1, userId);
 				
-				PreparedStatement pStmt = conn.prepareStatement(sql);
+				ResultSet rs =pStmt.executeQuery();
 				
-				//?に代入する
-				pStmt.setString(1,psCheck.getUserId());
-
-				// SQL文を実行し、結果表を取得する
-				ResultSet rs = pStmt.executeQuery();
-
-				// 結果表をコレクションにコピーする
-				if(rs.next()) {
-					userInfo = new User(
-							rs.getInt	("number"),
-							rs.getString("user_name"),
-							rs.getDouble("height"),
-							rs.getString("gender"),
-							rs.getDouble("target_weight"),
-							rs.getInt	("logical_delete"),
-							rs.getString("user_id"),
-							rs.getString("password"),
-							rs.getInt	("icon_id"),
-							rs.getInt	("design_id"),
-							rs.getInt	("point"),
-							null
-							);
+				// SQL文を実行する
+				if (rs.next()) {
+					String dbPassword = rs.getString("password");
+					return dbPassword.equals(inputPassword);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				psCheck = null;
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				psCheck = null;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -330,12 +314,12 @@ public class UsersDao {
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						psCheck = null;
 					}
 				}
 			}
+
 			// 結果を返す
-			return userInfo;
+			return result;
 		}
 //===========================基本情報変更用==============================
 		
