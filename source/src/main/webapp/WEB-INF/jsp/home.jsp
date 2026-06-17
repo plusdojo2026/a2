@@ -170,12 +170,14 @@
     	if(memo == "1"){
     		// memoArea.innerHTMLはここでいうと<div id="memoArea">○○○○</div>の○○○○の部分
     		//ここでは○○○○が　=の後の　'<textarea name="memo"></textarea>'　に書き換わる　つまりtextbox追加！
-    		memoArea.innerHTML ='<textarea name="memo"></textarea>';
+    		/* memoArea.innerHTML ='<textarea name="memo"></textarea>'; */
     		 
     		 
     		 const textarea = document.createElement("textarea");
+    		 memoArea.appendChild(textarea);
     	}
     	
+    	memoArea.appendChild(div);
     	document.getElementById("modal").style.display = "none";
     }
     
