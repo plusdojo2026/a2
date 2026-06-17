@@ -37,14 +37,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--メインここから-->
 <main>
 
-<c:out value="${userInfo.point}"/>
+<c:out value="${userInfo.point}"/>:豆pt
 <div class="my_page_user_info">
     <div class="circle">
     </div>
     <div class="user_id_name">
-		<p>　ID：</p><c:out value="${userInfo.userId}"/>
-            <br>
-        <p>名前：</p><c:out value="${userInfo.userName}"/>
+		　ID：<c:out value="${userInfo.userId}"/><br>
+        名前：<c:out value="${userInfo.userName}"/>
     </div>
 </div>
 
@@ -79,11 +78,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--フッターここから-->
 <footer><!--nowpageはそのページに着けてほしいです。-->
 <nav class="bottom-bar" id="bar">
-  <a href="home.html"><i class="fa-solid fa-arrow-trend-up nowpage"></i></a>
-  <a href="home.html"><i class="fa-solid fa-user-group"></i></a>
-  <a href="home.html"><i class="fa-regular fa-square-plus"></i></a>
-  <a href="home.html"><i class="fa-regular fa-calendar"></i></a>
-  <a href="home.html"><i class="fa-solid fa-circle-user"></i></a>
+  <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up nowpage"></i></a>
+  <a href="/a2/FriendListServlet"><i class="fa-solid fa-user-group"></i></a>
+  <a href="/a2/HomeServlet"><i class="fa-regular fa-square-plus"></i></a>
+  <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
+  <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user"></i></a>
 </nav>
 </footer>
 <!--フッターここまで-->

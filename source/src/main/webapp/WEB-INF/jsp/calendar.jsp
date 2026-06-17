@@ -141,12 +141,17 @@
 	
 	    // トレーニング内容初期値
 	    document.getElementById("modal-memo").value = memo || "";
+	    
+	 	
 	
 	    document.getElementById("modal-bg").style.display = "block";
 	}
-
-
 	
+	function openModalFromTd(td) {
+	    const trainingStr = trainingData[date] || "";
+	    openModal(date, stamp, memo, trainingStr);
+	}
+
 	function closeModal() {
 	    document.getElementById("modal-bg").style.display = "none";
 	}

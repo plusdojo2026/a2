@@ -19,9 +19,8 @@
     <div class="circle">
     </div>
     <div class="user_id_name">
-        <p>ID:${user_id}</p>
-            <br>
-        <p>name：${user_name}</p>
+        ID:<c:out value="${userInfo.userId}"/><br>
+        name：<c:out value="${userInfo.userName}"/>
     </div>
 </div>
 
@@ -31,7 +30,7 @@
 <input type="submit" value="退会する">
 </form>
 
-<a href="/a2/MyPageServlet.java">戻る</a>
+<a href="/a2/MyPageServlet">戻る</a>
 
 </main>
 <!--　メインここまで　-->
