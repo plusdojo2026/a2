@@ -216,6 +216,13 @@
     	//<input type="text" name="it?" readOnry value="ダンベル">　
 		//上でユーザーが選択したでーたをvalue=に入れる文
     	input.value=document.getElementById("item").value; 
+		
+		const deleteButton = document.createElement("input");
+		deleteButton.type="button";
+		deleteButton.textContent="削除";
+		deleteButton.onclick = function(){
+			itemArea.removeChild(div);
+		}
     	
     	
 		
@@ -234,15 +241,16 @@
    		itemArea.appendChild(pi);
    		//inputもitemArea (jspのitemAreaの位置）の中に追加
    		itemArea.appendChild(input);
+   		itemArea.appendChild(deleteButton);
    		
    		
    		 let input1 = document.createElement("input");
      	input1.type = "text";
 
-    	 box.appendChild(pi);
+    	/*  box.appendChild(pi);
     	 box.appendChild(input1);
 
-     	itemArea.appendChild(box);
+     	itemArea.appendChild(box); */
    		
    		
    		//JSPの内容を取ってきている　memoという変数を作っている
@@ -268,8 +276,8 @@
 			itemArea.appendChild(weightinput);
 			
 			
-			box.appendChild(w);
-			box.appendChild(weightinput);
+			/* box.appendChild(w);
+			box.appendChild(weightinput); */
 			
 			
 			//回数を追加する文
@@ -286,9 +294,9 @@
 
 			itemArea.appendChild(countinput);
    			
-			box.appendChild(k);
+			/*box.appendChild(k);
 			box.appendChild(countinput);
-			
+			 */
 			
    			
    			//セット数を追加する文
@@ -305,8 +313,8 @@
 
 			itemArea.appendChild(setinput);
    			
-			box.appendChild(s);
-			box.appendChild(setinput);
+			/*box.appendChild(s);
+			box.appendChild(setinput); */
 			
 			
    			//メモを追加するための文
@@ -322,11 +330,11 @@
    			//文字が書けるテキストボックスを入れている。
    			itemArea.appendChild(textarea); 
    			
-   			box.appendChild(p);
+   			/* box.appendChild(p);
 			box.appendChild(textarea);
 			
 			
-			itemArea.appendChild(box);
+			itemArea.appendChild(box); */
    			
     	}else{
     		
@@ -344,8 +352,8 @@
 
 			itemArea.appendChild(weightinput);
 			
-			box.appendChild(w);
-			box.appendChild(weightinput);
+			/* box.appendChild(w);
+			box.appendChild(weightinput); */
 			
 			
 			
@@ -357,8 +365,8 @@
    			
    			itemArea.appendChild(k);
    			
-   			box.appendChild(k);
-			box.appendChild(countinput);
+   			/* box.appendChild(k);
+			box.appendChild(countinput); */
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
@@ -383,11 +391,11 @@
 			setinput.type = "text";
 
 			itemArea.appendChild(setinput);
-			
+			/* 
 			box.appendChild(s);
 			box.appendChild(setinput);
 			
-			itemArea.appendChild(box);
+			itemArea.appendChild(box); */
     		
     	}
     	
