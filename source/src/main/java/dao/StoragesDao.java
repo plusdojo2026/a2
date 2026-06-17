@@ -272,7 +272,7 @@ public class StoragesDao {
 //}						
 	
 	//-----------成長記録ページDAOここから---------------//
-	public List<Storage> getGraphList(){
+	public List<Storage> getGraphList(String userId,int year,int MonthNumber){
 		//
 		Connection conn = null;
 		List<Storage> GraphList = new ArrayList<Storage>();
@@ -283,27 +283,35 @@ public class StoragesDao {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-
+			
+			
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
+			//１か月分日別に取得
 			String sql = "SELECT tr_id, tr_weight,"
-					+ "counts, sets, date "
+					+ "counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TS.date"
 					+ "FROM tr_storages AS TS INNER JOIN tr_items AS TI"
 					+ "ON TS.tr_id = TI.tr_item"
-					+ "WHERE ? = TS.user_id AND";
+					+ "WHERE TS.user_id = ?"
+					+ "AND YEAR(date) = ?"
+					+ "AND MONTH(date)= ?"
+					+ "ORDER BY TS.date";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-////			pStmt.setString(1,);
-//
-//			// SQL文を実行し、結果表を取得する
-//			ResultSet rs = pStmt.executeQuery();
-//
-//			// 結果表をコレクションにコピーする
-//			while (rs.next()) {
-//				Storage graph = new Bc(rs.getInt(""), rs.getString(""), 
-//				);
-//				GraphList.add(graph);
-//			}
+			pStmt.setString(1,userId);
+			pStmt.setInt(2,year);
+			pStmt.setInt(3,MonthNumber);
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				Graph graph = new Graph(rs.getInt("tr_id"), rs.getInt("tr_weight"),
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("group_date") 
+				);
+				GraphList.add(graph);
+			}
 
 			
 	

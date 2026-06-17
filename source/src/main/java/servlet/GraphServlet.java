@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -58,21 +59,27 @@ public class GraphServlet extends HttpServlet {
 		int tr_weight= Integer.parseInt(request.getParameter("tr_weight"));
 		int counts= Integer.parseInt(request.getParameter("counts"));
 		int set= Integer.parseInt(request.getParameter("set"));
-
+		
+		//現在の日付を取得
+		LocalDate today = LocalDate.now();
+		
+		//年を取得
+		int year = date.getYear();
+		//今月と来月を取得
+		Month month = date.getMonth();
+		int monthNumber = month.getValue();
+		int nextMonth = month.getValue()+1;
+		
 		//ログインユーザー情報の取得(仮情報後で直す)
 		String userId = "user1";
 		
-		//記録情報のトレーニング内容の検索処理を行う
+		//記録情報のトレーニング内容を取得する	
+		StoragesDao Trgraph = new StoragesDao();
+		List<Storage> getGraphList = Trgraph.getGraphList(userId,year,monthNumber);
 		
-		//記録情報トレーニング内容を格納する
-
-		
-		//記録情報にあるトレーニング項目を検索する
-		
+		//トレーニング項目を検索する
 		StoragesDao tritem = new StoragesDao();
-		List<Storage> ItemList = tritem.(userId);
-		//トレーニング項目を格納する
-
+		List<Storage> List = tritem.(year,monthNumber,userId);
 		
 		//一言セリフを受け取る
 		
@@ -80,7 +87,7 @@ public class GraphServlet extends HttpServlet {
 		
 		
 		//JSPに送る
-		request.setAttribute("", );
+		request.setAttribute("GraphList",getGraphList );
 		request.setAttribute("TrItem",ItemList );
 		
 		
