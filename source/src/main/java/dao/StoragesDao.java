@@ -338,6 +338,63 @@ public class StoragesDao {
 	//-----------成長記録ページDAOここまで---------------//
 
 
-	
+	//-------------ホームページのDAOここから--------------//
+		//スタンプ取得用
+		
+		
+		public int getStamp(String userId) {
+
+			
+			int stamp = 0;
+
+			
+		    Connection conn = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+
+		    try {
+		    	// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+		
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+		        
+				
+				
+		        // SQL文を準備する
+		        String sql = "SELECT stamp FROM storages "
+			               + "WHERE user_id = ? ";
+		        
+		        ps = conn.prepareStatement(sql);
+		        
+		        ps.setString(1, userId);
+		        
+		        // SQL文を実行し、結果表を取得する
+		        rs = ps.executeQuery();
+		        
+		        if (rs.next()) {
+		            stamp = rs.getInt("stamp");
+		            
+		        }
+
+		    } catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		    return stamp;
+		}
 }
 
