@@ -35,11 +35,8 @@
 	
 
 </form>
-
-<form action="regist.jsp"></form>
-<input type="submit" name="regist" value="リセット"><br>
-<form action="home.jsp"></form>
-<input type="submit" name="regist" value="登録"><br>
+<input type="reset" onclick="location.href='regist.jsp'" value="リセット">
+<input type="submit" onclick="location.href='home.jsp'" value="登録">
 
 </main>
 <!--　メインここまで　-->

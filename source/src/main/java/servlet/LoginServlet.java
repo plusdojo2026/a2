@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dto.LoginUser;
+import dao.UsersDao;
+import dto.User;
 
 @WebServlet("/a2/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -29,24 +30,29 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("ID");
-		String pw = request.getParameter("PW");
+		String id = request.getParameter("user_id");
+		String pw = request.getParameter("password");
 
 		// ログイン処理を行う
-		UsersDAO iDao = new UsersDAO();
-		if (iDao.isLoginOK(new Users(id, pw))) { // ログイン成功
+		UsersDao uDao = new UsersDao();
+		
+		User us = new User();
+		us.setUserId(id);
+		us.setPassword(pw);
+		User user = uDao.login(us);
+		if (user != null) { // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
-			session.setAttribute("id", new LoginUser(id));
+			session.setAttribute("user", user);
+			// ホームサーブレットにリダイレクトする
+			response.sendRedirect("/a2/webapp/homeServlet");
 			
-			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/MenuServlet");
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
+			request.setAttribute("result", new Result( "IDまたはPWに間違いがあります。", null));
 
 			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/a2/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
