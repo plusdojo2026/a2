@@ -63,6 +63,59 @@
 <h2>基本データ</h2>
 体重(kg)　<input type="text" name="weight"><br>
 体脂肪率(％)<input type="text" name="fat"><br>
+<br>
+スタンプ：
+	<select name="fstamp" id="stamp">
+    	<option value="1">なし</option>
+	    <option value="2">足トレ</option>
+	    <option value="3">背中トレ</option>
+	    <option value="4">腕トレ</option>
+	    <option value="5">腹トレ</option>
+	    <option value="6">豆トレ</option>
+	    <option value="7">酒</option>
+	</select>
+
+
+
+     <%-- <select name="fstamp" id="stamp">
+     
+     	<c:forEach var="s" items="${stampList}">
+        	<option value="${s}">
+            	${s}
+        	</option>
+    	</c:forEach> --%>
+
+	</select>
+     	<%-- <c:if test="${stamp == 1}">
+        	<option value="1">筋トレスタンプ１</option>
+    	</c:if>
+
+    	<c:if test="${stamp == 2}">
+        	<option value="2">筋トレスタンプ２</option>
+    	</c:if>
+
+    	<c:if test="${stamp == 3}">
+        	<option value="3">筋トレスタンプ３</option>
+    	</c:if>
+    	
+    	<c:if test="${stamp == 4}">
+        	<option value="4">筋トレスタンプ４</option>
+    	</c:if>
+    	
+    	<c:if test="${stamp == 5}">
+        	<option value="5">筋トレスタンプ５</option>
+    	</c:if>
+    
+    
+     --%>
+ 		<%-- <c:forEach var="sestamp" items="${stampList}">
+        	<option value="${sestamp}" >
+            	${sestamp}
+        	</option>
+		</c:forEach>    	
+    </select> --%>
+
+
 
 <br>
 <h2>カスタムデータ</h2>

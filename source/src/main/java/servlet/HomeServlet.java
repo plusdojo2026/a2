@@ -37,15 +37,16 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		//スタンプを取得している
-		String userId = request.getParameter("user_id");
+//		String userId = request.getParameter();
 		
 		StoragesDao stdao = new StoragesDao();
 		
-		int stamp = stdao.getStamp(userId);
+		List<Integer> stampList = stdao.getStampList();
+
+		request.setAttribute("stampList", stampList);
 		
-		request.setAttribute("stamp", stamp);
 		
-		
+//		System.out.println(stampList);
 		
 		
 		

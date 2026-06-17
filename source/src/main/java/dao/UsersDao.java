@@ -271,6 +271,56 @@ public class UsersDao {
 			// 結果を返す
 			return result;
 		}
+//==========================パスワード確認用=============================
+		
+		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		//DTOを使わず生でデータを渡す
+		public boolean passwordCheck(String userId,String inputPassword) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+
+				// SQL文を準備する
+				String sql = "SELECT password "
+						+" FROM Users"
+						+" WHERE user_id=? ";
+				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				// SQL文を完成させる
+				pStmt.setString(1, userId);
+				
+				ResultSet rs =pStmt.executeQuery();
+				
+				// SQL文を実行する
+				if (rs.next()) {
+					String dbPassword = rs.getString("password");
+					return dbPassword.equals(inputPassword);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
 //===========================基本情報変更用==============================
 		
 		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
