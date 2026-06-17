@@ -60,10 +60,9 @@ public class RegistServlet extends HttpServlet {
 				 userId,  password,  0,  0,  0,  dateTime);
 		if (uDao.insert(us)) { // 登録成功
 			request.setAttribute("result","登録成功しました");
-		// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/a2/home.jsp");
-			dispatcher.forward(request, response);
-
+		// 結果ページにリダイレクトする
+			// ホームサーブレットにリダイレクトする
+			response.sendRedirect("/a2/HomeServlet");
 		   
 
 		} else { // 登録失敗			
