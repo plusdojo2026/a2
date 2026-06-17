@@ -61,7 +61,7 @@ function re(){
 	document.getElementById('fr').user_id.value="";
 	document.getElementById('fr').password.value="";
 	document.getElementById('fr').user.value="";
-	document.getElementById('fr').gender.value="";
+	document.getElementById('fr').gender.checked = false;
 	document.getElementById('fr').height.value="";
 	document.getElementById('fr').target_weight.value="";
 	
