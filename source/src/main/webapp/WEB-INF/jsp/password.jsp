@@ -20,6 +20,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　メインここから　-->
 <main>
 <c:out value="${message.message}"/>
+<p id="msg"></p>
 <form method=POST action="/a2/PasswordServlet" id="form">
 <input type="hidden" name="userId" value="${userInfo.userId}">
 <table>
@@ -51,7 +52,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     
     <input type="submit" value="変更">
 </form>
-<p id="msg"></p>
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->

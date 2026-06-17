@@ -62,20 +62,31 @@ public class PasswordServlet extends HttpServlet {
 		String inputPassword = request.getParameter("inputPassword");
 		String password = request.getParameter("newPassword");
 		UsersDao pDao =new UsersDao();
+		//フォワード用
+		UsersDao uDao = new UsersDao();
+		User userInfo = uDao.userInfo(
+		    new User(0,null,0.0,null,0.0,0,userId,null,0,0,0,null)
+		);
 		
 		if(pDao.passwordCheck(userId,inputPassword)) {
 			if (pDao.passwordChange(new User
 					(0,null,0.0,null,0.0,0,userId,password,0,0,0,null))) { // 変更成功
-				request.setAttribute("message", new Message( "パスワードを変更しました。"));
+				// マイページにリダイレクト
+				response.sendRedirect("/a2/MyPageServlet");
 			} else { // 変更失敗
 				request.setAttribute("message", new Message("パスワードを変更できませんでした。"));
+				request.setAttribute("userInfo", userInfo);
+				// パスワード変更ページにフォワードする
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/password.jsp");
+				dispatcher.forward(request, response);
 			}
-		// マイページにリダイレクト
-		response.sendRedirect("/a2/MyPageServlet");
+
 		}else {
 			request.setAttribute("message", new Message("現在のパスワードに誤りがありました。"));
-			//パスワードサーブレットにリダイレクト
-			response.sendRedirect("/a2/PasswordServlet");
+			request.setAttribute("userInfo", userInfo);
+			// パスワード変更ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/password.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
