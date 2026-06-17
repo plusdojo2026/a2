@@ -131,6 +131,7 @@
     	
     	//追加する場所のデータを取得してくる
 		let itemArea=document.getElementById("itemArea");
+    	//改行のことをbrという変数に入れている
     	const br = document.createElement("br");
     	
     	
@@ -166,12 +167,128 @@
     	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
     	//valueは取得する物自体。今回の場合は（1,2のどちらか）
     	const memo = document.querySelector('input[name="memo"]:checked').value;
+    	
+    	
    		if(memo == "1"){
+   			
+   			
+   			//重さ（距離）を追加する文
    			itemArea.appendChild(document.createElement("br"));
+   			let w = document.createElement("div");
+   			w.textContent = "重さ（距離）";
+   			
+   			itemArea.appendChild(w); 
+   			
+   			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
+   			let weightinput = document.createElement("input");
+   			weightinput.type = "text";
+
+			itemArea.appendChild(weightinput);
+			
+			
+			
+			
+			//回数を追加する文
+   			
+   			itemArea.appendChild(document.createElement("br"));
+   			let k = document.createElement("div");
+   			k.textContent = "回数";
+   			
+   			itemArea.appendChild(k); 
+   			
+   			//文字が書けるテキストボックスを入れている。
+   			let countinput = document.createElement("input");
+			countinput.type = "text";
+
+			itemArea.appendChild(countinput);
+   			
+   			
+			
+			
+   			
+   			//セット数を追加する文
+   			
+   			itemArea.appendChild(document.createElement("br"));
+   			let s = document.createElement("div");
+   			s.textContent = "セット";
+   			
+   			itemArea.appendChild(s); 
+   			
+   			//文字が書けるテキストボックスを入れている。
+   			let setinput = document.createElement("input");
+			setinput.type = "text";
+
+			itemArea.appendChild(setinput);
+   			
+   			
+			
+			
+   			//メモを追加するための文
+   			
+   			//改行を作っている文章があり（document.createElement("br")のこと）、それをjspのitemAreaに追加している。（itemArea.appendChild(...)の文章の部分）
+   			itemArea.appendChild(document.createElement("br"));
+   			//メモという文字を入れる為のdiv作っている
    			let p = document.createElement("div");
    			p.textContent = "メモ";
-   			itemArea.appendChild(p);   			  			
-   			itemArea.appendChild(textarea);   			
+   			
+   			//上のpとtextを入れている
+   			itemArea.appendChild(p); 
+   			//文字が書けるテキストボックスを入れている。
+   			itemArea.appendChild(textarea); 
+   			
+   			
+   			
+    	}else{
+    		
+    		
+    		//重さ（距離）を追加する文
+   			itemArea.appendChild(document.createElement("br"));
+   			let w = document.createElement("div");
+   			w.textContent = "重さ（距離）";
+   			
+   			itemArea.appendChild(w); 
+   			
+   			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
+   			let weightinput = document.createElement("input");
+   			weightinput.type = "text";
+
+			itemArea.appendChild(weightinput);
+			
+			
+			
+			
+			//回数を追加する文
+   			
+   			itemArea.appendChild(document.createElement("br"));
+   			let k = document.createElement("div");
+   			k.textContent = "回数";
+   			
+   			itemArea.appendChild(k); 
+   			
+   			//文字が書けるテキストボックスを入れている。
+   			let countinput = document.createElement("input");
+			countinput.type = "text";
+
+			itemArea.appendChild(countinput);
+   			
+   			
+			
+			
+   			
+   			//セット数を追加する文
+   			
+   			itemArea.appendChild(document.createElement("br"));
+   			let s = document.createElement("div");
+   			s.textContent = "セット";
+   			
+   			itemArea.appendChild(s); 
+   			
+   			//文字が書けるテキストボックスを入れている。
+   			let setinput = document.createElement("input");
+			setinput.type = "text";
+
+			itemArea.appendChild(setinput);
+    		
     	}
     	
     	
