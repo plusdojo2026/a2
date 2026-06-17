@@ -33,10 +33,11 @@
 	<p id="msg" style="color:red">*必須項目</p>
 	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
 	
-	<input type="submit" name="regist" value="リセット"><br>
-	<input type="submit" name="regist" value="登録"><br>
 
 </form>
+<input type="reset" onclick="location.href='regist.jsp'" value="リセット">
+<input type="submit" onclick="location.href='home.jsp'" value="登録">
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
