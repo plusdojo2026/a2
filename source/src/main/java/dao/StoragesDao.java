@@ -289,13 +289,13 @@ public class StoragesDao {
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
 			//１か月分日別に取得
 			String sql = "SELECT tr_id, tr_weight,"
-					+ "counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TS.date"
+					+ "counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TD_date"
 					+ "FROM tr_storages AS TS INNER JOIN tr_items AS TI"
 					+ "ON TS.tr_id = TI.tr_item"
 					+ "WHERE TS.user_id = ?"
 					+ "AND YEAR(date) = ?"
 					+ "AND MONTH(date)= ?"
-					+ "ORDER BY TS.date";
+					+ "ORDER BY TD_date";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
