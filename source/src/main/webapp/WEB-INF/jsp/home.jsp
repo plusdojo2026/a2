@@ -96,9 +96,11 @@
 <div id="memoArea"></div>
   
    <div id="modal" class="modal-background">
+   
     <div class="modal-content">
       <p>項目を追加</p>
-      
+      <!--  下の文でここに警告文が出るようになる　使用するために id="msg”をつけた-->
+      <div style="color:red" id="msg"></div>
       項目：
      <select name="trainingItem" id="item">
  		<c:forEach var="item" items="${itemList}">
@@ -185,20 +187,43 @@
     
     let count=0;
     function addItem(){
+    	//とりあえずansをfalseとして宣言
+    	let ans = false;
+    	//すべての追加されたものにcountがつくので、追加されている分だけループする
+    	for(let i = 0;i<count;i++){
+    		//追加された項目にはit+1されるので、ひとつひとつの項目をチェック
+    		//mの中にダンベルとかの種目が入る
+    		let m = document.getElementById("it"+i).value;
+    		
+    		//今ある種目と、直近でプルダウンから選んだものが一緒なら
+    		if(m ==document.getElementById("item").value ){
+    			//上のans変数の値をtrueに変更する
+    			ans = true;    			
+    		}
+    	}
     	
+    	//ひとつでも過去の種目と被っていたら
+    	if(ans==true){
+    		//エラーメッセージを出して
+    		document.getElementById("msg").textContent="同じ項目は選べません"
+    		//処理を終了する（ここより下の処理はさせない）
+    		return;
+    	}
     	//追加する場所のデータを取得してくる
 		let itemArea=document.getElementById("itemArea");
+    	const  div = document.createElement("div");
+    	div.id = "item"+count;
     	//改行のことをbrという変数に入れている
     	const br = document.createElement("br");
     	
     	
     	//新しく <div> タグを作って,丸みを付けた四角い枠を作ってる
-    	let box = document.createElement("div");
+    	/* let box = document.createElement("div");
         box.style.border = "2px solid #999";
         box.style.padding = "10px";
         box.style.margin = "10px";
         box.style.borderRadius = "8px";
-    	
+    	 */
     	
     	
     	//テキストボックスに追加アイテムの作成（nameはit1~itn）
@@ -211,11 +236,17 @@
     	input.type="text";
     	 //<input type="text" name="it?"　名前はitにします。+countを付けているのでit1,it2のように順番につきます
     	input.name="it"+count;
+    	input.id = "it"+count; //id=it1,it2
     	//<input type="text" name="it?" readOnry　textの中身は変えられません。項目の部分なので書き換えられないようにする
     	input.readOnly="true";
     	//<input type="text" name="it?" readOnry value="ダンベル">　
 		//上でユーザーが選択したでーたをvalue=に入れる文
     	input.value=document.getElementById("item").value; 
+		
+		const deleteButton = document.createElement("input");
+		deleteButton.type="button";
+		deleteButton.value="削除";
+
     	
     	
 		
@@ -227,22 +258,26 @@
    		
    		//上記で追加したアイテムをitemAreaに入れる
    		//divというタグをつくり、変数piに入れた
-   		let pi = document.createElement("div");
+   		//let pi = document.createElement("div");
    		//<div>項目</div>という形になる　タグの中に入れている
-   		pi.textContent = "項目";
-   		//pi を itemArea (jspのitemAreaの位置）の中に追加
-   		itemArea.appendChild(pi);
-   		//inputもitemArea (jspのitemAreaの位置）の中に追加
-   		itemArea.appendChild(input);
    		
+   		//pi を itemArea (jspのitemAreaの位置）の中に追加
+   		//itemArea.appendChild(pi);
+   		//inputもitemArea (jspのitemAreaの位置）の中に追加
+   		div.textContent = "項目";
+   		div.appendChild(input);
+   		div.appendChild(deleteButton);
+		deleteButton.onclick = function(){
+			itemArea.removeChild(div);
+		}
    		
    		 let input1 = document.createElement("input");
      	input1.type = "text";
 
-    	 box.appendChild(pi);
+    	/*  box.appendChild(pi);
     	 box.appendChild(input1);
 
-     	itemArea.appendChild(box);
+     	itemArea.appendChild(box); */
    		
    		
    		//JSPの内容を取ってきている　memoという変数を作っている
@@ -255,116 +290,117 @@
    			
    			
    			//重さ（距離）を追加する文
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let w = document.createElement("div");
    			w.textContent = "重さ（距離）";
    			
-   			itemArea.appendChild(w); 
+   			div.appendChild(w); 
    			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
 
-			itemArea.appendChild(weightinput);
+   			div.appendChild(weightinput);
 			
 			
-			box.appendChild(w);
-			box.appendChild(weightinput);
+			/* box.appendChild(w);
+			box.appendChild(weightinput); */
 			
 			
 			//回数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let k = document.createElement("div");
    			k.textContent = "回数";
    			
-   			itemArea.appendChild(k); 
+   			div.appendChild(k); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
 
-			itemArea.appendChild(countinput);
+			div.appendChild(countinput);
    			
-			box.appendChild(k);
+			/*box.appendChild(k);
 			box.appendChild(countinput);
-			
+			 */
 			
    			
    			//セット数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let s = document.createElement("div");
    			s.textContent = "セット";
    			
-   			itemArea.appendChild(s); 
+   			div.appendChild(s); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "text";
 
-			itemArea.appendChild(setinput);
+			div.appendChild(setinput);
    			
-			box.appendChild(s);
-			box.appendChild(setinput);
+			/*box.appendChild(s);
+			box.appendChild(setinput); */
 			
 			
    			//メモを追加するための文
    			
    			//改行を作っている文章があり（document.createElement("br")のこと）、それをjspのitemAreaに追加している。（itemArea.appendChild(...)の文章の部分）
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			//メモという文字を入れる為のdiv作っている
    			let p = document.createElement("div");
    			p.textContent = "メモ";
    			
    			//上のpとtextを入れている
-   			itemArea.appendChild(p); 
+   			div.appendChild(p); 
    			//文字が書けるテキストボックスを入れている。
-   			itemArea.appendChild(textarea); 
+   			div.appendChild(textarea); 
    			
-   			box.appendChild(p);
+   			itemArea.appendChild(div);
+   			/* box.appendChild(p);
 			box.appendChild(textarea);
 			
 			
-			itemArea.appendChild(box);
+			itemArea.appendChild(box); */
    			
     	}else{
     		
     		
     		//重さ（距離）を追加する文
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let w = document.createElement("div");
    			w.textContent = "重さ（距離）";
    			
-   			itemArea.appendChild(w); 
+   			div.appendChild(w); 
    			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
 
-			itemArea.appendChild(weightinput);
+   			div.appendChild(weightinput);
 			
-			box.appendChild(w);
-			box.appendChild(weightinput);
+			/* box.appendChild(w);
+			box.appendChild(weightinput); */
 			
 			
 			
 			//回数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let k = document.createElement("div");
    			k.textContent = "回数";
    			
-   			itemArea.appendChild(k);
+   			div.appendChild(k);
    			
-   			box.appendChild(k);
-			box.appendChild(countinput);
+   			/* box.appendChild(k);
+			box.appendChild(countinput); */
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
 
-			itemArea.appendChild(countinput);
+			div.appendChild(countinput);
    			
    			
 			
@@ -372,22 +408,25 @@
    			
    			//セット数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let s = document.createElement("div");
    			s.textContent = "セット";
    			
-   			itemArea.appendChild(s); 
+   			div.appendChild(s); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "text";
 
-			itemArea.appendChild(setinput);
+			div.appendChild(setinput);
 			
+			itemArea.appendChild(div);
+			/* 
 			box.appendChild(s);
 			box.appendChild(setinput);
 			
-			itemArea.appendChild(box);
+			itemArea.appendChild(box); */
+			
     		
     	}
     	
@@ -458,6 +497,7 @@
     	//memoArea.appendChild(div); 
     	
     	document.getElementById("modal").style.display = "none";
+    	count++;
     }
     
     

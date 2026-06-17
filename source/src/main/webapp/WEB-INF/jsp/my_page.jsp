@@ -49,28 +49,28 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </div>
 
 <div>
-<a href="/a2/DesignServlet.java" class="design">
+<a href="/a2/DesignServlet" class="design">
 	背景・アイコンの変更
 </a>
 </div>
 <br>
 <div>
-<a href="/a2/EditProfileServlet.java" class="profile">
+<a href="/a2/EditProfileServlet" class="profile">
 	基本情報の変更
 </a>
-<a href="/a2/PasswordServlet.java" class="password">
+<a href="/a2/PasswordServlet" class="password">
 	パスワードの変更
 </a>
 </div>
 <br>
 <div>
-<a href="/a2/LogoutServlet.java" class="logout">
+<a href="/a2/LogoutServlet" class="logout">
 	ログアウト
 </a>
 </div>
 <br>
 
-<a href="/a2/DeleteAccountServlet.java" class="delete_account">
+<a href="/a2/DeleteAccountServlet" class="delete_account">
 	退会手続き
 </a>
 
