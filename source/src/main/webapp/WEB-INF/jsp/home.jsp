@@ -54,7 +54,8 @@
 
 
 
-<h1>入力欄</h1>
+<h1>今日の記録</h1>
+<input type="submit" name="savetime" value="一時保存">
 
 
 
@@ -65,7 +66,7 @@
 体脂肪率(％)<input type="text" name="fat"><br>
 <br>
 スタンプ：
-	<select name="fstamp" id="stamp">
+	<select id="stamp" onchange="changestamp()">
     	<option value="1">なし</option>
 	    <option value="2">足トレ</option>
 	    <option value="3">背中トレ</option>
@@ -75,48 +76,12 @@
 	    <option value="7">酒</option>
 	</select>
 
+	<br>
+	<br>
 
-
-     <%-- <select name="fstamp" id="stamp">
-     
-     	<c:forEach var="s" items="${stampList}">
-        	<option value="${s}">
-            	${s}
-        	</option>
-    	</c:forEach> --%>
-
-	</select>
-     	<%-- <c:if test="${stamp == 1}">
-        	<option value="1">筋トレスタンプ１</option>
-    	</c:if>
-
-    	<c:if test="${stamp == 2}">
-        	<option value="2">筋トレスタンプ２</option>
-    	</c:if>
-
-    	<c:if test="${stamp == 3}">
-        	<option value="3">筋トレスタンプ３</option>
-    	</c:if>
-    	
-    	<c:if test="${stamp == 4}">
-        	<option value="4">筋トレスタンプ４</option>
-    	</c:if>
-    	
-    	<c:if test="${stamp == 5}">
-        	<option value="5">筋トレスタンプ５</option>
-    	</c:if>
-    
-    
-     --%>
- 		<%-- <c:forEach var="sestamp" items="${stampList}">
-        	<option value="${sestamp}" >
-            	${sestamp}
-        	</option>
-		</c:forEach>    	
-    </select> --%>
-
-
-
+	<img id="stampImage" src="" width="200">
+	
+	
 <br>
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
@@ -131,9 +96,11 @@
 <div id="memoArea"></div>
   
    <div id="modal" class="modal-background">
+   
     <div class="modal-content">
       <p>項目を追加</p>
-      
+      <!--  下の文でここに警告文が出るようになる　使用するために id="msg”をつけた-->
+      <div style="color:red" id="msg"></div>
       項目：
      <select name="trainingItem" id="item">
  		<c:forEach var="item" items="${itemList}">
@@ -177,29 +144,113 @@
 	}
 	
 
+    //画像表示する
+    
+    
+    function changestamp(){
+    	
+    	/* alert("動いた"); */
+    	
+    	const stamp = document.getElementById("stamp").value;
+
+        const image = document.getElementById("stampImage");
+        
+  
+        
+        if (stamp == "2") {
+        	image.src = "img/stamp1.png";
+        }else if (stamp == "3") {
+        	image.src = "img/stamp2.png";
+        }else if (stamp == "4") {
+        	image.src = "img/stamp3.png";
+        }else if (stamp == "5") {
+        	image.src = "img/stamp4.png";
+        }else if (stamp == "6") {
+        	image.src = "img/stamp5.png";
+        }else if (stamp == "7") {
+        	image.src = "img/stamp6.png";
+        }else if (stamp == "8") {
+        	image.src = "img/stamp7.png";
+        }else{
+        	image.src = "";
+        }
+    	
+    	
+    }
+	
+	
+    
+
+    
+    
     
     
     let count=0;
     function addItem(){
+    	//とりあえずansをfalseとして宣言
+    	let ans = false;
+    	//すべての追加されたものにcountがつくので、追加されている分だけループする
+    	for(let i = 0;i<count;i++){
+    		//追加された項目にはit+1されるので、ひとつひとつの項目をチェック
+    		//mの中にダンベルとかの種目が入る
+    		let m = document.getElementById("it"+i).value;
+    		
+    		//今ある種目と、直近でプルダウンから選んだものが一緒なら
+    		if(m ==document.getElementById("item").value ){
+    			//上のans変数の値をtrueに変更する
+    			ans = true;    			
+    		}
+    	}
     	
+    	//ひとつでも過去の種目と被っていたら
+    	if(ans==true){
+    		//エラーメッセージを出して
+    		document.getElementById("msg").textContent="同じ項目は選べません"
+    		//処理を終了する（ここより下の処理はさせない）
+    		return;
+    	}
     	//追加する場所のデータを取得してくる
 		let itemArea=document.getElementById("itemArea");
+    	const  div = document.createElement("div");
+    	div.id = "item"+count;
     	//改行のことをbrという変数に入れている
     	const br = document.createElement("br");
     	
     	
+    	//新しく <div> タグを作って,丸みを付けた四角い枠を作ってる
+    	/* let box = document.createElement("div");
+        box.style.border = "2px solid #999";
+        box.style.padding = "10px";
+        box.style.margin = "10px";
+        box.style.borderRadius = "8px";
+    	 */
+    	
     	
     	//テキストボックスに追加アイテムの作成（nameはit1~itn）
     	//ここではjspでは一行で書くものをJavaScriptから入れるので細分化している
-    	const input = document.createElement("input");//<input　inputをjspに入れるよ
-    	input.type="text";//<input type="text"　input typeはtextですよ
-    	input.name="it"+count; //<input type="text" name="it?"　名前はitにします。+countを付けているのでit1,it2のように順番につきます
-    	input.readOnly="true";//<input type="text" name="it?" readOnry　textの中身は変えられません。項目の部分なので書き換えられないようにする
-    	input.value=document.getElementById("item").value; //<input type="text" name="it?" readOnry value="ダンベル">　
-    														//上でユーザーが選択したでーたをvalue=に入れる文
     	
-    														
-    														
+    	
+    	//<input　inputをjspに入れるよ
+    	const input = document.createElement("input");
+    	//<input type="text"　input typeはtextですよ
+    	input.type="text";
+    	 //<input type="text" name="it?"　名前はitにします。+countを付けているのでit1,it2のように順番につきます
+    	input.name="it"+count;
+    	input.id = "it"+count; //id=it1,it2
+    	//<input type="text" name="it?" readOnry　textの中身は変えられません。項目の部分なので書き換えられないようにする
+    	input.readOnly="true";
+    	//<input type="text" name="it?" readOnry value="ダンベル">　
+		//上でユーザーが選択したでーたをvalue=に入れる文
+    	input.value=document.getElementById("item").value; 
+		
+		const deleteButton = document.createElement("input");
+		deleteButton.type="button";
+		deleteButton.value="削除";
+
+    	
+    	
+		
+		
     	//テキストエリアのデータを作成
    		const textarea = document.createElement("textarea");
     	//ここもカウントを入れることで項目に着けた名前と連動する　it１が追加されたらmemo１
@@ -207,13 +258,26 @@
    		
    		//上記で追加したアイテムをitemAreaに入れる
    		//divというタグをつくり、変数piに入れた
-   		let pi = document.createElement("div");
+   		//let pi = document.createElement("div");
    		//<div>項目</div>という形になる　タグの中に入れている
-   		pi.textContent = "項目";
+   		
    		//pi を itemArea (jspのitemAreaの位置）の中に追加
-   		itemArea.appendChild(pi);
+   		//itemArea.appendChild(pi);
    		//inputもitemArea (jspのitemAreaの位置）の中に追加
-   		itemArea.appendChild(input);
+   		div.textContent = "項目";
+   		div.appendChild(input);
+   		div.appendChild(deleteButton);
+		deleteButton.onclick = function(){
+			itemArea.removeChild(div);
+		}
+   		
+   		 let input1 = document.createElement("input");
+     	input1.type = "text";
+
+    	/*  box.appendChild(pi);
+    	 box.appendChild(input1);
+
+     	itemArea.appendChild(box); */
    		
    		
    		//JSPの内容を取ってきている　memoという変数を作っている
@@ -226,103 +290,117 @@
    			
    			
    			//重さ（距離）を追加する文
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let w = document.createElement("div");
    			w.textContent = "重さ（距離）";
    			
-   			itemArea.appendChild(w); 
+   			div.appendChild(w); 
    			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
 
-			itemArea.appendChild(weightinput);
+   			div.appendChild(weightinput);
 			
 			
+			/* box.appendChild(w);
+			box.appendChild(weightinput); */
 			
 			
 			//回数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let k = document.createElement("div");
    			k.textContent = "回数";
    			
-   			itemArea.appendChild(k); 
+   			div.appendChild(k); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
 
-			itemArea.appendChild(countinput);
+			div.appendChild(countinput);
    			
-   			
-			
+			/*box.appendChild(k);
+			box.appendChild(countinput);
+			 */
 			
    			
    			//セット数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let s = document.createElement("div");
    			s.textContent = "セット";
    			
-   			itemArea.appendChild(s); 
+   			div.appendChild(s); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "text";
 
-			itemArea.appendChild(setinput);
+			div.appendChild(setinput);
    			
-   			
+			/*box.appendChild(s);
+			box.appendChild(setinput); */
 			
 			
    			//メモを追加するための文
    			
    			//改行を作っている文章があり（document.createElement("br")のこと）、それをjspのitemAreaに追加している。（itemArea.appendChild(...)の文章の部分）
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			//メモという文字を入れる為のdiv作っている
    			let p = document.createElement("div");
    			p.textContent = "メモ";
    			
    			//上のpとtextを入れている
-   			itemArea.appendChild(p); 
+   			div.appendChild(p); 
    			//文字が書けるテキストボックスを入れている。
-   			itemArea.appendChild(textarea); 
+   			div.appendChild(textarea); 
    			
-   			
+   			itemArea.appendChild(div);
+   			/* box.appendChild(p);
+			box.appendChild(textarea);
+			
+			
+			itemArea.appendChild(box); */
    			
     	}else{
     		
     		
     		//重さ（距離）を追加する文
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let w = document.createElement("div");
    			w.textContent = "重さ（距離）";
    			
-   			itemArea.appendChild(w); 
+   			div.appendChild(w); 
    			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
 
-			itemArea.appendChild(weightinput);
+   			div.appendChild(weightinput);
 			
+			/* box.appendChild(w);
+			box.appendChild(weightinput); */
 			
 			
 			
 			//回数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let k = document.createElement("div");
    			k.textContent = "回数";
    			
-   			itemArea.appendChild(k); 
+   			div.appendChild(k);
+   			
+   			/* box.appendChild(k);
+			box.appendChild(countinput); */
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
 
-			itemArea.appendChild(countinput);
+			div.appendChild(countinput);
    			
    			
 			
@@ -330,17 +408,25 @@
    			
    			//セット数を追加する文
    			
-   			itemArea.appendChild(document.createElement("br"));
+   			div.appendChild(document.createElement("br"));
    			let s = document.createElement("div");
    			s.textContent = "セット";
    			
-   			itemArea.appendChild(s); 
+   			div.appendChild(s); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "text";
 
-			itemArea.appendChild(setinput);
+			div.appendChild(setinput);
+			
+			itemArea.appendChild(div);
+			/* 
+			box.appendChild(s);
+			box.appendChild(setinput);
+			
+			itemArea.appendChild(box); */
+			
     		
     	}
     	
@@ -411,6 +497,7 @@
     	//memoArea.appendChild(div); 
     	
     	document.getElementById("modal").style.display = "none";
+    	count++;
     }
     
     

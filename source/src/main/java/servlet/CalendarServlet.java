@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +69,7 @@ public class CalendarServlet extends HttpServlet {
         // メモ内容の取得
         Map<String, String> memoMap = dao.getMemo(userId, yearMonth);
         
-        Map<String, List<Storage>> trainingMap = new HashMap<>();
+        List<Storage> trainingMap = dao.getTrainingByDate(userId, yearMonth);
 
         // JSPに渡す
         request.setAttribute("year", year);

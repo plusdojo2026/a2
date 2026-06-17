@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- グラフ作成用Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <title>マメッスル|成長記録</title>
 </head>
 <body>
@@ -20,26 +22,29 @@
 <!--　メインここから　-->
 <main>
 
-
 <div>
-	トレーニング項目<select name="tr_items">
+	トレーニング項目<select name="tr_item">
 		<c:forEach var="e" items="${gItem}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
-		 <option value="${e.tr_id}"><c:out value="${e.tr_item}" />
+		 <option><c:out value="${e.tr_item}" />
 		 </option>
 	 	</c:forEach> 
 	</select><br>
 </div> 
+<!-- グラフを表示する場所 -->
+<canvas id = "lineChart"></canvas>
 
 <!-- グラフデータ -->
 <div>
- <c:forEach ver="gi" items="${GraphList}">
+ <c:forEach var="gi" items="${GraphList}">
+ 	<c:out value="${gi.tr_item }">
+ 	</c:out>
  	<c:out value="${gi.tr_weight}">
- 	</c:out><br>
- 	 <c:out value="${gi.counts}">
- 	</c:out><br> 	
- 	<c:out value="${gi.sets}">
- 	</c:out><br> 	
+ 	</c:out>kg
+ 	 <c:out value="${gi.counts}">回
+ 	</c:out> 回	
+ 	<c:out value="${gi.sets}">セット
+ 	</c:out> セット	
  	<c:out value="${gi.TD_date}">
  	</c:out><br>
  </c:forEach>
@@ -70,7 +75,6 @@
 
 </footer>
 <!--　フッターここまで　-->
-
 <script>
 
 'use strict'
@@ -88,7 +92,9 @@ function showDay(){
 	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
 }
 
-//
+//グラフ作成
+
+
 
 </script>
 </body>
