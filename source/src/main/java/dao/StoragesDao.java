@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dto.Storage;
+import dto.Graph;
 public class StoragesDao {
 	/*
 	 * public List<Storage> select(Storage ???) { Connection conn = null;
@@ -272,10 +272,11 @@ public class StoragesDao {
 //}						
 	
 	//-----------成長記録ページDAOここから---------------//
-	public List<Storage> getGraphList(String userId,int year,int MonthNumber){
+	public List<Graph> getGraphList(String userId,int year,int MonthNumber){
 		//
 		Connection conn = null;
-		List<Storage> GraphList = new ArrayList<Storage>();
+		List<Graph> GraphList = new ArrayList<Graph>();
+		
 	try {
 			// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
