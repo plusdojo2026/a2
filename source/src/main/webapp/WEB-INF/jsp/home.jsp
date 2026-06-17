@@ -170,7 +170,7 @@
         }else if (stamp == "8") {
         	image.src = "img/stamp7.png";
         }else{
-        	image.src = none;
+        	image.src = "";
         }
     	
     	
