@@ -43,6 +43,7 @@
 <input type="submit" value="15">
 </div>
 </form>
+<a href="/a2/MyPageServlet">戻る</a>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
