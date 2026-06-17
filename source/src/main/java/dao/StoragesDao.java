@@ -343,10 +343,10 @@ public class StoragesDao {
 		//スタンプ取得用
 		
 		
-		public int getStamp(String userId) {
+		public List<Integer> getStampList() {
 
-			
-			int stamp = 0;
+			//リストにする
+			List<Integer> stampList = new ArrayList<>();
 
 			
 		    Connection conn = null;
@@ -364,21 +364,21 @@ public class StoragesDao {
 		        
 				
 				
-		        // SQL文を準備する
-		        String sql = "SELECT stamp FROM storages "
-			               + "WHERE user_id = ? ";
+		        // SQL文を準備する　stampの番号をとってきている
+		        String sql = "SELECT stamp FROM storages ";
 		        
 		        ps = conn.prepareStatement(sql);
 		        
-		        ps.setString(1, userId);
+//		        ps.setString();
 		        
 		        // SQL文を実行し、結果表を取得する
 		        rs = ps.executeQuery();
 		        
-		        if (rs.next()) {
-		            stamp = rs.getInt("stamp");
-		            
-		        }
+		        
+		        while (rs.next()) {
+		        	stampList.add(rs.getInt("stamp"));
+		        	}
+		        
 
 		    } catch (SQLException e) {
 				e.printStackTrace();
@@ -395,7 +395,7 @@ public class StoragesDao {
 				}
 			}
 
-		    return stamp;
+		    return stampList;
 		}
 }
 
