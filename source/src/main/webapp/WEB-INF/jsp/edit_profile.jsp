@@ -14,33 +14,38 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-<form method=POST action="/a2/EditProfileServlet.java">
-<p>　ID：</p><c:out value="${userInfo.userId}"/>
+<c:out value="${message.message}"/>
+<form method=POST action="/a2/EditProfileServlet">
+<p>　ID：<c:out value="${userInfo.userId}"/></p>
+<input type="hidden" name="userId" value="${userInfo.userId}">
 <div>
 	<table>
 		<tr>
 			<th>ユーザー名</th>
-			<td><input type="text" value="${userInfo.userName}"></td>
+			<td><input type="text" name="userName" value="${userInfo.userName}"></td>
 		<tr>
 		<tr>
 			<th>身長</th>
-			<td><input type="text" value="${userInfo.height}"></td>
+			<td><input type="text" name="height" value="${userInfo.height}"></td>
 		<tr>
 		<tr>
 			<th>性別</th>
 			<td>
-				<input type="radio" name="gender" value="woman">
-				<input type="radio" name="gender" value="man">
-				<input type="radio" name="gender" value="other">
+				男:<input type="radio" name="gender" value="man" 
+				${userInfo.gender == 'man' ? 'checked' : ''}>
+				女:<input type="radio" name="gender" value="woman" 
+				${userInfo.gender == 'woman' ? 'checked' : ''}>
+				その他:<input type="radio" name="gender" value="other" 
+				${userInfo.gender == 'other' ? 'checked' : ''}>
 			</td>
 		<tr>
 		<tr>
 			<th>目標体重</th>
-			<td><input type="text" value="${userInfo.targetWheight}"></td>
+			<td><input type="text" name="targetWeight" value="${userInfo.targetWeight}"></td>
 		<tr>
 	</table>
 </div>
-<a href="/a2/MyPageServlet.java">戻る</a>
+<a href="/a2/MyPageServlet">戻る</a>
 <input type="submit" value="更新">
 </form>
 

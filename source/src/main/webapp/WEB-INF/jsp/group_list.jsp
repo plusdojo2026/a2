@@ -83,7 +83,7 @@
         
         <h3 id="modal-group-name">グループ名</h3>
         
-        <p style="font-size: 14px; color: #666; margin-bottom: 5px;">現在のメンバー：</p>
+        <p style="font-size: 14px; color: #666; margin-bottom: 5px;">現在のメンバー</p>
         
         <div id="modal-members-area" style="max-height: 120px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px; background: #f9f9f9; border-radius: 5px;">
             </div>
@@ -125,7 +125,7 @@
         const membersHtml = element.querySelector(".modal-members-data").innerHTML;
         document.getElementById("modal-members-area").innerHTML = membersHtml;
         
-        document.getElementById("modal-add-member-btn").href = "GroupMemberAddServlet?groupId=" + groupId;
+        document.getElementById("modal-add-member-btn").href = "GroupAddServlet?groupId=" + groupId;
         document.getElementById("group-modal").style.display = "block";
     }
 

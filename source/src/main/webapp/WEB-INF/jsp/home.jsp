@@ -89,7 +89,7 @@
 
 <input type="submit" name="saveb" value="保存">
 <button onclick="openModal()">＋項目を追加</button>
-<input type="submit" name="deli" value="ー項目を削除">
+<!-- <input type="submit" name="deli" value="ー項目を削除"> -->
 
 <!-- <form method="POST" action="/a2/HomeServlet"> -->
 
@@ -178,11 +178,24 @@
     	
     }
 	
-	
-    
 
     
-    
+
+
+	 function closeModal() {
+ 	    document.getElementById("modal").style.display = "none";
+
+ 	    // エラーメッセージを消す
+ 	    document.getElementById("msg").textContent = "";
+ 	}
+ 	
+ 	function openModal() {
+ 	    document.getElementById("modal").style.display = "block";
+
+ 	    // エラーメッセージを消す
+ 	    document.getElementById("msg").textContent = "";
+ 	}  
+ 	
     
     
     let count=0;
@@ -193,14 +206,29 @@
     	for(let i = 0;i<count;i++){
     		//追加された項目にはit+1されるので、ひとつひとつの項目をチェック
     		//mの中にダンベルとかの種目が入る
-    		let m = document.getElementById("it"+i).value;
     		
-    		//今ある種目と、直近でプルダウンから選んだものが一緒なら
-    		if(m ==document.getElementById("item").value ){
-    			//上のans変数の値をtrueに変更する
-    			ans = true;    			
+    		
+    		/* let m = document.getElementById("it"+i).value; */
+    		
+    		let mm = document.getElementById("it"+i);
+    		
+    		if(mm !=null){
+    			
+    			let m = mm.value;
+    			
+    			//今ある種目と、直近でプルダウンから選んだものが一緒なら
+        		if(m ==document.getElementById("item").value ){
+        			//上のans変数の値をtrueに変更する
+        			ans = true;    			
+        		}
+    			
     		}
-    	}
+    		
+    		
+    }
+    	
+    	
+
     	
     	//ひとつでも過去の種目と被っていたら
     	if(ans==true){
@@ -217,13 +245,7 @@
     	const br = document.createElement("br");
     	
     	
-    	//新しく <div> タグを作って,丸みを付けた四角い枠を作ってる
-    	/* let box = document.createElement("div");
-        box.style.border = "2px solid #999";
-        box.style.padding = "10px";
-        box.style.margin = "10px";
-        box.style.borderRadius = "8px";
-    	 */
+    	
     	
     	
     	//テキストボックスに追加アイテムの作成（nameはit1~itn）
@@ -247,7 +269,13 @@
 		deleteButton.type="button";
 		deleteButton.value="削除";
 
-    	
+		
+		deleteButton.onclick = function(){
+			if(confirm("削除しますか？")){
+				itemArea.removeChild(div);
+				alert("削除しました");
+				}
+			}
     	
 		
 		
@@ -267,17 +295,14 @@
    		div.textContent = "項目";
    		div.appendChild(input);
    		div.appendChild(deleteButton);
-		deleteButton.onclick = function(){
+		/* deleteButton.onclick = function(){
 			itemArea.removeChild(div);
-		}
+		} */
    		
    		 let input1 = document.createElement("input");
      	input1.type = "text";
 
-    	/*  box.appendChild(pi);
-    	 box.appendChild(input1);
-
-     	itemArea.appendChild(box); */
+    
    		
    		
    		//JSPの内容を取ってきている　memoという変数を作っている
@@ -303,8 +328,6 @@
    			div.appendChild(weightinput);
 			
 			
-			/* box.appendChild(w);
-			box.appendChild(weightinput); */
 			
 			
 			//回数を追加する文
@@ -321,9 +344,7 @@
 
 			div.appendChild(countinput);
    			
-			/*box.appendChild(k);
-			box.appendChild(countinput);
-			 */
+			
 			
    			
    			//セット数を追加する文
@@ -340,8 +361,7 @@
 
 			div.appendChild(setinput);
    			
-			/*box.appendChild(s);
-			box.appendChild(setinput); */
+			
 			
 			
    			//メモを追加するための文
@@ -358,11 +378,8 @@
    			div.appendChild(textarea); 
    			
    			itemArea.appendChild(div);
-   			/* box.appendChild(p);
-			box.appendChild(textarea);
-			
-			
-			itemArea.appendChild(box); */
+   			
+   			
    			
     	}else{
     		
@@ -380,8 +397,7 @@
 
    			div.appendChild(weightinput);
 			
-			/* box.appendChild(w);
-			box.appendChild(weightinput); */
+			
 			
 			
 			
@@ -393,8 +409,7 @@
    			
    			div.appendChild(k);
    			
-   			/* box.appendChild(k);
-			box.appendChild(countinput); */
+   			
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
@@ -421,90 +436,32 @@
 			div.appendChild(setinput);
 			
 			itemArea.appendChild(div);
-			/* 
-			box.appendChild(s);
-			box.appendChild(setinput);
-			
-			itemArea.appendChild(box); */
+		
 			
     		
     	}
     	
     	
-    	/* 
-    	//セレクトboxのデーターを取得（ダンベルとか）
-		let it = document.getElementById("item").value;
-    	
-		
-		
-		
-		//pタグを作り出して、pという名前をつける
-		let p = document.createElement("p");
-		
-		
-		//上のpタグの中にダンベルとかの情報を入れる<p>ダンベル</p>みたいになる
-		p.textContent = it;
-		
-		
-		//上の<p>ダンベル</p>みたいなのを規定の場所に追加する
-		itemArea.appendChild(p);
-    	
-		
-    	//JSPの内容を取ってきている　memoという変数を作っている
-    	//input[name="memo"]:checkedの意味　name="memo"が使われている、inputを取ってくる。checkedは選ばれている方
-    	//valueは取得する物自体。今回の場合は（1,2のどちらか）
-    	const memo = document.querySelector('input[name="memo"]:checked').value;
+
     	
     	
-    	
-    	
-    	
-    	//memoAreaというものはjspの<div id="memoArea"></div>をさす
-    	const memoArea = document.getElementById("memoArea");
-    	
-    	
-    	
-    	//div.innerHTML = item + "<br>";　を使用するための文　<div>アイテムの名前</div>の<div>を新しく作った
-    	const div = document.createElement("div");
-    	
-    	
-    	
-    	//select name="trainingItem"の部分を指している　valueは帰ってきた単語なので項目名になる
-    	const item =document.querySelector('select[name="trainingItem"]').value;
-    	
-    	
-    	
-    	
-    	//ここでdivタグの中に　アイテムと改行を作っている
-    	div.innerHTML = item + "<br>";
-    	
-    	
-    	
-    	
-    	
-    	if(memo == "1"){
-    		// memoArea.innerHTMLはここでいうと<div id="memoArea">○○○○</div>の○○○○の部分
-    		//ここでは○○○○が　=の後の　'<textarea name="memo"></textarea>'　に書き換わる　つまりtextbox追加！
-    		/* memoArea.innerHTML ='<textarea name="memo"></textarea>'; */
-    		 
-    		 
-    		//const textarea = document.createElement("textarea"); 
-    		
-    		//appendChildはtext追加の意味！
-    		// memoArea.appendChild(textarea);
-    	//}
-    	
-    	//memoArea.appendChild(div); 
     	
     	document.getElementById("modal").style.display = "none";
+    	
+    	//countを増やしている
+   
+    	
     	count++;
+
+    	document.getElementById("modal").style.display = "none";
+    	document.getElementById("msg").textContent = "";
     }
     
     
-    function openModal() {
+ /*    function openModal() {
         document.getElementById("modal").style.display = "block";
     }
-    
+     */
     
     function closeModal() {
         document.getElementById("modal").style.display = "none";
@@ -512,46 +469,6 @@
     
     
     
-   /*  const textarea = document.createElement("textarea");
-    memoArea.appendChild(textarea); */
-    
-    
-    
-    
-   /* // モーダル表示
-    function openModal() {
-      document.getElementById("modal").style.display = "block";
-    }
-
-    // モーダル非表示
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-     */
-    
-/*   //メモの有無でメモ欄を表示
-    function closeModal(){
-    	
-    	
-    	const memo = document.querySelector('input[name="memo"]:checked').value;
-    	
-    	
-        
-    	
-    	if(memo == "1"){
-    		//有を選択（１を選択されたとき）　blockは　displayを使用したときに使える「要素を表示する」単語
-    		document.getElementById("tx").style.display = "block";
-    	}else{
-    		//無を選択（２を選択されたとき）noneは非表示
-    		 document.getElementById("tx").style.display = "none";
-    	}
-    	
-    } */
-    
-    
-   /*  function closeModal() {
-        alert("実行された");
-    } */
 
   </script>
 

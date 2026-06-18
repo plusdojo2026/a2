@@ -13,33 +13,7 @@ import java.util.Map;
 import dto.Graph;
 import dto.Storage;
 public class StoragesDao {
-	/*
-	 * public List<Storage> select(Storage ???) { Connection conn = null;
-	 * List<Storage> cardList = new ArrayList<Storage>();
-	 * 
-	 * 
-	 * try {
-	 * 
-	 * // JDBCドライバを読み込む データベース接続した Class.forName("com.mysql.cj.jdbc.Driver");
-	 * 
-	 * 
-	 * conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2" +
-	 * "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-	 * "root", "password");
-	 * 
-	 * 
-	 * // SQL文を準備する String sql =
-	 * "SELECT number, company, department, position, name, " +
-	 * "zipcode, address, phone, fax, email, remarks " + "FROM Bc " +
-	 * "WHERE company LIKE ? AND department LIKE ? AND position LIKE ? " +
-	 * "AND name LIKE ? AND zipcode LIKE ? AND address LIKE ? AND phone LIKE ? " +
-	 * "AND fax LIKE ? AND email LIKE ? AND remarks LIKE ? " + "ORDER BY number";
-	 * PreparedStatement pStmt = conn.prepareStatement(sql);
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
+	
 	
 	
 	
@@ -215,11 +189,11 @@ public class StoragesDao {
 
 	/*
      * 指定された日付のトレーニング内容を取得するメソッド
-     * 返り値：List<Storage>（list）
+     * 返り値：List<Storage>（trainingList）
      */
-	public List<Storage> getTrainingByDate(String userId, String date) {
+	public Map<String, List<Storage>> getTrainingByMonth(String userId, String yearMonth) {
 
-	    List<Storage> list = new ArrayList<>();
+		Map<String, List<Storage>> trainingMap = new HashMap<>();
 
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -235,18 +209,19 @@ public class StoragesDao {
 					"root", "password");
 			
 			// SQL文を準備する
-	        String sql = "SELECT id, tr_id, tr_weight, counts, sets, memo "
+			String sql = "SELECT date, id, tr_id, tr_weight, counts, sets, memo "
 	                   + "FROM tr_strages "
-	                   + "WHERE user_id = ? AND date = ? "
-	                   + "ORDER BY id";
+	                   + "WHERE user_id = ? AND DATE_FORMAT(date, '%Y-%m') = ? "
+	                   + "ORDER BY date, id";
 
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, userId);
-	        ps.setString(2, date);
-
+	        ps.setString(2, yearMonth);
 	        rs = ps.executeQuery();
 
 	        while (rs.next()) {
+	            String date = rs.getString("date"); // 例: 2026-06-10
+	            
 	            Storage s = new Storage();
 	            s.setId(rs.getInt("id"));
 	            s.setTr_id(rs.getInt("tr_id"));
@@ -255,7 +230,8 @@ public class StoragesDao {
 	            s.setSets(rs.getInt("sets"));
 	            s.setMemo(rs.getString("memo"));
 
-	            list.add(s);
+	            // 日付ごとのリストを取得、なければ新規作成してMapに格納
+	            trainingMap.computeIfAbsent(date, k -> new ArrayList<>()).add(s);
 	        }
 
 	    } catch (SQLException e) {
@@ -273,66 +249,142 @@ public class StoragesDao {
 			}
 		}
 
-	    return list;
+	    return trainingMap;
 	}
+	
+	
+	
+	/*
+	 * トレーニング内容を新規追加するメソッド
+	 */
+	public boolean insertTraining(String userId, String date, Storage s) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        String sql = "INSERT INTO tr_strages (user_id, date, tr_id, tr_weight, counts, sets, memo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, userId);
+	        ps.setString(2, date);
+	        ps.setInt(3, s.getTr_id());
+	        ps.setInt(4, s.getTr_weight());
+	        ps.setInt(5, s.getCounts());
+	        ps.setInt(6, s.getSets());
+	        ps.setString(7, s.getMemo());
+	        
+	        return ps.executeUpdate() > 0;
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    return false;
+	}
+
+	/*
+	 * 既存のトレーニング内容を更新するメソッド（主キーidを指定）
+	 */
+	public boolean updateTraining(Storage s) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        String sql = "UPDATE tr_strages SET tr_id = ?, tr_weight = ?, counts = ?, sets = ?, memo = ? WHERE id = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, s.getTr_id());
+	        ps.setInt(2, s.getTr_weight());
+	        ps.setInt(3, s.getCounts());
+	        ps.setInt(4, s.getSets());
+	        ps.setString(5, s.getMemo());
+	        ps.setInt(6, s.getId());
+	        
+	        return ps.executeUpdate() > 0;
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    return false;
+	}
+
+	/*
+	 * トレーニング内容を削除するメソッド
+	 */
+	public boolean deleteTraining(int id) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        String sql = "DELETE FROM tr_strages WHERE id = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, id);
+	        
+	        return ps.executeUpdate() > 0;
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    return false;
+	}
+	
 
 	//-------------カレンダーページのDAOここまで--------------//
 
 	
 	
-//public class StoragesDao {
-//	public List<Storage> select(Storage ) {
-//		Connection conn = null;
-//		List<Storage> cardList = new ArrayList<Storage>();
-//		
-//		
-//		try {
-//			
-//			// JDBCドライバを読み込む データベース接続した
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			
-//			// データベースに接続する
-//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2"
-//					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-//					"root", "password");
-//			
-//			
-//			
-//			
-//			// SQL文を準備する
-//			String sql = "SELECT"
-//					+ "storage_id, "
-//					+"user_id, "
-//					+"weight, "
-//					+"fat, "
-//					+"memo, "
-//					+"stamp, "
-//					+"date, "
-//					+"id, "
-//					+"tr_id, "
-//					+"tr_weight, "
-//					+"counts, "
-//					+"sets, "
-//					+ "FROM storages"
-//					+ "WHERE storage_id LIKE ?" 
-//					+ "AND user_id LIKE ? "
-//					+ "AND weight LIKE ?"
-//					+ "AND fat LIKE ?"
-//					+ "AND memo LIKE ?"
-//					+ "AND stamp LIKE ?"
-//					+ "AND date LIKE ?"
-//					+ "AND id LIKE ?"
-//					+ "AND tr_id LIKE ?"
-//					+ "AND tr_weight LIKE ?"
-//					+ "AND counts LIKE ?"
-//					+ "AND sets LIKE ?"
-//					+ "ORDER BY storage_id";
-//					
-//			PreparedStatement pStmt = conn.prepareStatement(sql);	
-//			
-//						
-//		}
-//}						
+				
 	
 	//-----------成長記録ページDAOここから---------------//
 	//記録内容トレーニング内容の取得

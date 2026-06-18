@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.StoragesDao;
+import dao.TrItemsDao;
 import dto.Storage;
+import dto.TrItem;
 
 @WebServlet("/CalendarServlet")
 public class CalendarServlet extends HttpServlet {
@@ -56,20 +58,25 @@ public class CalendarServlet extends HttpServlet {
         StoragesDao dao = new StoragesDao();
         String yearMonth = String.format("%04d-%02d", year, month);
         Map<String, Integer> stampMap = dao.getStampByMonth(userId, yearMonth);
-
-        // カレンダーの日付リストを作成
-        List<DayData> dayList = new ArrayList<>();
-        for (int d = 1; d <= lastDay; d++) {
-            LocalDate date = LocalDate.of(year, month, d);
-            dayList.add(new DayData(d, date.toString())); // 例:"2026-06-10"
-        }
-
-        int currentYear = LocalDate.now().getYear();
-        
         // メモ内容の取得
         Map<String, String> memoMap = dao.getMemo(userId, yearMonth);
         
-        List<Storage> trainingMap = dao.getTrainingByDate(userId, yearMonth);
+        int currentYear = LocalDate.now().getYear();
+        
+        
+        // --- ループの外で一括取得 ---
+        Map<String, List<Storage>> trainingMap = dao.getTrainingByMonth(userId, yearMonth); // 1回だけSQL実行
+
+        List<DayData> dayList = new ArrayList<>();
+        for (int d = 1; d <= lastDay; d++) {
+            LocalDate date = LocalDate.of(year, month, d);
+            String fullDate = date.toString();
+
+            dayList.add(new DayData(d, fullDate));
+
+        }
+        TrItemsDao trItemDao = new TrItemsDao();
+        List<TrItem> itemList = trItemDao.getAllTrainingItems();
 
         // JSPに渡す
         request.setAttribute("year", year);
@@ -80,6 +87,8 @@ public class CalendarServlet extends HttpServlet {
         request.setAttribute("stampMap", stampMap);
         request.setAttribute("currentYear", currentYear);
         request.setAttribute("memoMap", memoMap);
+        request.setAttribute("trainingMap", trainingMap);
+        request.setAttribute("itemList", itemList);
 
         request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp").forward(request, response);
     }
@@ -90,17 +99,40 @@ public class CalendarServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
-        String date = request.getParameter("date");
-        int stamp = Integer.parseInt(request.getParameter("stamp"));
-        String memo = request.getParameter("memo");
+        StoragesDao dao = new StoragesDao();
         String userId = "user1"; // 本来はセッションから取得
         
-        StoragesDao dao = new StoragesDao();
-        // 更新か新規追加
-        dao.saveRecord(userId, date, stamp, memo);
+        // 処理の判定用パラメータを取得
+        String action = request.getParameter("action");
 
-        // カレンダーに戻る
+        if (action == null) {
+            // 既存の「スタンプ・全体メモ」の更新（actionがない場合は従来通りの挙動）
+            String date = request.getParameter("date");
+            int stamp = Integer.parseInt(request.getParameter("stamp"));
+            String memo = request.getParameter("memo");
+            
+            dao.saveRecord(userId, date, stamp, memo);
+
+        } else if (action.equals("update")) {
+            // トレーニング内容の「変更」
+            Storage s = new Storage();
+            s.setId(Integer.parseInt(request.getParameter("id")));
+            s.setTr_id(Integer.parseInt(request.getParameter("tr_id")));
+            s.setTr_weight(Integer.parseInt(request.getParameter("tr_weight")));
+            s.setCounts(Integer.parseInt(request.getParameter("counts")));
+            s.setSets(Integer.parseInt(request.getParameter("sets")));
+            s.setMemo(request.getParameter("tr_memo"));
+
+            dao.updateTraining(s); // 作成したDAOメソッド
+
+        } else if (action.equals("delete")) {
+            // トレーニング内容の「削除」
+            int id = Integer.parseInt(request.getParameter("id"));
+            
+            dao.deleteTraining(id); // 作成したDAOメソッド
+        }
+
+        // カレンダーへリダイレクト
         response.sendRedirect("/a2/CalendarServlet");
     }
     
