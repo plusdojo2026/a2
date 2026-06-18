@@ -62,8 +62,17 @@
 
 
 <h2>基本データ</h2>
+<form method="POST" action="HomeServlet">
 体重(kg)　<input type="text" name="weight"><br>
 体脂肪率(％)<input type="text" name="fat"><br>
+<br>
+<br>
+<input type ="text" id ="c" name = "coun"><br>
+<!-- <input type ="hidden" id ="c" name = "count"><br> -->
+<br>
+
+一日メモ<br>
+<textarea name="comments"></textarea>
 <br>
 スタンプ：
 	<select id="stamp" onchange="changestamp()">
@@ -86,6 +95,9 @@
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
+
+
+</form>
 
 <input type="submit" name="saveb" value="保存">
 <button onclick="openModal()">＋項目を追加</button>
@@ -324,7 +336,7 @@
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
-
+   			weightinput.name ="tr_weight" + count;
    			div.appendChild(weightinput);
 			
 			
@@ -341,7 +353,7 @@
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
-
+			countinput.name ="counts" + count;
 			div.appendChild(countinput);
    			
 			
@@ -358,7 +370,7 @@
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "text";
-
+			setinput.name ="sets" + count;
 			div.appendChild(setinput);
    			
 			
@@ -379,7 +391,7 @@
    			
    			itemArea.appendChild(div);
    			
-   			
+   			textarea.name  = "memo" + count;
    			
     	}else{
     		
@@ -394,7 +406,7 @@
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
-
+   			weightinput.name ="tr_weight"+ count;
    			div.appendChild(weightinput);
 			
 			
@@ -414,7 +426,7 @@
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
-
+			countinput.name ="counts" + count;
 			div.appendChild(countinput);
    			
    			
@@ -432,7 +444,7 @@
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "text";
-
+			setinput.name ="sets" + count;
 			div.appendChild(setinput);
 			
 			itemArea.appendChild(div);
@@ -453,6 +465,7 @@
     	
     	count++;
 
+    	document.getElementById("c").value =count;
     	document.getElementById("modal").style.display = "none";
     	document.getElementById("msg").textContent = "";
     }
