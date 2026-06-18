@@ -33,6 +33,16 @@ public class HomeServlet extends HttpServlet {
 //
 		request.setAttribute("itemList", items);
 
+		//IDが削除された場合、同じIDでログインしてホームに飛べないようにする
+		
+//		String userId = "mamemame01";
+//		
+//		// 登録処理を行う
+//		UsersDao uDao = new UsersDao();
+//		int logocal = uDao.getLogical(userId);
+//		
+		
+		
 
 		
 		
