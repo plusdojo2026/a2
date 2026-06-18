@@ -104,21 +104,31 @@ public class HomeServlet extends HttpServlet {
 					
 					Storage  dto = new Storage();
 					
-					dto.setTr_id(Integer.parseInt(request.getParameter("it"+ i)));
+					
 					dto.setTr_weight(Integer.parseInt(request.getParameter("tr_weight"+ i)));
 					dto.setCounts(Integer.parseInt(request.getParameter("counts"+ i)));
 					dto.setSets(Integer.parseInt(request.getParameter("sets"+ i)));
-					
-		
-				
+					dto.setTrItem(request.getParameter("it"+ i));
 					
 					
+					TrItemsDao trDao = new TrItemsDao();
+					
+					//ここでとってきた名前をもとに
+					String trItem = request.getParameter("it" + i);
+					
+					//名前がIDにかわる
+					int trId = trDao.getTrIdByItem(trItem);
+					
+					/* detalist.add(dto); */
+					
+					dto.setTr_id(trId);
 					detalist.add(dto);
-					
 					
 				}
 				
-				System.out.println("データ件数: " + detalist.size());
+				
+				
+				 System.out.println("データ件数: " + detalist.size()); 
 				
 		
 		// ユーザーIDなど

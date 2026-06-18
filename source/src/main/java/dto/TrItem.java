@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class  TrItem implements Serializable{
 	private String TrId;			//トレーニングid
-	private String TrItem;		//トレーニング項目
-
-//ゲッターセッタ―
+	private String TrItem;
+	
+	//トレーニング項目
 	public String getTrId() {
 		return TrId;
 	}
@@ -16,17 +16,23 @@ public class  TrItem implements Serializable{
 	public String getTrItem() {
 		return TrItem;
 	}
-
-//コンストラクタ
 	public void setTrItem(String trItem) {
 		TrItem = trItem;
 	}
+	
+	public TrItem() {
+		
+	}
+	
+	
 	public TrItem(String trId, String trItem) {
 		super();
 		TrId = trId;
 		TrItem = trItem;
 	}
-	public TrItem() {
-	}
-
+	
 }
+	
+	
+	
+

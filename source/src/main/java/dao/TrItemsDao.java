@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,44 @@ public class TrItemsDao {
 	    
 	    return itemList;
 	}
+	
+	
+	
+	//トレーニングIDを取ってくる
+	
+	
+		public int getTrIdByItem(String trItem) {
+		    
+		    Connection conn = null;
+		    PreparedStatement pStmt = null;
+		    ResultSet rs = null;
+
+		    try {
+		    	
+		    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+		    	    	+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+		    	    	"root", "password");
+		    	    	
+
+		    	
+		        String sql =
+		            "SELECT tr_id FROM tr_items WHERE tr_item = ?";
+
+		        pStmt = conn.prepareStatement(sql);
+		        pStmt.setString(1, trItem);
+
+		        rs = pStmt.executeQuery();
+
+		        if (rs.next()) {
+		            return rs.getInt("tr_id");
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return 0;
+		}
 	
 	
 	//-------------カレンダーページのDAOここから--------------//

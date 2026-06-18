@@ -15,12 +15,20 @@ public class Storage implements Serializable{
 	private int stamp;
 	private Date date;
 	private int id;
-	private int tr_id;
+	private int tr_id; 
 	private int tr_weight;
 	private int counts;
 	private int sets;
+	private String trItem;
 	
 	
+	
+	public  String getTrItem() {
+		return trItem;
+	}
+	public void setTrItem(String trItem) {
+		this.trItem = trItem;
+	}
 	
 	//ゲッターとセッター
 	public int getStorage_id() {
