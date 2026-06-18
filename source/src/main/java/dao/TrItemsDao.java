@@ -122,7 +122,7 @@ public class TrItemsDao {
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 						"root", "password");
 				
-				String sql = "SELECT tr_id, tr_item FROM tr_item ORDER BY tr_id ASC";
+				String sql = "SELECT tr_id, tr_item FROM tr_items ORDER BY tr_id ASC";
 				ps = conn.prepareStatement(sql);
 				rs = ps.executeQuery();
 				

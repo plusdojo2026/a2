@@ -130,6 +130,18 @@ public class CalendarServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             
             dao.deleteTraining(id); // 作成したDAOメソッド
+        } else if (action.equals("insert")) {
+            // トレーニング内容の「新規」
+        	String date = request.getParameter("date");
+        	Storage s = new Storage();
+			/* s.setId(Integer.parseInt(request.getParameter("id"))); */
+            s.setTr_id(Integer.parseInt(request.getParameter("tr_id")));
+            s.setTr_weight(Integer.parseInt(request.getParameter("tr_weight")));
+            s.setCounts(Integer.parseInt(request.getParameter("counts")));
+            s.setSets(Integer.parseInt(request.getParameter("sets")));
+            s.setMemo(request.getParameter("tr_memo"));
+            
+            dao.insertTraining(userId, date, s); // 作成したDAOメソッド
         }
 
         // カレンダーへリダイレクト
