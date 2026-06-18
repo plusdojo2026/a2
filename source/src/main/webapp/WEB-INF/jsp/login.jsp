@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>マメッスル</title>
+<title>ログイン</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>
