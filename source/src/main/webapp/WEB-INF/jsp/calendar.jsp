@@ -140,8 +140,9 @@
 	const masterItemsJs = [];
 	<c:forEach var="item" items="${itemList}">
 	    masterItemsJs.push({
-	        id: "${item.TrId}",
-	        name: "${item.TrItem}"
+	    	// TrIdやTrItemだとできない（原因不明）
+	        id: "${item.trId}",
+	        name: "${item.trItem}"
 	    });
 	</c:forEach>
 
