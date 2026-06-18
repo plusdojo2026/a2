@@ -36,7 +36,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--ヘッダーここまで-->
 <!--メインここから-->
 <main>
-
+<p><c:out value="${message}"/></p>
 <c:out value="${userInfo.point}"/>:豆pt
 <div class="my_page_user_info">
     <div class="circle">

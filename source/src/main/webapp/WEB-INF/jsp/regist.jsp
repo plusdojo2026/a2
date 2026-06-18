@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>新規会員登録</title>
 
 
 </head>
@@ -26,7 +27,7 @@
 	ユーザー名*<input type="text" name="user"><br>
 	性別<input type="radio" name="gender" value="male"> 男性
 	　　　<input type="radio" name="gender" value="female"> 女性
-	　　　<input type="radio" name="gender" value="other"> その他<br>
+	　　　<input type="radio" name="gender" value="other" checked> その他<br>
 	身長*<input type="number" step="0.1" name="height"><br>
 	目標体重*<input type="number" step="0.1" name="target_weight"><br>
 	
@@ -34,10 +35,10 @@
 	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
 	
 
-</form>
-<input type="button"  onclick="re()" value="リセット">
-<input type="submit" onclick="location.href='home.jsp'" value="登録">
 
+<input type="button"  onclick="re()" value="リセット">
+<input type="submit"  value="登録">
+</form>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -58,12 +59,12 @@ document.getElementById('fr').onsubmit = function(event){
 }
 //リセットボタンを押したときの処理
 function re(){	
-	document.getElementById('fr').user_id.value="";
-	document.getElementById('fr').password.value="";
-	document.getElementById('fr').user.value="";
-	document.getElementById('fr').gender.checked = false;
-	document.getElementById('fr').height.value="";
-	document.getElementById('fr').target_weight.value="";
+	//document.getElementById('fr').user_id.value="";
+	//document.getElementById('fr').password.value="";
+	//document.getElementById('fr').user.value="";
+	document.getElementById('fr').reset();
+	//document.getElementById('fr').height.value="";
+	//document.getElementById('fr').target_weight.value="";
 	
 	
 }

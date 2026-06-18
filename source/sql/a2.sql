@@ -29,12 +29,12 @@ storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
 user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
 weight DOUBLE,								/*体重*/
 fat DOUBLE,									/*体脂肪率*/
-memo VARCHAR(100),							/*メモ*/
+comments VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
-INSERT INTO storages (user_id, weight, fat, memo, stamp, date) VALUES
+INSERT INTO storages (user_id, weight, fat, comments, stamp, date) VALUES
 ('user1', 60.5, 20.1, '胸トレ', 1, '2026-06-01'),
 ('user1', 60.3, 20.0, '背中トレ', 2, '2026-06-03'),
 ('user1', 60.2, 19.8, '脚トレ', 3, '2026-06-05'),
@@ -56,13 +56,13 @@ date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
 INSERT INTO tr_storages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
+('user1','1',,,,'','2026-06-01'),
+('user1','3',,,,'','2026-06-01'),
+('user1','2',,,,'','2026-06-01'),
+('user2','2',,,,'','2026-06-01'),
+('user2','2',,,,'','2026-06-01'),
+('user2','3',,,,'','2026-06-01'),
+('user2','4',,,,'','2026-06-01');
 
 /*一時保存*/
 CREATE TABLE saves(
@@ -70,7 +70,7 @@ storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
 user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
 weight DOUBLE,								/*体重*/
 fat DOUBLE,									/*体脂肪率*/
-memo VARCHAR(100),							/*メモ*/
+comments VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
@@ -91,13 +91,13 @@ date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 CREATE TABLE friends(
 friend_id INT AUTO_INCREMENT PRIMARY KEY,	/*フレンドID*/
 user_id	VARCHAR(30) NOT NULL,				/*ユーザーID*/
-friend_user_id INT,							/*フレンドのユーザーID*/
+friend_user_id VARCHAR(30),					/*フレンドのユーザーID*/
 friend_request BIT DEFAULT 0				/*申請の承認フラグ*/
 );
 /*内容入力*/
-INSERT INTO friends (user_id,friend_user_id) VALUES(
-
-);
+INSERT INTO friends (user_id,friend_user_id) VALUES
+('user1','user2'),
+('user2','user1');
 
 /*ログイン記録*/
 CREATE TABLE logs(

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
 import dto.User;
@@ -31,8 +32,15 @@ public class MyPageServlet extends HttpServlet {
 //			return;
 //		}
 //		//セッションのuser_idをuserIdに代入
-//		String userId=(String)session.getAttribute("user_id");
-//		
+//		String userId=(String)session.getAttribute("user_id");		
+		
+		HttpSession session = request.getSession();
+		
+		String message = (String) session.getAttribute("message");
+		if (message != null) {
+		    request.setAttribute("message", message);
+		    session.removeAttribute("message");
+		}
 		
 		String userId="User1";//本来はセッションから取得
 		

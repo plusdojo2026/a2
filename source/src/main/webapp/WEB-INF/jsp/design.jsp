@@ -17,7 +17,7 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-<c:out value="${message.message}"/>
+<c:out value="${message}"/>
 <h3>アイコンの変更</h3>
 <form method=POST action="/a2/DesignServlet">
 <input type="hidden" name="userId" value="${userInfo.userId}">

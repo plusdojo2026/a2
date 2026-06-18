@@ -19,7 +19,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-<c:out value="${message.message}"/>
+<c:out value="${message}"/>
 <p id="msg"></p>
 <form method=POST action="/a2/PasswordServlet" id="form">
 <input type="hidden" name="userId" value="${userInfo.userId}">
