@@ -97,12 +97,12 @@
 <div id="memoArea"></div><br>
 
 
-</form>
+
 
 <input type="submit" name="saveb" value="保存">
 <button onclick="openModal()">＋項目を追加</button>
 <!-- <input type="submit" name="deli" value="ー項目を削除"> -->
-
+</form>
 <!-- <form method="POST" action="/a2/HomeServlet"> -->
 
 <div id="memoArea"></div>
