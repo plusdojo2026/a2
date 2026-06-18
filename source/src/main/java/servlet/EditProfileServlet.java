@@ -8,9 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
-import dto.Message;
 import dto.User;
 
 @WebServlet("/EditProfileServlet")
@@ -32,7 +32,15 @@ public class EditProfileServlet extends HttpServlet {
 //		}
 //		//セッションのuser_idをuserIdに代入
 //		String userId=(String)session.getAttribute("user_id");
-//		
+		
+		HttpSession session = request.getSession();
+		
+		String message = (String) session.getAttribute("message");
+		if (message != null) {
+		    request.setAttribute("message", message);
+		    session.removeAttribute("message");
+		}
+		
 		
 		String userId="User1";//本来はセッションから取得
 		
@@ -64,21 +72,15 @@ public class EditProfileServlet extends HttpServlet {
 		double targetWeight	= Double.parseDouble(request.getParameter("targetWeight"));
 		String userId 			= request.getParameter("userId");
 		UsersDao pDao =new UsersDao();
-		//フォワード用
-				UsersDao uDao = new UsersDao();
-				User userInfo = uDao.userInfo(
-				    new User(0,null,0.0,null,0.0,0,userId,null,0,0,0,null)
-				);
+		HttpSession session = request.getSession();
 				
 		if (pDao.userInfoChange(new User
 				(0,userName,height,gender,targetWeight,0,userId,null,0,0,0,null))) { // 変更成功
-			request.setAttribute("message", new Message("ユーザー情報を変更しました。"));
+			session.setAttribute("message", "基本情報を変更出来ました。");
 		} else { // 変更失敗
-			request.setAttribute("message", new Message("ユーザー情報を変更できませんでした。"));
+			session.setAttribute("message", "基本情報を変更出来ませんでした。");
 		}
-		request.setAttribute("userInfo", userInfo);
-		// パスワード変更ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/edit_profile.jsp");
-		dispatcher.forward(request, response);
+		// パスワードページにリダイレクト
+		response.sendRedirect("/a2/EditProfileServlet");
 	}
 }

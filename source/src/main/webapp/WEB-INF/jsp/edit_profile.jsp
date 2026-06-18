@@ -14,7 +14,7 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-<c:out value="${message.message}"/>
+<c:out value="${message}"/>
 <form method=POST action="/a2/EditProfileServlet">
 <p>　ID：<c:out value="${userInfo.userId}"/></p>
 <input type="hidden" name="userId" value="${userInfo.userId}">
