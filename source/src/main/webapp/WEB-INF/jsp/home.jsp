@@ -313,7 +313,8 @@
    		
    		 let input1 = document.createElement("input");
      	input1.type = "text";
-
+     	/* input1.name = "text"; */
+     	
     
    		
    		
