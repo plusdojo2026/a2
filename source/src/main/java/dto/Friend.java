@@ -4,53 +4,87 @@ import java.io.Serializable;
 
 public class Friend implements Serializable{
 	
-	private int friend_id;			//フレンドid
-	private String user_id;			//ユーザーid
-	private String friend_user_id;	//フレンドのユーザーid
-	private int friend_request;		//申請の承認フラグ
-
-
+	private int friendId;			//フレンドid
+	private String userId;			//ユーザーid
+	private String friendUserId;	//フレンドのユーザーid
+	private int friendRequest;		//申請の承認フラグ
+	private String userName;		//ユーザーネーム
+	private int iconId;				//アイコンID
+	private int point;				//ポイント
 	
-	//コンストラクタ
-	public Friend(int friend_id, String user_id, String friend_user_id, int friend_request) {
+	public Friend() {
 		super();
-		this.friend_id = friend_id;
-		this.user_id = user_id;
-		this.friend_user_id = friend_user_id;
-		this.friend_request = friend_request;
+	}
+
+	public int getFriendId() {
+		return friendId;
+	}
+
+	public void setFriendId(int friendId) {
+		this.friendId = friendId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getFriendUserId() {
+		return friendUserId;
+	}
+
+	public void setFriendUserId(String friendUserId) {
+		this.friendUserId = friendUserId;
+	}
+
+	public int getFriendRequest() {
+		return friendRequest;
+	}
+
+	public void setFriendRequest(int friendRequest) {
+		this.friendRequest = friendRequest;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getIconId() {
+		return iconId;
+	}
+
+	public void setIconId(int iconId) {
+		this.iconId = iconId;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public Friend(int friendId, String userId, String friendUserId, int friendRequest, String userName, int iconId,
+			int point) {
+		super();
+		this.friendId = friendId;
+		this.userId = userId;
+		this.friendUserId = friendUserId;
+		this.friendRequest = friendRequest;
+		this.userName = userName;
+		this.iconId = iconId;
+		this.point = point;
 	}
 	
-	//setter getter
-	public int getFriend_id() {
-		return friend_id;
-	}
-
-	public void setFriend_id(int friend_id) {
-		this.friend_id = friend_id;
-	}
-
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-
-	public String getFriend_user_id() {
-		return friend_user_id;
-	}
-
-	public void setFriend_user_id(String friend_user_id) {
-		this.friend_user_id = friend_user_id;
-	}
-
-	public int getFriend_request() {
-		return friend_request;
-	}
-
-	public void setFriend_request(int friend_request) {
-		this.friend_request = friend_request;
-	}
+	
 	
 }
+
