@@ -24,7 +24,7 @@ public class UsersDao {
 					"root", "password");
 
 			// SELECT文を準備する
-			String sql = "SELECT * FROM users WHERE user_id=? AND password=?";
+			String sql = "SELECT * FROM users WHERE user_id=? AND password=? AND logical_delete=0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, us.getUserId());
 			pStmt.setString(2, us.getPassword());
@@ -62,6 +62,63 @@ public class UsersDao {
 		// 結果を返す
 		return user;
 	}
+	
+	
+	
+	
+	//==========================論理削除用=============================
+	
+//	//public int getLogical(String user_id) {
+//		//User user = null;
+//		Connection conn = null;
+//		boolean loginResult = false;
+//		int logocal ;
+//		try {
+//			// JDBCドライバを読み込む
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//
+//			// データベースに接続する
+//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+//					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+//					"root", "password");
+//
+//			// SELECT文を準備する
+//			String sql = "SELECT logical_delete FROM users WHERE user_id=? ";
+//			PreparedStatement pStmt = conn.prepareStatement(sql);
+//			pStmt.setString(1, user_id);
+//
+//			// SELECT文を実行し、結果表を取得する
+//			ResultSet rs = pStmt.executeQuery();
+//			
+//			int logical = Integer.parseInt (rs);
+//			
+//			while(rs.next());
+//			
+//			
+//
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			loginResult = false;
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//			loginResult = false;
+//		} finally {
+//			// データベースを切断
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//					loginResult = false;
+//				}
+//			}
+//		}
+//
+//		// 結果を返す
+//		return logocal;
+//	}
 	
 	
 	//==========================新規登録用=============================

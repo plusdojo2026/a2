@@ -82,6 +82,11 @@ public class GraphServlet extends HttpServlet {
 		StoragesDao ItemGraph = new StoragesDao();
 		List<Graph> gItemList = ItemGraph.getItemGraph(userId,year);
 		
+		//トレーニング項目と記録情報のアレイリストを配列に置き換える
+//		String[] TRarray = getGraphList.toArray(new String[getGraphList.size()]);
+//		String[] ITarray = gItemList.toArray(new String[gItemList.size()]);
+
+		
 		//一言セリフを受け取る
 		
 		//ユーザー情報を受け取る
@@ -92,6 +97,9 @@ public class GraphServlet extends HttpServlet {
 		request.setAttribute("gItem",gItemList );
 		
 		
+//		request.setAttribute("xxList",TRarray );
+//		request.setAttribute("ItemList",ITarray );
+
 		
 		
 		// 成長記録ページにフォワードする

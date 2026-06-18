@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.StoragesDao;
 import dao.TrItemsDao;
+import dto.Storage;
+
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,6 +36,16 @@ public class HomeServlet extends HttpServlet {
 //
 		request.setAttribute("itemList", items);
 
+		//IDが削除された場合、同じIDでログインしてホームに飛べないようにする
+		
+//		String userId = "mamemame01";
+//		
+//		// 登録処理を行う
+//		UsersDao uDao = new UsersDao();
+//		int logocal = uDao.getLogical(userId);
+//		
+		
+		
 
 		
 		
@@ -75,12 +88,58 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		
+		System.out.println("HomeServlet doPost開始");
+		
+		
+		
+		
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		
 		//項目追加した分の数を取ってきている
 		int coun = Integer.parseInt(request.getParameter("coun"));
 		
+		
+		//もらってきたデータを登録するアレイリスト
+		ArrayList<Storage> detalist = new ArrayList<>();
+		
+		
+		
+		//追加項目を受け取る
+				for (int i = 0; i <= coun; i++) {
+					
+					
+					
+					Storage  dto = new Storage();
+					
+					
+					dto.setTr_weight(Integer.parseInt(request.getParameter("tr_weight"+ i)));
+					dto.setCounts(Integer.parseInt(request.getParameter("counts"+ i)));
+					dto.setSets(Integer.parseInt(request.getParameter("sets"+ i)));
+					dto.setTrItem(request.getParameter("it"+ i));
+					
+					
+					TrItemsDao trDao = new TrItemsDao();
+					
+					//ここでとってきた名前をもとに
+					String trItem = request.getParameter("it" + i);
+					
+					//名前がIDにかわる
+					int trId = trDao.getTrIdByItem(trItem);
+					
+					/* detalist.add(dto); */
+					
+					dto.setTr_id(trId);
+					detalist.add(dto);
+					
+				}
+				
+				
+				
+				 System.out.println("データ件数: " + detalist.size()); 
+				
 		
 		// ユーザーIDなど
 		int storageId = Integer.parseInt(request.getParameter("storage_id"));
@@ -108,19 +167,20 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		
-		//追加項目を受け取る
-		for (int i = 1; i <= coun; i++) {
-			int tr_weight = Integer.parseInt(request.getParameter("tr_weight" + i));
-			int counts = Integer.parseInt(request.getParameter("counts" + i));
-			int sets = Integer.parseInt(request.getParameter("sets" + i));
-		}
+		
 		
 		
 		
 		//トレーニングid、tr_itemを取ってくるためのもの
 		int id = Integer.parseInt(request.getParameter("id"));
-		int tr_id = Integer.parseInt(request.getParameter("tr_id"));
 		
+		
+		/*
+		 * int tr_id = Integer.parseInt(request.getParameter("it"+ i)); int tr_weight =
+		 * Integer.parseInt(request.getParameter("tr_weight" + i)); int counts =
+		 * Integer.parseInt(request.getParameter("counts" + i)); int sets =
+		 * Integer.parseInt(request.getParameter("sets" + i));
+		 */
 	
 	
 	}
