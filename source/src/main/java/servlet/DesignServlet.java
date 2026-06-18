@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
-import dto.Message;
 import dto.User;
 
 @WebServlet("/DesignServlet")
@@ -34,10 +33,15 @@ public class DesignServlet extends HttpServlet {
 //		}
 //		//セッションのuser_idをuserIdに代入
 //		String userId=(String)session.getAttribute("user_id");
-//		
+		HttpSession session = request.getSession();
+		
+		String message = (String) session.getAttribute("message");
+		if (message != null) {
+		    request.setAttribute("message", message);
+		    session.removeAttribute("message");
+		}
 		
 		String userId="User1";//本来はセッションから取得
-		
 		
 		UsersDao uDao = new UsersDao();
 		User userInfo = uDao.userInfo(new User
@@ -64,27 +68,24 @@ public class DesignServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String numberStr = request.getParameter("number");
 		int number=Integer.parseInt(numberStr);
-		
+		HttpSession session = request.getSession();
 		// 数字によって振り分ける
 		UsersDao bDao = new UsersDao();
 		if (number<=7) {
 			int iconId = number;
 			if (bDao.iconChange(new User
 					(0,null,0.0,null,0.0,0,userId,null,iconId,0,0,null))) { // 更新成功
-				HttpSession session = request.getSession();
-				session.setAttribute("message", "アイコンを更新しました");
-				session.removeAttribute("message");
-				
+				session.setAttribute("message", "アイコンを更新しました。");
 			} else { // 更新失敗
-				request.setAttribute("message", new Message("アイコンを更新できませんでした。"));
+				session.setAttribute("message", "アイコンを更新できませんでした。");
 			}
 		} else {
 			int designId = number-8;
 			if (bDao.designChange(new User
 					(0,null,0.0,null,0.0,0,userId,null,0,designId,0,null))) { // 更新成功
-				request.setAttribute("message", new Message("着せ替えを更新しました。"));
+				session.setAttribute("message", "着せ替えを更新しました。");
 			} else { // 更新失敗
-				request.setAttribute("message", new Message("着せ替えを更新できませんでした。"));
+				session.setAttribute("message", "着せ替えを更新しました。");
 			}
 		}
 

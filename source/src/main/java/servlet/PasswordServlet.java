@@ -8,9 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
-import dto.Message;
 import dto.User;
 
 @WebServlet("/PasswordServlet")
@@ -26,14 +26,19 @@ public class PasswordServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		if (session.getAttribute("user_id") == null) {
 //			response.sendRedirect("/a2/LoginServlet");
 //			return;
 //		}
 //		//セッションのuser_idをuserIdに代入
 //		String userId=(String)session.getAttribute("user_id");
-//		
+		
+		String message = (String) session.getAttribute("message");
+		if (message != null) {
+		    request.setAttribute("message", message);
+		    session.removeAttribute("message");
+		}
 		
 		String userId="User1";//本来はセッションから取得
 		
@@ -67,26 +72,26 @@ public class PasswordServlet extends HttpServlet {
 		User userInfo = uDao.userInfo(
 		    new User(0,null,0.0,null,0.0,0,userId,null,0,0,0,null)
 		);
+		HttpSession session = request.getSession();
 		
 		if(pDao.passwordCheck(userId,inputPassword)) {
 			if (pDao.passwordChange(new User
 					(0,null,0.0,null,0.0,0,userId,password,0,0,0,null))) { // 変更成功
+				session.setAttribute("message", "パスワードを変更しました。");
 				// マイページにリダイレクト
 				response.sendRedirect("/a2/MyPageServlet");
 			} else { // 変更失敗
-				request.setAttribute("message", new Message("パスワードを変更できませんでした。"));
+				session.setAttribute("message", "パスワードに失敗しました。");
 				request.setAttribute("userInfo", userInfo);
-				// パスワード変更ページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/password.jsp");
-				dispatcher.forward(request, response);
+				// パスワードページにリダイレクト
+				response.sendRedirect("/a2/PasswordServlet");
 			}
 
 		}else {
-			request.setAttribute("message", new Message("現在のパスワードに誤りがありました。"));
+			session.setAttribute("message", "現在のパスワードに誤りがありました。");
 			request.setAttribute("userInfo", userInfo);
-			// パスワード変更ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/password.jsp");
-			dispatcher.forward(request, response);
+			// パスワードページにリダイレクト
+			response.sendRedirect("/a2/PasswordServlet");
 		}
 	}
 
