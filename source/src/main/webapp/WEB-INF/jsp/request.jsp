@@ -8,9 +8,19 @@
 </head>
 <body>
 
+<nav class="tab-menu">
+		<ul>
+			<li><a href="FriendListServlet" class="active">フレンド</a></li>
+			<li><a href="GroupListServlet">グループ</a></li>
+            <li><a href="RequestServlet">リクエスト</a></li>
+            <li><a href="RankingServlet">ランキング</a></li>
+		</ul>
+	</nav>
+	
 <main style="max-width: 500px; margin: 50px auto; padding: 20px;  border-radius: 10px;">
 
-    <h2>フレンド申請</h2>
+
+	    <h2>フレンド申請</h2>
     <ul style="list-style: none; padding: 0;">
         <c:forEach var="req" items="${friendRequests}">
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
@@ -26,8 +36,8 @@
                     
                     <div style="display: flex; gap: 10px;">
                     
-                        <button type="submit" name="action" formaction="FriendListServlet" value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">承認</button>
-                        <button type="submit" name="action" formaction="FriendListServlet" value="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
+                        <button type="submit" name="action"  value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">承認</button>
+                        <button type="submit" name="action"  value="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
                    
                     </div>
                 </form>
@@ -55,9 +65,9 @@
                     
                     <div style="display: flex; gap: 10px;">
                  	
-                        <button type="submit" name="action" value="approve" formaction="GroupListServlet" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">参加</button>
+                        <button type="submit" name="action" value="approve"  style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">参加</button>
                   
-                        <button type="submit" name="action" value="reject"  formaction="GroupListServlet" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">辞退</button>
+                        <button type="submit" name="action" value="reject"   style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">辞退</button>
                    
                     </div>
                 </form>

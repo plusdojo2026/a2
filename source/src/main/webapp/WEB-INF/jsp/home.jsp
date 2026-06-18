@@ -62,7 +62,7 @@
 
 
 <h2>基本データ</h2>
-<form method="POST" action="HomeServlet">
+<form method="POST" action="/a2/HomeServlet">
 体重(kg)　<input type="text" name="weight"><br>
 体脂肪率(％)<input type="text" name="fat"><br>
 <br>
@@ -97,13 +97,14 @@
 <div id="memoArea"></div><br>
 
 
-</form>
+
 
 <input type="submit" name="saveb" value="保存">
+</form>
 <button onclick="openModal()">＋項目を追加</button>
-<!-- <input type="submit" name="deli" value="ー項目を削除"> -->
 
-<!-- <form method="POST" action="/a2/HomeServlet"> -->
+
+
 
 <div id="memoArea"></div>
   

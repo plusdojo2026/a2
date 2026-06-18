@@ -11,20 +11,26 @@ public class Storage implements Serializable{
 	private double weight;
 	private double fat;
 	private String memo;
+	private String comments;
 	private int stamp;
 	private Date date;
 	private int id;
-	private int tr_id;
+	private int tr_id; 
 	private int tr_weight;
 	private int counts;
 	private int sets;
+	private String trItem;
 	
 	
 	
-	
+	public  String getTrItem() {
+		return trItem;
+	}
+	public void setTrItem(String trItem) {
+		this.trItem = trItem;
+	}
 	
 	//ゲッターとセッター
-	
 	public int getStorage_id() {
 		return storage_id;
 	}
@@ -54,6 +60,12 @@ public class Storage implements Serializable{
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	public int getStamp() {
 		return stamp;
@@ -98,29 +110,20 @@ public class Storage implements Serializable{
 		this.sets = sets;
 	}
 	
-	
-	
-	
-//	コンストラクタ　初期化する
-	
-	
-	public Storage() {
-		
-		
+	public Storage(){
 		
 	}
 	
-	
-	
-	
-	public Storage(int storage_id, String user_id, double weight, double fat, String memo,
-			int stamp, Date date, int id, int tr_id, int tr_weight, int counts, int sets) {
+	//コンストラクタ
+	public Storage(int storage_id, String user_id, double weight, double fat, String memo, String comments, int stamp,
+			Date date, int id, int tr_id, int tr_weight, int counts, int sets) {
 		super();
 		this.storage_id = storage_id;
 		this.user_id = user_id;
 		this.weight = weight;
 		this.fat = fat;
 		this.memo = memo;
+		this.comments = comments;
 		this.stamp = stamp;
 		this.date = date;
 		this.id = id;
@@ -130,6 +133,10 @@ public class Storage implements Serializable{
 		this.sets = sets;
 	}
 	
-
 	
 }
+	
+	
+
+	
+	
