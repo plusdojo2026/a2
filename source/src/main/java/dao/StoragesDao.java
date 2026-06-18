@@ -405,13 +405,13 @@ public class StoragesDao {
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
 			//１か月分日別に取得
 			String sql = "SELECT tr_item, tr_weight,"
-					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TD_date "
+					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS td_date "
 					+ " FROM tr_storages AS TS "
 					+ " INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
 					+ " WHERE TS.user_id = ? "
 					+ " AND DATE_FORMAT(date,'%Y-%m') = ? "
-					+ " ORDER BY TD_date ";
+					+ " ORDER BY td_date ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -424,7 +424,7 @@ public class StoragesDao {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Graph graph = new Graph(rs.getString("tr_item"), rs.getInt("tr_weight"),
-						rs.getInt("counts"),rs.getInt("sets"),rs.getString("TD_date") 
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("td_date") 
 				);
 				GraphList.add(graph);
 			}
