@@ -38,11 +38,12 @@
                     <c:forEach var="friend" items="${friendList}">
                         <li class="friend-item">
                             <div class="friend-info">
-                                <span class="friend-icon"style="cursor: pointer;" 
-      							onclick="openModal('${friend.icon}','${friend.userId}','${friend.Name}', '${friend.Point}', '${friend.training}')">${friend.icon}</span>
+                                <div class="friend-icon"style="cursor: pointer;" 
+      							 onclick="openModal('${friend.icon}','${friend.userId}','${friend.Name}', '${friend.Point}', '${friend.training}')">${friend.icon}
                                 <span class="friend-id">${friend.userId}</span><br>
                                 <span class="friend-name">${friend.Name}</span><br>
                                 <span class="friend-point">${friend.Point}</span><br>
+                                </div>
                             </div>
                             
                             <div class="friend-action delete-target" style="display: none;">

@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>新規会員登録</title>
 
 
 </head>
@@ -34,10 +35,10 @@
 	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
 	
 
-</form>
-<input type="button"  onclick="re()" value="リセット">
-<input type="submit" onclick="location.href='home.jsp'" value="登録">
 
+<input type="button"  onclick="re()" value="リセット">
+<input type="submit"  value="登録">
+</form>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->

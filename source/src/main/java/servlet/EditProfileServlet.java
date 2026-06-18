@@ -63,16 +63,22 @@ public class EditProfileServlet extends HttpServlet {
 		String gender 			= request.getParameter("gender");
 		double targetWeight	= Double.parseDouble(request.getParameter("targetWeight"));
 		String userId 			= request.getParameter("userId");
-		
 		UsersDao pDao =new UsersDao();
-		
+		//フォワード用
+				UsersDao uDao = new UsersDao();
+				User userInfo = uDao.userInfo(
+				    new User(0,null,0.0,null,0.0,0,userId,null,0,0,0,null)
+				);
+				
 		if (pDao.userInfoChange(new User
 				(0,userName,height,gender,targetWeight,0,userId,null,0,0,0,null))) { // 変更成功
 			request.setAttribute("message", new Message("ユーザー情報を変更しました。"));
 		} else { // 変更失敗
 			request.setAttribute("message", new Message("ユーザー情報を変更できませんでした。"));
 		}
-		// マイページにリダイレクト
-		response.sendRedirect("/a2/MyPageServlet");
+		request.setAttribute("userInfo", userInfo);
+		// パスワード変更ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/edit_profile.jsp");
+		dispatcher.forward(request, response);
 	}
 }

@@ -26,5 +26,7 @@ public class  TrItem implements Serializable{
 		TrId = trId;
 		TrItem = trItem;
 	}
+	public TrItem() {
+	}
 
 }

@@ -338,7 +338,7 @@ public class UsersDao {
 						+" user_name=?,"
 						+" height=?,"
 						+" gender=?,"
-						+" target_weight=?,"
+						+" target_weight=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);		
 				// SQL文を完成させる
@@ -403,7 +403,7 @@ public class UsersDao {
 
 				// SQL文を準備する
 				String sql = "UPDATE Users SET "
-						+" icon_id=?,"
+						+" icon_id=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
@@ -451,7 +451,7 @@ public class UsersDao {
 
 				// SQL文を準備する
 				String sql = "UPDATE Users SET "
-						+" design_id=?,"
+						+" design_id=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				

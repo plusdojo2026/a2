@@ -14,7 +14,7 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-<form method=POST action="/a2/DeleteAccountServlet.java">
+<form method=POST action="/a2/DeleteAccountServlet">
 <div class="my_page_user_info">
     <div class="circle">
     </div>
@@ -27,7 +27,7 @@
 <p>上記アカウントの退会手続きを行います。<br>
 退会後は、アカウントの利用・ログインが出来なくなります。
 </p>
-<input type="submit" value="退会する">
+<input type="submit" value="退会する" id="delete">
 </form>
 
 <a href="/a2/MyPageServlet">戻る</a>
@@ -40,5 +40,16 @@
 
 </footer>
 <!--　フッターここまで　-->
+<script>
+'use strict'
+//ログアウトアラート
+document.getElementById('delete').onclick = function(event){
+    let logout = window.confirm('退会してよろしいですか？');
+    if( logout === false){
+        event.preventDefault();
+    }
+}
+
+</script>
 </body>
 </html>

@@ -42,7 +42,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <div class="circle">
     </div>
     <div class="user_id_name">
-		　ID：<c:out value="${userInfo.userId}"/><br>
+		ID：<c:out value="${userInfo.userId}"/><br>
         名前：<c:out value="${userInfo.userName}"/>
     </div>
 </div>
@@ -63,7 +63,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </div>
 <br>
 <div>
-<a href="/a2/LogoutServlet" class="logout">
+<a href="/a2/LogoutServlet" class="logout" id="logout">
 	ログアウト
 </a>
 </div>
@@ -90,18 +90,40 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <script>
     'use strict';
 //ヘッダー日付表示用
+ window.onload = function(){
 const now =new Date();
 const year = now.getFullYear();
 const month= now.getMonth()+1;
 const date = now.getDate();
-const text = `${year}年${month}月${date}日`;
-document.getElementById('today').textContent=text;
-if(text==="2026年6月13日"){
+const text = year+"年"+month+"月"+date+"日";
+if( month === 6 && date === 17 ){
     document.getElementById('anniversary').textContent='テスト用';
-}else if(text==="2026年7月10日"){
+}else if( month === 1 && date === 10 ){
+    document.getElementById('anniversary').textContent='糸引き納豆の日';
+}else if( month === 2 && date === 3 ){
+    document.getElementById('anniversary').textContent='節分・大豆の日';
+}else if( month === 2 && date === 10 ){
+    document.getElementById('anniversary').textContent='世界マメの日';
+}else if( month === 4 && date === 3 ){
+    document.getElementById('anniversary').textContent='いんげん豆の日';
+}else if( month === 7 && date === 10 ){
     document.getElementById('anniversary').textContent='納豆の日';
+}else if( month === 10 && date === 2 ){
+    document.getElementById('anniversary').textContent='豆腐の日';
+}else if( month === 10 && date === 12 ){
+    document.getElementById('anniversary').textContent='豆乳の日';
+}else if( month === 10 && date === 13 ){
+    document.getElementById('anniversary').textContent='豆の日';
 }
-
+document.getElementById('today').textContent=text;
+}
+//ログアウトアラート
+document.getElementById('logout').onclick = function(event){
+    let logout = window.confirm('ログアウトしてよろしいですか？');
+    if( logout === false){
+        event.preventDefault();
+    }
+}
 
 //スクロールに合わせたアイコンバーの変更
 /*id=barを定数barに代入*/
