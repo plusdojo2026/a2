@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.TrItem;
+
 public class TrItemsDao {
 
 	
@@ -59,6 +61,40 @@ public class TrItemsDao {
 	    
 	    return itemList;
 	}
-
 	
+	
+	//-------------カレンダーページのDAOここから--------------//
+	/*
+	 * トレーニング項目を全部取得するメソッド
+	 */
+		public List<TrItem> getAllTrainingItems() {
+		    List<TrItem> list = new ArrayList<>();
+		    
+		    Connection conn = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    
+		    try {
+	        	// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+		
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+				
+				String sql = "SELECT tr_id, tr_item FROM tr_items ORDER BY tr_id ASC";
+		        
+		        while (rs.next()) {
+		        	TrItem item = new TrItem();
+		            item.setTrId(rs.getString("tr_id"));
+		            item.setTrItem(rs.getString("tr_item"));
+		            list.add(item);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return list;
+		}
+	//-------------カレンダーページのDAOここまで--------------//
 }
