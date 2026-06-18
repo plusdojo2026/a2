@@ -34,7 +34,7 @@ stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
-INSERT INTO storages (user_id, weight, fat, memo, stamp, date) VALUES
+INSERT INTO storages (user_id, weight, fat, comments, stamp, date) VALUES
 ('user1', 60.5, 20.1, '胸トレ', 1, '2026-06-01'),
 ('user1', 60.3, 20.0, '背中トレ', 2, '2026-06-03'),
 ('user1', 60.2, 19.8, '脚トレ', 3, '2026-06-05'),
