@@ -56,13 +56,13 @@ date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
 INSERT INTO tr_storages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
-('user1','',,,,'','2026-06-01');
+('user1','1',,,,'','2026-06-01');
+('user1','3',,,,'','2026-06-01');
+('user1','2',,,,'','2026-06-01');
+('user2','2',,,,'','2026-06-01');
+('user2','2',,,,'','2026-06-01');
+('user2','3',,,,'','2026-06-01');
+('user2','4',,,,'','2026-06-01');
 
 /*一時保存*/
 CREATE TABLE saves(
@@ -91,13 +91,13 @@ date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 CREATE TABLE friends(
 friend_id INT AUTO_INCREMENT PRIMARY KEY,	/*フレンドID*/
 user_id	VARCHAR(30) NOT NULL,				/*ユーザーID*/
-friend_user_id INT,							/*フレンドのユーザーID*/
+friend_user_id VARCHAR(30),					/*フレンドのユーザーID*/
 friend_request BIT DEFAULT 0				/*申請の承認フラグ*/
 );
 /*内容入力*/
-INSERT INTO friends (user_id,friend_user_id) VALUES(
-
-);
+INSERT INTO friends (user_id,friend_user_id) VALUES
+('user1','user2'),
+('user2','user1');
 
 /*ログイン記録*/
 CREATE TABLE logs(
