@@ -13,7 +13,9 @@ public class TrItemsDao {
 	//-------------ホームページのDAOここから--------------//
 	//項目取得用//
 	
-	public List<String> getTrainingItems(String userId){
+
+		public List<String> getTrainingItems(){
+
 		
 		List<String> itemList = new ArrayList<String>();
 		
@@ -33,38 +35,29 @@ public class TrItemsDao {
 	    	+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 	    	"root", "password");
 	    	
-	    	
-	    	
-	   
-	    	
-	    	
 	    	// SQL文を準備する
-	    	
-	    	String sql =
-	                "SELECT training_name FROM training_item WHERE user_id = ?";
-	    	
+	    	String sql ="SELECT tr_item FROM tr_item";
 	    	
 	    	
 	    	//SQLを実行できる状態にする文章　SQL文の後にこれがないと動かない
 	    	ps = conn.prepareStatement(sql);
 	    	
-	    	//上のSQL文の？に入れてあげている
-	    	ps.setString(1, userId);
 	    	
 	    	//SQLを実行する　実行結果はrsへ入る
 	    	rs = ps.executeQuery();
 	    	
 	    	
 	    	while (rs.next()) {
-	    		
-	    		itemList.add(
-	                    rs.getString("training_name")
-	                );
+	    	    String item = rs.getString("tr_item");
+	    	    System.out.println("取得: " + item);
+	    	    itemList.add(item);
 	    	}
 	    	
 	    }catch (Exception e) {
 	    	e.printStackTrace();
 	    }
+	    
+	    return itemList;
 	}
 
 	

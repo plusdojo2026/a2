@@ -55,17 +55,19 @@ public class RegistServlet extends HttpServlet {
 		
 		// 登録処理を行う
 		UsersDao uDao = new UsersDao();
-
 		
 		User us = new User(0,  userName,  height,  gender,  targetWeight,  0,
 				 userId,  password,  0,  0,  0,  dateTime);
 		if (uDao.insert(us)) { // 登録成功
 			request.setAttribute("result","登録成功しました");
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-		dispatcher.forward(request, response);
+		// 結果ページにリダイレクトする
+			// ホームサーブレットにリダイレクトする
+			response.sendRedirect("/a2/HomeServlet");	
+		   
+
 		} else { // 登録失敗			
 			request.setAttribute("result","ユーザーIDが重複しています");
+			
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/regist.jsp");
 			dispatcher.forward(request, response);

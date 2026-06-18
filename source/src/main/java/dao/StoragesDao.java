@@ -10,42 +10,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dto.Graph;
 import dto.Storage;
 public class StoragesDao {
-	/*
-	 * public List<Storage> select(Storage ???) { Connection conn = null;
-	 * List<Storage> cardList = new ArrayList<Storage>();
-	 * 
-	 * 
-	 * try {
-	 * 
-	 * // JDBCドライバを読み込む データベース接続した Class.forName("com.mysql.cj.jdbc.Driver");
-	 * 
-	 * 
-	 * conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2" +
-	 * "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-	 * "root", "password");
-	 * 
-	 * 
-	 * // SQL文を準備する String sql =
-	 * "SELECT number, company, department, position, name, " +
-	 * "zipcode, address, phone, fax, email, remarks " + "FROM Bc " +
-	 * "WHERE company LIKE ? AND department LIKE ? AND position LIKE ? " +
-	 * "AND name LIKE ? AND zipcode LIKE ? AND address LIKE ? AND phone LIKE ? " +
-	 * "AND fax LIKE ? AND email LIKE ? AND remarks LIKE ? " + "ORDER BY number";
-	 * PreparedStatement pStmt = conn.prepareStatement(sql);
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
+	
 	
 	
 	
 	//-------------カレンダーページのDAOここから--------------//
 	/*
      * スタンプやメモを更新、新規追加するメソッド
-     * 返り値：
+     * 返り値：trueかfaulse
      */
 	public boolean saveRecord(String userId, String date, Integer stamp, String memo) {
 
@@ -74,7 +49,8 @@ public class StoragesDao {
             ps.setString(2, date);
             ps.setObject(3, stamp);
             ps.setString(4, memo);
-
+            
+            //ps.executeUpdate()で１件以上更新されてたらtrueが返る
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -95,8 +71,7 @@ public class StoragesDao {
         return false;
     }
 	
-	
-	
+
 	/*
      * 指定したユーザーの、指定した年月のスタンプ一覧を取得するメソッド
      * 返り値：Map<"2026-07-10", stamp番号>
@@ -127,7 +102,7 @@ public class StoragesDao {
 	        ps.setString(1, userId);
 	        ps.setString(2, yearMonth);
 	        
-	        // SQL文を実行し、結果表を取得する
+	        // SQL文を実行
 	        rs = ps.executeQuery();
 	        //stampMapに日付とスタンプをセットで入れ込む
 	        while (rs.next()) {
@@ -155,12 +130,12 @@ public class StoragesDao {
 	}
 
 	/*
-     * めも内容を取得するメソッド
-     * 返り値：
+     * メモ内容を取得するメソッド
+     * 返り値：Map<"2026-06-10", "メモの内容">
      */
 	public Map<String, String> getMemo(String userId, String yearMonth) {
 
-	    Map<String, String> trainingMap = new HashMap<>();
+	    Map<String, String> memoMap = new HashMap<>();
 
 	    Connection conn = null;
 	    PreparedStatement ps = null;
@@ -184,13 +159,14 @@ public class StoragesDao {
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, userId);
 	        ps.setString(2, yearMonth);
-
+	        
+	        // SQL文を実行
 	        rs = ps.executeQuery();
 
 	        while (rs.next()) {
 	            String date = rs.getString("date");        // 例:2026-06-10
-	            String memo = rs.getString("memo"); // nullの可能性あり
-	            trainingMap.put(date, memo);
+	            String memo = rs.getString("memo");
+	            memoMap.put(date, memo);
 	        }
 
 	    } catch (SQLException e) {
@@ -208,74 +184,85 @@ public class StoragesDao {
 			}
 		}
 
-	    return trainingMap;
+	    return memoMap;
 	}
 
+	/*
+     * 指定された日付のトレーニング内容を取得するメソッド
+     * 返り値：List<Storage>（list）
+     */
+	public List<Storage> getTrainingByDate(String userId, String date) {
 
+	    List<Storage> list = new ArrayList<>();
+
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+	        String sql = "SELECT id, tr_id, tr_weight, counts, sets, memo "
+	                   + "FROM tr_strages "
+	                   + "WHERE user_id = ? AND date = ? "
+	                   + "ORDER BY id";
+
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, userId);
+	        ps.setString(2, date);
+
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Storage s = new Storage();
+	            s.setId(rs.getInt("id"));
+	            s.setTr_id(rs.getInt("tr_id"));
+	            s.setTr_weight(rs.getInt("tr_weight"));
+	            s.setCounts(rs.getInt("counts"));
+	            s.setSets(rs.getInt("sets"));
+	            s.setMemo(rs.getString("memo"));
+
+	            list.add(s);
+	        }
+
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	    return list;
+	}
 
 	//-------------カレンダーページのDAOここまで--------------//
 
 	
 	
-//public class StoragesDao {
-//	public List<Storage> select(Storage ) {
-//		Connection conn = null;
-//		List<Storage> cardList = new ArrayList<Storage>();
-//		
-//		
-//		try {
-//			
-//			// JDBCドライバを読み込む データベース接続した
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			
-//			// データベースに接続する
-//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2"
-//					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-//					"root", "password");
-//			
-//			
-//			
-//			
-//			// SQL文を準備する
-//			String sql = "SELECT"
-//					+ "storage_id, "
-//					+"user_id, "
-//					+"weight, "
-//					+"fat, "
-//					+"memo, "
-//					+"stamp, "
-//					+"date, "
-//					+"id, "
-//					+"tr_id, "
-//					+"tr_weight, "
-//					+"counts, "
-//					+"sets, "
-//					+ "FROM storages"
-//					+ "WHERE storage_id LIKE ?" 
-//					+ "AND user_id LIKE ? "
-//					+ "AND weight LIKE ?"
-//					+ "AND fat LIKE ?"
-//					+ "AND memo LIKE ?"
-//					+ "AND stamp LIKE ?"
-//					+ "AND date LIKE ?"
-//					+ "AND id LIKE ?"
-//					+ "AND tr_id LIKE ?"
-//					+ "AND tr_weight LIKE ?"
-//					+ "AND counts LIKE ?"
-//					+ "AND sets LIKE ?"
-//					+ "ORDER BY storage_id";
-//					
-//			PreparedStatement pStmt = conn.prepareStatement(sql);	
-//			
-//						
-//		}
-//}						
+				
 	
 	//-----------成長記録ページDAOここから---------------//
-	public List<Storage> getGraphList(){
+	//記録内容トレーニング内容の取得
+	public List<Graph> getGraphList(String userId,int year,int MonthNumber){
 		//
 		Connection conn = null;
-		List<Storage> GraphList = new ArrayList<Storage>();
+		List<Graph> GraphList = new ArrayList<Graph>();
+		
 	try {
 			// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -283,27 +270,34 @@ public class StoragesDao {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-
+			
+			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
-			String sql = "SELECT tr_id, tr_weight,"
-					+ "counts, sets, date "
-					+ "FROM tr_storages AS TS INNER JOIN tr_items AS TI"
-					+ "ON TS.tr_id = TI.tr_item"
-					+ "WHERE ? = TS.user_id AND";
+			//１か月分日別に取得
+			String sql = "SELECT tr_item, tr_weight,"
+					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TD_date "
+					+ " FROM tr_storages AS TS "
+					+ " INNER JOIN tr_items AS TI "
+					+ " ON TS.tr_id = TI.tr_id "
+					+ " WHERE TS.user_id = ? "
+					+ " AND DATE_FORMAT(date,'%Y-%m') = ? "
+					+ " ORDER BY TD_date ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-////			pStmt.setString(1,);
-//
-//			// SQL文を実行し、結果表を取得する
-//			ResultSet rs = pStmt.executeQuery();
-//
-//			// 結果表をコレクションにコピーする
-//			while (rs.next()) {
-//				Storage graph = new Bc(rs.getInt(""), rs.getString(""), 
-//				);
-//				GraphList.add(graph);
-//			}
+			pStmt.setString(1,userId);
+			pStmt.setString(2,yearMonth);
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				Graph graph = new Graph(rs.getString("tr_item"), rs.getInt("tr_weight"),
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("TD_date") 
+				);
+				GraphList.add(graph);
+			}
 
 			
 	
@@ -326,9 +320,128 @@ public class StoragesDao {
 			// 結果を返す
 			return GraphList;
 	}
+	
+	//ユーザーが記録したことのあるトレーニング項目の取得
+	public List<Graph> getItemGraph(String userId,int year){
+		//
+		Connection conn = null;
+		List<Graph> gItemList = new ArrayList<Graph>();
+		
+	try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			
+			// SQL文を準備する,SELECTでtr_storagesの中のtr_itemを選ぶ
+			//１か月分日別に取得
+			String sql = "SELECT DISTINCT tr_item,TS.tr_id"
+					+ " FROM tr_storages AS TS INNER JOIN tr_items AS TI "
+					+ " ON TS.tr_id = TI.tr_id "
+					+ " WHERE TS.user_id = ? "
+					+ " AND DATE_FORMAT(date,'%Y') = ? "
+					+ " ORDER BY TS.tr_id ";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setString(1,userId);
+			pStmt.setInt(2,year);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				Graph graphItem = new Graph(rs.getString("tr_item"),rs.getInt("tr_id"));
+				gItemList.add(graphItem);
+			}
+
+			
+	
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+			// 結果を返す
+			return gItemList;
+	}
+	
 	//-----------成長記録ページDAOここまで---------------//
 
 
 	
+	//-------------ホームページのDAOここから--------------//
+		//スタンプ取得用
+		
+		
+		public List<Integer> getStampList() {
+
+			//リストにする
+			List<Integer> stampList = new ArrayList<>();
+
+			
+		    Connection conn = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+
+		    try {
+		    	// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+		
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+		        
+				
+				
+		        // SQL文を準備する　stampの番号をとってきている
+		        String sql = "SELECT stamp FROM storages ";
+		        
+		        ps = conn.prepareStatement(sql);
+		        
+//		        ps.setString();
+		        
+		        // SQL文を実行し、結果表を取得する
+		        rs = ps.executeQuery();
+		        
+		        
+		        while (rs.next()) {
+		        	stampList.add(rs.getInt("stamp"));
+		        	}
+		        
+
+		    } catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		    return stampList;
+		}
 }
 

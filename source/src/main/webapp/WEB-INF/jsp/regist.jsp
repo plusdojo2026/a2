@@ -33,10 +33,11 @@
 	<p id="msg" style="color:red">*必須項目</p>
 	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
 	
-	<input type="submit" name="regist" value="リセット"><br>
-	<input type="submit" name="regist" value="登録"><br>
 
 </form>
+<input type="button"  onclick="re()" value="リセット">
+<input type="submit" onclick="location.href='home.jsp'" value="登録">
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -54,6 +55,17 @@ document.getElementById('fr').onsubmit = function(event){
 		document.getElementById('msg').textContent = '必須項目を入力してください';
 		event.preventDefault();
  	}
+}
+//リセットボタンを押したときの処理
+function re(){	
+	document.getElementById('fr').user_id.value="";
+	document.getElementById('fr').password.value="";
+	document.getElementById('fr').user.value="";
+	document.getElementById('fr').gender.checked = false;
+	document.getElementById('fr').height.value="";
+	document.getElementById('fr').target_weight.value="";
+	
+	
 }
 
 </script>
