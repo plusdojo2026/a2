@@ -21,14 +21,16 @@
     </nav>
     
     <div class="action-area">
+    <a id="action-area">
         <button type="button" onclick="openCreateModal()"> 新規グループ作成</button>
+        </a>
     </div>
     
     <section class="group-list-section">
         <h2>グループ一覧 <button type="button" id="toggle-leave-btn">🏃</button></h2>
         
         <c:if test="${not empty groupList}">
-            <form action="GroupLeaveServlet" method="post">
+            <form action="GroupAddServlet" method="post">
                 <ul class="group-list">
                     
     <c:forEach var="group" items="${groupList}">
@@ -116,7 +118,7 @@
             });
         }
     }); 
-
+    document.getElementById("action-area").href = "GroupCreateServlet" 
    
     function openGroupModal(element, groupId, groupName) {
         document.getElementById("modal-group-name").innerText = groupName;

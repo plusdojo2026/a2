@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <!-- グラフ作成用Chart.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <title>マメッスル|成長記録</title>
 </head>
 <body>
@@ -32,10 +33,10 @@
 	</select><br>
 </div> 
 <!-- グラフを表示する場所 -->
-<canvas id = "lineChart"></canvas>
+<canvas id="lineChart" width="600" height="300"></canvas>
 
 <!-- グラフデータ -->
-<div>
+<!--   <div>
  <c:forEach var="gi" items="${GraphList}">
  	<c:out value="${gi.tr_item }">
  	</c:out>
@@ -49,6 +50,9 @@
  	</c:out><br>
  </c:forEach>
 </div>
+-->
+
+
 
 <!-- 表示変更 -->
 <ul>
@@ -59,7 +63,6 @@
 <input type="button" name="month" value="月">
 </li>
 </ul>
-
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -92,7 +95,38 @@ function showDay(){
 	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
 }
 
-//グラフ作成
+//ArrayListを配列に変換
+
+ //折れ線グラフ作成 
+let inputLabel = [
+	<c:forEach var="gi" items="${GraphList}" varStatus="st">
+    "${gi.TD_date}"<c:if test="${!st.last}">,</c:if>
+</c:forEach>
+] ;//X軸。サーブレットから拾ってくる
+
+let arr = [
+	<c:forEach var="gi" items="${GraphList}" varStatus="st">
+	    ${gi.counts}<c:if test="${!st.last}">,</c:if>
+	</c:forEach>
+	] ;//Y軸。サーブレットから拾ってくる
+	
+let context3 = document.querySelector("#lineChart").getContext('2d')
+new Chart(context3, {
+  type: 'line', //折れ線
+  data: {
+    labels: inputLabel,  // X軸のラベル（日付など）
+    datasets: [{
+      label: "折れ線グラフ",
+      data: arr,
+      borderColor: '#4169e1',
+      backgroundColor: 'rgba(65, 105, 225, 0.2)',
+      tension: 0.3,  // 線を少し曲線にする（0にすると直線）
+    }]
+  },
+  options: {
+    responsive: false,
+  }
+});
 
 
 

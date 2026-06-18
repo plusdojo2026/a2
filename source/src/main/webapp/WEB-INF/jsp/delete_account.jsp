@@ -42,7 +42,7 @@
 <!--　フッターここまで　-->
 <script>
 'use strict'
-//ログアウトアラート
+//退会アラート
 document.getElementById('delete').onclick = function(event){
     let logout = window.confirm('退会してよろしいですか？');
     if( logout === false){
