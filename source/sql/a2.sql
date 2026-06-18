@@ -29,7 +29,7 @@ storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
 user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
 weight DOUBLE,								/*体重*/
 fat DOUBLE,									/*体脂肪率*/
-memo VARCHAR(100),							/*メモ*/
+comments VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
@@ -70,7 +70,7 @@ storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
 user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
 weight DOUBLE,								/*体重*/
 fat DOUBLE,									/*体脂肪率*/
-memo VARCHAR(100),							/*メモ*/
+comments VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );

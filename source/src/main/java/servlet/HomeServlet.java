@@ -78,6 +78,7 @@ public class HomeServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		
+		String memo = request.getParameter("comments");
 		int storageId = Integer.parseInt(request.getParameter("storage_id"));
 		String user_id = request.getParameter("user_id");
 		double weight = Double.parseDouble(request.getParameter("weight"));
