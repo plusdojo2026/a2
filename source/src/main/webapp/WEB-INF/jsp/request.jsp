@@ -25,8 +25,10 @@
                     <input type="hidden" name="targetUserId" value="${req.userId}"> 
                     
                     <div style="display: flex; gap: 10px;">
-                        <button type="submit" name="action" value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">承認</button>
-                        <button type="submit" name="action" value="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
+                    
+                        <button type="submit" name="action" formaction="FriendListServlet" value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">承認</button>
+                        <button type="submit" name="action" formaction="FriendListServlet" value="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
+                   
                     </div>
                 </form>
                 
@@ -52,8 +54,11 @@
                     <input type="hidden" name="groupId" value="${invite.groupId}"> 
                     
                     <div style="display: flex; gap: 10px;">
-                        <button type="submit" name="action" value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">参加</button>
-                        <button type="submit" name="action" value="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">辞退</button>
+                 	
+                        <button type="submit" name="action" value="approve" formaction="GroupListServlet" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">参加</button>
+                  
+                        <button type="submit" name="action" value="reject"  formaction="GroupListServlet" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">辞退</button>
+                   
                     </div>
                 </form>
                 
@@ -66,6 +71,8 @@
     </div>
 
 </main>
-
+<script>
+	
+</script>
 </body>
 </html>
