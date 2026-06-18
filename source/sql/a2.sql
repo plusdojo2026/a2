@@ -29,12 +29,12 @@ storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
 user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
 weight DOUBLE,								/*体重*/
 fat DOUBLE,									/*体脂肪率*/
-memo VARCHAR(100),							/*メモ*/
+comments VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );
 /*内容入力*/
-INSERT INTO storages (user_id, weight, fat, memo, stamp, date) VALUES
+INSERT INTO storages (user_id, weight, fat, comments, stamp, date) VALUES
 ('user1', 60.5, 20.1, '胸トレ', 1, '2026-06-01'),
 ('user1', 60.3, 20.0, '背中トレ', 2, '2026-06-03'),
 ('user1', 60.2, 19.8, '脚トレ', 3, '2026-06-05'),
@@ -70,7 +70,7 @@ storage_id INT AUTO_INCREMENT PRIMARY KEY,	/*記録情報*/
 user_id VARCHAR(30) NOT NULL,				/*ユーザーID*/
 weight DOUBLE,								/*体重*/
 fat DOUBLE,									/*体脂肪率*/
-memo VARCHAR(100),							/*メモ*/
+comments VARCHAR(100),							/*メモ*/
 stamp INT,									/*スタンプ*/
 date DATE DEFAULT (CURRENT_DATE)			/*日付*/
 );

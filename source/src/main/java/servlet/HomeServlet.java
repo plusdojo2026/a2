@@ -78,10 +78,22 @@ public class HomeServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		
+		//項目追加した分の数を取ってきている
+		int coun = Integer.parseInt(request.getParameter("coun"));
+		
+		
+		// ユーザーIDなど
 		int storageId = Integer.parseInt(request.getParameter("storage_id"));
 		String user_id = request.getParameter("user_id");
+		
+		
+	
+		//もともと表示がある項目を受け取る
 		double weight = Double.parseDouble(request.getParameter("weight"));
 		double fat = Double.parseDouble(request.getParameter("fat"));
+		String comments = request.getParameter("comments");
+		
+		
 		String memo = request.getParameter("memo");
 		int stamp = Integer.parseInt(request.getParameter("stamp"));
 		
@@ -92,11 +104,23 @@ public class HomeServlet extends HttpServlet {
 			date = LocalDate.parse(dateStr);
 		}
 		
+		
+		
+		
+		
+		//追加項目を受け取る
+		for (int i = 1; i <= coun; i++) {
+			int tr_weight = Integer.parseInt(request.getParameter("tr_weight" + i));
+			int counts = Integer.parseInt(request.getParameter("counts" + i));
+			int sets = Integer.parseInt(request.getParameter("sets" + i));
+		}
+		
+		
+		
+		//トレーニングid、tr_itemを取ってくるためのもの
 		int id = Integer.parseInt(request.getParameter("id"));
 		int tr_id = Integer.parseInt(request.getParameter("tr_id"));
-		int tr_weight = Integer.parseInt(request.getParameter("tr_weight"));
-		int counts = Integer.parseInt(request.getParameter("counts"));
-		int sets = Integer.parseInt(request.getParameter("sets"));
+		
 	
 	
 	}
