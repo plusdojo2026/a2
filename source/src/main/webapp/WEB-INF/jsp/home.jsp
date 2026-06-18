@@ -338,7 +338,7 @@
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "text";
-   			weightinput.name ="tr_weight" + count;
+   			weightinput.name ="tr_weight" +count;
    			div.appendChild(weightinput);
 			
 			
@@ -355,7 +355,7 @@
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "text";
-			countinput.name ="counts" + count;
+			countinput.name ="counts" +count;
 			div.appendChild(countinput);
    			
 			
