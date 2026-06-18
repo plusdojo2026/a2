@@ -8,9 +8,9 @@ public class Friend implements Serializable{
 	private String userId;			//ユーザーid
 	private String friendUserId;	//フレンドのユーザーid
 	private int friendRequest;		//申請の承認フラグ
-	private String userName;
-	private int iconId;
-	private int point;
+	private String userName;		//ユーザーネーム
+	private int iconId;				//アイコンID
+	private int point;				//ポイント
 	
 	public Friend() {
 		super();
