@@ -39,7 +39,7 @@ public class TrItemsDao {
 	    	"root", "password");
 	    	
 	    	// SQL文を準備する
-	    	String sql ="SELECT tr_item FROM tr_item";
+	    	String sql ="SELECT tr_item FROM tr_items";
 	    	
 	    	
 	    	//SQLを実行できる状態にする文章　SQL文の後にこれがないと動かない
