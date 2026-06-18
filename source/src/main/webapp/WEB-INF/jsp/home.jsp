@@ -65,6 +65,12 @@
 <form method="POST" action="HomeServlet">
 体重(kg)　<input type="text" name="weight"><br>
 体脂肪率(％)<input type="text" name="fat"><br>
+<br>
+<br>
+<input type ="text" id ="c" name = "coun"><br>
+<!-- <input type ="hidden" id ="c" name = "count"><br> -->
+<br>
+
 一日メモ<br>
 <textarea name="comments"></textarea>
 <br>
@@ -459,6 +465,7 @@
     	
     	count++;
 
+    	document.getElementById("c").value =count;
     	document.getElementById("modal").style.display = "none";
     	document.getElementById("msg").textContent = "";
     }
