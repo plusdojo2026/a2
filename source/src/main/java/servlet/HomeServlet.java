@@ -21,6 +21,7 @@ import dto.Storage;
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	
 	// 直接servletを実行したときに動くメソッド（リダイレクトもこっちが動く）
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,6 +37,8 @@ public class HomeServlet extends HttpServlet {
 //	
 //
 		request.setAttribute("itemList", items);
+		
+		
 
 		// IDが削除された場合、同じIDでログインしてホームに飛べないようにする
 
@@ -46,6 +49,10 @@ public class HomeServlet extends HttpServlet {
 //		int logocal = uDao.getLogical(userId);
 //		
 
+		
+		
+		
+		
 		// スタンプを取得している
 //		String userId = request.getParameter();
 
@@ -55,7 +62,20 @@ public class HomeServlet extends HttpServlet {
 
 		request.setAttribute("stampList", stampList);
 
-//		System.out.println(stampList);
+		
+		
+		
+		//一時保存できた際に保存できたことを知らせる文を表示させている
+		//msgはdo postで送ったものをとってきている
+		String msg = request.getParameter("msg");
+
+		//"tempSaved"という単語と同じものがmsgに入っているか。確認したら"一時保存できました"と出す
+	    if ("tempSaved".equals(msg)) {
+	        request.setAttribute("message", "一時保存できました");
+	    }
+	    
+	    
+	    
 
 		/*
 		 * 
@@ -72,6 +92,9 @@ public class HomeServlet extends HttpServlet {
 
 	}
 
+	
+	
+	
 	// <form method = "POST" でservletを指定したときに動くメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -168,7 +191,10 @@ public class HomeServlet extends HttpServlet {
 			
 			SavesDao sdao = new SavesDao();
 
-			response.sendRedirect(request.getContextPath() + "/HomeServlet");
+			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
+			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
+			///a2/HomeServlet?msg=tempSavedというURLになる
+			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
 
 			for (Save dto : svdetalist) {
 				sdao.insertTrSaves(dto);

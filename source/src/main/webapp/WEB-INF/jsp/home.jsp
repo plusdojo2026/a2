@@ -52,6 +52,12 @@
 <!--　メインここから　-->
 <main>
 
+<!--ホームサーブレットにある、messageを表示させている　if文でもしメッセージが存在したらと書く-->
+<c:if test="${not empty message}">
+    <div style="color: blue;">
+        ${message}
+    </div>
+</c:if>
 
 <form method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
