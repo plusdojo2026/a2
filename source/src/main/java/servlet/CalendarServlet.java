@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -18,14 +19,27 @@ import dao.StoragesDao;
 import dao.TrItemsDao;
 import dto.Storage;
 import dto.TrItem;
+import dto.User;
 
 @WebServlet("/CalendarServlet")
 public class CalendarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	// セッションからユーザー情報を取得
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        // ログインしていない場合はログイン画面に飛ばす
+        if (user == null) {
+            response.sendRedirect("/a2/LoginServlet");
+            return; 
+        }
+        // ログイン中のユーザーIDを取得
+        String userId = user.getUserId();
+        
 
         // ログイン中のユーザーID（本来はセッションから取得）
-        String userId = "user1";
+        // String userId = "user1";
 
         // 表示する年月（パラメータないときデフォルトで今月）
         String yearParam = request.getParameter("year");
@@ -108,10 +122,20 @@ public class CalendarServlet extends HttpServlet {
     // 記録編集
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	// セッションからユーザー情報を取得
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        // ログインしていない場合はログイン画面に飛ばす
+        if (user == null) {
+            response.sendRedirect("/a2/LoginServlet");
+            return; 
+        }
+        // ログイン中のユーザーIDを取得
+        String userId = user.getUserId();
 
         request.setCharacterEncoding("UTF-8");
         StoragesDao dao = new StoragesDao();
-        String userId = "user1"; // 本来はセッションから取得
         
         // 処理の判定用パラメータを取得
         String action = request.getParameter("action");
