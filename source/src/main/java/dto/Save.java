@@ -19,6 +19,8 @@ public class Save implements Serializable{
 	private int tr_weight;
 	private int counts;
 	private int sets;
+	private String comments;
+	private String trItem;
 	
 	
 	
@@ -26,6 +28,18 @@ public class Save implements Serializable{
 	
 	//ゲッターとセッター
 	
+	public String getTrItem() {
+		return trItem;
+	}
+	public void setTrItem(String trItem) {
+		this.trItem = trItem;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 	public int getSave_id() {
 		return save_id;
 	}
@@ -109,25 +123,27 @@ public class Save implements Serializable{
 		
 		
 	}
+public Save(int save_id, String user_id, double weight, double fat, String memo, int stamp, Date date, int id,
+		int tr_id, int tr_weight, int counts, int sets, String comments) {
+	super();
+	this.save_id = save_id;
+	this.user_id = user_id;
+	this.weight = weight;
+	this.fat = fat;
+	this.memo = memo;
+	this.stamp = stamp;
+	this.date = date;
+	this.id = id;
+	this.tr_id = tr_id;
+	this.tr_weight = tr_weight;
+	this.counts = counts;
+	this.sets = sets;
+	this.comments = comments;
+}
 	
 	
 	
 	
-	public Save(int save_id, String user_id, double weight, double fat, String memo,
-			int stamp, Date date, int id, int tr_id, int tr_weight, int counts, int sets) {
-		super();
-		this.save_id = save_id;
-		this.user_id = user_id;
-		this.weight = weight;
-		this.fat = fat;
-		this.memo = memo;
-		this.stamp = stamp;
-		this.date = date;
-		this.id = id;
-		this.tr_id = tr_id;
-		this.tr_weight = tr_weight;
-		this.counts = counts;
-		this.sets = sets;
-	}
+	
 	
 }

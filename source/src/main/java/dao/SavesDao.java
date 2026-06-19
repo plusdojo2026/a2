@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import dto.Storage;
+import dto.Save;
 
 public class SavesDao {
 
 	
 	
-public boolean insertSaves(Storage dto) {
+public boolean insertSaves(Save dto) {
 	
 
 	System.out.println("insertTrStorage実行");
@@ -85,7 +85,7 @@ public boolean insertSaves(Storage dto) {
 	
 	
 	//追加項目の一時保存、前のデータ消されるバージョン　tr_storagesのテーブル
-		public boolean insertTrSaves(Storage dto) {
+		public boolean insertTrSaves(Save dto) {
 			
 			
 			
