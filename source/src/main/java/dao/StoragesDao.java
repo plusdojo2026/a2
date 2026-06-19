@@ -22,7 +22,7 @@ public class StoragesDao {
      * スタンプやメモを更新、新規追加するメソッド
      * 返り値：trueかfaulse
      */
-	public boolean saveRecord(String userId, String date, Integer stamp, String memo) {
+	public boolean saveRecord(String userId, String date, Integer stamp, String memo, Double weight) {
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -38,17 +38,19 @@ public class StoragesDao {
 
             // INSERTかUPDATEを1回で実行するSQL
             String sql =
-                "INSERT INTO storages (user_id, date, stamp, memo) " +
-                "VALUES (?, ?, ?, ?) " +
+                "INSERT INTO storages (user_id, date, stamp, memo, weight) " +
+                "VALUES (?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "stamp = VALUES(stamp), " +
-                "memo = VALUES(memo)";
+                "memo = VALUES(memo), " +
+                "weight = VALUES(weight)";
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, userId);
             ps.setString(2, date);
             ps.setObject(3, stamp);
             ps.setString(4, memo);
+            ps.setObject(5, weight);
             
             //ps.executeUpdate()で１件以上更新されてたらtrueが返る
             return ps.executeUpdate() > 0;
@@ -73,7 +75,7 @@ public class StoragesDao {
 	
 
 	/*
-     * 指定したユーザーの、指定した年月のスタンプ一覧を取得するメソッド
+     * ユーザーの指定した年月のスタンプ一覧を取得するメソッド
      * 返り値：Map<"2026-07-10", stamp番号>
      */
 	public Map<String, Integer> getStampByMonth(String userId, String yearMonth) {
@@ -130,7 +132,7 @@ public class StoragesDao {
 	}
 
 	/*
-     * メモ内容を取得するメソッド
+     * 指定された年月のメモ内容を取得するメソッド
      * 返り値：Map<"2026-06-10", "メモの内容">
      */
 	public Map<String, String> getMemo(String userId, String yearMonth) {
@@ -188,7 +190,7 @@ public class StoragesDao {
 	}
 
 	/*
-     * 指定された日付のトレーニング内容を取得するメソッド
+     * 指定された年月のトレーニング内容を取得するメソッド
      * 返り値：List<Storage>（trainingList）
      */
 	public Map<String, List<Storage>> getTrainingByMonth(String userId, String yearMonth) {
@@ -252,6 +254,59 @@ public class StoragesDao {
 	    return trainingMap;
 	}
 	
+	/*
+     * 指定された年月の体重を取得するメソッド
+     * 返り値：Map<"2026-06-10", 体重>
+     */
+	public Map<String, Double> getWeightByMonth(String userId, String yearMonth) {
+	    Map<String, Double> map = new HashMap<>();
+	    
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "SELECT date, weight FROM storages WHERE user_id = ? AND date LIKE ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userId);
+			ps.setString(2, yearMonth + "%");
+	        
+			rs = ps.executeQuery();
+		    
+		    while (rs.next()) {
+		        String date = rs.getString("date");
+		        double weight = rs.getDouble("weight");
+		        
+		        // 体重が未入力（NULL）でなければMapに追加
+		        if (!rs.wasNull()) {
+		            map.put(date, weight);
+		        }
+		    }
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    return map;
+	}
 	
 	
 	/*
@@ -299,7 +354,7 @@ public class StoragesDao {
 	}
 
 	/*
-	 * 既存のトレーニング内容を更新するメソッド（主キーidを指定）
+	 * 既存のトレーニング内容を更新するメソッド
 	 */
 	public boolean updateTraining(Storage s) {
 	    Connection conn = null;
@@ -342,7 +397,7 @@ public class StoragesDao {
 	}
 
 	/*
-	 * トレーニング内容を削除するメソッド
+	 * 既存のトレーニング内容を削除するメソッド
 	 */
 	public boolean deleteTraining(int id) {
 	    Connection conn = null;
@@ -378,6 +433,8 @@ public class StoragesDao {
 		}
 	    return false;
 	}
+	
+	
 	
 
 	//-------------カレンダーページのDAOここまで--------------//
@@ -573,5 +630,168 @@ public class StoragesDao {
 
 		    return stampList;
 		}
+
+
+		
+		
+		
+		
+		
+//もともとある欄のstoragesのテーブル
+		
+		
+	public boolean insertStorage(Storage dto) {
+		
+
+		System.out.println("insertTrStorage実行");
+		
+		Connection conn = null;
+	    PreparedStatement ps = null;
+	    
+	    
+	    
+	    try {
+		
+	    	
+		// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+		
+		
+			
+			
+			 String sql =
+					 "INSERT INTO storages "
+					  + "(user_id, weight, fat, comments, stamp, date) "
+					  + "VALUES (?, ?, ?, ?, ?, NOW())";
+			 
+			 ps = conn.prepareStatement(sql);
+			 
+			 
+			 ps.setString(1, dto.getUser_id());   // 後でログイン情報から取得
+			 ps.setDouble(2, dto.getWeight());
+			 ps.setDouble(3, dto.getFat());
+			 ps.setString(4, dto.getComments());
+			 ps.setInt(5, dto.getStamp());
+			 
+			 return ps.executeUpdate() > 0;
+				
+			
+			
+	    }catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			
+			// データベースを切断
+				try {
+					if (ps != null) ps.close();
+					if(conn != null)conn.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			
+		}
+	    return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+//追加項目のtr_storagesのテーブル
+	
+	public boolean insertTrStorage(Storage dto) {
+		
+
+		/*ystem.out.println("insertTrStorage実行");*/
+		
+		
+		/*
+		 * System.out.println("user_id=" + dto.getUser_id());
+		 * System.out.println("tr_id=" + dto.getTr_id());
+		 * System.out.println("tr_weight=" + dto.getTr_weight());
+		 * System.out.println("counts=" + dto.getCounts()); System.out.println("sets=" +
+		 * dto.getSets()); System.out.println("memo=" + dto.getMemo());
+		 */
+		
+		Connection conn = null;
+		PreparedStatement psInsert = null;
+	    
+	    
+		try {
+		// JDBCドライバを読み込む
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	
+		// データベースに接続する
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+				"root", "password");
+		
+		
+        
+        
+        //新しいデータを登録するSQL文
+        String insertSql =
+        "INSERT INTO tr_storages "
+         + "(user_id, tr_id, tr_weight, counts, sets, memo, date) "
+         + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
+		
+        
+        
+        psInsert = conn.prepareStatement(insertSql);
+        
+        psInsert.setString(1, dto.getUser_id());
+        psInsert.setInt(2, dto.getTr_id());
+        psInsert.setInt(3, dto.getTr_weight());
+        psInsert.setInt(4, dto.getCounts());
+        psInsert.setInt(5, dto.getSets());
+        psInsert.setString(6, dto.getMemo());
+        
+        
+        
+       
+        
+        int result = psInsert.executeUpdate();
+
+        System.out.println("更新件数=" + result);
+
+
+        return result > 0;
+		
+        
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+				try {
+		            if (psInsert != null) psInsert.close();
+		            if (conn != null) conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				
+			}
+		
+	}
+		return false;
 }
+	}
+	
+
+
 

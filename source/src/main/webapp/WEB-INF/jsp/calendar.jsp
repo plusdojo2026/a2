@@ -7,11 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>マメッスル　カレンダー</title>
+<link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <link rel="stylesheet" href="/a2/css/calendar.css">
 </head>
 <body>
 <!-----------　ヘッダーここから　----------->
 <header>
+    <div class="header-left">
+        <span id="today"></span>
+        <span id="anniversary" class="anniversary"></span>
+    </div>
+
+    <a href="/a2/HomeServlet" class="logo">rogo</a>
+    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
 </header>
 <!-------------　ヘッダーここまで　------------->
 <!-------------　メインここから　------------->
@@ -72,6 +82,7 @@
 								<td data-date="${dayData.fullDate}"
 								    data-stamp="${stampMap[dayData.fullDate] != null ? stampMap[dayData.fullDate] : 0}"
 								    data-memo="${fn:escapeXml(memoMap[dayData.fullDate])}"
+								    data-weight="${weightMap[dayData.fullDate] != null ? weightMap[dayData.fullDate] : ''}"
 								    onclick="openModalFromTd(this)">
 									<%-- 日付数字 --%>
 							        <div class="date-num">${dayData.day}</div>
@@ -97,8 +108,10 @@
 	        <h3 id="modal-date"></h3>
 	        <!-- スタンプ更新 -->
 	        <div class="modal-body-scroll">
-	            <form action="/a2/CalendarServlet" method="post">
+	            <form action="/a2/CalendarServlet" method="post" novalidate onsubmit="return validateMainForm(this)">
 	                <input type="hidden" name="date" id="modalDate">
+	                
+	                <div id="main-error-msg" style="color: red;"></div>
 	                <label>スタンプ：</label>
 	                <select name="stamp">
 					    <option value="0">なし</option>
@@ -110,12 +123,17 @@
 					    <option value="6">やる気</option>
 					    <option value="7">ビール</option>
 					</select>
-				<br>
-				<label>メモ：</label>
-				<br>
-			    <textarea name="memo" id="modal-memo" rows="3"></textarea>
-			
-			    <button type="submit">更新</button>
+					<br>
+					
+					<label>体重：</label>
+				    <input type="number" step="0.1" name="weight" id="modal-weight" style="width: 70px;"> kg
+				    <br>
+				    
+					<label>メモ：</label>
+					<br>
+				    <textarea name="memo" id="modal-memo" rows="3"></textarea>
+				
+				    <button type="submit">更新</button>
 	            </form>
 	            <hr>
 	            <h4>トレーニング内容</h4>
@@ -130,93 +148,89 @@
 <!---------------　メインここまで　--------------->
 <!---------------　フッターここから　--------------->
 <footer>
-
-
+<nav class="bottom-bar" id="bar">
+  <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up"></i></a>
+  <a href="/a2/FriendListServlet"><i class="fa-solid fa-user-group"></i></a>
+  <a href="/a2/HomeServlet"><i class="fa-regular fa-square-plus"></i></a>
+  <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar nowpage"></i></a>
+  <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user"></i></a>
+</nav>
 </footer>
 <!---------------　フッターここまで　--------------->
 <script>
+	// JSON文字列
+	const masterItemsJs = ${itemListJson};
+	const trainingMapJs = ${trainingMapJson};
+	//const weightMapJs = ${weightMapJson};
 
-	//サーブレットから受け取った種目マスターをJSの配列に変換
-	const masterItemsJs = [];
-	<c:forEach var="item" items="${itemList}">
-	    masterItemsJs.push({
-	    	// TrIdやTrItemだとできない（原因不明）
-	        id: "${item.trId}",
-	        name: "${item.trItem}"
-	    });
-	</c:forEach>
-
-	const trainingMapJs = {};
-	
-	<c:forEach var="entry" items="${trainingMap}">
-	    trainingMapJs["${entry.key}"] = [];
-	    <c:forEach var="s" items="${entry.value}">
-	        trainingMapJs["${entry.key}"].push({
-	            id: "${s.id}",
-	            tr_id: "${s.tr_id}",
-	            weight: "${s.tr_weight}",
-	            counts: "${s.counts}",
-	            sets: "${s.sets}",
-	            memo: "${fn:escapeXml(s.memo)}"
-	        });
-	    </c:forEach>
-	</c:forEach>
-
-	//モーダルを開く関数
-	function openModal(date, stamp, memo, list) {
+	// モーダルを開く関数
+	function openModal(date, stamp, memo, list, weight) {
 	    document.getElementById("modal-date").innerText = date;
 	    document.getElementById("modalDate").value = date;
 	
 	    // スタンプ初期値
 	    document.querySelector("select[name='stamp']").value = stamp;
-	
 	    // トレーニング内容初期値
 	    document.getElementById("modal-memo").value = memo || "";
+	 	// 体重初期値
+	    document.getElementById("modal-weight").value = weight || "";
 	    	
 	    let area = document.getElementById("modal-training-area");
 	    area.innerHTML = "";
 
-	    // 1. 既存トレーニング内容のリスト表示
+	    // 既存トレーニング内容のリスト表示
 	    if (!list || list.length === 0) {
 	        area.innerHTML = "<div class='no-training'>トレーニングなし</div>";
 	    } else {
 	        list.forEach(obj => {
+	            // 各レコードごとのセレクトボックスのHTML
+	            let itemSelectHtml = '<select name="tr_id" class="input-select">';
+	            masterItemsJs.forEach(master => {
+	                // Gsonで変換されたオブジェクトのプロパティ名に合わせて判定
+	                let selected = (master.TrId == obj.tr_id) ? ' selected' : '';
+	                itemSelectHtml += '<option value="' + master.TrId + '"' + selected + '>' + master.TrItem + '</option>';
+	            });
+	            itemSelectHtml += '</select>';
+
 	            area.innerHTML += 
-	                '<form action="/a2/CalendarServlet" method="post" class="training-edit-form">' +
-	                    // どのレコードかを識別する主キーIDと、処理分岐用のactionパラメータ
-	                    '<input type="hidden" name="id" value="' + obj.id + '">' +
-	                    '<input type="hidden" name="action" class="action-field" value="update">' +
+	            	'<form action="/a2/CalendarServlet" method="post" class="training-edit-form" novalidate onsubmit="return validateEditForm(this, ' + obj.id + ')">' +
+		                '<input type="hidden" name="id" value="' + obj.id + '">' +
+		                '<input type="hidden" name="action" class="action-field" value="update">' +
+		                
+		                '<div id="edit-error-msg-' + obj.id + '" style="color: red;"></div>' +
 	                    	
 	                    '<div class="training-row">' +
-	                        '<span class="item">種目ID: <input type="number" name="tr_id" value="' + obj.tr_id + '" class="input-small"></span>' +
-	                        '<span class="item">重量: <input type="number" name="tr_weight" value="' + obj.weight + '" class="input-small">kg</span>' +
+	                        '<span class="item">種目: ' + itemSelectHtml + '</span>' +
+	                        '<span class="item">重量: <input type="number" name="tr_weight" value="' + obj.tr_weight + '" class="input-small">kg</span>' +
 	                        '<span class="item">回数: <input type="number" name="counts" value="' + obj.counts + '" class="input-small">回</span>' +
 	                        '<span class="item">セット: <input type="number" name="sets" value="' + obj.sets + '" class="input-small"></span>' +
-	                        '<span class="item">メモ: <input type="text" name="tr_memo" value="' + obj.memo + '" class="input-med"></span>' +
+	                        '<span class="item">メモ: <input type="text" name="tr_memo" value="' + (obj.memo || "") + '" class="input-med"></span>' +
 	                        	
-	                        // 変更ボタンと削除ボタン
 	                        '<button type="submit" class="btn-edit">変更</button>' +
-	                        '<button type="submit" class="btn-delete" onclick="this.form.querySelector(\'.action-field\').value=\'delete\'; return confirm(\'削除しますか？\');">削除</button>' +
+	                        '<button type="button" class="btn-delete" onclick="if(confirm(\'削除しますか？\')){ this.form.querySelector(\'.action-field\').value=\'delete\'; this.form.submit(); }">削除</button>' +
 	                    '</div>' +
 	                '</form>';
 	        });
 	    }
-	    
-	    // 2. 新規追加用のプルダウンフォームの自動生成
+	    	
+	    // 新規追加用のプルダウンフォーム
 	    let optionsHtml = '<option value="" disabled selected>選択してください</option>';
 	    masterItemsJs.forEach(item => {
-	        optionsHtml += '<option value="' + item.id + '">' + item.name + '</option>';
+	        optionsHtml += '<option value="' + item.TrId + '">' + item.TrItem + '</option>';
 	    });
 	
 	    area.innerHTML += 
-	        '<form action="/a2/CalendarServlet" method="post" class="training-add-form">' +
-	            '<input type="hidden" name="date" value="' + date + '">' +
-	            '<input type="hidden" name="action" value="insert">' +
-	            
-	            '<h5>＋ 新しいトレーニングを追加</h5>' +
+	    	'<form action="/a2/CalendarServlet" method="post" class="training-add-form" novalidate onsubmit="return validateAddForm(this)">' +
+		        '<input type="hidden" name="date" value="' + date + '">' +
+		        '<input type="hidden" name="action" value="insert">' +
+		        	
+		        '<h5>＋ 新しいトレーニングを追加</h5>' +
+		        
+		        '<div id="add-error-msg" style="color: red;"></div>' +
+		        
 	            '<div class="training-row">' +
 	                '<span class="item">種目: ' +
-	                    '<select name="tr_id" required class="input-select">' +
+	                    '<select name="tr_id" class="input-select">' +
 	                        optionsHtml +
 	                    '</select>' +
 	                '</span>' +
@@ -231,19 +245,116 @@
 	    document.getElementById("modal-bg").style.display = "block";
 	}
 	
+	// 新規追加時の入力チェックを行う関数
+	function validateAddForm(form) {
+	    const errorArea = document.getElementById("add-error-msg");
+	    errorArea.innerText = ""; // いったんエラーメッセージをクリア
+
+	    const trId = form.tr_id.value;
+	    const weight = form.tr_weight.value;
+	    const counts = form.counts.value;
+	    const sets = form.sets.value;
+
+	    // 種目の未選択チェック
+	    if (!trId || trId === "") {
+	        errorArea.innerText = "種目を選択してください。";
+	        form.tr_id.focus(); // 入力箇所にカーソルを合わせる
+	        return false; // 送信を中止
+	    }
+
+	    // 数値項目の空欄or負の数のチェック
+	    if (weight === "" || counts === "" || sets === "") {
+	        errorArea.innerText = "重量、回数、セット数は数値を入力してください。";
+	        return false;
+	    }
+	    
+	    if (parseFloat(weight) < 0 || parseInt(counts) < 0 || parseInt(sets) < 0) {
+	        errorArea.innerText = "数値には0以上の値を入力してください。";
+	        return false;
+	    }
+
+	    return true; // 何も問題がなければサーブレットに送信
+	}
+	
+	// 体重の入力チェックを行う関数
+	function validateMainForm(form) {
+	    const errorArea = document.getElementById("main-error-msg");
+	    errorArea.innerText = ""; // メッセージをクリア
+
+	    const weight = form.weight.value;
+	    
+	    // 本当に空っぽ（未入力）の場合は、そのまま保存を許可
+	    if (weight === "" && form.weight.validity.valid) {
+	        return true;
+	    }
+
+	    // 「e」や「E」など変な文字が含まれていないかチェック
+	    if (!form.weight.validity.valid || /[eE]/.test(weight) || isNaN(parseFloat(weight))) {
+	        errorArea.innerText = "体重には数値を入力してください";
+	        form.weight.focus();
+	        return false;
+	    }
+
+	    // 負の数チェック
+	    if (parseFloat(weight) < 0) {
+	        errorArea.innerText = "体重には0以上の数値を入力してください。";
+	        form.weight.focus();
+	        return false;
+	    }
+
+	    return true; // 問題なければ送信
+	}
+	
+	// 既存トレーニングの変更時の入力チェックを行う関数
+	function validateEditForm(form, id) {
+	    // 該当するフォーム専用のエラーエリアを取得
+	    const errorArea = document.getElementById("edit-error-msg-" + id);
+	    errorArea.innerText = ""; // メッセージをクリア
+
+	    // もしボタンのonclick等でactionが「delete」に書き換わっていた場合はチェックせず送信を通す
+	    const action = form.querySelector('.action-field').value;
+	    if (action === "delete") {
+	        return true; 
+	    }
+
+	    const trId = form.tr_id.value;
+	    const weight = form.tr_weight.value;
+	    const counts = form.counts.value;
+	    const sets = form.sets.value;
+
+	    // 種目の未選択チェック
+	    if (!trId || trId === "") {
+	        errorArea.innerText = "種目を選択してください。";
+	        form.tr_id.focus();
+	        return false;
+	    }
+
+	    // 数値項目の空欄or負の数のチェック
+	    if (weight === "" || counts === "" || sets === "") {
+	        errorArea.innerText = "重量、回数、セット数は数値を入力してください。";
+	        return false;
+	    }
+	    
+	    if (parseFloat(weight) < 0 || parseInt(counts) < 0 || parseInt(sets) < 0) {
+	        errorArea.innerText = "数値には0以上の値を入力してください。";
+	        return false;
+	    }
+
+	    return true; // 問題なければ送信
+	}
+	
 	function openModalFromTd(td) {
 	    const date = td.dataset.date;
 	    const stamp = td.dataset.stamp;
 	    const memo = td.dataset.memo;
+	    const weight = td.dataset.weight;
 
-	    // 格納されたオブジェクトから該当日のリストを取得（なければ空配列）
 	    const list = trainingMapJs[date] || [];
 
-	    // デバッグ用：ブラウザのF12コンソールでクリックした日付のデータが出ているか確認
 	    console.log("選択された日付:", date);
 	    console.log("取得されたリスト:", list);
 
-	    openModal(date, stamp, memo, list);
+	    openModal(date, stamp, memo, list, weight);
 	}
 
 	function closeModal() {
