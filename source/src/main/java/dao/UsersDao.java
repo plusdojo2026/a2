@@ -613,11 +613,13 @@ public class UsersDao {
 						//pStmtに上の2つの情報をまとめる
 						//PreparedStatement は、SQLのテンプレート使い回しシステム。? を使って、後からデータを流し込む。
                         //SQLのテンプレート（雛形）を事前に用意して使い回す仕組み
-						//pStmtの中に、データベースで接続スルconnとUPDATE文でポイント付与するSQL文の２つをまとめている
+						//pStmtの中に、データベースで接続スルconnとUPDATE文でポイント付与するSQL文の２つをまとめて実行の準備している
 						PreparedStatement pStmt = conn.prepareStatement(sql);
 						
 						//上２つでまとめたものをPreparedStatementの型に入れる
-						//pStmtで何の型の何番目のpoint、pStmtで何の型の何番目のidを入れる、
+						//pStmtで何の型のSQL文の何番目にpoint、pStmtで何の型のSQL文の何番目に何番目のidを入れる、
+						//つまり、UPDATE Users SET point = point + 5 WHERE user_id = mamemame01の、
+						//1番目がポイント、2番目にuser_idを入れるため、(1,point )(2,id)となっている
 						//この何番目のの部分はなんの意味であったか
 						// SQL文を完成させる
 						pStmt.setInt(1,point );
