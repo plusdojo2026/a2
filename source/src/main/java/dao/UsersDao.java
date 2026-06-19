@@ -345,7 +345,7 @@ public class UsersDao {
 				String sql = "SELECT password "
 						+" FROM users "
 						+" WHERE user_id=? ";
-				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				PreparedStatement pStmt = conn.prepareStatement(sql);	
 				// SQL文を完成させる
 				pStmt.setString(1, userId);
 				

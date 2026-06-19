@@ -9,28 +9,34 @@ public class Graph implements Serializable{
 	private int tr_weight;
 	private int counts;
 	private int sets;
-	private String TD_date;
+	private String td_date;
 	
 	//コンストラクタ
-	public Graph(String tr_item, int tr_weight, int counts, int sets, String TD_date) {
-		super();
-		this.tr_item = tr_item;
-		this.tr_weight = tr_weight;
-		this.counts = counts;
-		this.sets = sets;
-		this.TD_date = TD_date;
+
+
+	public String getTr_item() {
+		return tr_item;
 	}
+
 
 	//項目用コンストラクタ
 	public Graph(String tr_item, int tr_id) {
 		super();
 		this.tr_item = tr_item;
-		this.tr_id =tr_id;
+		this.tr_id = tr_id;
 	}
 
-	public String getTr_item() {
-		return tr_item;
+
+
+	public Graph(String tr_item, int tr_weight, int counts, int sets, String td_date) {
+		super();
+		this.tr_item = tr_item;
+		this.tr_weight = tr_weight;
+		this.counts = counts;
+		this.sets = sets;
+		this.td_date = td_date;
 	}
+
 
 	public void setTr_item(String tr_item) {
 		this.tr_item = tr_item;
@@ -68,14 +74,18 @@ public class Graph implements Serializable{
 		this.sets = sets;
 	}
 
-	public String getTD_date() {
-		return TD_date;
+	public String getTd_date() {
+		return td_date;
 	}
 
-	public void setTD_date(String tD_date) {
-		TD_date = tD_date;
+	public void setTd_date(String td_date) {
+		this.td_date = td_date;
 	}
 	
-	//getter setter
+	
+	
+
+	
+
 
 }

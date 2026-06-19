@@ -22,7 +22,7 @@ public class StoragesDao {
      * スタンプやメモを更新、新規追加するメソッド
      * 返り値：trueかfaulse
      */
-	public boolean saveRecord(String userId, String date, Integer stamp, String memo) {
+	public boolean saveRecord(String userId, String date, Integer stamp, String memo, Double weight) {
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -38,17 +38,19 @@ public class StoragesDao {
 
             // INSERTかUPDATEを1回で実行するSQL
             String sql =
-                "INSERT INTO storages (user_id, date, stamp, memo) " +
-                "VALUES (?, ?, ?, ?) " +
+                "INSERT INTO storages (user_id, date, stamp, memo, weight) " +
+                "VALUES (?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "stamp = VALUES(stamp), " +
-                "memo = VALUES(memo)";
+                "memo = VALUES(memo), " +
+                "weight = VALUES(weight)";
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, userId);
             ps.setString(2, date);
             ps.setObject(3, stamp);
             ps.setString(4, memo);
+            ps.setObject(5, weight);
             
             //ps.executeUpdate()で１件以上更新されてたらtrueが返る
             return ps.executeUpdate() > 0;
@@ -73,7 +75,7 @@ public class StoragesDao {
 	
 
 	/*
-     * 指定したユーザーの、指定した年月のスタンプ一覧を取得するメソッド
+     * ユーザーの指定した年月のスタンプ一覧を取得するメソッド
      * 返り値：Map<"2026-07-10", stamp番号>
      */
 	public Map<String, Integer> getStampByMonth(String userId, String yearMonth) {
@@ -130,7 +132,7 @@ public class StoragesDao {
 	}
 
 	/*
-     * メモ内容を取得するメソッド
+     * 指定された年月のメモ内容を取得するメソッド
      * 返り値：Map<"2026-06-10", "メモの内容">
      */
 	public Map<String, String> getMemo(String userId, String yearMonth) {
@@ -188,7 +190,7 @@ public class StoragesDao {
 	}
 
 	/*
-     * 指定された日付のトレーニング内容を取得するメソッド
+     * 指定された年月のトレーニング内容を取得するメソッド
      * 返り値：List<Storage>（trainingList）
      */
 	public Map<String, List<Storage>> getTrainingByMonth(String userId, String yearMonth) {
@@ -252,6 +254,59 @@ public class StoragesDao {
 	    return trainingMap;
 	}
 	
+	/*
+     * 指定された年月の体重を取得するメソッド
+     * 返り値：Map<"2026-06-10", 体重>
+     */
+	public Map<String, Double> getWeightByMonth(String userId, String yearMonth) {
+	    Map<String, Double> map = new HashMap<>();
+	    
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "SELECT date, weight FROM storages WHERE user_id = ? AND date LIKE ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userId);
+			ps.setString(2, yearMonth + "%");
+	        
+			rs = ps.executeQuery();
+		    
+		    while (rs.next()) {
+		        String date = rs.getString("date");
+		        double weight = rs.getDouble("weight");
+		        
+		        // 体重が未入力（NULL）でなければMapに追加
+		        if (!rs.wasNull()) {
+		            map.put(date, weight);
+		        }
+		    }
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    return map;
+	}
 	
 	
 	/*
@@ -299,7 +354,7 @@ public class StoragesDao {
 	}
 
 	/*
-	 * 既存のトレーニング内容を更新するメソッド（主キーidを指定）
+	 * 既存のトレーニング内容を更新するメソッド
 	 */
 	public boolean updateTraining(Storage s) {
 	    Connection conn = null;
@@ -342,7 +397,7 @@ public class StoragesDao {
 	}
 
 	/*
-	 * トレーニング内容を削除するメソッド
+	 * 既存のトレーニング内容を削除するメソッド
 	 */
 	public boolean deleteTraining(int id) {
 	    Connection conn = null;
@@ -379,6 +434,8 @@ public class StoragesDao {
 	    return false;
 	}
 	
+	
+	
 
 	//-------------カレンダーページのDAOここまで--------------//
 
@@ -405,13 +462,13 @@ public class StoragesDao {
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
 			//１か月分日別に取得
 			String sql = "SELECT tr_item, tr_weight,"
-					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS TD_date "
+					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS td_date "
 					+ " FROM tr_storages AS TS "
 					+ " INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
 					+ " WHERE TS.user_id = ? "
 					+ " AND DATE_FORMAT(date,'%Y-%m') = ? "
-					+ " ORDER BY TD_date ";
+					+ " ORDER BY td_date ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -424,7 +481,7 @@ public class StoragesDao {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Graph graph = new Graph(rs.getString("tr_item"), rs.getInt("tr_weight"),
-						rs.getInt("counts"),rs.getInt("sets"),rs.getString("TD_date") 
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("td_date") 
 				);
 				GraphList.add(graph);
 			}
