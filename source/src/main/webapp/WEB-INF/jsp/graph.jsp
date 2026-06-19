@@ -24,7 +24,7 @@
 <main>
 
 <div>
-	トレーニング項目<select name="tr_item">
+	トレーニング項目<select id="tr_item">
 		<c:forEach var="e" items="${gItem}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
 		 <option><c:out value="${e.tr_item}" />
@@ -32,26 +32,9 @@
 	 	</c:forEach> 
 	</select><br>
 </div> 
+
 <!-- グラフを表示する場所 -->
 <canvas id="lineChart" width="600" height="300"></canvas>
-
-<!-- グラフデータ -->
-<!--   <div>
- <c:forEach var="gi" items="${GraphList}">
- 	<c:out value="${gi.tr_item }">
- 	</c:out>
- 	<c:out value="${gi.tr_weight}">
- 	</c:out>kg
- 	 <c:out value="${gi.counts}">回
- 	</c:out> 回	
- 	<c:out value="${gi.sets}">セット
- 	</c:out> セット	
- 	<c:out value="${gi.TD_date}">
- 	</c:out><br>
- </c:forEach>
-</div>
--->
-
 
 
 <!-- 表示変更 -->
@@ -95,17 +78,29 @@ function showDay(){
 	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
 }
 
-//ArrayListを配列に変換
+//selectElementを取得して変数に代入
+const selectElement = document.getElementById('tr_item');
+
+selectElement.addEventListener('change', function() {
+
+    // 選択された option の値とテキストを取得
+    const selectedText = selectElement.options[selectElement.selectedIndex].text;
+
+    console.log("選択されたテキスト:", selectedText);
+
+    retrieveItemPrice(selectedText);
+})
+
 
  //折れ線グラフ作成 
 let inputLabel = [
-	<c:forEach var="gi" items="${GraphList}" varStatus="st">
-    "${gi.TD_date}"<c:if test="${!st.last}">,</c:if>
-</c:forEach>
+	<c:forEach var="gi" items="${graphList}" varStatus="st">
+    "${gi.td_date}"<c:if test="${!st.last}">,</c:if>
+	</c:forEach>
 ] ;//X軸。サーブレットから拾ってくる
 
 let arr = [
-	<c:forEach var="gi" items="${GraphList}" varStatus="st">
+	<c:forEach var="gi" items="${graphList}" varStatus="st">
 	    ${gi.counts}<c:if test="${!st.last}">,</c:if>
 	</c:forEach>
 	] ;//Y軸。サーブレットから拾ってくる
@@ -120,7 +115,7 @@ new Chart(context3, {
       data: arr,
       borderColor: '#4169e1',
       backgroundColor: 'rgba(65, 105, 225, 0.2)',
-      tension: 0.3,  // 線を少し曲線にする（0にすると直線）
+      tension: 0,  // 線を少し曲線にする（0にすると直線）
     }]
   },
   options: {

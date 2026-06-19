@@ -150,10 +150,19 @@ public class HomeServlet extends HttpServlet {
 		double fat = Double.parseDouble(request.getParameter("fat"));
 		String comments = request.getParameter("comments");
 		
+		StoragesDao vdao = new StoragesDao();
+
+		vdao.insertStorage(mdto);
 		
 		String memo = request.getParameter("memo");
 		int stamp = Integer.parseInt(request.getParameter("stamp"));
 		
+		for (Storage dto : detalist) {
+		    vdao.insertTrStorage(dto);
+		}
+		for (Storage dto : list) {
+		    vdao.insertStorage(dto);
+		}
 		
 		String dateStr = request.getParameter("date");
 		LocalDate date=null;
