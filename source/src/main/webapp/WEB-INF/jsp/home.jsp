@@ -185,7 +185,7 @@
 	//保存用の時のモーダル
 	function openSaveModal() {
 		
-		//inputの中のname="weight"のvalueを取り出す（中身ということ）
+		/* //inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
 		//inputの中のname="fat"のvalueを取り出す（中身ということ）
@@ -207,7 +207,7 @@
 	    //追加項目繰り返し処理で回す
 	    
 	    // 追加項目
-	    /* for(let i = 0; i < count; i++){
+	    /*  for(let i = 0; i < count; i++){
 	
 	        let item = document.getElementById("it" + i);
 	
@@ -224,10 +224,10 @@
 	            html += "重さ：" + weight2 + "<br>";
 	            html += "回数：" + counts + "<br>";
 	            html += "セット：" + sets + "<br>";
-	        } */
-	  
-	  
-		document.getElementById("confirmArea").innerHTML = html;
+	        } 
+	   *//*  */
+	     /*}
+		document.getElementById("confirmArea").innerHTML = html; */
 		
 	    document.getElementById("saveModal").style.display = "block";
 	}
