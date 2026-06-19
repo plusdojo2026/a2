@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,8 +142,10 @@ public class HomeServlet extends HttpServlet {
 				
 		
 		// ユーザーIDなど
-		int storageId = Integer.parseInt(request.getParameter("storage_id"));
-		String user_id = request.getParameter("user_id");
+		/*
+		 * int storageId = Integer.parseInt(request.getParameter("storage_id")); String
+		 * user_id = request.getParameter("user_id");
+		 */
 		
 		/*
 		 * System.out.println("weight=" + request.getParameter("weight"));
@@ -200,11 +201,6 @@ public class HomeServlet extends HttpServlet {
 		    vdao.insertStorage(dto);
 		}
 		
-		String dateStr = request.getParameter("date");
-		LocalDate date=null;
-		if(!dateStr.equals("")) {
-			date = LocalDate.parse(dateStr);
-		}
 		
 		
 		
