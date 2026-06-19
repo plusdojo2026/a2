@@ -120,7 +120,7 @@ public class HomeServlet extends HttpServlet {
 					dto.setSets(Integer.parseInt(request.getParameter("sets"+ i)));
 					dto.setTrItem(request.getParameter("it"+ i));
 					dto.setMemo(request.getParameter("memo"));
-					
+					dto.setUser_id("test");
 				
 					
 					TrItemsDao trDao = new TrItemsDao();
@@ -161,12 +161,18 @@ public class HomeServlet extends HttpServlet {
 		Storage  mdto = new Storage();
 		
 		
+		/*
+		 * System.out.println("weight=" + request.getParameter("weight"));
+		 * System.out.println("fat=" + request.getParameter("fat"));
+		 */
+		
 		
 		//もともと表示がある項目を受け取る
 		mdto.setWeight(Double.parseDouble(request.getParameter("weight")));
 		mdto.setFat(Double.parseDouble(request.getParameter("fat")));
 		mdto.setComments(request.getParameter("comments"));
 		mdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
+		mdto.setUser_id("test");
 		
 		
 		
@@ -177,8 +183,19 @@ public class HomeServlet extends HttpServlet {
 		
 		StoragesDao vdao = new StoragesDao();
 
-		vdao.insertStorage(mdto);
 		
+		/*
+		 * System.out.println("DAO呼び出し直前");
+		 * 
+		 * boolean result1 = vdao.insertStorage(mdto);
+		 * 
+		 * System.out.println("storages登録結果=" + result1);
+		 * 
+		 * for (Storage dto : detalist) { boolean result2 = vdao.insertTrStorage(dto);
+		 * System.out.println("tr_storages登録結果=" + result2); }
+		 * 
+		 * System.out.println("DAO呼び出し完了");
+		 */
 		
 		for (Storage dto : detalist) {
 		    vdao.insertTrStorage(dto);
@@ -194,7 +211,7 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		
-		
+		response.sendRedirect(request.getContextPath() + "/HomeServlet");
 		
 		//トレーニングid、tr_itemを取ってくるためのもの
 		/* int id = Integer.parseInt(request.getParameter("id")); */

@@ -75,7 +75,7 @@
 <textarea name="comments"></textarea>
 <br>
 スタンプ：
-	<select id="stamp" onchange="changestamp()">
+	<select id="stamp" onchange="changestamp()" name="stamp">
     	<option value="1">なし</option>
 	    <option value="2">足トレ</option>
 	    <option value="3">背中トレ</option>
