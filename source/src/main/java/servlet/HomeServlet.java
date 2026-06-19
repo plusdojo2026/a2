@@ -99,13 +99,28 @@ public class HomeServlet extends HttpServlet {
 		int coun = Integer.parseInt(request.getParameter("coun"));
 		
 		
+
+		System.out.println("coun=" + coun);
+
+		/*
+		 * for (int i = 0; i <= coun; i++) { System.out.println("tr_weight" + i + "=" +
+		 * request.getParameter("tr_weight" + i));
+		 * 
+		 * System.out.println("counts" + i + "=" + request.getParameter("counts" + i));
+		 * 
+		 * System.out.println("sets" + i + "=" + request.getParameter("sets" + i));
+		 * 
+		 * System.out.println("it" + i + "=" + request.getParameter("it" + i)); }
+		 */
+		
+		
 		//もらってきたデータを登録するアレイリスト
 		ArrayList<Storage> detalist = new ArrayList<>();
 		
 		
 		
 		//追加項目を受け取る
-				for (int i = 0; i <= coun; i++) {
+				for (int i = 0; i < coun; i++) {
 					
 					
 					
