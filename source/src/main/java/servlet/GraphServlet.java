@@ -93,7 +93,7 @@ public class GraphServlet extends HttpServlet {
 		
 		
 		//JSPに送る
-		request.setAttribute("GraphList",getGraphList );
+		request.setAttribute("graphList",getGraphList );
 		request.setAttribute("gItem",gItemList );
 		
 		
