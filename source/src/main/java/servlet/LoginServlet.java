@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		User user = uDao.login(us);
 		if (user != null) { // ログイン成功
 			//ポイントを付与する処理
-			//Daoでidとpoint処理をとってくる
+			//boolean型のresultという名前の箱にDaoでidとpoint更新した結果を入れる
 			boolean result = uDao.upDatePoint(id,5);
 			if(result==true) {
 				System.out.println("ポイント付与成功");
