@@ -59,7 +59,7 @@
     </div>
 </c:if>
 
-<form method="POST" action="/a2/HomeServlet">
+<form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
 <input type="submit" name="savetime" value="一時保存">
 
@@ -106,9 +106,27 @@
 
 
 
-<input type="submit" name="saveb" value="保存">
+<input type="submit" name="saveb" value="保存" onclick="openSaveModal()">
+
+<!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
+<input type="hidden" name="saveb" id="saveb">
+
+<div id="saveModal" class="modal-background">
+	<div class="modal-content">
+		<h3>確認</h3>
+		<p>入力内容を保存しますか？</p>
+		<button onclick="submitSave()">はい</button>
+	    <button onclick="closeSaveModal()">いいえ</button>
+	
+	</div>
+
+
+</div>
+
+
 </form>
 <button onclick="openModal()">＋項目を追加</button>
+
 
 
 
@@ -159,9 +177,28 @@
 <!--　フッターここまで　-->
 
 <script>
-	function addButton(){	
+/* 	function addButton(){	
 		
+	} */
+	
+	
+	//保存用の時のモーダル
+	function openSaveModal() {
+	    document.getElementById("saveModal").style.display = "block";
 	}
+
+	function closeSaveModal() {
+	    document.getElementById("saveModal").style.display = "none";
+	}
+
+	function submitSave() {
+
+	    document.getElementById("saveb").value = "保存";
+
+	    document.getElementById("homeForm").submit();
+	}
+	
+	
 	
 
     //画像表示する
@@ -202,6 +239,7 @@
     
 
 
+    //項目用のモーダル
 	 function closeModal() {
  	    document.getElementById("modal").style.display = "none";
 

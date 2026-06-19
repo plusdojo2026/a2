@@ -25,9 +25,9 @@
 
 <div>
 	トレーニング項目<select id="itemSelect">
-		<c:forEach var="e" items="${gItem}">
+		<c:forEach var="gi" items="${grouped}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
-		 <option value="${e.tr_item}"><c:out value="${e.tr_item}" />
+		 <option value="${gi.key}"><c:out value="${gi.key}" />
 		 </option>
 	 	</c:forEach> 
 	</select><br>
@@ -81,25 +81,33 @@ function showDay(){
 	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
 }
 
- //-----------折れ線グラフ作成 --------------
- 
-/*let inputLabel = 
-	labels:[
-	<c:forEach var="gi" items="${grouped.value}" varStatus="st">
-    "${gi.td_date}"<c:if test="${!st.last}">,</c:if>
-	</c:forEach>,
-] ;
+//今週のデータを取得する
+function get7Days(){
+	const days=["日","月","火","水","木","金","土"];
+	const week=[];
+	const now = new Date();
+	let i =0;
+	
+		while(i< days.length){
+		const year =now.getFullYear();
+		const month = now.getMonth();
+		const day = now.getDate();
+		const youbi = now.getDay();
+		
+		i = i+1;
+		
+		
+		}
+	}
+	return week;
+}
 
-let arr =
-	data : [
-	<c:forEach var="gi" items="${grouped.value}" varStatus="st">
-	    ${gi.counts}<c:if test="${!st.last}">,</c:if>
-	</c:forEach>
-	] ;
-*/	
+
+ //-----------折れ線グラフ作成 --------------
+ 	
 //-------------データ取得-------------
 	let graphData = {
-			<c:forEach var="gi" items="${grouped.value}" varStatus="st">
+			<c:forEach var="gi" items="${grouped}" varStatus="st">
 			    "${gi.key}": {
 			        labels: [//X軸。サーブレットから拾ってくる
 			        <c:forEach var="g" items="${gi.value}" varStatus="st2">
@@ -108,7 +116,7 @@ let arr =
 			        ],
 			        data: [//Y軸。サーブレットから拾ってくる
 			        <c:forEach var="g" items="${gi.value}" varStatus="st3">
-			            ${g.price}<c:if test="${!st3.last}">,</c:if>
+			            ${g.counts}<c:if test="${!st3.last}">,</c:if>
 			        </c:forEach>
 			        ]
 			    }<c:if test="${!st.last}">,</c:if>//Listの中身があるときは動き,を入れる
@@ -117,8 +125,8 @@ let arr =
 			
 //------グラフ表示-------
 let context3 = document.querySelector("#lineChart").getContext('2d')
-new Chart(context3, {
-  type: 'line', //折れ線
+let chart = new Chart(context3, {
+  type: 'bar', //棒グラフ
   data: {
     labels: [],  // X軸のラベル（日付など）
     datasets: [{
@@ -126,11 +134,22 @@ new Chart(context3, {
       data: [],
       borderColor: '#4169e1',
       backgroundColor: 'rgba(65, 105, 225, 0.2)',
-      tension: 0,  // 線を少し曲線にする（0にすると直線）
+ //     tension: 0,  // 線を少し曲線にする（0にすると直線）
     }]
   },
   options: {
     responsive: false,
+    
+	yAxes: [{
+        ticks: {           // Ｙ軸目盛り        
+            min: 0,            // 最小値
+            stepSize: 5,       // 間隔
+            fontColor: "blue"  // 色
+        	},
+        gridLines: {        // 水平補助線の定義
+            color: "rgba(0, 0, 255, 0.2)"
+        	}
+        }],
   }
 });
 
@@ -151,6 +170,15 @@ selectElement.addEventListener('change', function() {
     retrieveItemPrice(selectedText);
 })
 
+//------ 初期表示 -------
+let firstKey = Object.keys(graphData)[0];
+chart.data.labels = graphData[firstKey].labels;
+chart.data.datasets[0].label = firstKey;
+chart.data.datasets[0].data = graphData[firstKey].data;
+chart.update();
+selectElement.value = firstKey;
+
+
 function retrieveItemPrice(selectedText){
     let key = selectedText;
 
@@ -158,9 +186,9 @@ function retrieveItemPrice(selectedText){
 
     let selected = graphData[key];
 
-    context3.data.labels = selected.labels;
-    context3.data.datasets[0].label = key;
-    context3.data.datasets[0].data = selected.data;
+    chart.data.labels = selected.labels;
+    chart.data.datasets[0].label = key;
+    chart.data.datasets[0].data = selected.data;
 
     chart.update();
 }

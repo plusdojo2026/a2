@@ -1,23 +1,80 @@
 package servlet;
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.FriendsDao;
+import dto.Friend;
+import dto.TrStorage;
+import dto.User;
 
 @WebServlet("/FriendListServlet")
 public class FriendListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		// ログインしていない場合はログイン画面に飛ばす
+		if (user == null) {
+			response.sendRedirect("/a2/LoginServlet");
+			return;
+		}
+		// ログイン中のユーザーIDを取得
+		String userId = user.getUserId();
 		
-	
-        
-	request.getRequestDispatcher("/WEB-INF/jsp/friend_list.jsp").forward(request, response);
+		
+		
+		//Daoの呼び出し
+		FriendsDao fDao = new FriendsDao();
+		
+		//<===DAO①===>ユーザのフレンドを検索
+		List<Friend>friendSearch =
+				fDao.friendSearch
+				(new Friend(userId,null,0,null,0,0));
+		//リクエスト格納①
+		request.setAttribute("friendSearch", friendSearch);
+		
+		
+		
+		//friendUserIdを取り出す(拡張for文)
+		for(Friend friendLoop:friendSearch) {
+			String friendUserId = friendLoop.getFriendUserId();
+			
+			
+			//<===DAO②===>フレンドの情報を取得（ユーザー名・アイコン・ポイント）
+			List<Friend>frInfo =
+					fDao.friendInfo
+					(new Friend(null,friendUserId,0,null,0,0));
+			//リクエスト格納②
+			request.setAttribute("frInfo", frInfo);
+			
+			
+			
+			//<===DAO③===>フレンドの最終トレーニングを取得
+			List<TrStorage>trSearch =
+					fDao.trSearch
+					(new TrStorage(friendUserId,0,0,0,0,null,null));
+			//リクエスト格納③
+			request.setAttribute("trSearch", trSearch);
+		}
+		
+		
+		
+		// フレンド一覧にフォワードする
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/friend_list.jsp");
+				dispatcher.forward(request, response);
 	}
 
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
     }

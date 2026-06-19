@@ -22,7 +22,7 @@
 	</nav>
 	
 	<div class="search-area">
-		<form action="FriendAddServlet" method="get">
+		<form action="FriendAddServlet" method="POST">
 			<label for="searchId">ID検索：</label>
 			<input type="text" id="searchId" name="searchId" placeholder="ユーザーIDを入力">
 			<button type="submit">🔍</button>
@@ -32,23 +32,25 @@
 	<section class="friend-list-section">
         <h2>フレンド一覧 <button type="button" id="toggle-delete-btn">🗑️</button></h2>
         
-        <c:if test="${not empty friendList}">
+        <!-- フレンドリストに何かが入っていたら表示する -->
             <form action="FriendDeleteServlet" method="post">
                 <ul class="friend-list">
-                    <c:forEach var="friend" items="${friendList}">
+                
+                <!-- フレンド表示のループ -->
+                    <c:forEach var="f" items="${friendList}">
                         <li class="friend-item">
                             <div class="friend-info">
                                 <div class="friend-icon"style="cursor: pointer;" 
-      							 onclick="openModal('${friend.icon}','${friend.userId}','${friend.Name}', '${friend.Point}', '${friend.training}')">${friend.icon}
-                                <span class="friend-id">${friend.userId}</span><br>
-                                <span class="friend-name">${friend.Name}</span><br>
-                                <span class="friend-point">${friend.Point}</span><br>
+      							 onclick="openModal('${friend.icon}','${f.userId}','${f.userName}','${f.point}','${f.training}')">${f.icon}
+                                <span class="friend-id">${f.userId}</span><br>
+                                <span class="friend-name">${f.Name}</span><br>
+                                <span class="friend-point">${f.Point}</span><br>
                                 </div>
                             </div>
                             
                             <div class="friend-action delete-target" style="display: none;">
                                 <label>
-                                    <input type="checkbox" name="deleteIds" value="${friend.id}"> 削除する
+                                    <input type="checkbox" name="deleteIds" value="${f.id}"> 削除する
                                 </label>
                             </div>
                         </li>
