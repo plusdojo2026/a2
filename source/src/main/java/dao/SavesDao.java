@@ -35,6 +35,7 @@ public class SavesDao {
 			
 			
 			//古いデータを削除するSQL文
+			//ユーザーIDで指定したところのデータを消さなくてはいけない
 			
 			String deleteSql = "DELETE FROM saves";
 			//作ったところにデータ削除構文を入れる
@@ -82,7 +83,6 @@ public class SavesDao {
 						if (psDelete != null) psDelete.close();
 			            if (psInsert != null) psInsert.close();
 			            if (conn != null) conn.close();
-						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -118,6 +118,7 @@ public class SavesDao {
 			
 			
 			//古いデータを削除するSQL文
+			//ユーザーIDを指定してその部分を消さなくてはいけない
 			String deleteSql = "DELETE FROM tr_saves";
 	        psDelete = conn.prepareStatement(deleteSql);
 	        psDelete.executeUpdate();
