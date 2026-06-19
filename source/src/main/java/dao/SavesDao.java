@@ -35,13 +35,13 @@ public boolean insertSaves(Save dto) {
 	
 	
 		//古いデータを削除するSQL文
-		String deleteSql = "DELETE FROM tr_storages";
+		String deleteSql = "DELETE FROM saves";
         psDelete = conn.prepareStatement(deleteSql);
         psDelete.executeUpdate();
         
 		
 		 String sql =
-				 "INSERT INTO storages "
+				 "INSERT INTO saves "
 				  + "(user_id, weight, fat, comments, stamp, date) "
 				  + "VALUES (?, ?, ?, ?, ?, NOW())";
 		 
@@ -105,14 +105,14 @@ public boolean insertSaves(Save dto) {
 			
 			
 			//古いデータを削除するSQL文
-			String deleteSql = "DELETE FROM tr_storages";
+			String deleteSql = "DELETE FROM tr_saves";
 	        psDelete = conn.prepareStatement(deleteSql);
 	        psDelete.executeUpdate();
 	        
 	        
 	        //新しいデータを登録するSQL文
 	        String insertSql =
-	        "INSERT INTO tr_storages "
+	        "INSERT INTO tr_saves "
 	         + "(user_id, tr_id, tr_weight, counts, sets, memo, date) "
 	         + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
 			
