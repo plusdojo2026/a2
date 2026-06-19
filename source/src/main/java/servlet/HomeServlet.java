@@ -117,13 +117,10 @@ public class HomeServlet extends HttpServlet {
 					dto.setCounts(Integer.parseInt(request.getParameter("counts"+ i)));
 					dto.setSets(Integer.parseInt(request.getParameter("sets"+ i)));
 					dto.setTrItem(request.getParameter("it"+ i));
-<<<<<<< HEAD
 					dto.setMemo(request.getParameter("memo"));
 					dto.setUser_id("test");
 				
-=======
-					
->>>>>>> e675dd8b9d73be145b94ce629db17e59ed653be4
+
 					
 					TrItemsDao trDao = new TrItemsDao();
 					
@@ -154,10 +151,13 @@ public class HomeServlet extends HttpServlet {
 		 * System.out.println("fat=" + request.getParameter("fat"));
 		 */
 		
+		ArrayList<Storage> list = new ArrayList<>();
+		
+		Storage  mdto = new Storage();
 		
 	
 		//もともと表示がある項目を受け取る
-<<<<<<< HEAD
+
 		mdto.setWeight(Double.parseDouble(request.getParameter("weight")));
 		mdto.setFat(Double.parseDouble(request.getParameter("fat")));
 		mdto.setComments(request.getParameter("comments"));
@@ -170,16 +170,13 @@ public class HomeServlet extends HttpServlet {
 		list.add(mdto);
 		
 		
-=======
-		double weight = Double.parseDouble(request.getParameter("weight"));
-		double fat = Double.parseDouble(request.getParameter("fat"));
-		String comments = request.getParameter("comments");
->>>>>>> e675dd8b9d73be145b94ce629db17e59ed653be4
+
+
 		
 		StoragesDao vdao = new StoragesDao();
 
 		
-<<<<<<< HEAD
+
 		/*
 		 * System.out.println("DAO呼び出し直前");
 		 * 
@@ -192,10 +189,9 @@ public class HomeServlet extends HttpServlet {
 		 * 
 		 * System.out.println("DAO呼び出し完了");
 		 */
-=======
-		String memo = request.getParameter("memo");
-		int stamp = Integer.parseInt(request.getParameter("stamp"));
->>>>>>> e675dd8b9d73be145b94ce629db17e59ed653be4
+
+	
+
 		
 		for (Storage dto : detalist) {
 		    vdao.insertTrStorage(dto);
@@ -219,7 +215,7 @@ public class HomeServlet extends HttpServlet {
 		response.sendRedirect(request.getContextPath() + "/HomeServlet");
 		
 		//トレーニングid、tr_itemを取ってくるためのもの
-		int id = Integer.parseInt(request.getParameter("id"));
+		/* int id = Integer.parseInt(request.getParameter("id")); */
 		
 		
 		/*
