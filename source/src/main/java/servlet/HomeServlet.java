@@ -168,7 +168,7 @@ public class HomeServlet extends HttpServlet {
 			
 			SavesDao sdao = new SavesDao();
 
-			
+			response.sendRedirect(request.getContextPath() + "/HomeServlet");
 
 			for (Save dto : svdetalist) {
 				sdao.insertTrSaves(dto);
@@ -253,7 +253,8 @@ public class HomeServlet extends HttpServlet {
 			list.add(mdto);
 
 			StoragesDao vdao = new StoragesDao();
-
+			
+			response.sendRedirect(request.getContextPath() + "/HomeServlet");
 
 			for (Storage dto : detalist) {
 				vdao.insertTrStorage(dto);
@@ -266,7 +267,7 @@ public class HomeServlet extends HttpServlet {
 
 		}
 
-		response.sendRedirect(request.getContextPath() + "/HomeServlet");
+		
 	}	
 }
 
