@@ -53,7 +53,7 @@
 <main>
 
 
-
+<form method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
 <input type="submit" name="savetime" value="一時保存">
 
@@ -62,7 +62,7 @@
 
 
 <h2>基本データ</h2>
-<form method="POST" action="/a2/HomeServlet">
+
 体重(kg)　<input type="text" name="weight"><br>
 体脂肪率(％)<input type="text" name="fat"><br>
 <br>
@@ -80,9 +80,10 @@
 	    <option value="2">足トレ</option>
 	    <option value="3">背中トレ</option>
 	    <option value="4">腕トレ</option>
-	    <option value="5">腹トレ</option>
-	    <option value="6">豆トレ</option>
-	    <option value="7">酒</option>
+	    <option value="5">尻トレ</option>
+	    <option value="6">腹トレ</option>
+	    <option value="7">豆トレ</option>
+	    <option value="8">酒</option>
 	</select>
 
 	<br>
