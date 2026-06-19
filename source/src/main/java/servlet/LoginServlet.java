@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 		us.setPassword(pw);
 		User user = uDao.login(us);
 		if (user != null) { // ログイン成功
+
 			//ポイントを付与する処理
 			//boolean型のDaoのreturnのresult、つまりサーブレットのresultという名前の箱にDaoでidとpoint更新した結果を入れる
 			boolean result = uDao.upDatePoint(id,5);
@@ -51,6 +52,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			
 			
+
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);

@@ -55,14 +55,14 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_storages (user_id,tr_id,tr_weight, counts,sets,memo) VALUES
-('user1',1,20,12,4,''),
-('user1',3,20,12,3,''),
-('user1',2,20,12,2,''),
-('user2',2,20,13,1,''),
-('user2',2,20,14,4,''),
-('user2',3,20,14,3,''),
-('user2',4,20,15,2,'');
+INSERT INTO tr_storages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
+('user1','1',,,,'','2026-06-01'),
+('user1','3',,,,'','2026-06-01'),
+('user1','2',,,,'','2026-06-01'),
+('user2','2',,,,'','2026-06-01'),
+('user2','2',,,,'','2026-06-01'),
+('user2','3',,,,'','2026-06-01'),
+('user2','4',,,,'','2026-06-01');
 
 /*一時保存*/
 CREATE TABLE saves(

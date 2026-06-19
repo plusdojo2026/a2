@@ -638,9 +638,12 @@ public class StoragesDao {
 		
 		
 //もともとある欄のstoragesのテーブル
+		
+		
 	public boolean insertStorage(Storage dto) {
 		
-		
+
+		System.out.println("insertTrStorage実行");
 		
 		Connection conn = null;
 	    PreparedStatement ps = null;
@@ -710,9 +713,20 @@ public class StoragesDao {
 
 
 //追加項目のtr_storagesのテーブル
+	
 	public boolean insertTrStorage(Storage dto) {
 		
+
+		/*ystem.out.println("insertTrStorage実行");*/
 		
+		
+		/*
+		 * System.out.println("user_id=" + dto.getUser_id());
+		 * System.out.println("tr_id=" + dto.getTr_id());
+		 * System.out.println("tr_weight=" + dto.getTr_weight());
+		 * System.out.println("counts=" + dto.getCounts()); System.out.println("sets=" +
+		 * dto.getSets()); System.out.println("memo=" + dto.getMemo());
+		 */
 		
 		Connection conn = null;
 		PreparedStatement psInsert = null;
@@ -736,6 +750,8 @@ public class StoragesDao {
          + "(user_id, tr_id, tr_weight, counts, sets, memo, date) "
          + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
 		
+        
+        
         psInsert = conn.prepareStatement(insertSql);
         
         psInsert.setString(1, dto.getUser_id());
@@ -744,8 +760,17 @@ public class StoragesDao {
         psInsert.setInt(4, dto.getCounts());
         psInsert.setInt(5, dto.getSets());
         psInsert.setString(6, dto.getMemo());
+        
+        
+        
+       
+        
+        int result = psInsert.executeUpdate();
 
-        return psInsert.executeUpdate() > 0;
+        System.out.println("更新件数=" + result);
+
+
+        return result > 0;
 		
         
 		}catch (SQLException e) {
