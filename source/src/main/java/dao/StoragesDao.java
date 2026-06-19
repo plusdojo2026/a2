@@ -645,6 +645,7 @@ public class StoragesDao {
 
 		System.out.println("insertTrStorage実行");
 		
+		//読み込む用とデータを入れるよう
 		Connection conn = null;
 	    PreparedStatement ps = null;
 	    
@@ -653,7 +654,7 @@ public class StoragesDao {
 	    try {
 		
 	    	
-		// JDBCドライバを読み込む
+	    	// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		
 			// データベースに接続する
@@ -663,20 +664,22 @@ public class StoragesDao {
 		
 		
 			
-			
+			//もともとある項目を入れに行く
 			 String sql =
 					 "INSERT INTO storages "
 					  + "(user_id, weight, fat, comments, stamp, date) "
 					  + "VALUES (?, ?, ?, ?, ?, NOW())";
 			 
+			 //psに入れる
 			 ps = conn.prepareStatement(sql);
 			 
-			 
+			//データをStorage.java（dto）から受け取る
 			 ps.setString(1, dto.getUser_id());   // 後でログイン情報から取得
 			 ps.setDouble(2, dto.getWeight());
 			 ps.setDouble(3, dto.getFat());
 			 ps.setString(4, dto.getComments());
 			 ps.setInt(5, dto.getStamp());
+			 
 			 
 			 return ps.executeUpdate() > 0;
 				
@@ -716,18 +719,6 @@ public class StoragesDao {
 	
 	public boolean insertTrStorage(Storage dto) {
 		
-
-		/*ystem.out.println("insertTrStorage実行");*/
-		
-		
-		/*
-		 * System.out.println("user_id=" + dto.getUser_id());
-		 * System.out.println("tr_id=" + dto.getTr_id());
-		 * System.out.println("tr_weight=" + dto.getTr_weight());
-		 * System.out.println("counts=" + dto.getCounts()); System.out.println("sets=" +
-		 * dto.getSets()); System.out.println("memo=" + dto.getMemo());
-		 */
-		
 		Connection conn = null;
 		PreparedStatement psInsert = null;
 	    
@@ -763,11 +754,9 @@ public class StoragesDao {
         
         
         
-       
-        
         int result = psInsert.executeUpdate();
 
-        System.out.println("更新件数=" + result);
+ 
 
 
         return result > 0;
@@ -787,10 +776,10 @@ public class StoragesDao {
 				
 			}
 		
-	}
+		}
 		return false;
-}
 	}
+}
 	
 
 

@@ -10,73 +10,86 @@ import dto.Save;
 public class SavesDao {
 
 	
-	
-public boolean insertSaves(Save dto) {
-	
-
-	System.out.println("insertTrStorage実行");
-	
-	Connection conn = null;
-	PreparedStatement psDelete = null;
-	PreparedStatement psInsert = null;
-    
-    
-    
-    try {
-	
-    	
-	// JDBCドライバを読み込む
-		Class.forName("com.mysql.cj.jdbc.Driver");
-	
-		// データベースに接続する
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
-				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-				"root", "password");
-	
-	
-		//古いデータを削除するSQL文
-		String deleteSql = "DELETE FROM saves";
-        psDelete = conn.prepareStatement(deleteSql);
-        psDelete.executeUpdate();
-        
-		
-		 String sql =
-				 "INSERT INTO saves "
-				  + "(user_id, weight, fat, comments, stamp, date) "
-				  + "VALUES (?, ?, ?, ?, ?, NOW())";
-		 
-		 psInsert = conn.prepareStatement(sql);
-		 
-		 
-		 psInsert.setString(1, dto.getUser_id());   // 後でログイン情報から取得
-		 psInsert.setDouble(2, dto.getWeight());
-		 psInsert.setDouble(3, dto.getFat());
-		 psInsert.setString(4, dto.getComments());
-		 psInsert.setInt(5, dto.getStamp());
-		 
-		 return psInsert.executeUpdate() > 0;
+	//
+		public boolean insertSaves(Save dto) {
 			
+			//データベース接続用とデータ削除用とデータ入れる用
+			Connection conn = null;
+			PreparedStatement psDelete = null;
+			PreparedStatement psInsert = null;
 		
 		
-    }catch (SQLException e) {
-		e.printStackTrace();
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	} finally {
 		
-		// データベースを切断
-			try {
-				if (psDelete != null) psDelete.close();
-	            if (psInsert != null) psInsert.close();
-	            if (conn != null) conn.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try {
+		
+			
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			
+			
+			
+			//古いデータを削除するSQL文
+			
+			String deleteSql = "DELETE FROM saves";
+			//作ったところにデータ削除構文を入れる
+		    psDelete = conn.prepareStatement(deleteSql);
+		    //実行
+		    psDelete.executeUpdate();
+		    
+		    
+			
+		    
+		    //新しいデータを登録するSQL文　（日付は登録した日のものNOW()を使用）
+			 String sql =
+					 "INSERT INTO saves "
+					  + "(user_id, weight, fat, comments, stamp, date) "
+					  + "VALUES (?, ?, ?, ?, ?, NOW())";
+			 
+			//作ったところにデータを登録構文を入れる
+			 psInsert = conn.prepareStatement(sql);
+			 
+			 
+			 //データをsave.java（dto）から受け取る
+			 psInsert.setString(1, dto.getUser_id());   // 後でログイン情報から取得
+			 psInsert.setDouble(2, dto.getWeight());
+			 psInsert.setDouble(3, dto.getFat());
+			 psInsert.setString(4, dto.getComments());
+			 psInsert.setInt(5, dto.getStamp());
+			 
+			 
+			 //psInsert.executeUpdate() はSQLを実行するメソッド
+			 //一件登録されたら１という数字がかえってくる
+			 //出来なかったら０なので, true(成功) false(失敗)のどちらかを返すという構文
+			 return psInsert.executeUpdate() > 0;
+				
+			
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			
+			// データベースを切断
+					try {
+						//三つすべてなくなったらすべて閉じて
+						if (psDelete != null) psDelete.close();
+			            if (psInsert != null) psInsert.close();
+			            if (conn != null) conn.close();
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				
 			}
-		
-	}
-    return false;
-}
+		    return false;
+		}
 
 
 	
