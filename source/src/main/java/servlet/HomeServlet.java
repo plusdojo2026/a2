@@ -175,8 +175,17 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		
+		StoragesDao vdao = new StoragesDao();
+
+		vdao.insertStorage(mdto);
 		
 		
+		for (Storage dto : detalist) {
+		    vdao.insertTrStorage(dto);
+		}
+		for (Storage dto : list) {
+		    vdao.insertStorage(dto);
+		}
 		
 		
 		
