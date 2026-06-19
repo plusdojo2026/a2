@@ -588,6 +588,7 @@ public class UsersDao {
 		//==========================ポイント付与用==============================
 		
 				// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		//ログインサーブレットのupDatePointの(id,5)にあたる部分
 				public boolean upDatePoint(String id,int point) {
 					Connection conn = null;
 					boolean result = false;
@@ -602,13 +603,22 @@ public class UsersDao {
 								"root", "password");
 
 						// SQL文を準備する
+						//UPDATE文でポイントを新たに付与するためのSQL文で準備
+						//pointは、point +実際のポイント数を入れる
+						//WHEREでuser_idと紐づける
 						String sql = "UPDATE Users SET "
 								+" point=point+?"
 								+" WHERE user_id=?";
 						
 						//pStmtに上の2つの情報をまとめる
+						//PreparedStatement は、SQLのテンプレート使い回しシステム。? を使って、後からデータを流し込む。
+                        //SQLのテンプレート（雛形）を事前に用意して使い回す仕組み
+						//pStmtの中に、データベースで接続スルconnとUPDATE文でポイント付与するSQL文の２つをまとめている
 						PreparedStatement pStmt = conn.prepareStatement(sql);
 						
+						//上２つでまとめたものをPreparedStatementの型に入れる
+						//pStmtで何の型の何番目のpoint、pStmtで何の型の何番目のidを入れる、
+						//この何番目のの部分はなんの意味であったか
 						// SQL文を完成させる
 						pStmt.setInt(1,point );
 						pStmt.setString(2,id);						
