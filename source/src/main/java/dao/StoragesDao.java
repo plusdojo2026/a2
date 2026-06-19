@@ -509,7 +509,7 @@ public class StoragesDao {
 	}
 	
 	//ユーザーが記録したことのあるトレーニング項目の取得
-	public List<Graph> getItemGraph(String userId,int year){
+	public List<Graph> getItemGraph(String userId,int year,int MonthNumber){
 		//
 		Connection conn = null;
 		List<Graph> gItemList = new ArrayList<Graph>();
@@ -522,20 +522,20 @@ public class StoragesDao {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			
+			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでtr_storagesの中のtr_itemを選ぶ
 			//１か月分日別に取得
 			String sql = "SELECT DISTINCT tr_item,TS.tr_id"
 					+ " FROM tr_storages AS TS INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
 					+ " WHERE TS.user_id = ? "
-					+ " AND DATE_FORMAT(date,'%Y') = ? "
+					+ " AND DATE_FORMAT(date,'%Y-%m') = ? "
 					+ " ORDER BY TS.tr_id ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setString(1,userId);
-			pStmt.setInt(2,year);
+			pStmt.setString(2,yearMonth);
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
