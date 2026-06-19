@@ -24,17 +24,19 @@
 <main>
 
 <div>
-	トレーニング項目<select id="tr_item">
+	トレーニング項目<select id="itemSelect">
 		<c:forEach var="e" items="${gItem}">
 <!-- データ上ではid、ユーザー側では項目名が表示される -->
-		 <option><c:out value="${e.tr_item}" />
+		 <option value="${e.tr_item}"><c:out value="${e.tr_item}" />
 		 </option>
 	 	</c:forEach> 
 	</select><br>
 </div> 
 
+
 <!-- グラフを表示する場所 -->
 <canvas id="lineChart" width="600" height="300"></canvas>
+
 
 
 <!-- 表示変更 -->
@@ -46,6 +48,7 @@
 <input type="button" name="month" value="月">
 </li>
 </ul>
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -78,8 +81,65 @@ function showDay(){
 	return year+"/"+(month+1)+"/"+day+"("+ days[youbi] +")";
 }
 
-//selectElementを取得して変数に代入
-const selectElement = document.getElementById('tr_item');
+ //-----------折れ線グラフ作成 --------------
+ 
+/*let inputLabel = 
+	labels:[
+	<c:forEach var="gi" items="${grouped.value}" varStatus="st">
+    "${gi.td_date}"<c:if test="${!st.last}">,</c:if>
+	</c:forEach>,
+] ;
+
+let arr =
+	data : [
+	<c:forEach var="gi" items="${grouped.value}" varStatus="st">
+	    ${gi.counts}<c:if test="${!st.last}">,</c:if>
+	</c:forEach>
+	] ;
+*/	
+//-------------データ取得-------------
+	let graphData = {
+			<c:forEach var="gi" items="${grouped.value}" varStatus="st">
+			    "${gi.key}": {
+			        labels: [//X軸。サーブレットから拾ってくる
+			        <c:forEach var="g" items="${gi.value}" varStatus="st2">
+			            "${g.td_date}"<c:if test="${!st2.last}">,</c:if>
+			        </c:forEach>
+			        ],
+			        data: [//Y軸。サーブレットから拾ってくる
+			        <c:forEach var="g" items="${gi.value}" varStatus="st3">
+			            ${g.price}<c:if test="${!st3.last}">,</c:if>
+			        </c:forEach>
+			        ]
+			    }<c:if test="${!st.last}">,</c:if>//Listの中身があるときは動き,を入れる
+			</c:forEach>
+			};
+			
+//------グラフ表示-------
+let context3 = document.querySelector("#lineChart").getContext('2d')
+new Chart(context3, {
+  type: 'line', //折れ線
+  data: {
+    labels: [],  // X軸のラベル（日付など）
+    datasets: [{
+      label: '',
+      data: [],
+      borderColor: '#4169e1',
+      backgroundColor: 'rgba(65, 105, 225, 0.2)',
+      tension: 0,  // 線を少し曲線にする（0にすると直線）
+    }]
+  },
+  options: {
+    responsive: false,
+  }
+});
+
+
+
+
+//------selectElementを取得して変数に代入-------
+
+const selectElement = document.getElementById('itemSelect');
 
 selectElement.addEventListener('change', function() {
 
@@ -91,38 +151,19 @@ selectElement.addEventListener('change', function() {
     retrieveItemPrice(selectedText);
 })
 
+function retrieveItemPrice(selectedText){
+    let key = selectedText;
 
- //折れ線グラフ作成 
-let inputLabel = [
-	<c:forEach var="gi" items="${graphList}" varStatus="st">
-    "${gi.td_date}"<c:if test="${!st.last}">,</c:if>
-	</c:forEach>
-] ;//X軸。サーブレットから拾ってくる
+    if (!key) return;
 
-let arr = [
-	<c:forEach var="gi" items="${graphList}" varStatus="st">
-	    ${gi.counts}<c:if test="${!st.last}">,</c:if>
-	</c:forEach>
-	] ;//Y軸。サーブレットから拾ってくる
-	
-let context3 = document.querySelector("#lineChart").getContext('2d')
-new Chart(context3, {
-  type: 'line', //折れ線
-  data: {
-    labels: inputLabel,  // X軸のラベル（日付など）
-    datasets: [{
-      label: "折れ線グラフ",
-      data: arr,
-      borderColor: '#4169e1',
-      backgroundColor: 'rgba(65, 105, 225, 0.2)',
-      tension: 0,  // 線を少し曲線にする（0にすると直線）
-    }]
-  },
-  options: {
-    responsive: false,
-  }
-});
+    let selected = graphData[key];
 
+    context3.data.labels = selected.labels;
+    context3.data.datasets[0].label = key;
+    context3.data.datasets[0].data = selected.data;
+
+    chart.update();
+}
 
 
 </script>

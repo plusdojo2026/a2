@@ -11,14 +11,7 @@ public class Graph implements Serializable{
 	private int sets;
 	private String td_date;
 	
-	//コンストラクタ
-
-
-	public String getTr_item() {
-		return tr_item;
-	}
-
-
+	
 	//項目用コンストラクタ
 	public Graph(String tr_item, int tr_id) {
 		super();
@@ -27,7 +20,7 @@ public class Graph implements Serializable{
 	}
 
 
-
+	//コンストラクタ
 	public Graph(String tr_item, int tr_weight, int counts, int sets, String td_date) {
 		super();
 		this.tr_item = tr_item;
@@ -36,8 +29,13 @@ public class Graph implements Serializable{
 		this.sets = sets;
 		this.td_date = td_date;
 	}
+	
+	
 
-
+	public String getTr_item() {
+		return tr_item;
+	}
+	
 	public void setTr_item(String tr_item) {
 		this.tr_item = tr_item;
 	}

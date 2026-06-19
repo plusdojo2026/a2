@@ -3,7 +3,10 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -78,27 +81,32 @@ public class GraphServlet extends HttpServlet {
 		StoragesDao TrGraph = new StoragesDao();
 		List<Graph> getGraphList = TrGraph.getGraphList(userId,year,monthNumber);
 		
-		//記録したことのあるトレーニング項目を検索する
-		StoragesDao ItemGraph = new StoragesDao();
-		List<Graph> gItemList = ItemGraph.getItemGraph(userId,year);
+		//項目ごとにまとめる
+		Map<String, List<Graph> >groupedGraph = new LinkedHashMap<>();
 		
-		//トレーニング項目と記録情報のアレイリストを配列に置き換える
-//		String[] TRarray = getGraphList.toArray(new String[getGraphList.size()]);
-//		String[] ITarray = gItemList.toArray(new String[gItemList.size()]);
+		for( Graph graph : getGraphList ) {
+			String key = graph.getTr_item();
+			groupedGraph.putIfAbsent(key, new ArrayList<>());
+			groupedGraph.get(key).add(graph);
+			System.out.println(key);
+			System.out.println(groupedGraph.putIfAbsent(key, new ArrayList<>())
+			);
 
+		}
 		
+		//記録したことのあるトレーニング項目を検索する
+				StoragesDao ItemGraph = new StoragesDao();
+				List<Graph> gItemList = ItemGraph.getItemGraph(userId,year);
+				
 		//一言セリフを受け取る
 		
-		//ユーザー情報を受け取る
+		//背景などのユーザー情報を受け取る
 		
 		
 		//JSPに送る
 		request.setAttribute("graphList",getGraphList );
 		request.setAttribute("gItem",gItemList );
-		
-		
-//		request.setAttribute("xxList",TRarray );
-//		request.setAttribute("ItemList",ITarray );
+		request.setAttribute("grouped",groupedGraph );
 
 		
 		
