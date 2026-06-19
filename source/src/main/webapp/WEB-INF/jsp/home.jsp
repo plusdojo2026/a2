@@ -59,7 +59,7 @@
     </div>
 </c:if>
 
-<form method="POST" action="/a2/HomeServlet">
+<form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
 <input type="submit" name="savetime" value="一時保存">
 
@@ -106,9 +106,27 @@
 
 
 
-<input type="submit" name="saveb" value="保存">
+<input type="button" name="saveb" value="保存" onclick="openSaveModal()">
+
+<!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
+<input type="hidden" name="saveb" id="saveb">
+
+<div id="saveModal" class="modal-background">
+	<div class="modal-content">
+		<h3>確認</h3>
+		<p>入力内容を保存しますか？</p>
+		<button type="button" onclick="submitSave()">はい</button>
+	    <button type="button" onclick="closeSaveModal()">いいえ</button>
+	
+	</div>
+
+
+</div>
+
+
 </form>
 <button onclick="openModal()">＋項目を追加</button>
+
 
 
 
@@ -159,9 +177,74 @@
 <!--　フッターここまで　-->
 
 <script>
-	function addButton(){	
+/* 	function addButton(){	
 		
+	} */
+	
+	
+	//保存用の時のモーダル
+	function openSaveModal() {
+		
+		/* //inputの中のname="weight"のvalueを取り出す（中身ということ）
+		let weight = document.querySelector('input[name="weight"]').value;
+		
+		//inputの中のname="fat"のvalueを取り出す（中身ということ）
+	    let fat = document.querySelector('input[name="fat"]').value;
+		
+	  	//inputの中のname="comments"のvalueを取り出す（中身ということ）
+	    let comments = document.querySelector('textarea[name="comments"]').value;
+	    
+	  	//空箱づくり
+	    let html = "";
+	  	
+	  	//HTMLという箱にに加えていく
+	    html += "体重：" + weight + "kg<br>";
+	    html += "体脂肪率：" + fat + "%<br>";
+	    html += "メモ：" + comments + "<br><br>";
+	  
+	  
+	    
+	    //追加項目繰り返し処理で回す
+	    
+	    // 追加項目
+	    /*  for(let i = 0; i < count; i++){
+	
+	        let item = document.getElementById("it" + i);
+	
+	        if(item != null){
+	
+	            let tr_weight = document.getElementsByName("tr_weight" + i)[0]?.value || "";
+	
+	            let counts = document.getElementsByName("counts" + i)[0]?.value || "";
+	
+	            let sets = document.getElementsByName("sets" + i)[0]?.value || "";
+	
+	            html += "<hr>";
+	            html += "項目：" + item.value + "<br>";
+	            html += "重さ：" + weight2 + "<br>";
+	            html += "回数：" + counts + "<br>";
+	            html += "セット：" + sets + "<br>";
+	        } 
+	   *//*  */
+	     /*}
+		document.getElementById("confirmArea").innerHTML = html; */
+		
+	    document.getElementById("saveModal").style.display = "block";
 	}
+
+	function closeSaveModal() {
+	    document.getElementById("saveModal").style.display = "none";
+	}
+	
+	//保存押したときだけ送信される
+	function submitSave() {
+
+	    document.getElementById("saveb").value = "保存";
+
+	    document.getElementById("homeForm").submit();
+	}
+	
+	
 	
 
     //画像表示する
@@ -202,6 +285,7 @@
     
 
 
+    //項目用のモーダル
 	 function closeModal() {
  	    document.getElementById("modal").style.display = "none";
 

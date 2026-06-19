@@ -98,6 +98,9 @@ public class HomeServlet extends HttpServlet {
 	// <form method = "POST" でservletを指定したときに動くメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// リクエストパラメータを取得する
+		request.setCharacterEncoding("UTF-8");
 
 		// ここからホームページからデータが飛んできたとき用//
 
@@ -115,8 +118,7 @@ public class HomeServlet extends HttpServlet {
 			// 一時保存処理開始
 
 		    
-			 // リクエストパラメータを取得する
-				request.setCharacterEncoding("UTF-8");
+			 
 				
 				//項目追加した分の数を取ってきている
 				int coun = Integer.parseInt(request.getParameter("coun"));
@@ -140,7 +142,7 @@ public class HomeServlet extends HttpServlet {
 					svdto.setCounts(Integer.parseInt(request.getParameter("counts"+ i)));
 					svdto.setSets(Integer.parseInt(request.getParameter("sets"+ i)));
 					svdto.setTrItem(request.getParameter("it"+ i));
-					svdto.setMemo(request.getParameter("memo"));
+					svdto.setMemo(request.getParameter("memo"+i));
 					svdto.setUser_id("test");
 					
 					
@@ -191,10 +193,7 @@ public class HomeServlet extends HttpServlet {
 			
 			SavesDao sdao = new SavesDao();
 
-			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
-			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
-			///a2/HomeServlet?msg=tempSavedというURLになる
-			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
+			
 
 			for (Save dto : svdetalist) {
 				sdao.insertTrSaves(dto);
@@ -203,7 +202,12 @@ public class HomeServlet extends HttpServlet {
 				sdao.insertSaves(dto);
 			}
 			
+			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
+			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
+			///a2/HomeServlet?msg=tempSavedというURLになる
+			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
 			
+			return;
 
 			//ここからは保存ボタンが押されたときに起こる処理！
 		} else if (saveb != null) {
@@ -213,9 +217,9 @@ public class HomeServlet extends HttpServlet {
 			
 			System.out.println("保存ボタン");
 
-			// リクエストパラメータを取得する
-			request.setCharacterEncoding("UTF-8");
-
+			/*
+			 * // リクエストパラメータを取得する request.setCharacterEncoding("UTF-8");
+			 */
 			// 項目追加した分の数を取ってきている
 			int coun = Integer.parseInt(request.getParameter("coun"));
 
@@ -235,7 +239,7 @@ public class HomeServlet extends HttpServlet {
 				dto.setCounts(Integer.parseInt(request.getParameter("counts" + i)));
 				dto.setSets(Integer.parseInt(request.getParameter("sets" + i)));
 				dto.setTrItem(request.getParameter("it" + i));
-				dto.setMemo(request.getParameter("memo"));
+				dto.setMemo(request.getParameter("memo"+i));
 				dto.setUser_id("test");
 
 				TrItemsDao trDao = new TrItemsDao();
@@ -280,7 +284,7 @@ public class HomeServlet extends HttpServlet {
 
 			StoragesDao vdao = new StoragesDao();
 			
-			response.sendRedirect(request.getContextPath() + "/HomeServlet");
+			
 
 			for (Storage dto : detalist) {
 				vdao.insertTrStorage(dto);
@@ -289,7 +293,8 @@ public class HomeServlet extends HttpServlet {
 				vdao.insertStorage(dto);
 			}
 
-			
+			response.sendRedirect(request.getContextPath() + "/HomeServlet");
+			return;
 
 		}
 
