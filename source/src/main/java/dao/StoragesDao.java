@@ -715,7 +715,6 @@ public class StoragesDao {
 		
 		
 		Connection conn = null;
-		PreparedStatement psDelete = null;
 		PreparedStatement psInsert = null;
 	    
 	    
@@ -729,10 +728,6 @@ public class StoragesDao {
 				"root", "password");
 		
 		
-		//古いデータを削除するSQL文
-		String deleteSql = "DELETE FROM tr_storages";
-        psDelete = conn.prepareStatement(deleteSql);
-        psDelete.executeUpdate();
         
         
         //新しいデータを登録するSQL文
@@ -760,7 +755,6 @@ public class StoragesDao {
 		} finally {
 			// データベースを切断
 				try {
-					if (psDelete != null) psDelete.close();
 		            if (psInsert != null) psInsert.close();
 		            if (conn != null) conn.close();
 				} catch (SQLException e) {
