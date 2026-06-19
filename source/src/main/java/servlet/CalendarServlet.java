@@ -87,7 +87,6 @@ public class CalendarServlet extends HttpServlet {
         // JavaのリストやマップをJSON文字列に変換
         String itemListJson = gson.toJson(itemList);
         String trainingMapJson = gson.toJson(trainingMap);
-        //String weightMapJson = gson.toJson(weightMap);
         
         // JSPに渡す
         request.setAttribute("year", year);
@@ -101,7 +100,6 @@ public class CalendarServlet extends HttpServlet {
         request.setAttribute("trainingMapJson", trainingMapJson);
         request.setAttribute("itemListJson", itemListJson);
         request.setAttribute("weightMap", weightMap);
-        //request.setAttribute("weightMapJson", weightMapJson);
 
         request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp").forward(request, response);
     }
@@ -119,7 +117,7 @@ public class CalendarServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
-            // 既存の「スタンプ・全体メモ」の更新（actionがない場合は従来通りの挙動）
+            // 既存の「スタンプ・体重・全体メモ」の更新
             String date = request.getParameter("date");
             int stamp = Integer.parseInt(request.getParameter("stamp"));
             String memo = request.getParameter("memo");

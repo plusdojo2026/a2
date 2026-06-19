@@ -98,8 +98,10 @@
 	        <h3 id="modal-date"></h3>
 	        <!-- スタンプ更新 -->
 	        <div class="modal-body-scroll">
-	            <form action="/a2/CalendarServlet" method="post">
+	            <form action="/a2/CalendarServlet" method="post" novalidate onsubmit="return validateMainForm(this)">
 	                <input type="hidden" name="date" id="modalDate">
+	                
+	                <div id="main-error-msg" style="color: red;"></div>
 	                <label>スタンプ：</label>
 	                <select name="stamp">
 					    <option value="0">なし</option>
@@ -180,7 +182,7 @@
 		                '<input type="hidden" name="id" value="' + obj.id + '">' +
 		                '<input type="hidden" name="action" class="action-field" value="update">' +
 		                
-		                '<div id="edit-error-msg-' + obj.id + '" style="color: #ff3333;"></div>' +
+		                '<div id="edit-error-msg-' + obj.id + '" style="color: red;"></div>' +
 	                    	
 	                    '<div class="training-row">' +
 	                        '<span class="item">種目: ' + itemSelectHtml + '</span>' +
@@ -209,7 +211,7 @@
 		        	
 		        '<h5>＋ 新しいトレーニングを追加</h5>' +
 		        
-		        '<div id="add-error-msg" style="color: #ff3333;"></div>' +
+		        '<div id="add-error-msg" style="color: red;"></div>' +
 		        
 	            '<div class="training-row">' +
 	                '<span class="item">種目: ' +
@@ -257,6 +259,35 @@
 	    }
 
 	    return true; // 何も問題がなければサーブレットに送信
+	}
+	
+	// 体重の入力チェックを行う関数
+	function validateMainForm(form) {
+	    const errorArea = document.getElementById("main-error-msg");
+	    errorArea.innerText = ""; // メッセージをクリア
+
+	    const weight = form.weight.value;
+	    
+	    // 本当に空っぽ（未入力）の場合は、そのまま保存を許可
+	    if (weight === "" && form.weight.validity.valid) {
+	        return true;
+	    }
+
+	    // 「e」や「E」など変な文字が含まれていないかチェック
+	    if (!form.weight.validity.valid || /[eE]/.test(weight) || isNaN(parseFloat(weight))) {
+	        errorArea.innerText = "体重には数値を入力してください";
+	        form.weight.focus();
+	        return false;
+	    }
+
+	    // 負の数チェック
+	    if (parseFloat(weight) < 0) {
+	        errorArea.innerText = "体重には0以上の数値を入力してください。";
+	        form.weight.focus();
+	        return false;
+	    }
+
+	    return true; // 問題なければ送信
 	}
 	
 	// 既存トレーニングの変更時の入力チェックを行う関数
