@@ -95,14 +95,16 @@ public class FriendsDao {
 			// SQL文を準備する//
 			String sql = 
 			"SELECT "			
-			+" tr_id,"		//フレンドのユーザーid
-			+" tr_weight,"	//申請の承認フラグ
-			+" counts,"			//ユーザーネーム
-			+" sets,"			//アイコンID
-			+" memo,"
-			+" date"			//ポイント
-			+" FROM tr_storages"	//接続元	
-			+" WHERE user_id = ?";	
+			+" user_id,"			//ユーザーID
+			+" tr_id,"				//トレーニングID
+			+" tr_weight,"			//重量
+			+" counts,"				//回数
+			+" sets,"				//セット数
+			+" memo,"				//小さいメモ
+			+" date"				//日付
+			+" FROM tr_storages"	//検索テーブル	
+			+" WHERE date = (SELECT DATE(MAX(date)) FROM tr_storages)"
+			+" AND user_id=?";	
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
