@@ -42,6 +42,14 @@ public class LoginServlet extends HttpServlet {
 		us.setPassword(pw);
 		User user = uDao.login(us);
 		if (user != null) { // ログイン成功
+			//ポイントを付与する処理
+			boolean result = uDao.upDatePoint(id,5);
+			if(result==true) {
+				System.out.println("ポイント付与成功");
+				request.setAttribute("msg","5ポイント付与されました！");
+			}
+			
+			
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
