@@ -193,10 +193,7 @@ public class HomeServlet extends HttpServlet {
 			
 			SavesDao sdao = new SavesDao();
 
-			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
-			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
-			///a2/HomeServlet?msg=tempSavedというURLになる
-			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
+			
 
 			for (Save dto : svdetalist) {
 				sdao.insertTrSaves(dto);
@@ -205,7 +202,12 @@ public class HomeServlet extends HttpServlet {
 				sdao.insertSaves(dto);
 			}
 			
+			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
+			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
+			///a2/HomeServlet?msg=tempSavedというURLになる
+			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
 			
+			return;
 
 			//ここからは保存ボタンが押されたときに起こる処理！
 		} else if (saveb != null) {
