@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,13 +99,28 @@ public class HomeServlet extends HttpServlet {
 		int coun = Integer.parseInt(request.getParameter("coun"));
 		
 		
+
+		System.out.println("coun=" + coun);
+
+		/*
+		 * for (int i = 0; i <= coun; i++) { System.out.println("tr_weight" + i + "=" +
+		 * request.getParameter("tr_weight" + i));
+		 * 
+		 * System.out.println("counts" + i + "=" + request.getParameter("counts" + i));
+		 * 
+		 * System.out.println("sets" + i + "=" + request.getParameter("sets" + i));
+		 * 
+		 * System.out.println("it" + i + "=" + request.getParameter("it" + i)); }
+		 */
+		
+		
 		//もらってきたデータを登録するアレイリスト
 		ArrayList<Storage> detalist = new ArrayList<>();
 		
 		
 		
 		//追加項目を受け取る
-				for (int i = 0; i <= coun; i++) {
+				for (int i = 0; i < coun; i++) {
 					
 					
 					
@@ -143,8 +157,10 @@ public class HomeServlet extends HttpServlet {
 				
 		
 		// ユーザーIDなど
-		int storageId = Integer.parseInt(request.getParameter("storage_id"));
-		String user_id = request.getParameter("user_id");
+		/*
+		 * int storageId = Integer.parseInt(request.getParameter("storage_id")); String
+		 * user_id = request.getParameter("user_id");
+		 */
 		
 		/*
 		 * System.out.println("weight=" + request.getParameter("weight"));
@@ -200,11 +216,6 @@ public class HomeServlet extends HttpServlet {
 		    vdao.insertStorage(dto);
 		}
 		
-		String dateStr = request.getParameter("date");
-		LocalDate date=null;
-		if(!dateStr.equals("")) {
-			date = LocalDate.parse(dateStr);
-		}
 		
 		
 		
