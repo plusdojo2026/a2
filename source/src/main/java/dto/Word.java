@@ -13,18 +13,20 @@ public class Word implements Serializable{
 		Word = word;
 		WordOfDay = wordOfDay;
 	}
+	public Word() {
+	}
 	
 	// 以下ゲッタセッタ
-	protected int getWord() {
+	public int getWord() {
 		return Word;
 	}
-	protected void setWord(int word) {
+	public void setWord(int word) {
 		Word = word;
 	}
-	protected String getWordOfDay() {
+	public String getWordOfDay() {
 		return WordOfDay;
 	}
-	protected void setWordOfDay(String wordOfDay) {
+	public void setWordOfDay(String wordOfDay) {
 		WordOfDay = wordOfDay;
 	}
 	
