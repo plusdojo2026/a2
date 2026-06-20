@@ -88,15 +88,14 @@ public class GraphServlet extends HttpServlet {
 			String key = graph.getTr_item();
 			groupedGraph.putIfAbsent(key, new ArrayList<>());
 			groupedGraph.get(key).add(graph);
-			System.out.println(key);
-			System.out.println(groupedGraph.putIfAbsent(key, new ArrayList<>())
-			);
+//			System.out.println(key);
+//			System.out.println(groupedGraph.putIfAbsent(key, new ArrayList<>()));
 
 		}
 		
 		//記録したことのあるトレーニング項目を検索する
 				StoragesDao ItemGraph = new StoragesDao();
-				List<Graph> gItemList = ItemGraph.getItemGraph(userId,year);
+				List<Graph> gItemList = ItemGraph.getItemGraph(userId,year,monthNumber);
 				
 		//一言セリフを受け取る
 		

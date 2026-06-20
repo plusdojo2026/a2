@@ -9,6 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
 <script  src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <title>マメッスル|成長記録</title>
+<link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet" href="/a2/css/mypage.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
 <body>
 <!--　ヘッダーここから　-->
@@ -54,11 +58,11 @@
 <!--　フッターここから　-->
 <footer>
 <ul>
-  <li><a href="/webapp/GraphServlet">成長記録</a></li>
-  <li><a href="/webapp/FriendListServlet">共有</a></li>
-  <li><a href="/webapp/HomeServlet">ホーム</a></li>
-  <li><a href="/webapp/CalendarServlet">カレンダー</a></li>
-  <li><a href="/webapp/MyPageServlet">マイページ</a></li>
+  <li><a href="/a2/GraphServlet">成長記録</a></li>
+  <li><a href="/a2/FriendListServlet">共有</a></li>
+  <li><a href="/a2/HomeServlet">ホーム</a></li>
+  <li><a href="/a2/CalendarServlet">カレンダー</a></li>
+  <li><a href="/a2/MyPageServlet">マイページ</a></li>
   
 </ul>
 
@@ -82,27 +86,32 @@ function showDay(){
 }
 
 //今週のデータを取得する
-function get7Days(){
+/*function getWeek(){
 	const days=["日","月","火","水","木","金","土"];
 	const week=[];
 	const now = new Date();
 	let i =0;
-	
+	const year =now.getFullYear();
+	const month = now.getMonth();
+	const day = now.getDate();
+	const youbi = now.getDay();
+	//月曜日の日付を取得
+	const this_monday = now - day +1;
 		while(i< days.length){
-		const year =now.getFullYear();
-		const month = now.getMonth();
-		const day = now.getDate();
-		const youbi = now.getDay();
-		
+		week.push('year+"-"+(month+1)+"-"+this_monday+i');
 		i = i+1;
-		
-		
 		}
 	}
 	return week;
 }
 
-
+function weekData(){
+	const weekLabel = getWeek(); //今週の月から日曜まで
+	const weekData = []; //今週のデータを入れる
+	
+	
+}
+*/
  //-----------折れ線グラフ作成 --------------
  	
 //-------------データ取得-------------
@@ -116,7 +125,7 @@ function get7Days(){
 			        ],
 			        data: [//Y軸。サーブレットから拾ってくる
 			        <c:forEach var="g" items="${gi.value}" varStatus="st3">
-			            ${g.counts}<c:if test="${!st3.last}">,</c:if>
+			            ${g.counts}*${g.sets}<c:if test="${!st3.last}">,</c:if>
 			        </c:forEach>
 			        ]
 			    }<c:if test="${!st.last}">,</c:if>//Listの中身があるときは動き,を入れる
@@ -165,7 +174,7 @@ selectElement.addEventListener('change', function() {
     // 選択された option の値とテキストを取得
     const selectedText = selectElement.options[selectElement.selectedIndex].text;
 
-    console.log("選択されたテキスト:", selectedText);
+//    console.log("選択されたテキスト:", selectedText);
 
     retrieveItemPrice(selectedText);
 })
