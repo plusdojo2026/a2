@@ -31,7 +31,7 @@ public class InfoServlet extends HttpServlet {
     	Knowledge todayWord = dao.getTodayWord();
     	
     	if (todayWord != null) {
-    	    request.setAttribute("todayWord", todayWord.getTrivia());
+    	    request.setAttribute("todayTrivia", todayWord.getTrivia());
     	}
 
         request.getRequestDispatcher("/WEB-INF/jsp/info.jsp").forward(request, response);

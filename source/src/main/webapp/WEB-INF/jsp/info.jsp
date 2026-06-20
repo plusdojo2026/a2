@@ -24,7 +24,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-<p>${todayWord}</p>
+<p>${todayTrivia}</p>
 
 </main>
 <!--　メインここまで　-->
