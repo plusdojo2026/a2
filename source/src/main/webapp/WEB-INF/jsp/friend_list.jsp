@@ -33,7 +33,6 @@
         <h2>フレンド一覧 <button type="button" id="toggle-delete-btn">🗑️</button></h2>
         
         <!-- フレンドリストに何かが入っていたら表示する -->
-            <form action="FriendDeleteServlet" method="post">
                 <ul class="friend-list">
                 
                 <!-- フレンド表示のループ -->
@@ -43,8 +42,8 @@
                                 <div class="friend-icon"style="cursor: pointer;" 
       							 onclick="openModal('${friend.icon}','${f.userId}','${f.userName}','${f.point}','${f.training}')">${f.icon}
                                 <span class="friend-id">${f.userId}</span><br>
-                                <span class="friend-name">${f.Name}</span><br>
-                                <span class="friend-point">${f.Point}</span><br>
+                                <span class="friend-name">${f.name}</span><br>
+                                <span class="friend-point">${f.point}</span><br>
                                 </div>
                             </div>
                             
@@ -60,15 +59,14 @@
                 <div class="delete-button-area delete-target" style="margin-top: 15px; display: none;">
                     <button type="submit" class="delete-btn">選択したフレンドを削除</button>
                 </div>
-            </form>
 
         </section>
 </main>
 <footer>
 
 </footer>
-<div id="friend-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
-    <div style="background: white; width: 300px; margin: 100px auto; padding: 20px; border-radius: 10px; text-align: center;">
+<div id="friend-modal">
+    <div>
         <h3>フレンド詳細</h3>
         <p><span id="modal-icon"></span></p>
         <p>ID: <span id="modal-Id"></span></p>
@@ -107,7 +105,6 @@
         document.getElementById("modal-training").innerText = training;
         document.getElementById("friend-modal").style.display = "block";
     }
-
     function closeModal() {
         document.getElementById("friend-modal").style.display = "none";
     }
