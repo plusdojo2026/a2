@@ -80,13 +80,15 @@ public class FriendListServlet extends HttpServlet {
 			
 			FriendSet set = new FriendSet();
 
-		    set.setFriend(friendLoop);
-		    set.setFriendInfo(frInfo.isEmpty() ? null : frInfo.get(0));
-		    set.setLatestTraining(trSearch);
+			set.setFriend(friendLoop);
+			set.setFriendInfo(frInfo.isEmpty() ? null : frInfo.get(0));
+			set.setLatestTraining(trSearch);
 
 		    friendFullList.add(set);
 		}
 		
+		
+		request.setAttribute("friendFullList", friendFullList);
 		// JSONに変換してリクエストに格納
 		String friendDataJson = gson.toJson(friendFullList);
 		request.setAttribute("friendDataJson", friendDataJson);

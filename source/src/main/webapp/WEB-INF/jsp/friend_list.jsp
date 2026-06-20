@@ -6,6 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>フレンド一覧</title>
+<style>
+.modal-bg{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgb(135, 247, 163);
+}
+.modal{
+    background:white;
+    width:300px;
+    margin:100px auto;
+    padding:20px;
+}
+</style>
+
 </head>
 <body>
 <header>
@@ -22,7 +40,7 @@
 	</nav>
 	
 	<div class="search-area">
-		<form action="FriendAddServlet" method="POST">
+		<form action="FriendListServlet" method="POST">
 			<label for="searchId">ID検索：</label>
 			<input type="text" id="searchId" name="searchId" placeholder="ユーザーIDを入力">
 			<button type="submit">🔍</button>
@@ -31,53 +49,59 @@
 	
 	<section class="friend-list-section">
         <h2>フレンド一覧 <button type="button" id="toggle-delete-btn">🗑️</button></h2>
-        
-        <!-- フレンドリストに何かが入っていたら表示する -->
-                <ul class="friend-list">
-                
-                <!-- フレンド表示のループ -->
-                    <c:forEach var="f" items="${friendList}">
-                        <li class="friend-item">
-                            <div class="friend-info">
-                                <div class="friend-icon"style="cursor: pointer;" 
-      							 onclick="openModal('${friend.icon}','${f.userId}','${f.userName}','${f.point}','${f.training}')">${f.icon}
-                                <span class="friend-id">${f.userId}</span><br>
-                                <span class="friend-name">${f.name}</span><br>
-                                <span class="friend-point">${f.point}</span><br>
-                                </div>
-                            </div>
-                            
-                            <div class="friend-action delete-target" style="display: none;">
-                                <label>
-                                    <input type="checkbox" name="deleteIds" value="${f.id}"> 削除する
-                                </label>
-                            </div>
-                        </li>
-                    </c:forEach>
-                </ul>
+             <!-- <ul class="friend-list"> -->
+             <!-- フレンド表示のループ -->
+                 <c:forEach var="f" items="${friendFullList}">
+                         <!-- <div class="friend-info"> -->
+                         
+                             <div class="friend-icon"style="cursor: pointer;" 
+   							 onclick="openModal('${f.friend.friendUserId}')">
+   							 ${f.friend.friendUserId}
+	                             <span class="friend-id">${f.friend.userId}</span><br>
+	                             <span class="friend-name">${f.friendInfo.userName}</span><br>
+	                             <span class="friend-point">${f.friendInfo.point}</span><br>
+                             </div>
+                             
+                         <!-- </div> -->
+                         <div class="friend-action delete-target" style="display: none;">
+                             <label>
+                                 <input type="checkbox" name="deleteIds" value="${f.friend.friendUserId}"> 削除する
+                             </label>
+                         </div>
+        			<br>
+                 </c:forEach>
+<!--              </ul>
                 
                 <div class="delete-button-area delete-target" style="margin-top: 15px; display: none;">
                     <button type="submit" class="delete-btn">選択したフレンドを削除</button>
-                </div>
+                </div> -->
 
         </section>
 </main>
 <footer>
 
 </footer>
-<div id="friend-modal">
-    <div>
-        <h3>フレンド詳細</h3>
-        <p><span id="modal-icon"></span></p>
-        <p>ID: <span id="modal-Id"></span></p>
-        <p>名前: <span id="modal-name"></span></p>
-        <p>豆ぽ: <span id="modal-point"></span></p>
-        <p>トレーニングメニュー: <span id="modal-training"></span></p>
-        <button type="button" onclick="closeModal()">閉じる</button>
-    </div>
-</div>
 
+<!-- モーダル -->
+	<div id="friend-modal" class="friend-modal">
+	    <div class="modal">
+	    	<!-- 名前とIDの表示 -->
+	    	<h4 id="icon-id">${f.friend.iconId}</h4>
+	        <h4 id="friend-id">${f.friend.userId}</h4>
+	        <h4 id="friend-name">${f.friendInfo.userName}</h4>
+	        <h4 id="friend-point">${f.friendInfo.point}</h4>
+	        
+	        <h4>トレーニング内容</h4>
+	            <div id="modal-training-area" class="training-area"></div>
+	        
+	        <div class="close-btn" onclick="closeModal()">閉じる</div>
+	    
+	    </div>
+	</div>
 <script>
+'use strict'
+
+
 	//ゴミ箱ボタンチェックボックス
     document.addEventListener("DOMContentLoaded", function() {
         const toggleBtn = document.getElementById("toggle-delete-btn");
@@ -97,17 +121,39 @@
     }); 
 
     // モーダル
-    function openModal(icon,Id,name, point, training) {
-    	document.getElementById("modal-icon").innerText = icon;
-    	document.getElementById("modal-Id").innerText = Id;
-        document.getElementById("modal-name").innerText = name;
-        document.getElementById("modal-point").innerText = point;
-        document.getElementById("modal-training").innerText = training;
-        document.getElementById("friend-modal").style.display = "block";
-    }
-    function closeModal() {
-        document.getElementById("friend-modal").style.display = "none";
-    }
+    //JSON
+	const friendDataJs = JSON.parse('${friendDataJson}');
+function openModal(friendUserId) {
+	// 対象データを探す
+	const data = friendDataJs.find(f => f.friend.friendUserId === friendUserId);
+	if (!data) return;
+	// 表示データセット
+	document.getElementById("icon-id").innerText = data.friendInfo.iconId;
+	document.getElementById("friend-id").innerText = data.friend.friendUserId;
+	document.getElementById("friend-name").innerText = data.friendInfo.userName;
+	document.getElementById("friend-point").innerText = data.friendInfo.point;
+	// トレーニング表示
+	let html = "";
+	for (let tr of data.latestTraining) {
+		html +=
+		    "<div>" +
+		    (tr.trId || "不明") + "<br>" +
+		    (tr.trWeight || 0) + "kg " +
+		    (tr.count || 0) + "rep " +
+		    (tr.sets || 0) + "set" +"<br>" +
+		    (tr.memo || "") + 
+		    "</div>";
+	}
+	document.getElementById("modal-training-area").innerHTML = html;
+	// 表示
+	document.getElementById("friend-modal").style.display = "block";
+}
+function closeModal() {
+    document.getElementById("friend-modal").style.display = "none";
+}
+
+
+
 </script>
 </body>
 </html>
