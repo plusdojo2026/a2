@@ -56,10 +56,10 @@
                          
                              <div class="friend-icon"style="cursor: pointer;" 
    							 onclick="openModal('${f.friend.friendUserId}')">
-   							 ${f.friend.friendUserId}
-	                             <span class="friend-id">${f.friend.userId}</span><br>
+   							 
+	                            ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
 	                             <span class="friend-name">${f.friendInfo.userName}</span><br>
-	                             <span class="friend-point">${f.friendInfo.point}</span><br>
+	                             <span class="friend-point">${f.friendInfo.point}</span>:pt<br>
                              </div>
                              
                          <!-- </div> -->
