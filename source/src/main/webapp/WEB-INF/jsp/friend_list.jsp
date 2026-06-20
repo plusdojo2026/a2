@@ -61,7 +61,7 @@
                     <button type="submit" class="delete-btn">選択したフレンドを削除</button>
                 </div>
             </form>
-        </c:if>
+
         </section>
 </main>
 <footer>
