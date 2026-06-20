@@ -27,12 +27,19 @@ public class InfoServlet extends HttpServlet {
     		return;
     	}
     	
+    	// 今日の豆知識を取得
     	KnowledgesDao dao = new KnowledgesDao();
     	Knowledge todayWord = dao.getTodayWord();
     	
     	if (todayWord != null) {
     	    request.setAttribute("todayTrivia", todayWord.getTrivia());
     	}
+    	
+    	// 今日のレシピを取得
+    	Knowledge todayRecipe = dao.getTodayRecipe();
+        if (todayRecipe != null) {
+            request.setAttribute("recipe", todayRecipe);
+        }
 
         request.getRequestDispatcher("/WEB-INF/jsp/info.jsp").forward(request, response);
     }
