@@ -36,13 +36,15 @@ public class FriendListServlet extends HttpServlet {
 		
 		//Daoの呼び出し
 		FriendsDao fDao = new FriendsDao();
+		Gson gson = new Gson();
 		
 		//<===DAO①===>ユーザのフレンドを検索
 		List<Friend>friendSearch =
 				fDao.friendSearch
 				(new Friend(userId,null,0,null,0,0));
-		//リクエスト格納①
-		request.setAttribute("friendSearch", friendSearch);
+		//リクエストJson格納①
+		String friendJson = gson.toJson(friendSearch);
+		request.setAttribute("friendJson", friendJson);
 		
 		
 		
@@ -55,8 +57,9 @@ public class FriendListServlet extends HttpServlet {
 			List<Friend>frInfo =
 					fDao.friendInfo
 					(new Friend(null,friendUserId,0,null,0,0));
-			//リクエスト格納②
-			request.setAttribute("frInfo", frInfo);
+			//リクエストJson格納②
+			String frInfoJson = gson.toJson(frInfo);
+			request.setAttribute("frInfoJson", frInfoJson);
 			
 			
 			
@@ -64,8 +67,9 @@ public class FriendListServlet extends HttpServlet {
 			List<TrStorage>trSearch =
 					fDao.trSearch
 					(new TrStorage(friendUserId,0,0,0,0,null,null));
-			//リクエスト格納③
-			request.setAttribute("trSearch", trSearch);
+			//リクエストJson格納③
+			String trSearchJson = gson.toJson(trSearch);
+			request.setAttribute("trSearchJson", trSearchJson);
 		}
 		
 		
