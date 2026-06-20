@@ -105,8 +105,8 @@
 
 
 
-
-<input type="button" name="saveb" value="保存" onclick="openSaveModal()">
+<button type="button" onclick="openSaveModal()">保存</button>
+<!-- <input type="button" name="saveb" value="保存" onclick="openSaveModal()"> -->
 
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
@@ -114,7 +114,13 @@
 <div id="saveModal" class="modal-background">
 	<div class="modal-content">
 		<h3>確認</h3>
-		<p>入力内容を保存しますか？</p>
+		<h4>以下の内容でしてよろしいでしょうか？​</h4>
+		<br>
+		
+		
+		<div id="confirmArea"></div>
+		
+		
 		<button type="button" onclick="submitSave()">はい</button>
 	    <button type="button" onclick="closeSaveModal()">いいえ</button>
 	
@@ -185,7 +191,8 @@
 	//保存用の時のモーダル
 	function openSaveModal() {
 		
-		/* //inputの中のname="weight"のvalueを取り出す（中身ということ）
+		
+		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
 		//inputの中のname="fat"のvalueを取り出す（中身ということ）
@@ -194,20 +201,28 @@
 	  	//inputの中のname="comments"のvalueを取り出す（中身ということ）
 	    let comments = document.querySelector('textarea[name="comments"]').value;
 	    
+	  	//スタンプは数字で表示されてしまうので、数字を取ってきて、セレクトの中のtextをとってきている
+	    let select = document.getElementById("stamp");
+	    let stampText = select.options[select.selectedIndex].text;
+	  	
+	  	
+	  	
 	  	//空箱づくり
 	    let html = "";
 	  	
 	  	//HTMLという箱にに加えていく
 	    html += "体重：" + weight + "kg<br>";
 	    html += "体脂肪率：" + fat + "%<br>";
-	    html += "メモ：" + comments + "<br><br>";
-	  
+	    html += "スタンプ：" + stampText ;
+	    html +="<br>"
+	    html += "メモ" + "<br>"
+	    html += comments + "<br><br>";
 	  
 	    
 	    //追加項目繰り返し処理で回す
 	    
 	    // 追加項目
-	    /*  for(let i = 0; i < count; i++){
+	     for(let i = 0; i < count; i++){
 	
 	        let item = document.getElementById("it" + i);
 	
@@ -218,16 +233,33 @@
 	            let counts = document.getElementsByName("counts" + i)[0]?.value || "";
 	
 	            let sets = document.getElementsByName("sets" + i)[0]?.value || "";
+	            
+	            let memo = document.getElementsByName("memo" + i)[0]?.value || "";
 	
-	            html += "<hr>";
+	            //表示パターン１
+	          /*   html += "<hr>";
 	            html += "項目：" + item.value + "<br>";
-	            html += "重さ：" + weight2 + "<br>";
+	            html += "重さ：" + tr_weight + "<br>";
 	            html += "回数：" + counts + "<br>";
 	            html += "セット：" + sets + "<br>";
+	            html +="<br>"
+	            html += "メモ"+"<br>"
+	            html += memo + "<br>" */
+	            
+	            
+	            html += "[" + item.value + "]"+"<br>";
+	            html += tr_weight +" kg(km) ×";
+	            html += counts + " 回 ×";
+	            html += sets + " セット"+"<br>";
+	            html +="<br>";
+	            html += "メモ"+"<br>";
+	            html += memo + "<br>";
+	            
+	            html +="<br>";
 	        } 
-	   *//*  */
-	     /*}
-		document.getElementById("confirmArea").innerHTML = html; */
+	   
+	    }
+		document.getElementById("confirmArea").innerHTML = html;
 		
 	    document.getElementById("saveModal").style.display = "block";
 	}
