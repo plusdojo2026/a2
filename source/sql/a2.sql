@@ -266,7 +266,10 @@ INSERT INTO recipes (recipe_number, recipe, recipe_img) VALUES
 (4, 'ミックスビーンズのツナマヨポン酢​', '/a2/img/recipe4.png'),
 (5, '豆苗と大豆の塩昆布ナムル', '/a2/img/recipe5.png'),
 (6, 'ひよこ豆の明太マヨ和え', '/a2/img/recipe6.png'),
-(7, '枝豆塩昆布チーズ​', '/a2/img/recipe7.png');
+(7, '枝豆塩昆布チーズ​', '/a2/img/recipe7.png'),
+(8, 'スモークチキンと大豆のハニーマスタード和え', '/a2/img/recipe8.png'),
+(9, '枝豆とちくわの塩昆布バター​', '/a2/img/recipe9.png'),
+(10, 'ミックスビーンズとトマトのタコス風サラダ​', '/a2/img/recipe10.png');
 
 /* 成長記録テーブル作成 */
 CREATE TABLE words (
