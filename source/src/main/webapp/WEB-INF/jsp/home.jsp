@@ -21,7 +21,7 @@
       z-index: 10;
     }
 
-    /* モーダルの本体 */
+    /* モーダルの本体  項目追加の部分*/
     .modal-content {
       background-color: white;
       width: 300px;
@@ -36,6 +36,27 @@
     .close-btn {
       margin-top: 10px;
     }
+    
+    
+    
+    
+    /* モーダルの本体  確認表示用*/
+    .modal-content-two {
+      background-color: white;
+      width: 500px;
+      margin: 100px auto;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 11;
+      
+      /* 画面の80%まで */
+    max-height:60vh;
+
+    /* 内容がはみ出たらスクロール */
+      overflow-y:auto;
+    }
+    
   </style>
 
 
@@ -69,8 +90,8 @@
 
 <h2>基本データ</h2>
 
-体重(kg)　<input type="text" name="weight"><br>
-体脂肪率(％)<input type="text" name="fat"><br>
+体重(kg)　<input type="text" name="weight" value="${weight}"><br>
+体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
 <br>
 <br>
 <input type ="text" id ="c" name = "coun"><br>
@@ -78,18 +99,42 @@
 <br>
 
 一日メモ<br>
-<textarea name="comments"></textarea>
+<textarea name="comments">${comments}</textarea>
 <br>
 スタンプ：
 	<select id="stamp" onchange="changestamp()" name="stamp">
-    	<option value="1">なし</option>
-	    <option value="2">足トレ</option>
-	    <option value="3">背中トレ</option>
-	    <option value="4">腕トレ</option>
-	    <option value="5">尻トレ</option>
-	    <option value="6">腹トレ</option>
-	    <option value="7">豆トレ</option>
-	    <option value="8">酒</option>
+    	<option value="1"<c:if test="${stamp == '1'}">selected</c:if>>
+		なし
+		</option>
+		
+		<option value="2"<c:if test="${stamp == '2'}">selected</c:if>>
+		足トレ
+		</option>
+		
+		<option value="3"<c:if test="${stamp == '3'}">selected</c:if>>
+		背中トレ
+		</option>
+		
+	    <option value="4"<c:if test="${stamp == '4'}">selected</c:if>>
+		腕トレ
+		</option>
+	    
+	    <option value="5"<c:if test="${stamp == '5'}">selected</c:if>>
+		尻トレ
+		</option>
+	    
+	    <option value="6"<c:if test="${stamp == '6'}">selected</c:if>>
+		腹トレ
+		</option>
+		
+	    <option value="7"<c:if test="${stamp == '7'}">selected</c:if>>
+		豆トレ
+		</option>
+		
+	    <option value="8"<c:if test="${stamp == '8'}">selected</c:if>>
+		酒
+		</option>
+	    
 	</select>
 
 	<br>
@@ -112,7 +157,7 @@
 <input type="hidden" name="saveb" id="saveb">
 
 <div id="saveModal" class="modal-background">
-	<div class="modal-content">
+	<div class="modal-content-two">
 		<h3>確認</h3>
 		<h4>以下の内容でしてよろしいでしょうか？​</h4>
 		<br>
@@ -215,7 +260,7 @@
 	    html += "体脂肪率：" + fat + "%<br>";
 	    html += "スタンプ：" + stampText ;
 	    html +="<br>"
-	    html += "メモ" + "<br>"
+	    html += "[メモ]" + "<br>"
 	    html += comments + "<br><br>";
 	  
 	    
@@ -251,8 +296,8 @@
 	            html += tr_weight +" kg(km) ×";
 	            html += counts + " 回 ×";
 	            html += sets + " セット"+"<br>";
-	            html +="<br>";
-	            html += "メモ"+"<br>";
+	            /* html +="<br>"; */
+	            html += "[メモ]"+"<br>";
 	            html += memo + "<br>";
 	            
 	            html +="<br>";

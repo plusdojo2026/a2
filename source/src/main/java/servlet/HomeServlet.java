@@ -39,6 +39,18 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("itemList", items);
 		
 		
+		request.setAttribute("weight",
+		        request.getSession().getAttribute("weight"));
+
+		request.setAttribute("fat",
+		        request.getSession().getAttribute("fat"));
+
+		request.setAttribute("comments",
+		        request.getSession().getAttribute("comments"));
+
+		request.setAttribute("stamp",
+		        request.getSession().getAttribute("stamp"));
+		
 
 		// IDが削除された場合、同じIDでログインしてホームに飛べないようにする
 
@@ -201,6 +213,21 @@ public class HomeServlet extends HttpServlet {
 			for (Save dto : svlist) {
 				sdao.insertSaves(dto);
 			}
+			
+			
+			
+			request.getSession().setAttribute("weight",
+			        request.getParameter("weight"));
+
+			request.getSession().setAttribute("fat",
+			        request.getParameter("fat"));
+
+			request.getSession().setAttribute("comments",
+			        request.getParameter("comments"));
+
+			request.getSession().setAttribute("stamp",
+			        request.getParameter("stamp"));
+			
 			
 			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
 			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
