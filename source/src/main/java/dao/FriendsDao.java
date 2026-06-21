@@ -28,16 +28,16 @@ public class FriendsDao {
 	
 			// SQL文を準備する//
 			String sql = "SELECT "
-					+ "DISTINCT "
-					+ "CASE "
+					+" DISTINCT "
+					+" CASE "
 					//?が一致したらTHENを返す
-					+ "WHEN user_id =  ?  THEN friend_user_id "
-					+ "WHEN friend_user_id =  ?  THEN user_id "
+					+" WHEN user_id =  ?  THEN friend_user_id "
+					+" ELSE user_id "
 					//SQL内の新しいテーブル名
-					+ "END AS friend "
-					+ "FROM friends "
-					+ "WHERE user_id =  ?  "
-					+ "OR friend_user_id = ? ";	
+					+" END AS friend_user_id "
+					+" FROM friends "
+					+" WHERE user_id =  ?  "
+					+" OR friend_user_id = ? ";	
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -45,7 +45,6 @@ public class FriendsDao {
 			pStmt.setString(1,frSearch.getUserId());
 			pStmt.setString(2,frSearch.getUserId());
 			pStmt.setString(3,frSearch.getUserId());
-			pStmt.setString(4,frSearch.getUserId());
 	
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
@@ -53,12 +52,12 @@ public class FriendsDao {
 			// 結果表をコレクションにコピーする
 			while(rs.next()) {
 				Friend friendSearch = new Friend(
-						rs.getString("user_id"),
+						null,
 						rs.getString("friend_user_id"),
-						rs.getInt("friend_request"),
-						rs.getString("user_name"),
-						rs.getInt("icon_id"),
-						rs.getInt("point")
+						0,
+						null,
+						0,
+						0
 						);
 				friendsList.add(friendSearch);
 			}
@@ -117,8 +116,8 @@ public class FriendsDao {
 				while(rs.next()) {
 					Friend friendInfo = new Friend(
 							rs.getString("user_id"),
-							rs.getString("friend_user_id"),
-							rs.getInt("friend_request"),
+							null,
+							0,
 							rs.getString("user_name"),
 							rs.getInt("icon_id"),
 							rs.getInt("point")
@@ -161,16 +160,19 @@ public class FriendsDao {
 			// SQL文を準備する//
 			String sql = 
 			"SELECT "			
-			+" user_id,"			//ユーザーID
-			+" tr_id,"				//トレーニングID
-			+" tr_weight,"			//重量
-			+" counts,"				//回数
-			+" sets,"				//セット数
-			+" memo,"				//小さいメモ
-			+" date"				//日付
-			+" FROM tr_storages"	//検索テーブル	
-			+" WHERE date = (SELECT DATE(MAX(date)) FROM tr_storages)"
-			+" AND user_id=?";	
+			+" user_id, "			//ユーザーID
+			+" tr_id, "				//トレーニングID
+			+" tr_weight, "			//重量
+			+" counts, "			//回数
+			+" sets, "				//セット数
+			+" memo, "				//小さいメモ
+			+" date "				//日付
+			+" FROM tr_storages t "	//検索テーブル	
+			+" WHERE user_id = ? "
+			+" AND date =( "
+			+" SELECT MAX(date) "
+			+" FROM tr_storages st "
+			+" WHERE st.user_id = t.user_id) ";	
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			

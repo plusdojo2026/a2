@@ -260,9 +260,13 @@ CREATE TABLE recipes (
 );
 /* 豆レシピテーブルインサート */
 INSERT INTO recipes (recipe_number, recipe, recipe_img) VALUES
-(1, '温泉卵のっけえだまめ​', 'img/recipe1.jpg'),
-(2, '枝豆と鶏むねのプロテインサラダ', 'img/recipe2.jpg'),
-(3, '黒豆とオートミールの朝食ボウル', 'img/recipe3.jpg');
+(1, '温泉卵のっけえだまめ​', '/a2/img/recipe1.png'),
+(2, 'ピーナッツと塩昆布のピリ辛和え', '/a2/img/recipe2.png'),
+(3, '黒豆のクリームチーズ和え​', '/a2/img/recipe3.png'),
+(4, 'ミックスビーンズのツナマヨポン酢​', '/a2/img/recipe4.png'),
+(5, '豆苗と大豆の塩昆布ナムル', '/a2/img/recipe5.png'),
+(6, 'ひよこ豆の明太マヨ和え', '/a2/img/recipe6.png'),
+(7, '枝豆塩昆布チーズ​', '/a2/img/recipe7.png');
 
 /* 成長記録テーブル作成 */
 CREATE TABLE words (

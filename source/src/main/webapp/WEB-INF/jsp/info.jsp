@@ -24,7 +24,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-
+<p>${todayTrivia}</p>
+<img src="${recipe.imagePath}" alt="${recipe.recipeName}">
 
 </main>
 <!--　メインここまで　-->

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
 import dto.Message;
@@ -23,18 +24,20 @@ public class DeleteAccountServlet extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect("/a2/LoginServlet");
-//			return;
-//		}
-//		//セッションのuser_idをuserIdに代入
-//		String userId=(String)session.getAttribute("user_id");
-//		
-		
-		String userId="User1";//本来はセッションから取得
-		
+		//セッション
+		HttpSession session = request.getSession();
+		//セッションチェック
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect("/a2/LoginServlet");
+			return;
+		}
+		//セッションのuser_idをuserIdに代入
+		String userId=(String)session.getAttribute("user_id");		
+		String message = (String) session.getAttribute("message");
+		if (message != null) {
+		    request.setAttribute("message", message);
+		    session.removeAttribute("message");
+		}
 		
 		UsersDao uDao = new UsersDao();
 		User userInfo = uDao.userInfo(new User

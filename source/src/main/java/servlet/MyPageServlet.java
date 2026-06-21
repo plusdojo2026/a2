@@ -25,25 +25,21 @@ public class MyPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect("/a2/LoginServlet");
-//			return;
-//		}
-//		//セッションのuser_idをuserIdに代入
-//		String userId=(String)session.getAttribute("user_id");		
-		
+		//セッション
 		HttpSession session = request.getSession();
-		
+		//セッションチェック
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect("/a2/LoginServlet");
+			return;
+		}
+		//セッションのuser_idをuserIdに代入
+		String userId=(String)session.getAttribute("user_id");		
 		String message = (String) session.getAttribute("message");
 		if (message != null) {
 		    request.setAttribute("message", message);
 		    session.removeAttribute("message");
 		}
-		
-		String userId="User1";//本来はセッションから取得
-		
+
 		
 		UsersDao uDao = new UsersDao();
 		User userInfo = uDao.userInfo(new User
