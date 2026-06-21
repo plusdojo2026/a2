@@ -106,7 +106,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	</nav>
 	
 	<div class="search-area">
-		<form action="/a2/FriendListServlet" method="POST">
+		<form action="/a2/FriendListServlet" method="POST" id="form">
 			<label for="searchId">ID検索：</label>
 			<input type="text" id="searchId" name="searchId" placeholder="ユーザーIDを入力">
 			<button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -166,7 +166,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		<span id="friend-name"></span>
 		<span id="friend-point"></span>
 		
-		<h4>トレーニング内容</h4>
+		<h4>トレーニング内容</h4><span id="training-date"></span>
 		<div id="modal-training-area" class="training-area"></div>
 		   
 		<div class="close-btn" onclick="closeModal()">閉じる</div>
@@ -185,7 +185,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 					名前: ${searchAns.userName}
 				</div>
 				<!-- フレンド申請 -->
-				<form action="FriendRequestServlet" method="post" id="form">
+				<form action="FriendRequestServlet" method="post">
 					<input type="hidden" name="targetUserId" value="${searchAns.userId}" id="sCheck">
 					<button type="submit">
 						フレンド申請
@@ -197,7 +197,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </c:if>
 <script>
 'use strict'
-	
+
 	//ゴミ箱ボタンチェックボックス
 	document.addEventListener("DOMContentLoaded", function() {
 		const toggleBtn = document.getElementById("toggle-delete-btn");
@@ -222,12 +222,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 function openModal(friendUserId) {
 	// 対象データを探す
 	const data = friendDataJs.find(f => f.friend.friendUserId === friendUserId);
+	const date = data.latestTraining[0]?.date || "";
 	if (!data) return;
 	// 表示データセット
 	document.getElementById("icon-id").innerText = data.friendInfo.iconId;
 	document.getElementById("friend-id").innerText = "ID:"+ data.friend.friendUserId;
 	document.getElementById("friend-name").innerText = "名前:"+data.friendInfo.userName;
 	document.getElementById("friend-point").innerText = data.friendInfo.point + " pt";
+	document.getElementById("training-date").innerText = date;
+	
 	// トレーニング表示
 	let html = "";
 	for (let tr of data.latestTraining) {
@@ -248,19 +251,33 @@ function closeModal() {
     document.getElementById("friend-modal").style.display = "none";
 }
 //既に登録済みのフレンドと自分へのフレンド登録を防ぐ
+const alreadyFriendJs = JSON.parse('${alreadyFriendJson}');
 document.getElementById('form').onsubmit = function(event){
-
-    const searchCheck = document.getElementById('sCheck').value;
-
-	//空白をはじく
-     if( pasCheck1 === '' || pasCheck2 === '' || pasCheck3 ===''){
-        document.getElementById('msg').textContent = '※すべてのパスワードを入力してください。';
-        event.preventDefault();
-    //新しいパスワード不一致をはじく
-    }else if(pasCheck2 !== pasCheck3){
-    	document.getElementById('msg').textContent = '※新しいパスワードが一致しませんでした。';
-        event.preventDefault();
-    }
+	const userId = "${sessionScope.user.userId}";
+	const searchId = document.getElementById('searchId').value;
+	// friendDataJsonからフレンドID一覧を取得
+	const friendIds = friendDataJs.map(
+		f => f.friend.friendUserId
+	);
+	const alreadyFriendIds = alreadyFriendJs.map(
+			f => f.friendUserId
+		);
+	// 自分を検索禁止
+	if(searchId === userId){
+		alert('自分は検索できません');
+		event.preventDefault();
+		return;
+	}
+	// 既にフレンド
+	if(friendIds.includes(searchId)){
+		alert('すでにフレンドです');
+		event.preventDefault();
+	}
+	// 申請中
+	if(alreadyFriendIds.includes(searchId)){
+		alert('リクエスト中または、リクエスト承認待ちです。');
+		event.preventDefault();
+	}
 }
 
 //===検索モーダルscript===
