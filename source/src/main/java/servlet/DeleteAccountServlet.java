@@ -24,15 +24,15 @@ public class DeleteAccountServlet extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		//セッション
 		HttpSession session = request.getSession();
-		//セッションチェック
-		if (session.getAttribute("user_id") == null) {
-			response.sendRedirect("/a2/LoginServlet");
-			return;
-		}
-		//セッションのuser_idをuserIdに代入
-		String userId=(String)session.getAttribute("user_id");		
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
+    	//セッションのuserをuserIdに代入
+    	String userId = user.getUserId();
 		String message = (String) session.getAttribute("message");
 		if (message != null) {
 		    request.setAttribute("message", message);
@@ -52,12 +52,14 @@ public class DeleteAccountServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect("/webapp/LoginServlet");
-//			return;
-//		}
+		//セッション
+		HttpSession session = request.getSession();
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");

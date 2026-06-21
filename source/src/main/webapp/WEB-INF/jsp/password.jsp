@@ -52,7 +52,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     
     <input type="submit" value="変更">
 </form>
-
+<a href="/a2/MyPageServlet">戻る</a>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -96,7 +96,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         	document.getElementById('msg').textContent = '※新しいパスワードが一致しませんでした。';
             event.preventDefault();
         }
-	}		
+	}	
 </script>
 </body>
 </html>
