@@ -27,13 +27,14 @@ public class PasswordServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//セッション
 		HttpSession session = request.getSession();
-		//セッションチェック
-		if (session.getAttribute("user_id") == null) {
-			response.sendRedirect("/a2/LoginServlet");
-			return;
-		}
-		//セッションのuser_idをuserIdに代入
-		String userId=(String)session.getAttribute("user_id");		
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
+    	//セッションのuserをuserIdに代入
+    	String userId = user.getUserId();
 		String message = (String) session.getAttribute("message");
 		if (message != null) {
 		    request.setAttribute("message", message);
@@ -53,12 +54,14 @@ public class PasswordServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect("/a2/LoginServlet");
-//			return;
-//		}
+		//セッション
+		HttpSession session = request.getSession();
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
 		
 		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
@@ -70,7 +73,6 @@ public class PasswordServlet extends HttpServlet {
 		User userInfo = uDao.userInfo(
 		    new User(0,null,0.0,null,0.0,0,userId,null,0,0,0,null)
 		);
-		HttpSession session = request.getSession();
 		
 		if(pDao.passwordCheck(userId,inputPassword)) {
 			if (pDao.passwordChange(new User

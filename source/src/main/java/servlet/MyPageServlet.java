@@ -27,13 +27,14 @@ public class MyPageServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//セッション
 		HttpSession session = request.getSession();
-		//セッションチェック
-		if (session.getAttribute("user_id") == null) {
-			response.sendRedirect("/a2/LoginServlet");
-			return;
-		}
-		//セッションのuser_idをuserIdに代入
-		String userId=(String)session.getAttribute("user_id");		
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
+    	//セッションのuserをuserIdに代入
+    	String userId = user.getUserId();
 		String message = (String) session.getAttribute("message");
 		if (message != null) {
 		    request.setAttribute("message", message);

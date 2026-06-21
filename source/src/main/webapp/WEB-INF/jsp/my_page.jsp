@@ -28,8 +28,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="home.html" class="logo">rogo</a>
-    <a href="home.html" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
+    <a href="/a2/HomeServlet" class="logo">rogo</a>
+    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
 
 
 </header>
