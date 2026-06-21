@@ -63,6 +63,8 @@ public class HomeServlet extends HttpServlet {
 
 		
 		
+//一時保存の時に項目復元のための
+		
 		
 		
 		// スタンプを取得している

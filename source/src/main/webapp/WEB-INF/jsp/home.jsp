@@ -92,11 +92,10 @@
 
 体重(kg)　<input type="text" name="weight" value="${weight}"><br>
 体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
+
+<input type ="hidden" id ="c" name = "coun">
 <br>
-<br>
-<input type ="text" id ="c" name = "coun"><br>
 <!-- <input type ="hidden" id ="c" name = "count"><br> -->
-<br>
 
 一日メモ<br>
 <textarea name="comments">${comments}</textarea>
@@ -213,8 +212,6 @@
 
 
   
-  
-
 
 
 
@@ -231,6 +228,27 @@
 /* 	function addButton(){	
 		
 	} */
+	
+	
+	let count=0;
+	
+	
+	window.onload = function(){
+
+	<c:forEach var="item" items="${saveDetailList}">
+	    addSavedItem(
+	        '${item.trItem}',
+	        '${item.tr_weight}',
+	        '${item.counts}',
+	        '${item.sets}',
+	        '${item.memo}'
+	    );
+	</c:forEach>
+	
+	changestamp();
+
+	}
+	
 	
 	
 	//保存用の時のモーダル
@@ -378,8 +396,100 @@
  	}  
  	
     
+ 	//一時保存をしたものを表示するためのもの
+	
+	function addSavedItem(itemName, weight, counts, sets, memo){
+
+    let itemArea = document.getElementById("itemArea");
+
+    const div = document.createElement("div");
+    div.id = "item" + count;
+
+    // 項目
+    const input = document.createElement("input");
+    input.type = "text";
+    input.name = "it" + count;
+    input.id = "it" + count;
+    input.readOnly = true;
+    input.value = itemName;
+
+    div.appendChild(document.createTextNode("項目"));
+    div.appendChild(input);
+
+    // 重さ
+    div.appendChild(document.createElement("br"));
+
+    const weightinput = document.createElement("input");
+    weightinput.type = "text";
+    weightinput.name = "tr_weight" + count;
+    weightinput.value = weight;
+
+    div.appendChild(document.createTextNode("重さ（距離）"));
+    div.appendChild(weightinput);
+
+    // 回数
+    div.appendChild(document.createElement("br"));
+
+    const countinput = document.createElement("input");
+    countinput.type = "text";
+    countinput.name = "counts" + count;
+    countinput.value = counts;
+
+    div.appendChild(document.createTextNode("回数"));
+    div.appendChild(countinput);
+
+    // セット
+    div.appendChild(document.createElement("br"));
+
+    const setinput = document.createElement("input");
+    setinput.type = "text";
+    setinput.name = "sets" + count;
+    setinput.value = sets;
+
+    div.appendChild(document.createTextNode("セット"));
+    div.appendChild(setinput);
+
+ // メモが存在する場合のみ表示
+    if(memo != null && memo.trim() !== ""){
+
+        div.appendChild(document.createElement("br"));
+
+        const memoTitle = document.createElement("div");
+        memoTitle.textContent = "メモ";
+        div.appendChild(memoTitle);
+
+        const textarea = document.createElement("textarea");
+        textarea.name = "memo" + count;
+        textarea.value = memo;
+
+        div.appendChild(textarea);
+    }
+
+ 
+    const deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "削除";
+
+    deleteButton.onclick = function(){
+        if(confirm("削除しますか？")){
+            itemArea.removeChild(div);
+        }
+    };
+
+    div.appendChild(deleteButton);
+
+    itemArea.appendChild(div);
+
+    count++;
+    document.getElementById("c").value = count;
+    }
+
+    	
+ 	
+ 	
+ 	
     
-    let count=0;
+    
     function addItem(){
     	//とりあえずansをfalseとして宣言
     	let ans = false;
@@ -409,7 +519,9 @@
     }
     	
     	
-
+    	
+    	
+    	
     	
     	//ひとつでも過去の種目と被っていたら
     	if(ans==true){
@@ -473,9 +585,12 @@
    		//pi を itemArea (jspのitemAreaの位置）の中に追加
    		//itemArea.appendChild(pi);
    		//inputもitemArea (jspのitemAreaの位置）の中に追加
-   		div.textContent = "項目";
-   		div.appendChild(input);
-   		div.appendChild(deleteButton);
+   		let title = document.createElement("div");
+		title.textContent = "項目";
+		
+		div.appendChild(title);
+		div.appendChild(input);
+		div.appendChild(deleteButton);
 		/* deleteButton.onclick = function(){
 			itemArea.removeChild(div);
 		} */

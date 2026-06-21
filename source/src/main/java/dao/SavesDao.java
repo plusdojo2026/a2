@@ -37,11 +37,16 @@ public class SavesDao {
 			//古いデータを削除するSQL文
 			//ユーザーIDで指定したところのデータを消さなくてはいけない
 			
-			String deleteSql = "DELETE FROM saves";
+			String deleteSql = "DELETE FROM saves\r\n" + "WHERE user_id = ?";
 			//作ったところにデータ削除構文を入れる
-		    psDelete = conn.prepareStatement(deleteSql);
+			psDelete = conn.prepareStatement(deleteSql);
+			psDelete.setString(1, dto.getUser_id());
+
+			psDelete.executeUpdate();
 		    //実行
-		    psDelete.executeUpdate();
+			/* int result = psInsert.executeUpdate(); */
+
+		  
 		    
 		    
 			
@@ -93,6 +98,46 @@ public class SavesDao {
 
 
 	
+		//保存用
+		public void deleteTrSaves(String userId) {
+
+		    Connection conn = null;
+		    PreparedStatement pStmt = null;
+
+		    try {
+
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+
+		        conn = DriverManager.getConnection(
+		            "jdbc:mysql://localhost:3306/a2?"
+		            + "characterEncoding=utf8&useSSL=false"
+		            + "&serverTimezone=GMT%2B9",
+		            "root",
+		            "password"
+		        );
+
+		        String sql =
+		            "DELETE FROM tr_saves WHERE user_id = ?";
+
+		        pStmt = conn.prepareStatement(sql);
+
+		        pStmt.setString(1, userId);
+
+		        pStmt.executeUpdate();
+
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    }finally {
+		        try {
+		            if (pStmt != null) pStmt.close();
+		            if (conn != null) conn.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		}
+		
+		
 	
 	
 	
@@ -119,9 +164,10 @@ public class SavesDao {
 			
 			//古いデータを削除するSQL文
 			//ユーザーIDを指定してその部分を消さなくてはいけない
-			String deleteSql = "DELETE FROM tr_saves";
-	        psDelete = conn.prepareStatement(deleteSql);
-	        psDelete.executeUpdate();
+			/*
+			 * String deleteSql = "DELETE FROM tr_saves"; psDelete =
+			 * conn.prepareStatement(deleteSql); psDelete.executeUpdate();
+			 */
 	        
 	        
 	        //新しいデータを登録するSQL文
