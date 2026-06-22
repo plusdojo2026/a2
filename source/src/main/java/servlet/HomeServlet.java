@@ -30,10 +30,16 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
+		HttpSession session = request.getSession();
+
+	    User user = (User)session.getAttribute("user");
+	    
 	
 ////		TrItemsDaoをインスタンス化するnewする
 
 		TrItemsDao trdao = new TrItemsDao();
+		
 
 //		トレーニング項目が items に入った
 		List<String> items = trdao.getTrainingItems();
@@ -51,7 +57,7 @@ public class HomeServlet extends HttpServlet {
 		
 		//一時保存してあるデータをDBから取得しに行った（一時保存用のデータベースからとりに行っている）
 		//一時保存したデータが saveDetailList に入った
-		List<Save> saveDetailList =sdao.selectTrSaves("test");
+		List<Save> saveDetailList =sdao.selectTrSaves(user.getUserId());
 		
 		
 		//saveDetailList を"saveDetailList"という名前でjspに渡してる
@@ -152,51 +158,72 @@ public class HomeServlet extends HttpServlet {
 
 			// 一時保存処理開始
 
-		    
+			SavesDao sdao = new SavesDao();
+		    sdao.deleteTrSaves(user.getUserId());
 			 
 				
-				//項目追加した分の数を取ってきている
-				int coun = Integer.parseInt(request.getParameter("coun"));
+			//項目追加した分の数を取ってきている
+			int coun = Integer.parseInt(request.getParameter("coun"));
 				
 				
 				
-				//もらってきたデータを登録するアレイリスト
-				ArrayList<Save> svdetalist = new ArrayList<>();
+			//もらってきたデータを登録するアレイリスト
+			ArrayList<Save> svdetalist = new ArrayList<>();
 				
 				
 				
 				//追加項目をすべて受け取る処理
 				
-				for (int i = 0; i < coun; i++) {
-					
-					//Save.javaを使う
-					Save  svdto = new Save();
-					
-					//for文で繰り返しながら追加項目データをとってきてdtoに入れる
-					svdto.setTr_weight(Integer.parseInt(request.getParameter("tr_weight"+ i)));
-					svdto.setCounts(Integer.parseInt(request.getParameter("counts"+ i)));
-					svdto.setSets(Integer.parseInt(request.getParameter("sets"+ i)));
-					svdto.setTrItem(request.getParameter("it"+ i));
-					svdto.setMemo(request.getParameter("memo"+i));
-					svdto.setUser_id("test");
-					
-					
-					//TrItemsDaoを使う（トレーニング項目名からトレーニング項目番号に変更するため）
-					TrItemsDao trDao = new TrItemsDao();
-					
-					//ここで項目名をとってくる
-					String trItem = request.getParameter("it" + i);
-					
-					//名前がIDにかわる
-					int trId = trDao.getTrIdByItem(trItem);
-					
-					//ここではじめてdtoに入れる（今までは項目名しかもっていなかったので番号を入れることができる）
-					svdto.setTr_id(trId);
-					
-					//豆にセット
-					svdetalist.add(svdto);
-					
-				}
+			for (int i = 0; i < coun; i++) {
+
+				//項目名を取得
+			    String item = request.getParameter("it" + i);
+
+			    // 項目名が空なら保存しない
+			    if (item == null || item.trim().isEmpty()) {
+			        continue;
+			    }
+
+			    String weightStr = request.getParameter("tr_weight" + i);
+			    String countsStr = request.getParameter("counts" + i);
+			    String setsStr = request.getParameter("sets" + i);
+
+			    //Save.java実装
+			    Save svdto = new Save();
+
+			    svdto.setTrItem(item);
+
+			    svdto.setTr_weight(
+			        weightStr == null || weightStr.trim().isEmpty()
+			            ? 0
+			            : Integer.parseInt(weightStr)
+			    );
+
+			    svdto.setCounts(
+			        countsStr == null || countsStr.trim().isEmpty()
+			            ? 0
+			            : Integer.parseInt(countsStr)
+			    );
+
+			    svdto.setSets(
+			        setsStr == null || setsStr.trim().isEmpty()
+			            ? 0
+			            : Integer.parseInt(setsStr)
+			    );
+
+			    svdto.setMemo(request.getParameter("memo" + i));
+			    svdto.setUser_id(user.getUserId());
+
+			    TrItemsDao trDao = new TrItemsDao();
+
+			    String trItem = item;
+
+			    int trId = trDao.getTrIdByItem(trItem);
+
+			    svdto.setTr_id(trId);
+
+			    svdetalist.add(svdto);
+			}
 
 						
 			// ユーザーIDなどをもってきて作るところ
@@ -228,17 +255,17 @@ public class HomeServlet extends HttpServlet {
 
 			
 			//SavesDaoをnewして使えるようにしている
-			SavesDao sdao = new SavesDao();
+			SavesDao svdao = new SavesDao();
 
 			
 
 			//ここで作った項目をデータベースに入れる処理をしている
 			//（リストが二つなのはもともとある体重、体脂肪のリストと追加項目用のリスト）
 			for (Save dto : svdetalist) {
-				sdao.insertTrSaves(dto);
+				svdao.insertTrSaves(dto);
 			}
 			for (Save dto : svlist) {
-				sdao.insertSaves(dto);
+				svdao.insertSaves(dto);
 			}
 			
 			//一時保存データを取得
@@ -307,7 +334,7 @@ public class HomeServlet extends HttpServlet {
 				dto.setSets(Integer.parseInt(request.getParameter("sets" + i)));
 				dto.setTrItem(request.getParameter("it" + i));
 				dto.setMemo(request.getParameter("memo"+i));
-				dto.setUser_id("test");
+				dto.setUser_id(user.getUserId());
 
 				TrItemsDao trDao = new TrItemsDao();
 
@@ -344,7 +371,7 @@ public class HomeServlet extends HttpServlet {
 			mdto.setFat(Double.parseDouble(request.getParameter("fat")));
 			mdto.setComments(request.getParameter("comments"));
 			mdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
-			mdto.setUser_id("test");
+			mdto.setUser_id(user.getUserId());
 
 			// もともとある項目の豆作った
 			list.add(mdto);

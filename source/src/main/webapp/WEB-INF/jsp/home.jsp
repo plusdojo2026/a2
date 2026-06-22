@@ -255,8 +255,6 @@
 	
 	
 	
-	
-	
 
 	
 	
@@ -271,8 +269,10 @@
 		//inputの中のname="fat"のvalueを取り出す（中身ということ）
 	    let fat = document.querySelector('input[name="fat"]').value; 
 		
-		
-		
+	    let err = false;
+	    document.getElementById("weightEr").textContent = "";
+	    document.getElementById("fatEr").textContent = "";
+
 		
 		//体重が空欄だった場合 err = true;はエラーがあったということ
 	    if (weight.trim() === "") {
@@ -293,11 +293,6 @@
 	    if (err) {
 	        return;
 	    }
-	  
-	  
-	  
-	  
-	  
 		
 	  	//inputの中のname="comments"のvalueを取り出す（中身ということ）
 	    let comments = document.querySelector('textarea[name="comments"]').value;
@@ -306,10 +301,6 @@
 	    let select = document.getElementById("stamp");
 	    let stampText = select.options[select.selectedIndex].text;
 	  	
-	  	
-	    
-	    
-	    
 	  	
 	  	//空箱づくり
 	    let html = "";
@@ -382,6 +373,13 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
 
     //画像表示する
     
@@ -419,6 +417,10 @@
 	
 
     
+    
+    
+    
+    
 
 
     //項目用のモーダル
@@ -437,9 +439,7 @@
  	}  
  	
     
- 	
- 
-    
+
     
     function addItem(){
     	//とりあえずansをfalseとして宣言
@@ -571,8 +571,9 @@
    			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
-   			weightinput.type = "text";
+   			weightinput.type = "number";
    			weightinput.name ="tr_weight" +count;
+   			weightinput.step ="0.1"
    			div.appendChild(weightinput);
 			
 			
@@ -588,7 +589,7 @@
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
-			countinput.type = "text";
+			countinput.type = "number";
 			countinput.name ="counts" +count;
 			div.appendChild(countinput);
    			
@@ -605,7 +606,7 @@
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
-			setinput.type = "text";
+			setinput.type = "number";
 			setinput.name ="sets" + count;
 			div.appendChild(setinput);
    			
