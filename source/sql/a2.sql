@@ -132,10 +132,10 @@ INSERT INTO friends (user_id, friend_user_id,friend_request) VALUES
 -- user1（多め・中心ユーザー）
 ('user1', 'user2',1),
 ('user1', 'user3',1),
-('user1', 'user4',1),
-('user1', 'user5',1),
-('user1', 'user6',0),
-('user1', 'user7',0),
+('user4', 'user1',1),
+('user5', 'user1',1),
+('user6', 'user1',0),
+('user7', 'user1',0),
 ('user1', 'user8',0),
 ('user1', 'user9',0),
 

@@ -97,9 +97,10 @@
 
 <h2>基本データ</h2>
 
-体重(kg)　<input type="text" name="weight" value="${weight}"><br>
-体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
-
+体重(kg)　<input type="number" name="weight" value="${weight}" step="0.1" required><br>
+体脂肪率(％)<input type="number" name="fat" value="${fat}" step="0.1" required><br>
+<div id="weightEr" style="color:red;"></div>
+<div id="fatEr" style="color:red;"></div>
 
 <!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
@@ -242,30 +243,61 @@
 <!--　フッターここまで　-->
 
 <script>
-/* 	function addButton(){	
-		
-	} */
+
 	
-	
+	//ここでcount宣言
 	let count=0;
 	
 	
 	
 	
+
 	
 	
 	
+	
+	
+
 	
 	
 	//保存用の時のモーダル
 	function openSaveModal() {
 		
 		
+		
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
 		//inputの中のname="fat"のvalueを取り出す（中身ということ）
-	    let fat = document.querySelector('input[name="fat"]').value;
+	    let fat = document.querySelector('input[name="fat"]').value; 
+		
+		
+		
+		
+		//体重が空欄だった場合 err = true;はエラーがあったということ
+	    if (weight.trim() === "") {
+	        document.getElementById("weightEr").textContent =
+	            "体重を入力してください";
+	        err = true;
+	    }
+
+		
+	  //体脂肪が空欄だった場合
+	    if (fat.trim() === "") {
+	        document.getElementById("fatEr").textContent =
+	            "体脂肪を入力してください";
+	        err = true;
+	    }
+		
+		//ここでまとめて返すことでどっちも表示できる
+	    if (err) {
+	        return;
+	    }
+	  
+	  
+	  
+	  
+	  
 		
 	  	//inputの中のname="comments"のvalueを取り出す（中身ということ）
 	    let comments = document.querySelector('textarea[name="comments"]').value;
@@ -275,6 +307,9 @@
 	    let stampText = select.options[select.selectedIndex].text;
 	  	
 	  	
+	    
+	    
+	    
 	  	
 	  	//空箱づくり
 	    let html = "";
@@ -685,8 +720,10 @@
      
      
    //ここでsaveDetailListから一件ずつ取り出している
+   //ページの読み込みが終わったら始めるという意味
  	window.onload = function(){
 
+	   //サーブレットからわたされたsaveDetailListをループして呼び出している
  	<c:forEach var="item" items="${saveDetailList}">
  	    addSavedItem(
  	        '${item.trItem}',
@@ -698,20 +735,25 @@
  	</c:forEach>
  	
  	changestamp();
-
+ 	
+ 	/* const trSaveJson =JSON.parse('${trSaveJson}');
+	alert(trSaveJson[0].getTrItem());  */
  	}
  	
  	
  	
  	
  //一時保存をしたものを表示するためのもの
+ //ここでうえで取得したデータを呼ぶ
  	
  	function addSavedItem(itemName, weight, counts, sets, memo){
 
-    console.log("復元", itemName);
+    /* console.log("復元", itemName); */
 
+    //<div id="itemArea"></div>のところに追加するので取得
     let itemArea = document.getElementById("itemArea");
 
+    //divを作っている、項目は追加式なので+ countで　○○1,○○2のようにしている
     const div = document.createElement("div");
     div.id = "item" + count;
 
@@ -720,12 +762,17 @@
     input.type = "text";
     input.name = "it" + count;
     input.id = "it" + count;
+    //編集できないようにしている　項目名は勝手に名前を変えられない
     input.readOnly = true;
+    //itemNameは項目名
     input.value = itemName;
 
+    //"項目"と上で作ったinputが表示される
     div.appendChild(document.createTextNode("項目"));
     div.appendChild(input);
 
+    
+    
     // 重さ
     div.appendChild(document.createElement("br"));
 
@@ -737,6 +784,8 @@
     div.appendChild(document.createTextNode("重さ（距離）"));
     div.appendChild(weightinput);
 
+    
+    
     // 回数
     div.appendChild(document.createElement("br"));
 
@@ -748,6 +797,8 @@
     div.appendChild(document.createTextNode("回数"));
     div.appendChild(countinput);
 
+    
+    
     // セット
     div.appendChild(document.createElement("br"));
 
@@ -759,7 +810,9 @@
     div.appendChild(document.createTextNode("セット"));
     div.appendChild(setinput);
 
-    // メモ
+    
+    
+    // メモある場合とない場合で分けている
     if(memo != null && memo.trim() !== ""){
 
         div.appendChild(document.createElement("br"));
@@ -790,13 +843,15 @@
 
     itemArea.appendChild(div);
 
+    
+    //countを増やしている
     count++;
     document.getElementById("c").value = count;
 
-	} // ← addSavedItemの終了
+	} 
     
 	
-	//ヘッダー日付表示用
+/* 	//ヘッダー日付表示用
 	 window.onload = function(){
 	const now =new Date();
 	const year = now.getFullYear();
@@ -824,7 +879,7 @@
 	}
 	document.getElementById('today').textContent=text;
 	}
-
+ */
   </script>
 
 </body>

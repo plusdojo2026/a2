@@ -249,7 +249,7 @@ public class SavesDao {
 
 		            Save dto = new Save();
 
-		            dto.setTrItem(rs.getString("tr_item")); // ←追加
+		            dto.setTrItem(rs.getString("tr_item")); 
 		            
 		            dto.setTr_weight(rs.getInt("tr_weight"));
 		            dto.setCounts(rs.getInt("counts"));
