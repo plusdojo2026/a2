@@ -47,8 +47,11 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		//確認用
-		System.out.println("件数=" + saveDetailList.size());
-
+		/*
+		 * System.out.println("件数=" + saveDetailList.size());
+		 * 
+		 * for(Save s : saveDetailList){ System.out.println("項目=" + s.getTrItem()); }
+		 */
 		
 		
 		
