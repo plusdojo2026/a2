@@ -261,8 +261,10 @@ public class SavesDao {
 
 		    try {
 
+		    	// JDBCドライバを読み込む
 		        Class.forName("com.mysql.cj.jdbc.Driver");
 
+		        // データベースに接続する
 		        conn = DriverManager.getConnection(
 		            "jdbc:mysql://localhost:3306/a2?"
 		            + "characterEncoding=utf8&useSSL=false"
@@ -311,5 +313,70 @@ public class SavesDao {
 		    }
 
 		    return list;
+		}
+		
+		
+		
+		//「そのログインしているユーザー（userId）の一時保存データだけ」を本保存に移すようにする
+		
+		public void migrateTempToMain(String userId) {
+		    Connection conn = null;
+		    PreparedStatement pStmt1 = null;
+		    PreparedStatement pStmt2 = null;
+		    PreparedStatement pStmt3 = null;
+		    PreparedStatement pStmt4 = null;
+
+		    try {
+		    	 Class.forName("com.mysql.cj.jdbc.Driver");
+
+			        conn = DriverManager.getConnection(
+			            "jdbc:mysql://localhost:3306/a2?"
+			            + "characterEncoding=utf8&useSSL=false"
+			            + "&serverTimezone=GMT%2B9",
+			            "root",
+			            "password"
+			        );
+
+			        
+			        
+			        
+		        // 1. saves から storages へ移行 (このユーザーの分だけ)
+			    //一行目でstoragesに入れることを明記
+			    //二行目でsavesから引っ張っていくことを明記
+		        String sql1 = "INSERT INTO storages (user_id, date, weight, fat, comments, stamp) " +
+		                      "SELECT user_id, date, weight, fat, comments, stamp FROM saves WHERE user_id = ?";
+		        pStmt1 = conn.prepareStatement(sql1);
+		        pStmt1.setString(1, userId);
+		        pStmt1.executeUpdate();
+		        
+
+		        // 2. tr_saves から tr_storage へ移行 (このユーザーの分だけ)
+		        //一行目でstoragesに入れることを明記
+			    //二行目でsavesから引っ張っていくことを明記
+		        //user_id = ?" で設定したユーザーID分、全部 入る
+		        String sql2 = "INSERT INTO tr_storage (user_id, date, item_id, value) " +
+		                      "SELECT user_id, date, item_id, value FROM tr_saves WHERE user_id = ?";
+		        pStmt2 = conn.prepareStatement(sql2);
+		        pStmt2.setString(1, userId);
+		        pStmt2.executeUpdate();
+
+		        // 3. このユーザーの一時保存データを削除
+		        String sql3 = "DELETE FROM saves WHERE user_id = ?";
+		        pStmt3 = conn.prepareStatement(sql3);
+		        pStmt3.setString(1, userId);
+		        pStmt3.executeUpdate();
+
+		        String sql4 = "DELETE FROM tr_saves WHERE user_id = ?";
+		        pStmt4 = conn.prepareStatement(sql4);
+		        pStmt4.setString(1, userId);
+		        pStmt4.executeUpdate();
+
+		        conn.commit(); // 確定
+		    } catch (Exception e) {
+		        try { if (conn != null) conn.rollback(); } catch (Exception ex) {}
+		        e.printStackTrace();
+		    } finally {
+		        // close処理（省略）
+		    }
 		}
 }

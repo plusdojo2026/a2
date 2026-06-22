@@ -37,6 +37,37 @@ public class HomeServlet extends HttpServlet {
 	    User user = (User)session.getAttribute("user");
 	    
 	    
+	    if(user != null) {
+	    	
+	    	// 現在の日付（今日）を取得 コピペ
+	        java.time.LocalDate today = java.time.LocalDate.now();
+	        
+	        // セッションから「前回チェックした日付」を取得
+	        java.time.LocalDate lastCheckDate = (java.time.LocalDate) session.getAttribute("lastCheckDate");
+	        
+	        
+	        
+	        // 初回アクセス、または日付が変わっていた場合
+	        if (lastCheckDate == null || !lastCheckDate.equals(today)) {
+	        	
+	        	// ここで一時保存データを本保存に移行する（Daoのメソッドを呼ぶ）
+	            SavesDao sdao = new SavesDao();
+	            sdao.migrateTempToMain(user.getUserId()); // ユーザーIDを渡して、その人の分だけ移行
+	        }
+	        
+	        // 日付チェック更新
+            session.setAttribute("lastCheckDate", today);
+            
+            // 自動保存されたので、画面表示用の一時保存セッションもさっぱり消しておく
+            session.removeAttribute("weight");
+            session.removeAttribute("fat");
+            session.removeAttribute("comments");
+            session.removeAttribute("stamp");
+	    	
+	    }
+	    
+	    
+	    
 	    //今日保存されているかの確認を行う
 	    
 	    StoragesDao stdao = new StoragesDao();
