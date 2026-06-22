@@ -100,9 +100,13 @@
 体重(kg)　<input type="text" name="weight" value="${weight}"><br>
 体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
 
+
+<!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
 <br>
-<!-- <input type ="hidden" id ="c" name = "count"><br> -->
+
+
+
 
 一日メモ<br>
 <textarea name="comments">${comments}</textarea>
@@ -149,15 +153,16 @@
 	<img id="stampImage" src="" width="200">
 	
 	
+	
 <br>
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
 
 
-
+<!-- 保存確認のモーダル -->
 <button type="button" onclick="openSaveModal()">保存</button>
-<!-- <input type="button" name="saveb" value="保存" onclick="openSaveModal()"> -->
+
 
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
