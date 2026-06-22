@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>リクエスト一覧</title>
+    <link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
 <body>
 
@@ -64,6 +67,15 @@
         <a href="/a2/FriendListServlet" style="color: #007bff; text-decoration: none; font-weight: bold;">フレンド一覧に戻る</a>
     </div>
 </main>
+<footer>
+<nav class="bottom-bar" id="bar">
+  <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up"></i></a>
+  <a href="/a2/FriendListServlet"><i class="fa-solid fa-user-group"></i></a>
+  <a href="/a2/HomeServlet"><i class="fa-regular fa-square-plus"></i></a>
+  <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
+  <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user nowpage"></i></a>
+</nav>
+</footer>
 <script>
 	
 </script>
