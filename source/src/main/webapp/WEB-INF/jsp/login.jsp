@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--デバイスの幅に合わせる-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>ログイン</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 <link rel="stylesheet" href="css/header_footer.css">
@@ -19,11 +22,15 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
+
+
+
 <h1>マメッスル</h1>
+<div class="form-container">
 <section>
 <!-- /プロジェクト名/サーブレットの名前 -->
 <form action="/a2/LoginServlet" id="form" method="post">
-<div class="form-container">
+
 <div class="form-group">
 <label for="user-id">ユーザーID</label><br>
 <input type="text" name="user_id" value="${param.user_id}"><br>
@@ -32,17 +39,24 @@
 <label for="password">パスワード</label><br>
 <input type="password" name="password">
 </div>    
-</p>
-<p>
+
+<div class="button-area">
 <input type="submit" value="ログイン">
-	<div style="color:red">
+	<div style="color:green; margin-top: 10px;">
 		${result}
 	</div>
-</p>
+</div>
+
+
+<div class="register-link">
 <p>新規会員登録は</p><a href="/a2/NewRegistServlet">こちら</a>
 </div>
+
+
 </form>
 </section>
+</div>
+
 
 </main>
 <!--　メインここまで　-->
