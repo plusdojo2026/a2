@@ -21,7 +21,7 @@ h1 {
   background-color: #fff;
 }
 
-/* ラベルと入力欄を横並びにする魔法のスタイル */
+/* ラベルと入力欄を横並びにする*/
 .form-group {
   display: flex;             /* 横並びにする */
   align-items: center;       /* 上下の中央に揃える */

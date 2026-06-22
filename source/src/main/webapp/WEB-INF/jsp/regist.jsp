@@ -5,10 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-
-
-
+<!--デバイスの幅に合わせる-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>新規会員登録</title>
 <link rel="stylesheet" href="css/regist.css">
@@ -22,10 +20,6 @@
 <header>
 
 </header>
-
-
-
-
 
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
