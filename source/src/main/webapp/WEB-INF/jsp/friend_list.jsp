@@ -196,7 +196,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </c:if>
 <script>
 'use strict'
-	
+	//フレンド削除時のアラート
 	document.getElementById('deleteform').addEventListener('submit', function(event){
 	const checked = document.querySelectorAll('input[name="deleteIds"]:checked');
 	

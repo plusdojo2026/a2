@@ -26,7 +26,7 @@
 		<tr>
 		<tr>
 			<th>身長</th>
-			<td><input type="text" name="height" value="${userInfo.height}"></td>
+			<td><input type="text" name="height" id="height" value="${userInfo.height}"></td>
 		<tr>
 		<tr>
 			<th>性別</th>
@@ -41,7 +41,7 @@
 		<tr>
 		<tr>
 			<th>目標体重</th>
-			<td><input type="text" name="targetWeight" value="${userInfo.targetWeight}"></td>
+			<td><input type="text" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}"></td>
 		<tr>
 	</table>
 </div>
@@ -59,20 +59,27 @@
 <!--　フッターここまで　-->
 <script>
 'use strict'
-// 身長チェック
-	if (!numberRegex.test(height) || Number(height) <= 0) {
+document.querySelector("form").addEventListener("submit", function(event) {
+
+	const height = document.querySelector("input[name='height']").value.trim();
+	const targetWeight = document.querySelector("input[name='targetWeight']").value.trim();
+	
+	// 数値チェックのコード
+	const numberCheck = /^[0-9]+(\.[0-9]+)?$/;
+	
+	// 身長チェック
+	if (!numberCheck.test(height) || Number(height) <= 0) {
 		alert("身長は0より大きい数値を入力してください");
-		e.preventDefault();
+		event.preventDefault();
 		return;
 	}
-
+	
 	// 目標体重チェック
-	if (!numberRegex.test(targetWeight) || Number(targetWeight) <= 0) {
+	if (!numberCheck.test(targetWeight) || Number(targetWeight) <= 0) {
 		alert("目標体重は0より大きい数値を入力してください");
-		 e.preventDefault();
+		event.preventDefault();
 		return;
 	}
-
 });
 
 
