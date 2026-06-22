@@ -185,7 +185,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 					名前: ${searchAns.userName}
 				</div>
 				<!-- フレンド申請 -->
-				<form action="FriendRequestServlet" method="post">
+				<form action="FriendAddServlet" method="post">
 					<input type="hidden" name="targetUserId" value="${searchAns.userId}" id="sCheck">
 					<button type="submit">
 						フレンド申請
