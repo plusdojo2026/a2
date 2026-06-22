@@ -91,9 +91,6 @@ public class FriendListServlet extends HttpServlet {
 		    System.out.println("friendUserId = " + f.getFriendUserId());
 		}
 		
-		
-
-		
 		// <===一覧用DAO①===> ユーザのフレンド一覧を取得
 		List<Friend> friendSearch = 
 				fDao.friendSearch(new Friend
