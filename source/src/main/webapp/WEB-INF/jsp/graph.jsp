@@ -147,7 +147,7 @@ document.getElementById('today').textContent=text;
 			</c:forEach>
 			};
  
- //直近10回の記録
+ //直近30回の記録
  	let monthData = {
 			<c:forEach var="gi" items="${MonthGraph}" varStatus="st">
 			    "${gi.key}": {
@@ -180,19 +180,27 @@ let chart = new Chart(context3, {
     }]
   },
   options: {
-    responsive: false,
-    
-	yAxes: [{
-        ticks: {           // Ｙ軸目盛り        
-            min: 0,            // 最小値
-            stepSize: 5,       // 間隔
-            fontColor: "blue"  // 色
-        	},
-        gridLines: {        // 水平補助線の定義
-            color: "rgba(0, 0, 255, 0.2)"
-        	}
-        }],
-  }
+	    responsive: false,
+	    scales: {
+	        y: {
+	            ticks: {
+	                stepSize: 5,
+	                color: "blue"
+	            },
+	            grid: {
+	                color: "rgba(0, 0, 255, 0.2)"
+	            },
+	            title: {
+	                display: true,
+	                text: "回数×セット",
+	                color: "blue",
+	                font: {
+	                    size: 16
+	                }
+	            }
+	        }
+	    }
+	}
 });
 
 //------selectElementを取得して変数に代入-------

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.StoragesDao;
 import dto.Graph;
-
+//import dto.User;
 	
 /**
  * Servlet implementation class GraphServlet
@@ -33,7 +33,8 @@ public class GraphServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 //		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
+//    	User user = (User) session.getAttribute("user");
+//		if (user == null) {
 //			response.sendRedirect("/a2/LoginServlet");
 //			return;
 //		}
@@ -54,7 +55,8 @@ public class GraphServlet extends HttpServlet {
 		
 		//ログインユーザー情報の取得(仮情報後で直す)
 		String userId = "user1";
-
+//		String userId = user.getUserId();
+		
 //直近30日のデータを格納する		
 //記録情報のトレーニング内容を取得する	
 		StoragesDao TrGraph = new StoragesDao();
@@ -67,8 +69,8 @@ public class GraphServlet extends HttpServlet {
 			String key = graph.getTr_item();
 			MonthGraph.putIfAbsent(key, new ArrayList<>());
 			MonthGraph.get(key).add(graph);
-			System.out.println(key);
-			System.out.println(MonthGraph.putIfAbsent(key, new ArrayList<>()));
+//			System.out.println(key);
+//			System.out.println(MonthGraph.putIfAbsent(key, new ArrayList<>()));
 		}
 
 //直近10日のデータを格納する		
@@ -82,8 +84,8 @@ public class GraphServlet extends HttpServlet {
 			String key = graph.getTr_item();
 			WeekGraph.putIfAbsent(key, new ArrayList<>());
 			WeekGraph.get(key).add(graph);
-			System.out.println(key);
-			System.out.println(WeekGraph.putIfAbsent(key, new ArrayList<>()));
+//			System.out.println(key);
+//			System.out.println(WeekGraph.putIfAbsent(key, new ArrayList<>()));
 		}		
 		
 		
