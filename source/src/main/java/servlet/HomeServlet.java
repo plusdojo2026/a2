@@ -35,6 +35,16 @@ public class HomeServlet extends HttpServlet {
 
 	    User user = (User)session.getAttribute("user");
 	    
+	    
+	    //今日保存されているかの確認を行う
+	    
+	    StoragesDao stdao = new StoragesDao();
+
+	    boolean todaySaved =stdao.isTodaySaved(user.getUserId());
+
+	    request.setAttribute("todaySaved",todaySaved);
+	    
+	    
 	
 ////		TrItemsDaoをインスタンス化するnewする
 
@@ -92,8 +102,8 @@ public class HomeServlet extends HttpServlet {
 		
 		// スタンプを取得している
 //		String userId = request.getParameter();
-
-		StoragesDao stdao = new StoragesDao();
+		//下の実装は上で行っている
+		/* StoragesDao stdao = new StoragesDao(); */
 
 		List<Integer> stampList = stdao.getStampList();
 
@@ -324,32 +334,77 @@ public class HomeServlet extends HttpServlet {
 			// もらってきたデータを登録するアレイリスト
 			ArrayList<Storage> detalist = new ArrayList<>();
 
-			// 追加項目を受け取る
 			for (int i = 0; i < coun; i++) {
 
-				Storage dto = new Storage();
+			    String item = request.getParameter("it" + i);
 
-				dto.setTr_weight(Integer.parseInt(request.getParameter("tr_weight" + i)));
-				dto.setCounts(Integer.parseInt(request.getParameter("counts" + i)));
-				dto.setSets(Integer.parseInt(request.getParameter("sets" + i)));
-				dto.setTrItem(request.getParameter("it" + i));
-				dto.setMemo(request.getParameter("memo"+i));
-				dto.setUser_id(user.getUserId());
+			    if (item == null || item.trim().isEmpty()) {
+			        continue;
+			    }
 
-				TrItemsDao trDao = new TrItemsDao();
+			    String weightStr = request.getParameter("tr_weight" + i);
+			    String countsStr = request.getParameter("counts" + i);
+			    String setsStr = request.getParameter("sets" + i);
 
-				// ここでとってきた名前をもとに
-				String trItem = request.getParameter("it" + i);
+			    Storage dto = new Storage();
 
-				// 名前がIDにかわる
-				int trId = trDao.getTrIdByItem(trItem);
+			    dto.setTrItem(item);
 
-				
+			    //からの場合０で保存
+			    dto.setTr_weight(
+			        weightStr == null || weightStr.trim().isEmpty()
+			        ? 0
+			        : Integer.parseInt(weightStr)
+			    );
 
-				dto.setTr_id(trId);
-				detalist.add(dto);
+			    dto.setCounts(
+			        countsStr == null || countsStr.trim().isEmpty()
+			        ? 0
+			        : Integer.parseInt(countsStr)
+			    );
 
+			    dto.setSets(
+			        setsStr == null || setsStr.trim().isEmpty()
+			        ? 0
+			        : Integer.parseInt(setsStr)
+			    );
+
+			    dto.setMemo(request.getParameter("memo" + i));
+			    dto.setUser_id(user.getUserId());
+
+			    TrItemsDao trDao = new TrItemsDao();
+
+			    int trId = trDao.getTrIdByItem(item);
+
+			    dto.setTr_id(trId);
+
+			    detalist.add(dto);
 			}
+			// 追加項目を受け取る
+			/*
+			 * for (int i = 0; i < coun; i++) {
+			 * 
+			 * Storage dto = new Storage();
+			 * 
+			 * dto.setTr_weight(Integer.parseInt(request.getParameter("tr_weight" + i)));
+			 * dto.setCounts(Integer.parseInt(request.getParameter("counts" + i)));
+			 * dto.setSets(Integer.parseInt(request.getParameter("sets" + i)));
+			 * dto.setTrItem(request.getParameter("it" + i));
+			 * dto.setMemo(request.getParameter("memo"+i));
+			 * dto.setUser_id(user.getUserId());
+			 * 
+			 * TrItemsDao trDao = new TrItemsDao();
+			 * 
+			 * // ここでとってきた名前をもとに String trItem = request.getParameter("it" + i);
+			 * 
+			 * // 名前がIDにかわる int trId = trDao.getTrIdByItem(trItem);
+			 * 
+			 * 
+			 * 
+			 * dto.setTr_id(trId); detalist.add(dto);
+			 * 
+			 * }
+			 */
 
 			System.out.println("データ件数: " + detalist.size());
 
