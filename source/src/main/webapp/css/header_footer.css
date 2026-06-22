@@ -16,7 +16,8 @@ html, body {
 }
 
 /* 各画面共通のスマホ化ラッパー 
-  JSP側でbodyタグの中身を全て<div class="app-wrapper"></div>で囲んでください
+  JSP側でbodyタグの中身を全て<div class="app-wrapper"></div>で囲んでください（全てのJSPで）
+  これで画面がスマホ幅に変わると思います！
 */
 .app-wrapper {
   width: 100%;
