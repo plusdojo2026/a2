@@ -538,7 +538,7 @@ public class StoragesDao {
 					+ " WHERE TS.user_id = ? "
 					+ " ) AS t "
 					+ " WHERE t.rn <= 7 "
-					+ " ORDER BY t.tr_id, t.td_date ";
+					+ " ORDER BY t.tr_id, t.td_date";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

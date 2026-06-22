@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import dao.SavesDao;
 import dao.StoragesDao;
 import dao.TrItemsDao;
+import dao.UsersDao;
 import dto.Save;
 import dto.Storage;
 import dto.User;
@@ -45,13 +46,20 @@ public class HomeServlet extends HttpServlet {
 	    request.setAttribute("todaySaved",todaySaved);
 	    
 	    
+	    //目標体重の判別用
+	    Boolean goalAchieved =(Boolean)session.getAttribute("goalAchieved");
+
+	    
+	    request.setAttribute("goalAchieved",goalAchieved);
+	    
+	    
 	
-////		TrItemsDaoをインスタンス化するnewする
+	    //TrItemsDaoをインスタンス化するnewする
 
 		TrItemsDao trdao = new TrItemsDao();
 		
 
-//		トレーニング項目が items に入った
+		//トレーニング項目が items に入った
 		List<String> items = trdao.getTrainingItems();
 
 		
@@ -422,11 +430,35 @@ public class HomeServlet extends HttpServlet {
 
 			// もともと表示がある項目を受け取る
 
-			mdto.setWeight(Double.parseDouble(request.getParameter("weight")));
+			//weightを別で使うので分けて書く 変数作って豆にセットする
+			double weight = Double.parseDouble(request.getParameter("weight"));
+			mdto.setWeight(weight);
+			
+			
 			mdto.setFat(Double.parseDouble(request.getParameter("fat")));
 			mdto.setComments(request.getParameter("comments"));
 			mdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
 			mdto.setUser_id(user.getUserId());
+			
+			
+			// 目標体重取得
+			UsersDao udao = new UsersDao();
+
+			double targetWeight = udao.getTargetWeight(user.getUserId());
+			
+			
+			// 達成判定 まずは達成してない前提のためfalseを入れる
+			boolean goalAchieved = false;
+
+			//体重が目標体重より低ければ
+			if(weight <= targetWeight){
+			    goalAchieved = true;
+			}
+
+			// セッションに保存 jspにgoalAchievedを"goalAchieved"という名前で送る
+			session.setAttribute("goalAchieved",goalAchieved);
+			
+			
 
 			// もともとある項目の豆作った
 			list.add(mdto);
@@ -441,6 +473,20 @@ public class HomeServlet extends HttpServlet {
 			for (Storage dto : list) {
 				vdao.insertStorage(dto);
 			}
+
+			
+			// 一時保存削除
+			SavesDao sdao = new SavesDao();
+			sdao.deleteTrSaves(user.getUserId());
+			sdao.deleteSaves(user.getUserId());
+			
+			
+			//セッションからも情報を取り除く
+			session.removeAttribute("weight");
+		    session.removeAttribute("fat");
+		    session.removeAttribute("comments");
+		    session.removeAttribute("stamp");
+		    
 
 			response.sendRedirect(request.getContextPath() + "/HomeServlet");
 			return;

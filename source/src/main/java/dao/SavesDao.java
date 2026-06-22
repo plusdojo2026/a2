@@ -141,9 +141,47 @@ public class SavesDao {
 		}
 		
 		
+		
+		
+		//本保存されたときにデータを消すDaoのSQL
+		
+		public boolean deleteSaves(String userId) {
+
+		    Connection conn = null;
+		    PreparedStatement pStmt = null;
+
+		    try {
+
+		    	// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+				
+
+
+		        String sql =
+		            "DELETE FROM saves WHERE user_id = ?";
+
+		        pStmt = conn.prepareStatement(sql);
+		        pStmt.setString(1, userId);
+
+		        pStmt.executeUpdate();
+
+		        return true;
+
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return false;
+		}
 	
 	
 	
+		
 	
 	//追加項目の一時保存、前のデータ消されるバージョン　tr_storagesのテーブル
 		public boolean insertTrSaves(Save dto) {
