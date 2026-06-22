@@ -35,8 +35,25 @@ public class HomeServlet extends HttpServlet {
 ////		トレーニング項目が items に入った
 		List<String> items = trdao.getTrainingItems();
 //	
+		
 //
 		request.setAttribute("itemList", items);
+		
+		
+		SavesDao sdao = new SavesDao();
+		
+		List<Save> saveDetailList =sdao.selectTrSaves("test");
+		
+		
+		
+		//確認用
+		System.out.println("件数=" + saveDetailList.size());
+
+		
+		
+		
+		request.setAttribute("saveDetailList", saveDetailList);
+		
 		
 		
 		request.setAttribute("weight",
