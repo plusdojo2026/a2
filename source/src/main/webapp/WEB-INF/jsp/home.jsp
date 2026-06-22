@@ -723,8 +723,40 @@
    //ここでsaveDetailListから一件ずつ取り出している
    //ページの読み込みが終わったら始めるという意味
  	window.onload = function(){
+	   
+		//ヘッダー日付表示用
+		const now =new Date();
+		const year = now.getFullYear();
+		const month= now.getMonth()+1;
+		const date = now.getDate();
+		const text = year+"年"+month+"月"+date+"日";
+		if( month === 6 && date === 17 ){
+		    document.getElementById('anniversary').textContent='テスト用';
+		}else if( month === 1 && date === 10 ){
+		    document.getElementById('anniversary').textContent='糸引き納豆の日';
+		}else if( month === 2 && date === 3 ){
+		    document.getElementById('anniversary').textContent='節分・大豆の日';
+		}else if( month === 2 && date === 10 ){
+		    document.getElementById('anniversary').textContent='世界マメの日';
+		}else if( month === 4 && date === 3 ){
+		    document.getElementById('anniversary').textContent='いんげん豆の日';
+		}else if( month === 7 && date === 10 ){
+		    document.getElementById('anniversary').textContent='納豆の日';
+		}else if( month === 10 && date === 2 ){
+		    document.getElementById('anniversary').textContent='豆腐の日';
+		}else if( month === 10 && date === 12 ){
+		    document.getElementById('anniversary').textContent='豆乳の日';
+		}else if( month === 10 && date === 13 ){
+		    document.getElementById('anniversary').textContent='豆の日';
+		}
+		document.getElementById('today').textContent=text;
+		}
 
-	   //サーブレットからわたされたsaveDetailListをループして呼び出している
+   
+   
+   
+
+	 //サーブレットからわたされたsaveDetailListをループして呼び出している
  	<c:forEach var="item" items="${saveDetailList}">
  	    addSavedItem(
  	        '${item.trItem}',
@@ -852,35 +884,7 @@
 	} 
     
 	
-/* 	//ヘッダー日付表示用
-	 window.onload = function(){
-	const now =new Date();
-	const year = now.getFullYear();
-	const month= now.getMonth()+1;
-	const date = now.getDate();
-	const text = year+"年"+month+"月"+date+"日";
-	if( month === 6 && date === 17 ){
-	    document.getElementById('anniversary').textContent='テスト用';
-	}else if( month === 1 && date === 10 ){
-	    document.getElementById('anniversary').textContent='糸引き納豆の日';
-	}else if( month === 2 && date === 3 ){
-	    document.getElementById('anniversary').textContent='節分・大豆の日';
-	}else if( month === 2 && date === 10 ){
-	    document.getElementById('anniversary').textContent='世界マメの日';
-	}else if( month === 4 && date === 3 ){
-	    document.getElementById('anniversary').textContent='いんげん豆の日';
-	}else if( month === 7 && date === 10 ){
-	    document.getElementById('anniversary').textContent='納豆の日';
-	}else if( month === 10 && date === 2 ){
-	    document.getElementById('anniversary').textContent='豆腐の日';
-	}else if( month === 10 && date === 12 ){
-	    document.getElementById('anniversary').textContent='豆乳の日';
-	}else if( month === 10 && date === 13 ){
-	    document.getElementById('anniversary').textContent='豆の日';
-	}
-	document.getElementById('today').textContent=text;
-	}
- */
+ 	
   </script>
 
 </body>
