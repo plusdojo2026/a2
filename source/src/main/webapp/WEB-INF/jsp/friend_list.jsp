@@ -99,9 +99,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	<nav class="tab-menu">
 		<ul>
 			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
-			<li><a href="GroupListServlet">グループ</a></li>
 			<li><a href="/a2/RequestServlet">リクエスト</a></li>
-			<li><a href="RankingServlet">ランキング</a></li>
 		</ul>
 	</nav>
 	<p><c:out value="${message}"/></p>
