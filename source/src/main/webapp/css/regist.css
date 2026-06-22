@@ -1,1 +1,79 @@
 @charset "UTF-8";
+
+/* 全体のリセット（文字フォントなど） */
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  color: #333;
+  margin: 40px;
+}
+
+/* タイトルのスタイル */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* 画像の「大きな角丸の箱」を作る部分 */
+.form-container {
+  max-width: 600px;         /* 横幅の最大値 */
+  border: 2px solid #333;    /* 黒い枠線 */
+  border-radius: 40px;       /* 大きな角丸（画像のように丸くする） */
+  padding: 40px;             /* 内側の余白 */
+  background-color: #fff;
+}
+
+/* ラベルと入力欄を横並びにする魔法のスタイル */
+.form-group {
+  display: flex;             /* 横並びにする */
+  align-items: center;       /* 上下の中央に揃える */
+  margin-bottom: 24px;       /* 行と行の間の隙間 */
+}
+
+/* 各行の左側（ラベル）の幅を統一する */
+.form-group label,
+.form-group .label-text {
+  width: 140px;              /* 幅を固定して、入力欄のスタート位置を揃える */
+  font-weight: bold;         /* 文字を太字に */
+  font-size: 16px;
+}
+
+
+/* 入力欄（テキストボックス）のデザイン */
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  flex: 1;                   /* 右側の余ったスペースをいっぱいに広げる */
+  padding: 10px 15px;        /* 入力欄の内側の余白 */
+  border: 1.5px solid #333;  /* 入力欄の枠線 */
+  border-radius: 10px;       /* 入力欄の角丸 */
+  font-size: 16px;
+  outline: none;
+}
+
+/* 性別のラジオボタン部分の横並び */
+.radio-group {
+  display: flex;
+  gap: 15px;                 /* 選択肢同士の隙間 */
+}
+
+.radio-group label {
+  width: auto;               /* ラベルの幅固定を解除 */
+  font-weight: normal;       /* 文字の太さを普通に */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+
+input[type="submit"]{
+    border: none;
+    padding: 10px;
+    width: 100px;
+    background-position: center;
+    background-color: #2758a0;
+    color: #FFFFFF;
+    font-size :1rem;
+    margin: 20px 0 50px 0;
+
+    
+}
