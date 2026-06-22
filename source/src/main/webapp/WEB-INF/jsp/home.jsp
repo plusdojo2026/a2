@@ -698,7 +698,9 @@
  	</c:forEach>
  	
  	changestamp();
-
+ 	
+/*  	const trSaveJson =${trSaveJson};
+	alert(trSaveJson[0].getTrItem()); */
  	}
  	
  	

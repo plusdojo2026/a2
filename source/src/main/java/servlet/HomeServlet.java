@@ -10,12 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import dao.SavesDao;
 import dao.StoragesDao;
 import dao.TrItemsDao;
 import dto.Save;
 import dto.Storage;
+import dto.User;
 
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
@@ -126,6 +130,10 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		//ログインしているユーザーの方法を取得
+		User user = (User)session.getAttribute("user");
+		
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 
@@ -203,7 +211,8 @@ public class HomeServlet extends HttpServlet {
 
 			//Save.javaを使う(二回目、一応名前変えた）
 			Save sdto = new Save();
-
+			
+			
 			
 			// もともと表示がある項目を受け取る
 
@@ -211,7 +220,7 @@ public class HomeServlet extends HttpServlet {
 			sdto.setFat(Double.parseDouble(request.getParameter("fat")));
 			sdto.setComments(request.getParameter("comments"));
 			sdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
-			sdto.setUser_id("test");
+			sdto.setUser_id(user.getUserId());
 
 			
 			// もともとある項目の豆作った
@@ -232,18 +241,30 @@ public class HomeServlet extends HttpServlet {
 				sdao.insertSaves(dto);
 			}
 			
+			//一時保存データを取得
 			
+			List<Save> list = sdao.selectTrSaves(user.getUserId());
+			request.setAttribute("trSaveList",list);
 			
+			//javaScriptでそのまま使えるようにするために、json形式に変換
+			Gson gson = new Gson();
+			String trSaveJson = gson.toJson(list);
+			request.setAttribute(trSaveJson, trSaveJson);
+			
+//			JSP側のjavascriptではこんな感じで使える
+//			const trSaveJson =${trSaveJson};
+//			trSaveJson[0].getTrItem();
 			
 			
 			//セッションにもらったデータを保持している（もともと記載しなくてはいけない項目の部分
-			request.getSession().setAttribute("weight",request.getParameter("weight"));
+			
+			session.setAttribute("weight",request.getParameter("weight"));
 
-			request.getSession().setAttribute("fat",request.getParameter("fat"));
+			session.setAttribute("fat",request.getParameter("fat"));
 
-			request.getSession().setAttribute("comments",request.getParameter("comments"));
+			session.setAttribute("comments",request.getParameter("comments"));
 
-			request.getSession().setAttribute("stamp",request.getParameter("stamp"));
+			session.setAttribute("stamp",request.getParameter("stamp"));
 			
 			
 			
