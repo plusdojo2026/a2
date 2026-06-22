@@ -57,7 +57,26 @@
 
 </footer>
 <!--　フッターここまで　-->
+<script>
+'use strict'
+// 身長チェック
+	if (!numberRegex.test(height) || Number(height) <= 0) {
+		alert("身長は0より大きい数値を入力してください");
+		e.preventDefault();
+		return;
+	}
 
+	// 目標体重チェック
+	if (!numberRegex.test(targetWeight) || Number(targetWeight) <= 0) {
+		alert("目標体重は0より大きい数値を入力してください");
+		 e.preventDefault();
+		return;
+	}
+
+});
+
+
+</script>
 
 </body>
 </html>
