@@ -1,11 +1,10 @@
 @charset "UTF-8";
 
-/* 全体のリセット（文字フォントなど） */
-body {
-  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-  color: #333;
-  margin: 40px;
-}
+
+
+
+
+
 
 /* タイトルのスタイル */
 h1 {
@@ -73,7 +72,18 @@ input[type="submit"]{
     background-color: #2758a0;
     color: #FFFFFF;
     font-size :1rem;
-    margin: 20px 0 50px 0;
+    margin: 20px 0 50px 0;   
+}
 
+input[type="button"]{
+    text-align: center;
+    border: none;
+    padding: 10px;
+    width: 100px;
+    background-position: center;
+    background-color: #b7d4fc;
+    color: #3a1576;
+    font-size :0.8rem;
     
 }
+

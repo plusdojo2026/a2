@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>ログイン</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+<link rel="stylesheet" href="css/header_footer.css">
 </head>
 <body>
+<div class="app-wrapper">
 <!--　ヘッダーここから　-->
 <header>
 
@@ -21,11 +23,15 @@
 <section>
 <!-- /プロジェクト名/サーブレットの名前 -->
 <form action="/a2/LoginServlet" id="form" method="post">
-<p>
-ID<input type="text" name="user_id" value="${param.user_id}">
-</p>
-<p>
-PW<input type="password" name="password">      
+<div class="form-container">
+<div class="form-group">
+<label for="user-id">ユーザーID</label><br>
+<input type="text" name="user_id" value="${param.user_id}"><br>
+</div>
+<div class="form-group">
+<label for="password">パスワード</label><br>
+<input type="password" name="password">
+</div>    
 </p>
 <p>
 <input type="submit" value="ログイン">
@@ -34,6 +40,7 @@ PW<input type="password" name="password">
 	</div>
 </p>
 <p>新規会員登録は</p><a href="/a2/NewRegistServlet">こちら</a>
+</div>
 </form>
 </section>
 
@@ -45,5 +52,6 @@ PW<input type="password" name="password">
 
 </footer>
 <!--　フッターここまで　-->
+</div>
 </body>
 </html>

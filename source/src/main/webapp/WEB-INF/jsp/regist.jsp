@@ -5,11 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新規会員登録</title>
 
+
+
+
+
+<title>新規会員登録</title>
+<link rel="stylesheet" href="css/regist.css">
+<link rel="stylesheet" href="css/header_footer.css">
 
 </head>
 <body>
+<div class="app-wrapper">
+
 <!--　ヘッダーここから　-->
 <header>
 
@@ -23,13 +31,14 @@
 <!--　メインここから　-->
 <main>
 
-<div class="form-container">
+
 
 <h1>新規会員登録</h1>
 <hr>
+<div class="form-container">
 <form method="POST" action="/a2/RegistServlet" id="fr">
 <div class="form-group">
-	<label for="user-id">ユーザーID*</label>
+	<label for="user-id">ユーザーID*</label><br>
 	<input type="text" name="user_id"><br>
 	</div>
 <div class="form-group">
@@ -125,5 +134,6 @@ document.getElementById('fr').onsubmit = function(event){
 
 </footer>
 <!--　フッターここまで　-->
+</div>
 </body>
 </html>
