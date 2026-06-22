@@ -10,10 +10,9 @@
 
 <nav class="tab-menu">
 		<ul>
-			<li><a href="FriendListServlet" class="active">フレンド</a></li>
-			<li><a href="GroupListServlet">グループ</a></li>
-            <li><a href="RequestServlet">リクエスト</a></li>
-            <li><a href="RankingServlet">ランキング</a></li>
+			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
+            <li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
+
 		</ul>
 	</nav>
 	

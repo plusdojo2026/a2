@@ -157,12 +157,20 @@ public class FriendListServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		//セッション
 		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect("/a2/LoginServlet");
-//			return;
-//		}
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
+    	//セッションのuserをuserIdに代入
+		String message = (String) session.getAttribute("message");
+		if (message != null) {
+		    request.setAttribute("message", message);
+		    session.removeAttribute("message");
+		}
 		request.setCharacterEncoding("UTF-8");
 		String searchId = request.getParameter("searchId");
 		

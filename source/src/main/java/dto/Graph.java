@@ -21,8 +21,9 @@ public class Graph implements Serializable{
 
 
 	//コンストラクタ
-	public Graph(String tr_item, int tr_weight, int counts, int sets, String td_date) {
-		super();
+	public Graph(int tr_id, String tr_item, int tr_weight, int counts, int sets, String td_date) {
+		super();	
+		this.tr_id = tr_id;
 		this.tr_item = tr_item;
 		this.tr_weight = tr_weight;
 		this.counts = counts;
@@ -36,6 +37,9 @@ public class Graph implements Serializable{
 		return tr_item;
 	}
 	
+
+
+
 	public void setTr_item(String tr_item) {
 		this.tr_item = tr_item;
 	}

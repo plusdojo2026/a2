@@ -444,11 +444,11 @@ public class StoragesDao {
 				
 	
 	//-----------成長記録ページDAOここから---------------//
-	//記録内容トレーニング内容の取得
-	public List<Graph> getGraphList(String userId,int year,int MonthNumber){
+	//直近30回分の記録内容トレーニング内容の取得
+	public List<Graph> getMonthGraph(String userId){
 		//
 		Connection conn = null;
-		List<Graph> GraphList = new ArrayList<Graph>();
+		List<Graph> MonthList = new ArrayList<Graph>();
 		
 	try {
 			// JDBCドライバを読み込む
@@ -458,32 +458,34 @@ public class StoragesDao {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
+//			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
-			//１か月分日別に取得
-			String sql = "SELECT tr_item, tr_weight,"
-					+ " counts, sets, DATE_FORMAT(date, '%Y-%m-%d') AS td_date "
+			//直近10回分の記録を取得
+			String sql = "SELECT * FROM"
+					+ "(SELECT TS.tr_id , tr_item, tr_weight,"
+					+ " counts, sets, DATE_FORMAT(TS.date, '%Y-%m-%d') AS td_date ,"
+					+ " ROW_NUMBER() OVER (PARTITION BY TS.tr_id ORDER BY TS.date DESC) AS rn "
 					+ " FROM tr_storages AS TS "
 					+ " INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
 					+ " WHERE TS.user_id = ? "
-					+ " AND DATE_FORMAT(date,'%Y-%m') = ? "
-					+ " ORDER BY td_date ";
+					+ " ) AS t "
+					+ " WHERE t.rn <= 30 "
+					+ " ORDER BY t.tr_id, t.td_date ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setString(1,userId);
-			pStmt.setString(2,yearMonth);
 
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
-				Graph graph = new Graph(rs.getString("tr_item"), rs.getInt("tr_weight"),
+				Graph graph = new Graph(rs.getInt("tr_id"),rs.getString("tr_item"), rs.getInt("tr_weight"),
 						rs.getInt("counts"),rs.getInt("sets"),rs.getString("td_date") 
 				);
-				GraphList.add(graph);
+				MonthList.add(graph);
 			}
 
 			
@@ -505,10 +507,76 @@ public class StoragesDao {
 		}
 		
 			// 結果を返す
-			return GraphList;
+			return MonthList;
 	}
 	
-	//ユーザーが記録したことのあるトレーニング項目の取得
+	
+	//	直近10回分の記録内容トレーニング内容の取得
+	public List<Graph> getWeekGraph(String userId){
+		//
+		Connection conn = null;
+		List<Graph> WeekList = new ArrayList<Graph>();
+		
+	try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+//			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
+			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
+			//直近10回分の記録を取得
+			String sql = "SELECT * FROM"
+					+ "(SELECT TS.tr_id , tr_item, tr_weight,"
+					+ " counts, sets, DATE_FORMAT(TS.date, '%Y-%m-%d') AS td_date ,"
+					+ " ROW_NUMBER() OVER (PARTITION BY TS.tr_id ORDER BY TS.date DESC) AS rn "
+					+ " FROM tr_storages AS TS "
+					+ " INNER JOIN tr_items AS TI "
+					+ " ON TS.tr_id = TI.tr_id "
+					+ " WHERE TS.user_id = ? "
+					+ " ) AS t "
+					+ " WHERE t.rn <= 7 "
+					+ " ORDER BY t.tr_id, t.td_date ";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setString(1,userId);
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				Graph graph = new Graph(rs.getInt("tr_id"),rs.getString("tr_item"), rs.getInt("tr_weight"),
+						rs.getInt("counts"),rs.getInt("sets"),rs.getString("td_date") 
+				);
+				WeekList.add(graph);
+			}
+
+			
+	
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+			// 結果を返す
+			return WeekList;
+	}
+/*	//ユーザーが記録したことのあるトレーニング項目の取得
 	public List<Graph> getItemGraph(String userId,int year,int MonthNumber){
 		//
 		Connection conn = null;
@@ -567,7 +635,7 @@ public class StoragesDao {
 			// 結果を返す
 			return gItemList;
 	}
-	
+*/
 	//-----------成長記録ページDAOここまで---------------//
 
 
