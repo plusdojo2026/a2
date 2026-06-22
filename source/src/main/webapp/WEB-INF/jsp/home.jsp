@@ -242,11 +242,9 @@
 <!--　フッターここまで　-->
 
 <script>
-/* 	function addButton(){	
-		
-	} */
+
 	
-	
+	//ここでcount宣言
 	let count=0;
 	
 	
@@ -685,8 +683,10 @@
      
      
    //ここでsaveDetailListから一件ずつ取り出している
+   //ページの読み込みが終わったら始めるという意味
  	window.onload = function(){
 
+	   //サーブレットからわたされたsaveDetailListをループして呼び出している
  	<c:forEach var="item" items="${saveDetailList}">
  	    addSavedItem(
  	        '${item.trItem}',
@@ -705,13 +705,16 @@
  	
  	
  //一時保存をしたものを表示するためのもの
+ //ここでうえで取得したデータを呼ぶ
  	
  	function addSavedItem(itemName, weight, counts, sets, memo){
 
-    console.log("復元", itemName);
+    /* console.log("復元", itemName); */
 
+    //<div id="itemArea"></div>のところに追加するので取得
     let itemArea = document.getElementById("itemArea");
 
+    //divを作っている、項目は追加式なので+ countで　○○1,○○2のようにしている
     const div = document.createElement("div");
     div.id = "item" + count;
 
@@ -720,12 +723,17 @@
     input.type = "text";
     input.name = "it" + count;
     input.id = "it" + count;
+    //編集できないようにしている　項目名は勝手に名前を変えられない
     input.readOnly = true;
+    //itemNameは項目名
     input.value = itemName;
 
+    //"項目"と上で作ったinputが表示される
     div.appendChild(document.createTextNode("項目"));
     div.appendChild(input);
 
+    
+    
     // 重さ
     div.appendChild(document.createElement("br"));
 
@@ -737,6 +745,8 @@
     div.appendChild(document.createTextNode("重さ（距離）"));
     div.appendChild(weightinput);
 
+    
+    
     // 回数
     div.appendChild(document.createElement("br"));
 
@@ -748,6 +758,8 @@
     div.appendChild(document.createTextNode("回数"));
     div.appendChild(countinput);
 
+    
+    
     // セット
     div.appendChild(document.createElement("br"));
 
@@ -759,7 +771,9 @@
     div.appendChild(document.createTextNode("セット"));
     div.appendChild(setinput);
 
-    // メモ
+    
+    
+    // メモある場合とない場合で分けている
     if(memo != null && memo.trim() !== ""){
 
         div.appendChild(document.createElement("br"));
@@ -790,10 +804,12 @@
 
     itemArea.appendChild(div);
 
+    
+    //countを増やしている
     count++;
     document.getElementById("c").value = count;
 
-	} // ← addSavedItemの終了
+	} 
     
 	
 	//ヘッダー日付表示用
