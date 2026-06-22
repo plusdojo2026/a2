@@ -8,7 +8,7 @@
 <title>ホームページ</title>
 
 
-<style>
+<!-- <style>
     /* モーダルの背景（暗い部分） */
     .modal-background {
       display: none; /* 最初は非表示 */
@@ -64,23 +64,32 @@
     } */
     #bar{
     	z-index: 20;
-    	position: relative;
+    	position:relative;
     	background-color:white;
     }
     .footer{
-    	position:relative;
+    	
     	z-index: 20;
+    	position:relative;
     	background-color:white;
     }
+    
+    
+    
     .logo, .bean-info{
-    	position:relative;
+    	position:static;
     	z-index: 20;
     	background-color:white;
     }
     
   </style>
-  
+   -->
+   
+   
+   
+   
   <link rel="stylesheet" href="/a2/css/header_footer.css">
+  <link rel="stylesheet" href="/a2/css/home.css">
 	<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
@@ -232,6 +241,7 @@
 		</c:forEach>    	
     </select>
 	
+	<br>
       メモ：<input type="radio" name="memo" value="1">有
       		<input type="radio" name="memo" value="2" checked>無<br>
       <div style="display: none" id="tx">
@@ -278,6 +288,7 @@
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
+<div class="footer">
 <footer>
 <nav class="bottom-bar" id="bar">
   <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up"></i></a>
@@ -287,6 +298,7 @@
   <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user"></i></a>
 </nav>
 </footer>
+</div>
 <!--　フッターここまで　-->
 
 <script>
@@ -370,6 +382,8 @@
 	
 	        if(item != null){
 	
+	        	//オプショナルチェーン 「?.」のこと
+	        	//0でいい理由としては前でとってきているデータが「"tr_weight" + i」でかわっているから
 	            let tr_weight = document.getElementsByName("tr_weight" + i)[0]?.value || "";
 	
 	            let counts = document.getElementsByName("counts" + i)[0]?.value || "";
@@ -620,7 +634,6 @@
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight" +count;
-   			weightinput.step ="0.1"
    			div.appendChild(weightinput);
 			
 			
@@ -691,7 +704,6 @@
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight"+ count;
-   			weightinput.step ="0.1"
    			div.appendChild(weightinput);
 			
 			

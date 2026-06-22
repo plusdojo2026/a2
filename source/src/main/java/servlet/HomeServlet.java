@@ -211,11 +211,18 @@ public class HomeServlet extends HttpServlet {
 
 			    svdto.setTrItem(item);
 
+			    //これはただのセッター
 			    svdto.setTr_weight(
+			    	//if(weightStr == null || weightStr.trim().isEmpty()){
 			        weightStr == null || weightStr.trim().isEmpty()
+			        	//trueのときの処理
 			            ? 0
+			            //falseのときの処理
 			            : Integer.parseInt(weightStr)
 			    );
+			    // num == 0 ? "Yes":"No"
+			    //? がifぶんになってる。？の前の条件に対して、trueかfalseかを書く
+			    //これが噂の三項演算子
 
 			    svdto.setCounts(
 			        countsStr == null || countsStr.trim().isEmpty()
