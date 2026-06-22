@@ -12,6 +12,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+.logo {
+    text-align: center;
+}
+
 /* 画像の「大きな角丸の箱」を作る部分 */
 .form-container {
   max-width: 600px;         /* 横幅の最大値 */
@@ -69,7 +73,7 @@ input[type="submit"]{
     padding: 10px;
     width: 100px;
     background-position: center;
-    background-color: #2758a0;
+    background-color: #008000;
     color: #FFFFFF;
     font-size :1rem;
     margin: 20px 0 50px 0;   
@@ -81,8 +85,8 @@ input[type="button"]{
     padding: 10px;
     width: 100px;
     background-position: center;
-    background-color: #b7d4fc;
-    color: #3a1576;
+    background-color: #98fb98;
+    color: #556b2f;
     font-size :0.8rem;
     
 }

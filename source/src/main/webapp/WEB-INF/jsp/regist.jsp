@@ -26,8 +26,10 @@
 <main>
 
 
-
+<div class="logo">
 <h1>新規会員登録</h1>
+</div>
+
 <hr>
 <div class="form-container">
 <form method="POST" action="/a2/RegistServlet" id="fr">
