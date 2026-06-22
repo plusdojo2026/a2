@@ -249,7 +249,7 @@ public class HomeServlet extends HttpServlet {
 			//javaScriptでそのまま使えるようにするために、json形式に変換
 			Gson gson = new Gson();
 			String trSaveJson = gson.toJson(list);
-			request.setAttribute(trSaveJson, trSaveJson);
+			request.setAttribute("trSaveJson", trSaveJson);
 			
 //			JSP側のjavascriptではこんな感じで使える
 //			const trSaveJson =${trSaveJson};
