@@ -56,6 +56,10 @@ document.getElementById('fr').onsubmit = function(event){
 		document.getElementById('msg').textContent = '必須項目を入力してください';
 		event.preventDefault();
  	}
+	else if (isNaN(height) || isNaN(weight)) {
+	    document.getElementById('msg').textContent = '身長と体重は半角数字で入力してください';
+	    event.preventDefault();
+	}
 }
 //リセットボタンを押したときの処理
 function re(){	
