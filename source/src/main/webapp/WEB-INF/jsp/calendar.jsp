@@ -131,7 +131,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 				    
 					<label>メモ：</label>
 					<br>
-				    <textarea name="memo" id="modal-memo" rows="3"></textarea>
+				    <textarea name="comments" id="modal-memo" rows="3"></textarea>
 				
 				    <button type="submit">更新</button>
 	            </form>
@@ -164,14 +164,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	//const weightMapJs = ${weightMapJson};
 
 	// モーダルを開く関数
-	function openModal(date, stamp, memo, list, weight) {
+	function openModal(date, stamp, comments, list, weight) {
 	    document.getElementById("modal-date").innerText = date;
 	    document.getElementById("modalDate").value = date;
 	
 	    // スタンプ初期値
 	    document.querySelector("select[name='stamp']").value = stamp;
 	    // トレーニング内容初期値
-	    document.getElementById("modal-memo").value = memo || "";
+	    document.getElementById("modal-memo").value = comments || "";
 	 	// 体重初期値
 	    document.getElementById("modal-weight").value = weight || "";
 	    	
@@ -359,6 +359,36 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 	function closeModal() {
 	    document.getElementById("modal-bg").style.display = "none";
+	}
+	
+	
+	//ヘッダー日付表示用
+	 window.onload = function(){
+	const now =new Date();
+	const year = now.getFullYear();
+	const month= now.getMonth()+1;
+	const date = now.getDate();
+	const text = year+"年"+month+"月"+date+"日";
+	if( month === 6 && date === 17 ){
+	    document.getElementById('anniversary').textContent='テスト用';
+	}else if( month === 1 && date === 10 ){
+	    document.getElementById('anniversary').textContent='糸引き納豆の日';
+	}else if( month === 2 && date === 3 ){
+	    document.getElementById('anniversary').textContent='節分・大豆の日';
+	}else if( month === 2 && date === 10 ){
+	    document.getElementById('anniversary').textContent='世界マメの日';
+	}else if( month === 4 && date === 3 ){
+	    document.getElementById('anniversary').textContent='いんげん豆の日';
+	}else if( month === 7 && date === 10 ){
+	    document.getElementById('anniversary').textContent='納豆の日';
+	}else if( month === 10 && date === 2 ){
+	    document.getElementById('anniversary').textContent='豆腐の日';
+	}else if( month === 10 && date === 12 ){
+	    document.getElementById('anniversary').textContent='豆乳の日';
+	}else if( month === 10 && date === 13 ){
+	    document.getElementById('anniversary').textContent='豆の日';
+	}
+	document.getElementById('today').textContent=text;
 	}
 </script>
 </body>

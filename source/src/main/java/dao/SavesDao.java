@@ -3,7 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.Save;
 
@@ -207,4 +210,68 @@ public class SavesDao {
 			return false;
 	}
 		
+		
+		
+		
+		public List<Save> selectTrSaves(String userId) {
+
+		    Connection conn = null;
+		    PreparedStatement pStmt = null;
+		    ResultSet rs = null;
+
+		    List<Save> list = new ArrayList<>();
+
+		    try {
+
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+
+		        conn = DriverManager.getConnection(
+		            "jdbc:mysql://localhost:3306/a2?"
+		            + "characterEncoding=utf8&useSSL=false"
+		            + "&serverTimezone=GMT%2B9",
+		            "root",
+		            "password"
+		        );
+
+		        String sql =
+		                "SELECT t.tr_item, s.tr_weight, s.counts, s.sets, s.memo "
+		              + "FROM tr_saves s "
+		              + "INNER JOIN tr_items t "
+		              + "ON s.tr_id = t.tr_id "
+		              + "WHERE s.user_id = ?";
+
+		        pStmt = conn.prepareStatement(sql);
+		        pStmt.setString(1, userId);
+
+		        rs = pStmt.executeQuery();
+
+		        while(rs.next()) {
+
+		            Save dto = new Save();
+
+		            dto.setTrItem(rs.getString("tr_item")); // ←追加
+		            
+		            dto.setTr_weight(rs.getInt("tr_weight"));
+		            dto.setCounts(rs.getInt("counts"));
+		            dto.setSets(rs.getInt("sets"));
+		            dto.setMemo(rs.getString("memo"));
+
+		            list.add(dto);
+		        }
+
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    } finally {
+
+		        try {
+		            if(rs != null) rs.close();
+		            if(pStmt != null) pStmt.close();
+		            if(conn != null) conn.close();
+		        } catch(SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return list;
+		}
 }
