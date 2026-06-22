@@ -33,7 +33,7 @@ public class KnowledgesDao {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 	        
-			// wordsテーブルの全件数を取得（40件）
+			// knowledgesテーブルの全件数を取得
             int count = 0;
 	        String preSql = "SELECT COUNT(*) FROM knowledges";
 	        ps = conn.prepareStatement(preSql);
@@ -50,11 +50,11 @@ public class KnowledgesDao {
 	        rs.close();
 	        ps.close();
 	        
-	        // 日替わりのwordIdを計算
-            int wordId = (day % count) + 1;
+	        // 日替わりのknowledge_numを計算
+            int knowledgeNum = (day % count) + 1;
             String sql = "SELECT * FROM knowledges WHERE knowledge_num = ?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, wordId);
+            ps.setInt(1, knowledgeNum);
             // SQL文を実行
 	        rs = ps.executeQuery();
             
