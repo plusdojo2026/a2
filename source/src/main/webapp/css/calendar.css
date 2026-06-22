@@ -1,102 +1,113 @@
 @charset "UTF-8";
 
-/* ----------- カレンダー部分 ----------- */
-body {
-    background: #f8f8f8;
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/* カレンダー画面のレイアウト調整 */
+main {
+    /* 左右の余白 */
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
+/* ----------- 年月のプルダウン ----------- */
+main form {
+    margin: 8px 0 14px 0;
+    text-align: center;
+}
+
+main form select {
+    padding: 8px 20px 8px 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin: 0 6px;
+}
+
+/* カレンダー本体 */
 .calendar-container {
-    width: 90%;
-    margin: 20px auto;
+    width: 100%;
     background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    padding: 10px 6px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
 
 table {
     width: 100%;
+    table-layout: fixed; /* 各曜日マスの横幅を完全に均等に固定 */
     border-collapse: collapse;
 }
 
+/* 曜日（日〜土） */
+table th {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    padding: 8px 0;
+}
+
+/* カレンダーの1マス */
 td {
-    width: 14%;
-    height: 70px;
-    border: 1px solid #eee;
-    padding: 5px;
+    width: 14.2%;
+    height: 56px;
+    border: 1px solid #f0f0f0;
+    padding: 4px 2px;
     cursor: pointer;
-}
-
-.date-num {
-    font-size: 12px;
-}
-
-.stamp {
-    width: 40px;
-    height: auto;
-    object-fit: contain;
-}
-
-
-/* ----------- モーダル基盤 ----------- */
-.modal-bg {
-    display: none;
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-}
-
-.modal {
-    background: #fff;
-    width: 92%;
-    max-width: 480px;
-    margin: 40px auto;
-    padding: 24px;
-    border-radius: 16px;
-    text-align: left;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     box-sizing: border-box;
-    
-    /* ★追加：画面の高さに合わせてモーダル自体がはみ出さないように制御 */
-    max-height: calc(100vh - 80px); 
-    display: flex;
-    flex-direction: column;
+    vertical-align: top; /* 数字とスタンプを上詰めで配置 */
+    position: relative;
 }
+
+/* 日付の数字 */
+.date-num {
+    font-size: 11px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+    margin-bottom: 2px;
+    padding-left: 2px;
+}
+
+/* スタンプ画像（マスに綺麗に収まるサイズ） */
+.stamp {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* カレンダー画面専用・モーダル内部のパーツ装飾 */
 
 .modal h3 {
-    margin-top: 0;
-    font-size: 22px;
+    margin: 0 0 12px 0;
+    font-size: 20px;
     font-weight: bold;
     color: #222;
     border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 12px;
-    flex-shrink: 0; /* ★タイトルが潰れないように固定 */
+    padding-bottom: 10px;
+    flex-shrink: 0;
 }
 
-/* ★追加：フォーム全体を包むスクロールコンテナ */
+/* モーダル内のスクロールエリア */
 .modal-body-scroll {
     overflow-y: auto;
     flex: 1;
-    padding-right: 4px;
+    padding-right: 2px;
     margin-bottom: 12px;
+    -webkit-overflow-scrolling: touch; /* スクロールを滑らかにする */
 }
 
 .modal hr {
     border: 0;
     border-top: 1px solid #eee;
-    margin: 20px 0;
+    margin: 16px 0;
 }
 
-/* ----------- スタンプ・全体メモフォーム ----------- */
+/* スタンプ・全体メモフォーム */
 .modal label {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
     color: #333;
     display: inline-block;
     margin-bottom: 6px;
@@ -104,134 +115,143 @@ td {
 
 .modal select[name="stamp"] {
     width: 100%;
-    max-width: 160px;
-    padding: 8px 12px;
+    padding: 10px;
     font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #fff;
-    margin-bottom: 16px;
-}
-
-.modal textarea#modal-memo {
-    width: 100%;
-    min-height: 80px;
-    padding: 10px 12px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    resize: vertical;
-    box-sizing: border-box;
-    margin-bottom: 12px;
-}
-
-/* ----------- トレーニング内容 ----------- */
-.modal h4 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #222;
-    margin-top: 0;
-    margin-bottom: 16px;
-}
-
-/* 旧 #modal-training-area の max-height を削除し、親のスクロールに統合 */
-#modal-training-area {
-    padding-right: 4px;
-}
-
-.training-edit-form, .training-add-form {
-    background: #fdfdfd;
-    border: 1px solid #eaeaea;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 14px;
+    background-color: #fff;
     margin-bottom: 14px;
     box-sizing: border-box;
 }
 
+.modal textarea#modal-memo {
+    width: 100%;
+    min-height: 70px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+/* 更新ボタン */
+form button[type="submit"]:not([class]) {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* ----------- トレーニング内容 ----------- */
+.modal h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    margin: 0 0 12px 0;
+}
+
+#modal-training-area {
+    padding-right: 2px;
+}
+
+.training-edit-form, .training-add-form {
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
 .training-add-form {
-    background-color: #f7f9f7;
-    border: 1px dashed #7cc47f;
+    background-color: #f6faf6;
+    border: 1px dashed #62b666;
 }
 
 .training-add-form h5 {
-    margin: 0 0 12px 0;
+    margin: 0 0 10px 0;
     color: #2e7d32;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
 }
 
-.training-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 8px;
+/* 3カラムのグリッドレイアウト */
+.training-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 6px;
     align-items: center;
+    margin-bottom: 12px;
 }
 
-.training-row .item {
+.grid-item {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     color: #444;
+    white-space: nowrap;
 }
 
-.training-row input[type="number"] {
-    border: 1px solid #ccc;
+.grid-item.full-width {
+    grid-column: span 3;
+}
+
+.label-text {
+    color: #666;
+    margin-right: 4px;
+    font-size: 12px;
+}
+
+/* 入力パーツのサイズ */
+.input-select, .input-med, .input-small {
+    border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 6px 4px;
-    font-size: 14px;
-    margin: 0 4px;
-    box-sizing: border-box;
-}
-
-.input-small {
-    width: 55px;
-    text-align: center;
-}
-
-.input-med {
-    flex: 1;
-    min-width: 160px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 6px 10px;
+    padding: 6px;
     font-size: 14px;
     box-sizing: border-box;
+    background-color: #fff;
 }
 
-/* ----------- ボタン類 ----------- */
+.input-select { flex: 1; width: 100%; }
+.input-med { flex: 1; width: 100%; }
+.input-small { width: 100%; text-align: center; }
+
+/* 変更・削除ボタンのグループ */
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
 .modal button {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     border: none;
-    padding: 7px 14px;
+    padding: 8px 12px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s, opacity 0.2s;
 }
 
-form button[type="submit"]:not([class]) {
-    background-color: #444;
-    color: white;
-    padding: 8px 16px;
-    font-size: 14px;
-}
-
-.btn-edit { background-color: #3b82f6; color: white; }
+.btn-edit { background-color: #3b82f6; color: white; flex: 1; }
 .btn-delete { background-color: #ef4444; color: white; }
-.btn-add { background-color: #2e7d32; color: white; padding: 7px 20px !important; }
+.btn-add { background-color: #2e7d32; color: white; width: 100%; padding: 10px !important; border-radius: 8px; }
 
-/* 閉じるボタン（フッター領域として最下部に固定配置） */
+/* 閉じるボタン */
 .close-btn {
-    background: #888;
+    background: #aaafab;
     color: #fff;
     padding: 10px 24px;
-    border-radius: 6px;
+    border-radius: 8px;
     display: block;
-    width: fit-content;
-    margin: 0 0 0 auto;
+    width: calc(100% - 40px);
+    margin: 4px auto 0 auto;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    flex-shrink: 0; /* ★潰れないように固定 */
+    flex-shrink: 0;
 }
