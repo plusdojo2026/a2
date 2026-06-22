@@ -18,10 +18,18 @@ design_id INT DEFAULT 0,				/*背景ID*/
 point INT DEFAULT 0						/*豆ポイント*/
 );
 /*内容入力*/
-INSERT INTO users (user_name, height, target_weight, logical_delete, user_id, password)
+INSERT INTO users (user_name, height, target_weight,point, logical_delete, user_id, password)
 VALUES
-('テスト太郎', 170.5, 60.0, 0, 'user1', 'pass1'),
-('サンプル花子', 158.2, 50.0, 0, 'user2', 'pass2');
+('テスト太郎', 170.5, 60.0,600, 0, 'user1', 'pass1'),
+('サンプル花子', 158.2, 50.0,125, 0, 'user2', 'pass2'),
+('山田次郎', 175.0, 68.0,560, 0, 'user3', 'pass3'),
+('佐藤美咲', 162.3, 52.5,1200, 0, 'user4', 'pass4'),
+('鈴木健太', 180.0, 75.0, 70,0, 'user5', 'pass5'),
+('高橋あかり', 155.0, 48.0,40, 0, 'user6', 'pass6'),
+('伊藤翔', 168.8, 65.0, 450,0, 'user7', 'pass7'),
+('渡辺優奈', 165.5, 54.0,15, 0, 'user8', 'pass8'),
+('中村大輔', 172.2, 70.0, 90,0, 'user9', 'pass9'),
+('小林さくら', 160.0, 49.5,50, 0, 'user10', 'pass10');
 
 /*記録情報*/
 CREATE TABLE storages(
@@ -55,14 +63,39 @@ memo VARCHAR(100),					/*メモ*/
 date DATE DEFAULT (CURRENT_DATE)	/*日付*/
 );
 /*内容入力*/
-INSERT INTO tr_storages (user_id,tr_id,tr_weight, counts,sets,memo,date) VALUES
-('user1','1',,,,'','2026-06-01'),
-('user1','3',,,,'','2026-06-01'),
-('user1','2',,,,'','2026-06-01'),
-('user2','2',,,,'','2026-06-01'),
-('user2','2',,,,'','2026-06-01'),
-('user2','3',,,,'','2026-06-01'),
-('user2','4',,,,'','2026-06-01');
+INSERT INTO tr_storages (user_id, tr_id, tr_weight, counts, sets, memo, date) VALUES
+
+-- user1（成長ログ）
+('user1', 1, 30, 10, 3, 'ベンチ開始', '2026-06-01'),
+('user1', 1, 35, 10, 3, '少し余裕', '2026-06-03'),
+('user1', 1, 40, 8, 3, '重量UP', '2026-06-05'),
+('user1', 2, 0, 20, 4, 'スクワット自重', '2026-06-14'),
+('user1', 2, 20, 15, 4, '軽負荷追加', '2026-06-14'),
+('user1', 3, 50, 10, 3, 'ラットプル開始', '2026-06-14'),
+('user1', 3, 60, 8, 3, '背中強化', '2026-06-14'),
+('user1', 4, 5, 30, 2, '腹筋', '2026-06-14'),
+('user1', 4, 6, 40, 3, '腹筋耐久', '2026-06-14'),
+
+-- user2（安定系）
+('user2', 1, 20, 12, 3, '軽めベンチ', '2026-06-01'),
+('user2', 1, 25, 12, 3, 'フォーム意識', '2026-06-04'),
+('user2', 2, 0, 15, 3, '自重スクワット', '2026-06-05'),
+('user2', 2, 10, 15, 3, 'ダンベル追加', '2026-06-07'),
+('user2', 3, 30, 12, 3, '背中トレ', '2026-06-09'),
+('user2', 4, 12, 50, 2, '腹筋メイン', '2026-06-11'),
+
+-- user3（増量・高重量）
+('user3', 1, 60, 5, 5, '高重量開始', '2026-06-01'),
+('user3', 1, 65, 5, 5, '重量アップ', '2026-06-03'),
+('user3', 1, 70, 4, 5, '限界挑戦', '2026-06-10'),
+('user3', 3, 80, 6, 4, '背中強化', '2026-06-10'),
+('user3', 3, 85, 5, 4, 'さらに追い込み', '2026-06-10'),
+
+-- user4（有酸素混合）
+('user4', 2, 0, 30, 3, 'ランニング', '2026-06-01'),
+('user4', 2, 0, 35, 3, '距離延長', '2026-06-03'),
+('user4', 2, 0, 40, 3, '持久力UP', '2026-06-06'),
+('user4', 4, 9, 20, 3, '腹筋＋有酸素', '2026-06-06');
 
 /*一時保存*/
 CREATE TABLE saves(
@@ -95,9 +128,30 @@ friend_user_id VARCHAR(30),					/*フレンドのユーザーID*/
 friend_request BIT DEFAULT 0				/*申請の承認フラグ*/
 );
 /*内容入力*/
-INSERT INTO friends (user_id,friend_user_id) VALUES
-('user1','user2'),
-('user2','user1');
+INSERT INTO friends (user_id, friend_user_id,friend_request) VALUES
+-- user1（多め・中心ユーザー）
+('user1', 'user2',1),
+('user1', 'user3',1),
+('user1', 'user4',1),
+('user1', 'user5',1),
+('user1', 'user6',0),
+('user1', 'user7',0),
+('user1', 'user8',0),
+('user1', 'user9',0),
+
+-- その他のユーザー関係
+('user2', 'user3',0),
+('user2', 'user5',1),
+('user3', 'user4',1),
+('user3', 'user6',1),
+('user4', 'user5',1),
+('user5', 'user6',1),
+('user6', 'user7',1),
+('user7', 'user8',1),
+('user8', 'user9',1),
+('user9', 'user10',1),
+('user10', 'user2',1);
+
 
 /*ログイン記録*/
 CREATE TABLE logs(

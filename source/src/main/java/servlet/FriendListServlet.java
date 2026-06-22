@@ -19,38 +19,36 @@ import dto.Friend;
 import dto.FriendSet;
 import dto.TrItem;
 import dto.TrStorage;
+import dto.User;
 
 @WebServlet("/FriendListServlet")
 public class FriendListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//セッション
 		HttpSession session = request.getSession();
-//		User user = (User) session.getAttribute("user");
-//		
-//
-//		// ログインしていない場合はログイン画面に飛ばす
-//		if (user == null) {
-//			response.sendRedirect("/a2/LoginServlet");
-//			return;
-//		}
-//		// ログイン中のユーザーIDを取得
-//		String userId = user.getUserId();
-		
-		String userId="user1";
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
+    	//セッションのuserをuserIdに代入
+    	String userId = user.getUserId();
+		String message = (String) session.getAttribute("message");
+		String searchId = (String) session.getAttribute("searchId");
 		
 		// DaoとGsonの呼び出し
 		FriendsDao fDao = new FriendsDao();
 		Gson gson = new Gson();
 		
-		//セッションからメッセージと検索したいuserのidを取り出して削除
-		String message = (String) session.getAttribute("message");
-		String searchId = (String) session.getAttribute("searchId");
-		
+
 		System.out.println("=== セッション確認開始 ===");
 		System.out.println("message: " + message);
 		System.out.println("searchId: " + searchId);
 		
+		//メッセージの判定と削除
 		if (message != null) {
 		    request.setAttribute("message", message);
 		    session.removeAttribute("message");
@@ -80,6 +78,21 @@ public class FriendListServlet extends HttpServlet {
 		}
 		System.out.println("=== 処理終了 ===");
 		
+		// 全てのフレンドの詳細データを格納するリストを用意
+				List<FriendSet> friendFullList = new ArrayList<>();
+		
+		// <===申請中フレンドチェックDAO===> ユーザのフレンド一覧を取得
+		List<Friend> alreadyFriend = 
+				fDao.alreadyFriend(new Friend
+						(userId, null, 0, null, 0, 0));
+		// <===申請中フレンドチェックDAO===>コンソール確認用
+		System.out.println("DAO====="+userId+"の申請中一覧=====");
+		for (Friend f : alreadyFriend) {
+		    System.out.println("friendUserId = " + f.getFriendUserId());
+		}
+		
+		
+
 		
 		// <===一覧用DAO①===> ユーザのフレンド一覧を取得
 		List<Friend> friendSearch = 
@@ -91,8 +104,7 @@ public class FriendListServlet extends HttpServlet {
 		    System.out.println("friendUserId = " + f.getFriendUserId());
 		}
 		
-		// 全てのフレンドの詳細データを格納するリストを用意
-		List<FriendSet> friendFullList = new ArrayList<>();
+		
 		
 		// friendUserIdを取り出す(拡張for文)
 		for (Friend friendLoop : friendSearch) {
@@ -134,10 +146,12 @@ public class FriendListServlet extends HttpServlet {
 		// JSONに変換してリクエストに格納
 		String friendDataJson = gson.toJson(friendFullList);
 		String itemListJson = gson.toJson(itemList);
+		String alreadyFriendJson = gson.toJson(alreadyFriend);
 		
 		//リクエストに
 		request.setAttribute("friendDataJson", friendDataJson);
 		request.setAttribute("itemListJson", itemListJson);
+		request.setAttribute("alreadyFriendJson",alreadyFriendJson);
 		
 		// フレンド一覧にフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/friend_list.jsp");

@@ -56,13 +56,23 @@ document.getElementById('fr').onsubmit = function(event){
 		document.getElementById('msg').textContent = '必須項目を入力してください';
 		event.preventDefault();
  	}
+	else if  (!form.weight.validity.valid || /[eE]/.test(weight) || isNaN(parseFloat(weight))) {
+        errorArea.innerText = "体重には数値を入力してください";
+        form.weight.focus();
+        return false;
+	}
+	else if (parseFloat(weight) < 0) {
+        errorArea.innerText = "体重には0以上の数値を入力してください。";
+        form.weight.focus();
+        return false;
+	}
 }
-//リセットボタンを押したときの処理
-function re(){	
+    //リセットボタンを押したときの処理
+    function re(){	
 	//document.getElementById('fr').user_id.value="";
 	//document.getElementById('fr').password.value="";
 	//document.getElementById('fr').user.value="";
-	document.getElementById('fr').reset();
+	     document.getElementById('fr').reset();
 	//document.getElementById('fr').height.value="";
 	//document.getElementById('fr').target_weight.value="";
 	
