@@ -847,8 +847,66 @@ public class StoragesDao {
 		}
 		return false;
 	}
-}
 	
+	
+	
+	//当日保存したデータがないかどうか調べるメソッド
+	
+	public boolean isTodaySaved(String userId) {
+
+	    Connection conn = null;
+	    PreparedStatement pStmt = null;
+	    ResultSet rs = null;
+
+	    boolean result = false;
+
+	    try {
+
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/a2?"
+	            + "characterEncoding=utf8&useSSL=false"
+	            + "&serverTimezone=GMT%2B9",
+	            "root",
+	            "password"
+	        );
+
+//	        storagesにしたのは項目よりも確実に保存するので
+	        String sql =
+	            "SELECT COUNT(*) cnt "
+	          + "FROM storages "
+	          + "WHERE user_id = ? "
+	          + "AND DATE(date) = CURDATE()";
+
+	        pStmt = conn.prepareStatement(sql);
+	        pStmt.setString(1, userId);
+
+	        rs = pStmt.executeQuery();
+
+	        if(rs.next()) {
+	            result = rs.getInt("cnt") > 0;
+	        }
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } finally {
+
+	        try {
+	            if(rs != null) rs.close();
+	            if(pStmt != null) pStmt.close();
+	            if(conn != null) conn.close();
+	        } catch(SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return result;
+	}
+	
+	
+}
+
 
 
 

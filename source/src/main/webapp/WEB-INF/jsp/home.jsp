@@ -223,7 +223,21 @@
   </div>
 
 
+ <div id="completeModal" class="modal-background" style="display:none;">
+    <div class="modal-content-two">
 
+        <h2>本日の入力ありがとうございました。</h2>
+
+        <br>
+
+        <p>
+            カレンダーページから入力内容の変更ができます。
+        </p>
+        
+        <br>
+
+    </div>
+</div> 
   
 
 
@@ -750,7 +764,7 @@
 		    document.getElementById('anniversary').textContent='豆の日';
 		}
 		document.getElementById('today').textContent=text;
-		}
+		
 
    
    
@@ -768,6 +782,15 @@
  	</c:forEach>
  	
  	changestamp();
+ 	
+ 	
+ 	//日付またいだ時にモーダルだす
+ 	<c:if test="${todaySaved}">
+ 	document.getElementById(
+ 	    "completeModal"
+ 	).style.display = "block";
+ 	</c:if>
+ 	
  	
  	/* const trSaveJson =JSON.parse('${trSaveJson}');
 	alert(trSaveJson[0].getTrItem());  */
