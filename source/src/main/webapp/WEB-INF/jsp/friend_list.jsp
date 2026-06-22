@@ -99,7 +99,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	<nav class="tab-menu">
 		<ul>
 			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
-			<li><a href="/a2/RequestServlet">リクエスト</a></li>
+			<li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
 		</ul>
 	</nav>
 	<p><c:out value="${message}"/></p>
@@ -122,8 +122,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	<section class="friend-list-section">
 		<h2>フレンド一覧 <button type="button" id="toggle-delete-btn"><i class="fa-solid fa-trash"></i></button></h2>
 
-			<form action="FriendDeleteServlet" method="POST">
 			
+			<form action="/a2/FriendDeleteServlet" method="POST" id="deleteform">
 			
 			<!-- フレンド表示のループ -->
 				<c:forEach var="f" items="${friendFullList}">
@@ -142,13 +142,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 						</label>
 					</div>
 				</c:forEach>
-                
-                <div class="delete-button-area delete-target" style=" display: none;">
-                    <button type="submit" class="delete-btn">選択したフレンドを削除</button>
-                </div>
-                </form>
-
-        </section>
+						
+				<div class="delete-button-area delete-target" style=" display: none;">
+					<button type="submit" class="delete-btn" id="delete-btn">選択したフレンドを削除</button>
+				</div>
+			</form>
+			
+		</section>
 </main>
 <!--*=====メインここまで=====*-->
 <!--*=====フッターここから=====*-->
@@ -196,7 +196,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </c:if>
 <script>
 'use strict'
-
+	
+	document.getElementById('deleteform').addEventListener('submit', function(event){
+	const checked = document.querySelectorAll('input[name="deleteIds"]:checked');
+	
+	if (checked.length === 0) {
+	event.preventDefault();
+	alert('フレンドが選択されていません。');
+		return;
+	}
+	
+	const ok = confirm('選択したフレンドを削除してよろしいですか？');
+	if (!ok) {
+		event.preventDefault();
+	}
+	});
+	
 	//ゴミ箱ボタンチェックボックス
 	document.addEventListener("DOMContentLoaded", function() {
 		const toggleBtn = document.getElementById("toggle-delete-btn");
