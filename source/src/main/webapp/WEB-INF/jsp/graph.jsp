@@ -39,12 +39,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <div>
 	トレーニング項目<select id="itemSelect">
 		<c:forEach var="gi" items="${WeekGraph}">
-<!-- データ上ではid、ユーザー側では項目名が表示される -->
 		 <option value="${gi.key}"><c:out value="${gi.key}" />
 		 </option>
 	 	</c:forEach> 
-	</select><br>
+	</select>
 </div> 
+<select id="weightSelect" onchange="changeWeight()">
+</select><br>
 
 
 <!-- グラフを表示する場所 -->
@@ -124,44 +125,52 @@ document.getElementById('today').textContent=text;
    }
    lastScroll = current;
  });
-
+ 
  //-----------折れ線グラフ作成 --------------
  	
 //-------------データ取得-------------
 
 //直近7回の記録
-	let weekData = {
+let weekData = {
 			<c:forEach var="gi" items="${WeekGraph}" varStatus="st">
-			    "${gi.key}": {
-			        labels: [//X軸。サーブレットから拾ってくる
-			        <c:forEach var="g" items="${gi.value}" varStatus="st2">
-			            "${g.td_date}"<c:if test="${!st2.last}">,</c:if>
-			        </c:forEach>
-			        ],
-			        data: [//Y軸。サーブレットから拾ってくる
-			        <c:forEach var="g" items="${gi.value}" varStatus="st3">
-			            ${g.counts}*${g.sets}<c:if test="${!st3.last}">,</c:if>
-			        </c:forEach>
-			        ]
-			    }<c:if test="${!st.last}">,</c:if>//Listの中身があるときは,を入れる
+			"${gi.key}":{
+					  <c:forEach var="gw" items="${gi.value}" varStatus="st2">
+					    "${gw.key}":{
+					        labels: [//X軸。サーブレットから拾ってくる
+					        <c:forEach var="g" items="${gw.value}" varStatus="st3">
+					            "${g.td_date}"<c:if test="${!st3.last}">,</c:if>
+					        </c:forEach>
+					        ],
+					        data: [//Y軸。サーブレットから拾ってくる
+					        <c:forEach var="g" items="${gw.value}" varStatus="st4">
+					            ${g.counts}*${g.sets}<c:if test="${!st4.last}">,</c:if>
+					        </c:forEach>
+					        ]
+					    }<c:if test="${!st2.last}">,</c:if>//Listの中身があるときは,を入れる
+					 </c:forEach>
+				}<c:if test="${!st.last}">,</c:if>
 			</c:forEach>
 			};
  
  //直近30回の記録
  	let monthData = {
 			<c:forEach var="gi" items="${MonthGraph}" varStatus="st">
-			    "${gi.key}": {
+			    "${gi.key}":{
+			  <c:forEach var="gm" items="${gi.value}" varStatus="st2">
+			    "${gm.key}": {
 			        labels: [//X軸。サーブレットから拾ってくる
-			        <c:forEach var="g" items="${gi.value}" varStatus="st2">
-			            "${g.td_date}"<c:if test="${!st2.last}">,</c:if>
+			        <c:forEach var="g" items="${gm.value}" varStatus="st3">
+			            "${g.td_date}"<c:if test="${!st3.last}">,</c:if>
 			        </c:forEach>
 			        ],
 			        data: [//Y軸。サーブレットから拾ってくる
-			        <c:forEach var="g" items="${gi.value}" varStatus="st3">
-			            ${g.counts}*${g.sets}<c:if test="${!st3.last}">,</c:if>
+			        <c:forEach var="g" items="${gm.value}" varStatus="st4">
+			            ${g.counts}*${g.sets}<c:if test="${!st4.last}">,</c:if>
 			        </c:forEach>
 			        ]
-			    }<c:if test="${!st.last}">,</c:if>//Listの中身があるときは,を入れる
+			      }<c:if test="${!st2.last}">,</c:if>//Listの中身があるときは,を入れる
+			 	</c:forEach>
+			  }<c:if test="${!st.last}">,</c:if>
 			</c:forEach>
 			};
 			
@@ -203,139 +212,148 @@ let chart = new Chart(context3, {
 	}
 });
 
-//------selectElementを取得して変数に代入-------
-
-const selectElement = document.getElementById('itemSelect');
-
-selectElement.addEventListener('change', function() {
-
-    // 選択された option の値とテキストを取得
-    const selectedText = selectElement.options[selectElement.selectedIndex].text;
-
-//    console.log("選択されたテキスト:", selectedText);
-
-    retrieveItemPrice(selectedText);
-})
-
-
 
 //------ 初期表示 -------
-//期間を変更するボタンを押したらデータ置き換え
 function convertToChartJs(dataObj) {
     return dataObj; 
 }
-let currentData = sessionStorage.getItem('gdata') ?? weekData;//最初に表示する週のグラフ
+let currentData = weekData;//最初に表示する週のグラフ
 
-//最初に表示する項目
+//最初に表示する項目を取得
 let firstKey = Object.keys(currentData)[0];
 //項目をセッションに保存
 window.sessionStorage.setItem('gitem', firstKey);
+//最初に表示される項目の重量一覧を取得
+let weights = Object.keys(currentData[firstKey]);
 
-chart.data.labels = currentData[firstKey].labels;
-chart.data.datasets[0].label = firstKey;
-chart.data.datasets[0].data = currentData[firstKey].data;
-chart.update();
+//一覧にある最初の重量を取得
+let firstWeight = weights[0];
+//項目をセッションに保存
+window.sessionStorage.setItem('gweight', firstWeight);
 
-selectElement.value = firstKey;
+//プルダウンに表示
+    var weightSelect = document.getElementById("weightSelect");
+    weightSelect.innerHTML = "";
+
+    for (var i = 0; i < weights.length; i++) {
+        var opt = document.createElement("option");
+        opt.value = weights[i];
+        opt.text = weights[i] + " kg";
+        weightSelect.appendChild(opt);
+    }
+
+    weightSelect.value = firstWeight;
+
+    //グラフ初期表示
+    var chartData = weekData[firstKey][firstWeight];
+
+    chart.data.labels = chartData.labels;
+    chart.data.datasets[0].data = chartData.data;
+    chart.data.datasets[0].label = firstKey + "（" + firstWeight + "kg）";
+
+    chart.update();
 
 
 
-//項目変更処理
-function retrieveItemPrice(selectedText){
-    let key = selectedText;
+ 
+//-------項目変更処理-------
+function changeItem() {
+    let key = document.getElementById("itemSelect").value;
     window.sessionStorage.setItem('gitem', key);
-    if (!key) return;
+    
+    let weightSelect = document.getElementById("weightSelect");
 
-    let selected = currentData[key];
+    //  onchange を一時停止
+    weightSelect.onchange = null;
 
-    chart.data.labels = selected.labels;
-    chart.data.datasets[0].label = key;
-    chart.data.datasets[0].data = selected.data;
+    // 重量リストを削除
+    while (weightSelect.firstChild) {
+        weightSelect.removeChild(weightSelect.firstChild);
+    }
+
+    // 選んだ項目の重量一覧を取得
+    let weights = Object.keys(currentData[key]);
+
+    // 重量プルダウンに追加
+    for (let i = 0; i < weights.length; i++) {
+        let opt = document.createElement("option");
+        opt.value = weights[i];
+        opt.text = weights[i] + " kg";
+        weightSelect.appendChild(opt);
+    }
+    // 最初の重量を選択
+    let firstWeight = weights[0];
+    weightSelect.value = firstWeight;
+    sessionStorage.setItem('gweight', firstWeight);
+    
+    //onchange を復活
+    weightSelect.onchange = changeWeight;
+    
+    changeWeight();
+} 
+
+//重量変更処理
+function changeWeight(){
+    let key = document.getElementById("itemSelect").value;    
+    window.sessionStorage.setItem('gitem', key);
+    let weight = document.getElementById("weightSelect").value;
+    window.sessionStorage.setItem('gweight', weight);
+
+    if (!key || !weight) return;
+
+    let selected = currentData[key][weight];
+
+    chart.data.labels = selected.labels;	//X軸
+    chart.data.datasets[0].data = selected.data;//Y軸
+    chart.data.datasets[0].label = key + "(" + weight + "kg)";		
 
     chart.update();
 }
-
 
 //グラフ期間変更ボタンクリック時の処理
 function updateChart(newData) {
 	
     currentData = newData;
-    window.sessionStorage.setItem('gdata', currentData);
 	//前に設定していた項目
-    let getKey = window.sessionStorage.getItem('gitem');
+    let key = window.sessionStorage.getItem('gitem');
+    let weight  = window.sessionStorage.getItem('gweight');
 
+    // 切替後のデータに重量が存在しない場合は初期化
+    if (!currentData[key][weight]) {
+    	weight  = Object.keys(currentData[key])[0];
+        sessionStorage.setItem('gweight', weight );
+    }
+
+    //  onchange を一時停止
+    weightSelect.onchange = null;
+
+    // 重量をリセット
+    while (weightSelect.firstChild) {
+        weightSelect.removeChild(weightSelect.firstChild);
+    }
+
+    let weights = Object.keys(currentData[key]);
+    for (let i = 0; i < weights.length; i++) {
+        let opt = document.createElement("option");
+        opt.value = weights[i];
+        opt.text = weights[i] + " kg";
+        weightSelect.appendChild(opt);
+    }
+    weightSelect.value = weight ;
+    
  // let firstKey = Object.keys(currentData)[0];
+	    let changed = currentData[key][weight];
 
-    chart.data.labels = currentData[getKey].labels;
-    chart.data.datasets[0].label = getKey;
-    chart.data.datasets[0].data = currentData[getKey].data;
-
+    chart.data.labels = changed.labels;			//X軸
+    chart.data.datasets[0].data = changed.data;	//Y軸
+    chart.data.datasets[0].label = key + "(" + weight + "kg)";
+    
+    // onchange を復活
+    weightSelect.onchange = changeWeight;
+    
     chart.update();
-
-    selectElement.value = getKey;
 }
 
-   /*     try {
-            myChart.destroy();//キャンバスをリセット
-        }
-        catch {
-          //万が一イベント実行時にグラフが存在しなかった場合
-        }
-		    	let graphData = {
-		    			<c:forEach var="gi" items="${WeekGraph}" varStatus="st">
-		    			    "${gi.key}": {
-		    			        labels: [//X軸。サーブレットから拾ってくる
-		    			        <c:forEach var="g" items="${gi.value}" varStatus="st2">
-		    			            "${g.td_date}"<c:if test="${!st2.last}">,</c:if>
-		    			        </c:forEach>
-		    			        ],
-		    			        data: [//Y軸。サーブレットから拾ってくる
-		    			        <c:forEach var="g" items="${gi.value}" varStatus="st3">
-		    			            ${g.counts}*${g.sets}<c:if test="${!st3.last}">,</c:if>
-		    			        </c:forEach>
-		    			        ]
-		    			    }<c:if test="${!st.last}">,</c:if>//Listの中身があるときは,を入れる
-		    			</c:forEach>
-		    			};
-		    			
-		    //------グラフ表示-------
-		    let context3 = document.querySelector("#lineChart").getContext('2d')
-		    let chart = new Chart(context3, {
-		      type: 'bar', //棒グラフ
-		      data: {
-		        labels: [],  // X軸のラベル（日付など）
-		        datasets: [{
-		          label: '',
-		          data: [],
-		          borderColor: '#4169e1',
-		          backgroundColor: 'rgba(65, 105, 225, 0.2)',
-		     //     tension: 0,  // 線を少し曲線にする（0にすると直線）
-		        }]
-		      },
-		      options: {
-		        responsive: false,
-		        
-		    	yAxes: [{
-		            ticks: {           // Ｙ軸目盛り        
-		                min: 0,            // 最小値
-		                stepSize: 5,       // 間隔
-		                fontColor: "blue"  // 色
-		            	},
-		            gridLines: {        // 水平補助線の定義
-		                color: "rgba(0, 0, 255, 0.2)"
-		            	}
-		            }],
-		      }
-		    });
-		    let firstKey = Object.keys(graphData)[0];
-		    chart.data.labels = graphData[firstKey].labels;
-		    chart.data.datasets[0].label = firstKey;
-		    chart.data.datasets[0].data = graphData[firstKey].data;
-		    chart.update();
-		    selectElement.value = firstKey;
- 				};
-
-*/
 
 
 </script>
