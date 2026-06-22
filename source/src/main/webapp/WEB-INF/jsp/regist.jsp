@@ -46,32 +46,50 @@
 <script>
 'use strict';
 
+//未入力がある場合に'必須項目を入力してください'という文面を出す構文
 document.getElementById('fr').onsubmit = function(event){
+	
+	const numberPattern = /^[0-9]+(\.[0-9]+)?$/;
+	const form = document.getElementById('fr');
+    const errorArea = document.getElementById('msg');
+	
 	let id = document.getElementById('fr').user_id.value;
 	let pw = document.getElementById('fr').password.value;
 	let name = document.getElementById('fr').user.value;
 	let height = document.getElementById('fr').height.value;
 	let weight = document.getElementById('fr').target_weight.value;
+	
 	if (id === '' || pw === '' || name === '' || height === '' || weight === ''){
 		document.getElementById('msg').textContent = '必須項目を入力してください';
 		event.preventDefault();
  	}
-	else if (isNaN(height) || isNaN(weight)) {
-	    document.getElementById('msg').textContent = '身長と体重は半角数字で入力してください';
+	
+	else if (!numberPattern.test(height) || !numberPattern.test(weight)) {
+	    document.getElementById('msg').textContent = '身長と体重は正しい正の数（半角数字）で入力してください';
 	    event.preventDefault();
 	}
+	
+
+
 }
-//リセットボタンを押したときの処理
-function re(){	
+    //リセットボタンを押したときの処理
+    function re(){	
 	//document.getElementById('fr').user_id.value="";
 	//document.getElementById('fr').password.value="";
 	//document.getElementById('fr').user.value="";
-	document.getElementById('fr').reset();
+	     document.getElementById('fr').reset();
 	//document.getElementById('fr').height.value="";
 	//document.getElementById('fr').target_weight.value="";
 	
 	
 }
+    
+    function validateMainForm(form) {
+	    const errorArea = document.getElementById("main-error-msg");
+	    errorArea.innerText = ""; // メッセージをクリア
+
+	    
+	}
 
 </script>
 

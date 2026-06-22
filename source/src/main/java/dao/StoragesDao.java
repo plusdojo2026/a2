@@ -22,7 +22,7 @@ public class StoragesDao {
      * スタンプやメモを更新、新規追加するメソッド
      * 返り値：trueかfaulse
      */
-	public boolean saveRecord(String userId, String date, Integer stamp, String memo, Double weight) {
+	public boolean saveRecord(String userId, String date, Integer stamp, String comments, Double weight) {
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -38,18 +38,18 @@ public class StoragesDao {
 
             // INSERTかUPDATEを1回で実行するSQL
             String sql =
-                "INSERT INTO storages (user_id, date, stamp, memo, weight) " +
+                "INSERT INTO storages (user_id, date, stamp, comments, weight) " +
                 "VALUES (?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "stamp = VALUES(stamp), " +
-                "memo = VALUES(memo), " +
+                "comments = VALUES(comments), " +
                 "weight = VALUES(weight)";
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, userId);
             ps.setString(2, date);
             ps.setObject(3, stamp);
-            ps.setString(4, memo);
+            ps.setString(4, comments);
             ps.setObject(5, weight);
             
             //ps.executeUpdate()で１件以上更新されてたらtrueが返る
@@ -154,7 +154,7 @@ public class StoragesDao {
 			
 			// SQL文を準備する
 	        // yearMonth = "2026-06"のような形式
-	        String sql = "SELECT date, memo FROM storages "
+	        String sql = "SELECT date, comments FROM storages "
 	                   + "WHERE user_id = ? "
 	                   + "AND DATE_FORMAT(date, '%Y-%m') = ?";
 
@@ -167,8 +167,8 @@ public class StoragesDao {
 
 	        while (rs.next()) {
 	            String date = rs.getString("date");        // 例:2026-06-10
-	            String memo = rs.getString("memo");
-	            memoMap.put(date, memo);
+	            String comments = rs.getString("comments");
+	            memoMap.put(date, comments);
 	        }
 
 	    } catch (SQLException e) {
@@ -212,7 +212,7 @@ public class StoragesDao {
 			
 			// SQL文を準備する
 			String sql = "SELECT date, id, tr_id, tr_weight, counts, sets, memo "
-	                   + "FROM tr_strages "
+	                   + "FROM tr_storages "
 	                   + "WHERE user_id = ? AND DATE_FORMAT(date, '%Y-%m') = ? "
 	                   + "ORDER BY date, id";
 
@@ -325,7 +325,7 @@ public class StoragesDao {
 					"root", "password");
 			
 			// SQL文を準備する
-	        String sql = "INSERT INTO tr_strages (user_id, date, tr_id, tr_weight, counts, sets, memo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO tr_storages (user_id, date, tr_id, tr_weight, counts, sets, memo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, userId);
 	        ps.setString(2, date);
@@ -369,7 +369,7 @@ public class StoragesDao {
 					"root", "password");
 			
 			// SQL文を準備する
-	        String sql = "UPDATE tr_strages SET tr_id = ?, tr_weight = ?, counts = ?, sets = ?, memo = ? WHERE id = ?";
+	        String sql = "UPDATE tr_storages SET tr_id = ?, tr_weight = ?, counts = ?, sets = ?, memo = ? WHERE id = ?";
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, s.getTr_id());
 	        ps.setInt(2, s.getTr_weight());
@@ -412,7 +412,7 @@ public class StoragesDao {
 					"root", "password");
 			
 			// SQL文を準備する
-	        String sql = "DELETE FROM tr_strages WHERE id = ?";
+	        String sql = "DELETE FROM tr_storages WHERE id = ?";
 	        ps = conn.prepareStatement(sql);
 	        ps.setInt(1, id);
 	        

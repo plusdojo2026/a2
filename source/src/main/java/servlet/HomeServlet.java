@@ -10,12 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import dao.SavesDao;
 import dao.StoragesDao;
 import dao.TrItemsDao;
 import dto.Save;
 import dto.Storage;
+import dto.User;
 
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
@@ -26,30 +30,45 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		
+	
 ////		TrItemsDaoをインスタンス化するnewする
 
 		TrItemsDao trdao = new TrItemsDao();
-//		
-//
-////		トレーニング項目が items に入った
+
+//		トレーニング項目が items に入った
 		List<String> items = trdao.getTrainingItems();
-//	
-//
+
+		
+		
+		//itemsを"itemList"という名前でjspに渡してる
 		request.setAttribute("itemList", items);
 		
 		
-		request.setAttribute("weight",
-		        request.getSession().getAttribute("weight"));
+		
+		
+		//	SavesDaoをインスタンス化するnewする
+		SavesDao sdao = new SavesDao();
+		
+		//一時保存してあるデータをDBから取得しに行った（一時保存用のデータベースからとりに行っている）
+		//一時保存したデータが saveDetailList に入った
+		List<Save> saveDetailList =sdao.selectTrSaves("test");
+		
+		
+		//saveDetailList を"saveDetailList"という名前でjspに渡してる
+		request.setAttribute("saveDetailList", saveDetailList);
+		
+		
+		
+		
+		//セッションに保存していた値をJSPへ渡している処理をする このタイミングでセッションから取り出している
+		
+		request.setAttribute("weight",request.getSession().getAttribute("weight"));
 
-		request.setAttribute("fat",
-		        request.getSession().getAttribute("fat"));
+		request.setAttribute("fat",request.getSession().getAttribute("fat"));
 
-		request.setAttribute("comments",
-		        request.getSession().getAttribute("comments"));
+		request.setAttribute("comments",request.getSession().getAttribute("comments"));
 
-		request.setAttribute("stamp",
-		        request.getSession().getAttribute("stamp"));
+		request.setAttribute("stamp",request.getSession().getAttribute("stamp"));
 		
 
 		// IDが削除された場合、同じIDでログインしてホームに飛べないようにする
@@ -62,8 +81,6 @@ public class HomeServlet extends HttpServlet {
 //		
 
 		
-		
-//一時保存の時に項目復元のための
 		
 		
 		
@@ -112,6 +129,10 @@ public class HomeServlet extends HttpServlet {
 	// <form method = "POST" でservletを指定したときに動くメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		//ログインしているユーザーの方法を取得
+		User user = (User)session.getAttribute("user");
 		
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
@@ -190,7 +211,8 @@ public class HomeServlet extends HttpServlet {
 
 			//Save.javaを使う(二回目、一応名前変えた）
 			Save sdto = new Save();
-
+			
+			
 			
 			// もともと表示がある項目を受け取る
 
@@ -198,17 +220,20 @@ public class HomeServlet extends HttpServlet {
 			sdto.setFat(Double.parseDouble(request.getParameter("fat")));
 			sdto.setComments(request.getParameter("comments"));
 			sdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
-			sdto.setUser_id("test");
+			sdto.setUser_id(user.getUserId());
 
 			
 			// もともとある項目の豆作った
 			svlist.add(sdto);
 
 			
+			//SavesDaoをnewして使えるようにしている
 			SavesDao sdao = new SavesDao();
 
 			
 
+			//ここで作った項目をデータベースに入れる処理をしている
+			//（リストが二つなのはもともとある体重、体脂肪のリストと追加項目用のリスト）
 			for (Save dto : svdetalist) {
 				sdao.insertTrSaves(dto);
 			}
@@ -216,25 +241,38 @@ public class HomeServlet extends HttpServlet {
 				sdao.insertSaves(dto);
 			}
 			
+			//一時保存データを取得
+			
+			List<Save> list = sdao.selectTrSaves(user.getUserId());
+			request.setAttribute("trSaveList",list);
+			
+			//javaScriptでそのまま使えるようにするために、json形式に変換
+			Gson gson = new Gson();
+			String trSaveJson = gson.toJson(list);
+			request.setAttribute(trSaveJson, trSaveJson);
+			
+//			JSP側のjavascriptではこんな感じで使える
+//			const trSaveJson =${trSaveJson};
+//			trSaveJson[0].getTrItem();
 			
 			
-			request.getSession().setAttribute("weight",
-			        request.getParameter("weight"));
+			//セッションにもらったデータを保持している（もともと記載しなくてはいけない項目の部分
+			
+			session.setAttribute("weight",request.getParameter("weight"));
 
-			request.getSession().setAttribute("fat",
-			        request.getParameter("fat"));
+			session.setAttribute("fat",request.getParameter("fat"));
 
-			request.getSession().setAttribute("comments",
-			        request.getParameter("comments"));
+			session.setAttribute("comments",request.getParameter("comments"));
 
-			request.getSession().setAttribute("stamp",
-			        request.getParameter("stamp"));
+			session.setAttribute("stamp",request.getParameter("stamp"));
+			
 			
 			
 			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
 			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
 			///a2/HomeServlet?msg=tempSavedというURLになる
 			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
+			
 			
 			return;
 

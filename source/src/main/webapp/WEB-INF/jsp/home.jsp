@@ -58,16 +58,23 @@
     }
     
   </style>
-
+  
+  <link rel="stylesheet" href="/a2/css/header_footer.css">
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 </head>
 <body>
 
 <!--　ヘッダーここから　-->
 <header>
+    <div class="header-left">
+        <span id="today"></span>
+        <span id="anniversary" class="anniversary"></span>
+    </div>
 
-
-
+    <a href="/a2/HomeServlet" class="logo">rogo</a>
+    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
 </header>
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
@@ -93,9 +100,13 @@
 体重(kg)　<input type="text" name="weight" value="${weight}"><br>
 体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
 
+
+<!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
 <br>
-<!-- <input type ="hidden" id ="c" name = "count"><br> -->
+
+
+
 
 一日メモ<br>
 <textarea name="comments">${comments}</textarea>
@@ -142,15 +153,16 @@
 	<img id="stampImage" src="" width="200">
 	
 	
+	
 <br>
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
 
 
-
+<!-- 保存確認のモーダル -->
 <button type="button" onclick="openSaveModal()">保存</button>
-<!-- <input type="button" name="saveb" value="保存" onclick="openSaveModal()"> -->
+
 
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
@@ -219,35 +231,27 @@
 <!--　メインここまで　-->
 <!--　フッターここから　-->
 <footer>
-
-
+<nav class="bottom-bar" id="bar">
+  <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up"></i></a>
+  <a href="/a2/FriendListServlet"><i class="fa-solid fa-user-group"></i></a>
+  <a href="/a2/HomeServlet"><i class="fa-regular fa-square-plus nowpage"></i></a>
+  <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
+  <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user"></i></a>
+</nav>
 </footer>
 <!--　フッターここまで　-->
 
 <script>
-/* 	function addButton(){	
-		
-	} */
+
 	
-	
+	//ここでcount宣言
 	let count=0;
 	
 	
-	window.onload = function(){
-
-	<c:forEach var="item" items="${saveDetailList}">
-	    addSavedItem(
-	        '${item.trItem}',
-	        '${item.tr_weight}',
-	        '${item.counts}',
-	        '${item.sets}',
-	        '${item.memo}'
-	    );
-	</c:forEach>
 	
-	changestamp();
-
-	}
+	
+	
+	
 	
 	
 	
@@ -396,98 +400,8 @@
  	}  
  	
     
- 	//一時保存をしたものを表示するためのもの
-	
-	function addSavedItem(itemName, weight, counts, sets, memo){
-
-    let itemArea = document.getElementById("itemArea");
-
-    const div = document.createElement("div");
-    div.id = "item" + count;
-
-    // 項目
-    const input = document.createElement("input");
-    input.type = "text";
-    input.name = "it" + count;
-    input.id = "it" + count;
-    input.readOnly = true;
-    input.value = itemName;
-
-    div.appendChild(document.createTextNode("項目"));
-    div.appendChild(input);
-
-    // 重さ
-    div.appendChild(document.createElement("br"));
-
-    const weightinput = document.createElement("input");
-    weightinput.type = "text";
-    weightinput.name = "tr_weight" + count;
-    weightinput.value = weight;
-
-    div.appendChild(document.createTextNode("重さ（距離）"));
-    div.appendChild(weightinput);
-
-    // 回数
-    div.appendChild(document.createElement("br"));
-
-    const countinput = document.createElement("input");
-    countinput.type = "text";
-    countinput.name = "counts" + count;
-    countinput.value = counts;
-
-    div.appendChild(document.createTextNode("回数"));
-    div.appendChild(countinput);
-
-    // セット
-    div.appendChild(document.createElement("br"));
-
-    const setinput = document.createElement("input");
-    setinput.type = "text";
-    setinput.name = "sets" + count;
-    setinput.value = sets;
-
-    div.appendChild(document.createTextNode("セット"));
-    div.appendChild(setinput);
-
- // メモが存在する場合のみ表示
-    if(memo != null && memo.trim() !== ""){
-
-        div.appendChild(document.createElement("br"));
-
-        const memoTitle = document.createElement("div");
-        memoTitle.textContent = "メモ";
-        div.appendChild(memoTitle);
-
-        const textarea = document.createElement("textarea");
-        textarea.name = "memo" + count;
-        textarea.value = memo;
-
-        div.appendChild(textarea);
-    }
-
+ 	
  
-    const deleteButton = document.createElement("input");
-    deleteButton.type = "button";
-    deleteButton.value = "削除";
-
-    deleteButton.onclick = function(){
-        if(confirm("削除しますか？")){
-            itemArea.removeChild(div);
-        }
-    };
-
-    div.appendChild(deleteButton);
-
-    itemArea.appendChild(div);
-
-    count++;
-    document.getElementById("c").value = count;
-    }
-
-    	
- 	
- 	
- 	
     
     
     function addItem(){
@@ -766,7 +680,168 @@
     }
     
     
+     
+     
+   //ここでsaveDetailListから一件ずつ取り出している
+   //ページの読み込みが終わったら始めるという意味
+ 	window.onload = function(){
+
+	   //サーブレットからわたされたsaveDetailListをループして呼び出している
+ 	<c:forEach var="item" items="${saveDetailList}">
+ 	    addSavedItem(
+ 	        '${item.trItem}',
+ 	        '${item.tr_weight}',
+ 	        '${item.counts}',
+ 	        '${item.sets}',
+ 	        '${item.memo}'
+ 	    );
+ 	</c:forEach>
+ 	
+ 	changestamp();
+ 	
+/*  	const trSaveJson =${trSaveJson};
+	alert(trSaveJson[0].getTrItem()); */
+ 	}
+ 	
+ 	
+ 	
+ 	
+ //一時保存をしたものを表示するためのもの
+ //ここでうえで取得したデータを呼ぶ
+ 	
+ 	function addSavedItem(itemName, weight, counts, sets, memo){
+
+    /* console.log("復元", itemName); */
+
+    //<div id="itemArea"></div>のところに追加するので取得
+    let itemArea = document.getElementById("itemArea");
+
+    //divを作っている、項目は追加式なので+ countで　○○1,○○2のようにしている
+    const div = document.createElement("div");
+    div.id = "item" + count;
+
+    // 項目
+    const input = document.createElement("input");
+    input.type = "text";
+    input.name = "it" + count;
+    input.id = "it" + count;
+    //編集できないようにしている　項目名は勝手に名前を変えられない
+    input.readOnly = true;
+    //itemNameは項目名
+    input.value = itemName;
+
+    //"項目"と上で作ったinputが表示される
+    div.appendChild(document.createTextNode("項目"));
+    div.appendChild(input);
+
     
+    
+    // 重さ
+    div.appendChild(document.createElement("br"));
+
+    const weightinput = document.createElement("input");
+    weightinput.type = "text";
+    weightinput.name = "tr_weight" + count;
+    weightinput.value = weight;
+
+    div.appendChild(document.createTextNode("重さ（距離）"));
+    div.appendChild(weightinput);
+
+    
+    
+    // 回数
+    div.appendChild(document.createElement("br"));
+
+    const countinput = document.createElement("input");
+    countinput.type = "text";
+    countinput.name = "counts" + count;
+    countinput.value = counts;
+
+    div.appendChild(document.createTextNode("回数"));
+    div.appendChild(countinput);
+
+    
+    
+    // セット
+    div.appendChild(document.createElement("br"));
+
+    const setinput = document.createElement("input");
+    setinput.type = "text";
+    setinput.name = "sets" + count;
+    setinput.value = sets;
+
+    div.appendChild(document.createTextNode("セット"));
+    div.appendChild(setinput);
+
+    
+    
+    // メモある場合とない場合で分けている
+    if(memo != null && memo.trim() !== ""){
+
+        div.appendChild(document.createElement("br"));
+
+        const memoTitle = document.createElement("div");
+        memoTitle.textContent = "メモ";
+        div.appendChild(memoTitle);
+
+        const textarea = document.createElement("textarea");
+        textarea.name = "memo" + count;
+        textarea.value = memo;
+
+        div.appendChild(textarea);
+    }
+
+    // 削除ボタン
+    const deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "削除";
+
+    deleteButton.onclick = function(){
+        if(confirm("削除しますか？")){
+            itemArea.removeChild(div);
+        }
+    };
+
+    div.appendChild(deleteButton);
+
+    itemArea.appendChild(div);
+
+    
+    //countを増やしている
+    count++;
+    document.getElementById("c").value = count;
+
+	} 
+    
+	
+	//ヘッダー日付表示用
+	 window.onload = function(){
+	const now =new Date();
+	const year = now.getFullYear();
+	const month= now.getMonth()+1;
+	const date = now.getDate();
+	const text = year+"年"+month+"月"+date+"日";
+	if( month === 6 && date === 17 ){
+	    document.getElementById('anniversary').textContent='テスト用';
+	}else if( month === 1 && date === 10 ){
+	    document.getElementById('anniversary').textContent='糸引き納豆の日';
+	}else if( month === 2 && date === 3 ){
+	    document.getElementById('anniversary').textContent='節分・大豆の日';
+	}else if( month === 2 && date === 10 ){
+	    document.getElementById('anniversary').textContent='世界マメの日';
+	}else if( month === 4 && date === 3 ){
+	    document.getElementById('anniversary').textContent='いんげん豆の日';
+	}else if( month === 7 && date === 10 ){
+	    document.getElementById('anniversary').textContent='納豆の日';
+	}else if( month === 10 && date === 2 ){
+	    document.getElementById('anniversary').textContent='豆腐の日';
+	}else if( month === 10 && date === 12 ){
+	    document.getElementById('anniversary').textContent='豆乳の日';
+	}else if( month === 10 && date === 13 ){
+	    document.getElementById('anniversary').textContent='豆の日';
+	}
+	document.getElementById('today').textContent=text;
+	}
 
   </script>
 

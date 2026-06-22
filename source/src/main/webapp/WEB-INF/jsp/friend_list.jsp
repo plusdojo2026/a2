@@ -104,7 +104,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			<li><a href="RankingServlet">ランキング</a></li>
 		</ul>
 	</nav>
-	
+	<p><c:out value="${message}"/></p>
+	<p id="msg"></p>
 	<div class="search-area">
 		<form action="/a2/FriendListServlet" method="POST" id="form">
 			<label for="searchId">ID検索：</label>
@@ -276,6 +277,11 @@ document.getElementById('form').onsubmit = function(event){
 	// 申請中
 	if(alreadyFriendIds.includes(searchId)){
 		alert('リクエスト中または、リクエスト承認待ちです。');
+		event.preventDefault();
+	}
+	// 空の文字列
+	if(searchId===''){
+		alert('IDを入力してください');
 		event.preventDefault();
 	}
 }
