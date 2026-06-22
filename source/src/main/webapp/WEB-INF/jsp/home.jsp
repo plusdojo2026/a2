@@ -99,7 +99,8 @@
 
 体重(kg)　<input type="text" name="weight" value="${weight}"><br>
 体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
-
+<div id="weightEr" style="color: red;"></div>
+<div id="fatEr" style="color: red;"></div>
 
 <!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
@@ -249,9 +250,49 @@
 	
 	
 	
+	//体重入力の例外処理↓
+	let weight = document.querySelector('input[name="weight"]').value;
+	
+	
+	//文字が入ってなかったらの処理
+	
+	//trimは空白も認識してくれる === は文字だけではなく型も一緒か確認できる。
+	if(weight.trim() === ""){
+		document.getElementById("weightEr").textContent =
+			"体重を入力してください";
+		return;
+	}
+	
+	//文字が入っていて数字が入ってなかったらの処理
+	if(isNaN(weight)){
+		document.getElementById("weightEr").textContent =
+			"体重は数字で入力をしてください"
+		return;
+	}
 	
 	
 	
+	
+	
+	//体脂肪入力の例外処理↓
+	let fat = document.querySelector('input[name="fat"]').value;
+	
+	
+	//文字が入ってなかったらの処理
+	
+	//trimは空白も認識してくれる === は文字だけではなく型も一緒か確認できる。
+	if(fat.trim() === ""){
+		document.getElementById("fatEr").textContent =
+			"体脂肪を入力してください";
+		return;
+	}
+	
+	//文字が入っていて数字が入ってなかったらの処理
+	if(isNaN(fat)){
+		document.getElementById("fatEr").textContent =
+			"体脂肪は数字で入力をしてください"
+		return;
+	}
 	
 	
 	
@@ -259,11 +300,13 @@
 	function openSaveModal() {
 		
 		
+		
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
 		//inputの中のname="fat"のvalueを取り出す（中身ということ）
-	    let fat = document.querySelector('input[name="fat"]').value;
+	    let fat = document.querySelector('input[name="fat"]').value; 
+		
 		
 	  	//inputの中のname="comments"のvalueを取り出す（中身ということ）
 	    let comments = document.querySelector('textarea[name="comments"]').value;
@@ -273,6 +316,7 @@
 	    let stampText = select.options[select.selectedIndex].text;
 	  	
 	  	
+	    
 	  	
 	  	//空箱づくり
 	    let html = "";
