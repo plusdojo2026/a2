@@ -21,7 +21,7 @@ import dao.UsersDao;
 import dto.Save;
 import dto.Storage;
 import dto.User;
-
+@SuppressWarnings("unchecked")
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,23 +37,30 @@ public class HomeServlet extends HttpServlet {
 	    User user = (User)session.getAttribute("user");
 	    
 	    
-	    if(user != null) {
-	    	
-	    	// 現在の日付（今日）を取得 コピペ
-	        java.time.LocalDate today = java.time.LocalDate.now();
+	    // ログインチェック：ログインしていなければログイン画面へ即リダイレクト
+	    if (user == null) {
+	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+	        return;
+	    }
+	    
+	    
+	    // 現在の日付（今日）を取得 コピペ
+        java.time.LocalDate today = java.time.LocalDate.now();
+        
+        // セッションから「前回チェックした日付」を取得
+        java.time.LocalDate lastCheckDate = (java.time.LocalDate) session.getAttribute("lastCheckDate");
+	    
+	    
+	    
+	    
 	        
-	        // セッションから「前回チェックした日付」を取得
-	        java.time.LocalDate lastCheckDate = (java.time.LocalDate) session.getAttribute("lastCheckDate");
-	        
-	        
-	        
-	        // 初回アクセス、または日付が変わっていた場合
-	        if (lastCheckDate == null || !lastCheckDate.equals(today)) {
-	        	
-	        	// ここで一時保存データを本保存に移行する（Daoのメソッドを呼ぶ）
-	            SavesDao sdao = new SavesDao();
-	            sdao.migrateTempToMain(user.getUserId()); // ユーザーIDを渡して、その人の分だけ移行
-	        }
+        // 初回アクセス、または日付が変わっていた場合
+        if (lastCheckDate == null || !lastCheckDate.equals(today)) {
+        	
+        	// ここで一時保存データを本保存に移行する（Daoのメソッドを呼ぶ）
+            SavesDao sdao = new SavesDao();
+            sdao.migrateTempToMain(user.getUserId()); // ユーザーIDを渡して、その人の分だけ移行
+        }
 	        
 	        // 日付チェック更新
             session.setAttribute("lastCheckDate", today);
@@ -64,9 +71,9 @@ public class HomeServlet extends HttpServlet {
             session.removeAttribute("comments");
             session.removeAttribute("stamp");
 	    	
-	    }
 	    
 	    
+	
 	    
 	    //今日保存されているかの確認を行う
 	    
@@ -101,18 +108,24 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		
-		//	SavesDaoをインスタンス化するnewする
-		SavesDao sdao = new SavesDao();
-		
-		//一時保存してあるデータをDBから取得しに行った（一時保存用のデータベースからとりに行っている）
-		//一時保存したデータが saveDetailList に入った
-		List<Save> saveDetailList =sdao.selectTrSaves(user.getUserId());
+//		SavesDaoをインスタンス化するnewする
+			SavesDao sdao = new SavesDao();
+			
+			// 【修正】まずはセッションに一時保存されたカスタム項目のリストがあるか確認する
+			List<Save> saveDetailList = (List<Save>) session.getAttribute("sessionTrList");
+			
+			// セッションに無ければ（初めて画面を開いた時など）、従来通りデータベースから取得しに行く
+			if (saveDetailList == null) {
+				saveDetailList = sdao.selectTrSaves(user.getUserId());
+			}
+	
 		
 		
 		//saveDetailList を"saveDetailList"という名前でjspに渡してる
 		request.setAttribute("saveDetailList", saveDetailList);
 		
-		
+		// ここで定義されているので、この if 文の中でしか svdetalist は使えません
+		ArrayList<Save> svdetalist = new ArrayList<>();
 		
 		
 		//セッションに保存していた値をJSPへ渡している処理をする このタイミングでセッションから取り出している
@@ -124,6 +137,9 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("comments",request.getSession().getAttribute("comments"));
 
 		request.setAttribute("stamp",request.getSession().getAttribute("stamp"));
+		
+		// 先ほど追加したカスタム項目のリストもここに並びます
+		session.setAttribute("sessionTrList", svdetalist);
 		
 
 		// IDが削除された場合、同じIDでログインしてホームに飛べないようにする
@@ -163,20 +179,18 @@ public class HomeServlet extends HttpServlet {
 	    
 	    
 
-		/*
-		 * 
-		 * // もしもログインしていなかったらログインサーブレットにリダイレクトする HttpSession session =
-		 * request.getSession(); if (session.getAttribute("id") == null) {
-		 * response.sendRedirect("/webappAns/LoginServlet"); return; }
-		 */
+	    	
+		
+	    	// メニューページにフォワードする
+	 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+	 		dispatcher.forward(request, response);
+		 
+	}
+		 
 
 		// ここで色んな処理をする（daoに処理を依頼して、requestにセットしたりする）
 
-		// メニューページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-		dispatcher.forward(request, response);
-
-	}
+		
 
 	
 	
@@ -212,7 +226,8 @@ public class HomeServlet extends HttpServlet {
 			 
 				
 			//項目追加した分の数を取ってきている
-			int coun = Integer.parseInt(request.getParameter("coun"));
+		    String counStr = request.getParameter("coun");
+		    int coun = (counStr == null || counStr.trim().isEmpty()) ? 0 : Integer.parseInt(counStr);
 				
 				
 				
@@ -349,14 +364,12 @@ public class HomeServlet extends HttpServlet {
 
 			session.setAttribute("stamp",request.getParameter("stamp"));
 			
-			
+			session.setAttribute("sessionTrList", svdetalist);
 			
 			//ホームサーブレットに移動する際に　msg=tempSaved　でtempSavedという情報も送っている
 			//URLをつくっていると考えるといいrequest.getContextPath()はa2のこと
 			///a2/HomeServlet?msg=tempSavedというURLになる
 			response.sendRedirect( request.getContextPath() + "/HomeServlet?msg=tempSaved");
-			
-			
 			return;
 
 			//ここからは保存ボタンが押されたときに起こる処理！
@@ -371,7 +384,9 @@ public class HomeServlet extends HttpServlet {
 			 * // リクエストパラメータを取得する request.setCharacterEncoding("UTF-8");
 			 */
 			// 項目追加した分の数を取ってきている
-			int coun = Integer.parseInt(request.getParameter("coun"));
+			String counStr = request.getParameter("coun");
+			int coun = (counStr == null || counStr.trim().isEmpty()) ? 0 : Integer.parseInt(counStr);
+			
 
 			System.out.println("coun=" + coun);
 
@@ -426,39 +441,10 @@ public class HomeServlet extends HttpServlet {
 
 			    detalist.add(dto);
 			}
-			// 追加項目を受け取る
-			/*
-			 * for (int i = 0; i < coun; i++) {
-			 * 
-			 * Storage dto = new Storage();
-			 * 
-			 * dto.setTr_weight(Integer.parseInt(request.getParameter("tr_weight" + i)));
-			 * dto.setCounts(Integer.parseInt(request.getParameter("counts" + i)));
-			 * dto.setSets(Integer.parseInt(request.getParameter("sets" + i)));
-			 * dto.setTrItem(request.getParameter("it" + i));
-			 * dto.setMemo(request.getParameter("memo"+i));
-			 * dto.setUser_id(user.getUserId());
-			 * 
-			 * TrItemsDao trDao = new TrItemsDao();
-			 * 
-			 * // ここでとってきた名前をもとに String trItem = request.getParameter("it" + i);
-			 * 
-			 * // 名前がIDにかわる int trId = trDao.getTrIdByItem(trItem);
-			 * 
-			 * 
-			 * 
-			 * dto.setTr_id(trId); detalist.add(dto);
-			 * 
-			 * }
-			 */
+			
+			
 
-			System.out.println("データ件数: " + detalist.size());
-
-			// ユーザーIDなど
-			/*
-			 * int storageId = Integer.parseInt(request.getParameter("storage_id")); String
-			 * user_id = request.getParameter("user_id");
-			 */
+			
 
 			
 
@@ -477,6 +463,9 @@ public class HomeServlet extends HttpServlet {
 			mdto.setComments(request.getParameter("comments"));
 			mdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
 			mdto.setUser_id(user.getUserId());
+			
+			
+			
 			
 			
 			// 目標体重取得
@@ -505,11 +494,17 @@ public class HomeServlet extends HttpServlet {
 			
 			
 
-			for (Storage dto : detalist) {
-				vdao.insertTrStorage(dto);
+			// 追加項目（detalist）が空じゃないときだけ登録を実行する
+			//（これで項目なしでもエラーにならない）
+			if (detalist != null && !detalist.isEmpty()) {
+			    for (Storage dto : detalist) {
+			        vdao.insertTrStorage(dto);
+			    }
 			}
+
+			// 基本項目の登録（こちらは常に実行）
 			for (Storage dto : list) {
-				vdao.insertStorage(dto);
+			    vdao.insertStorage(dto);
 			}
 
 			
@@ -534,4 +529,7 @@ public class HomeServlet extends HttpServlet {
 		
 	}	
 }
+
+
+
 

@@ -340,6 +340,8 @@ public class SavesDao {
 			        
 			        
 			        
+			        
+			        
 		        // 1. saves から storages へ移行 (このユーザーの分だけ)
 			    //一行目でstoragesに入れることを明記
 			    //二行目でsavesから引っ張っていくことを明記

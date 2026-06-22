@@ -119,7 +119,8 @@
 
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
-<input type="submit" name="savetime" value="一時保存">
+<!-- <input type="submit" name="savetime" value="一時保存"> -->
+<input type="button" value="一時保存" onclick="submitTempSave()">
 
 
 
@@ -308,6 +309,36 @@
 	let count=0;
 	
 	
+	// ⭕ 追加する関数：一時保存ボタンを押したときに安全にチェックして送信する
+	function submitTempSave() {
+	    let weight = document.querySelector('input[name="weight"]').value;
+	    let fat = document.querySelector('input[name="fat"]').value;
+	    
+	    document.getElementById("weightEr").textContent = "";
+	    document.getElementById("fatEr").textContent = "";
+
+	    let err = false;
+	    if (weight.trim() === "") {
+	        document.getElementById("weightEr").textContent = "体重を入力してください";
+	        err = true;
+	    }
+	    if (fat.trim() === "") {
+	        document.getElementById("fatEr").textContent = "体脂肪を入力してください";
+	        err = true;
+	    }
+
+	    if (err) return; // エラーがあれば送信しない
+
+	    // 隠しボタンの代わりに、一時保存であることを示すパラメータを動的に作って送信
+	    let form = document.getElementById("homeForm");
+	    let hiddenInput = document.createElement("input");
+	    hiddenInput.type = "hidden";
+	    hiddenInput.name = "savetime";
+	    hiddenInput.value = "一時保存";
+	    form.appendChild(hiddenInput);
+	    
+	    form.submit();
+	} 
 	
 	
 
