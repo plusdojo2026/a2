@@ -532,6 +532,101 @@ public boolean friendAdd(Friend frAdd) {
 		// 結果を返す
 		return fmSearchAns;
 	}
+//===========================リクエスト承認用==============================
+
+		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		public boolean requestPermission(Friend rPermission) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+
+				// SQL文を準備する
+				String sql = "UPDATE friends SET "
+						+" friend_request = 1 "
+						+" WHERE user_id= ? "
+						+" AND friend_user_id = ? ";
+				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				// SQL文を完成させる
+
+				pStmt.setString(1, rPermission.getUserId());
+				pStmt.setString(2, rPermission.getFriendUserId());
+				
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// 結果を返す
+			return result;
+		}
+//===========================リクエスト却下用==============================
+
+		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		public boolean requestRejected(Friend rRejected) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+
+				// SQL文を準備する
+				String sql = "DELETE FROM friends  "
+						+" WHERE user_id= ? "
+						+" AND friend_user_id = ? ";
+				PreparedStatement pStmt = conn.prepareStatement(sql);		
+				// SQL文を完成させる
+
+				pStmt.setString(1, rRejected.getUserId());
+				pStmt.setString(2, rRejected.getFriendUserId());
+				
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// 結果を返す
+			return result;
+		}
 
 }
 

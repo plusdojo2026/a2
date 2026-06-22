@@ -13,23 +13,52 @@
 <!--　ヘッダーここから　-->
 <header>
 
-
-
 </header>
+
+
+
+
+
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
+
+<div class="form-container">
+
 <h1>新規会員登録</h1>
 <hr>
 <form method="POST" action="/a2/RegistServlet" id="fr">
-	ユーザーID*<input type="text" name="user_id"><br>
-	パスワード*<input type="text" name="password"><br>
-	ユーザー名*<input type="text" name="user"><br>
-	性別<input type="radio" name="gender" value="male"> 男性
-	　　　<input type="radio" name="gender" value="female"> 女性
-	　　　<input type="radio" name="gender" value="other" checked> その他<br>
-	身長*<input type="number" step="0.1" name="height"><br>
-	目標体重*<input type="number" step="0.1" name="target_weight"><br>
+<div class="form-group">
+	<label for="user-id">ユーザーID*</label>
+	<input type="text" name="user_id"><br>
+	</div>
+<div class="form-group">
+	<label for="password">パスワード*</label>
+	<input type="text" name="password"><br>
+	</div>
+<div class="form-group">
+	<label for="username">ユーザー名*</label>
+	<input type="text" name="user"><br>
+	</div>
+<div class="form-group">
+	<span class="label-text">性別</span>
+	<div class="radio-group">
+	    <label><input type="radio" name="gender" value="male"> 男性</label>
+	　　　<label><input type="radio" name="gender" value="female"> 女性</label>
+	　　　<label><input type="radio" name="gender" value="other" checked> その他</label><br>
+	    </div>
+	</div>
+<div class="form-group">
+	<label for="height">身長*</label>
+	<input type="number" step="0.1" name="height"><br>
+	</div>
+<div class="form-group">
+	<label for="weight">目標体重*</label>
+	<input type="number" step="0.1" name="target_weight"><br>
+	</div>
+	</form>
+</div>
+
 	
 	<p id="msg" style="color:red">*必須項目</p>
 	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
@@ -38,7 +67,7 @@
 
 <input type="button"  onclick="re()" value="リセット">
 <input type="submit"  value="登録">
-</form>
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
