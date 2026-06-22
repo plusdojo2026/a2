@@ -14,6 +14,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </head>
 <body>
 <!-----------　ヘッダーここから　----------->
+<div class="app-wrapper">
 <header>
     <div class="header-left">
         <span id="today"></span>
@@ -199,16 +200,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		                
 		                '<div id="edit-error-msg-' + obj.id + '" style="color: red;"></div>' +
 	                    	
-	                    '<div class="training-row">' +
-	                        '<span class="item">種目: ' + itemSelectHtml + '</span>' +
-	                        '<span class="item">重量: <input type="number" name="tr_weight" value="' + obj.tr_weight + '" class="input-small">kg</span>' +
-	                        '<span class="item">回数: <input type="number" name="counts" value="' + obj.counts + '" class="input-small">回</span>' +
-	                        '<span class="item">セット: <input type="number" name="sets" value="' + obj.sets + '" class="input-small"></span>' +
-	                        '<span class="item">メモ: <input type="text" name="tr_memo" value="' + (obj.memo || "") + '" class="input-med"></span>' +
-	                        	
-	                        '<button type="submit" class="btn-edit">変更</button>' +
-	                        '<button type="button" class="btn-delete" onclick="if(confirm(\'削除しますか？\')){ this.form.querySelector(\'.action-field\').value=\'delete\'; this.form.submit(); }">削除</button>' +
-	                    '</div>' +
+		                '<div class="training-grid">' +
+			                '<div class="grid-item full-width"><span class="label-text">種目ID:</span> ' + itemSelectHtml + '</div>' +
+			                '<div class="grid-item"><span class="label-text">重量:</span> <input type="number" name="tr_weight" value="' + obj.tr_weight + '" class="input-small"> kg</div>' +
+			                '<div class="grid-item"><span class="label-text">回数:</span> <input type="number" name="counts" value="' + obj.counts + '" class="input-small"> 回</div>' +
+			                '<div class="grid-item"><span class="label-text">セット:</span> <input type="number" name="sets" value="' + obj.sets + '" class="input-small"></div>' +
+			                '<div class="grid-item full-width"><span class="label-text">メモ:</span> <input type="text" name="tr_memo" value="' + (obj.memo || "") + '" class="input-med"></div>' +
+			            '</div>' +
+			            '<div class="button-group">' +
+			                '<button type="submit" class="btn-edit">変更</button>' +
+			                '<button type="button" class="btn-delete" onclick="if(confirm(\'削除しますか？\')){ this.form.querySelector(\'.action-field\').value=\'delete\'; this.form.submit(); }">削除</button>' +
+			            '</div>' +
 	                '</form>';
 	        });
 	    }
@@ -228,18 +230,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		        
 		        '<div id="add-error-msg" style="color: red;"></div>' +
 		        
-	            '<div class="training-row">' +
-	                '<span class="item">種目: ' +
-	                    '<select name="tr_id" class="input-select">' +
-	                        optionsHtml +
-	                    '</select>' +
-	                '</span>' +
-	                '<span class="item">重量: <input type="number" name="tr_weight" value="0" class="input-small">kg</span>' +
-	                '<span class="item">回数: <input type="number" name="counts" value="0" class="input-small">回</span>' +
-	                '<span class="item">セット: <input type="number" name="sets" value="0" class="input-small"></span>' +
-	                '<span class="item">メモ: <input type="text" name="tr_memo" class="input-med" placeholder="補足など"></span>' +
-	                '<button type="submit" class="btn-add">追加</button>' +
-	            '</div>' +
+		        '<div class="training-grid">' +
+		            '<div class="grid-item full-width"><span class="label-text">種目:</span> <select name="tr_id" class="input-select">' + optionsHtml + '</select></div>' +
+		            '<div class="grid-item"><span class="label-text">重量:</span> <input type="number" name="tr_weight" value="0" class="input-small"> kg</div>' +
+		            '<div class="grid-item"><span class="label-text">回数:</span> <input type="number" name="counts" value="0" class="input-small"> 回</div>' +
+		            '<div class="grid-item"><span class="label-text">セット:</span> <input type="number" name="sets" value="0" class="input-small"></div>' +
+		            '<div class="grid-item full-width"><span class="label-text">メモ:</span> <input type="text" name="tr_memo" class="input-med" placeholder="補足など"></div>' +
+		        '</div>' +
+		        '<div class="button-group">' +
+		            '<button type="submit" class="btn-add">追加</button>' +
+		        '</div>' +
 	        '</form>';
 	
 	    document.getElementById("modal-bg").style.display = "block";
@@ -391,5 +391,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	document.getElementById('today').textContent=text;
 	}
 </script>
+</div>
 </body>
 </html>

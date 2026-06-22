@@ -307,7 +307,8 @@ public class FriendsDao {
 					+" user_id,"
 					+" icon_id"
 					+" FROM users"
-					+" WHERE user_id=?";
+					+" WHERE user_id=?"
+					+" AND logical_delete = 0";
 					
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -401,7 +402,136 @@ public boolean friendAdd(Friend frAdd) {
 	// 結果を返す
 	return result;
 }
-
+//==========================リクエスト受けてるか確認=============================
+	public List<Friend> requestSearch(Friend rqSearch) {
+		Connection conn = null;
+		List<Friend> rqSearchAns = new ArrayList<Friend>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+	
+			// SQL文を準備する//
+			String sql = "SELECT "
+					+" f.user_id,"
+					+" u.user_name,"
+					+" u.icon_id,"
+					+" u.point"
+					+" FROM friends f"
+					+" JOIN users u"
+					+" ON f.user_id = u.user_id"
+					+" WHERE f.friend_user_id = ? "
+					+" AND f.friend_request = 0 ";
+			
+					
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			//?に代入する
+			pStmt.setString(1,rqSearch.getUserId());
+	
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+	
+			// 結果表をコレクションにコピーする
+			while(rs.next()) {
+				Friend rAns = new Friend(
+						rs.getString("user_id"),
+						null,
+						0,
+						rs.getString("user_name"),
+						rs.getInt("icon_id"),
+						rs.getInt("point")
+						);
+				rqSearchAns.add(rAns);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			rqSearch = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			rqSearch = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		// 結果を返す
+		return rqSearchAns;
+	}
+//==========================リクエスト出来ているかの確認=============================
+	public List<Friend> requestFromMeSearch(Friend fmSearch) {
+		Connection conn = null;
+		List<Friend> fmSearchAns = new ArrayList<Friend>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+	
+			// SQL文を準備する//
+			String sql = "SELECT "
+					+" u.user_id,"
+					+" u.user_name,"
+					+" u.icon_id,"
+					+" u.point"
+					+" FROM friends f"
+					+" JOIN users u"
+					+" ON f.friend_user_id = u.user_id"
+					+" WHERE f.user_id = ? "
+					+" AND f.friend_request = 0 ";
+			
+					
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			//?に代入する
+			pStmt.setString(1,fmSearch.getUserId());
+	
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+	
+			// 結果表をコレクションにコピーする
+			while(rs.next()) {
+				Friend rAns = new Friend(
+						rs.getString("user_id"),
+						null,
+						0,
+						rs.getString("user_name"),
+						rs.getInt("icon_id"),
+						rs.getInt("point")
+						);
+				fmSearchAns.add(rAns);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			fmSearch = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			fmSearch = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		// 結果を返す
+		return fmSearchAns;
+	}
 
 }
 

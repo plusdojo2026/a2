@@ -98,13 +98,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <main>
 	<nav class="tab-menu">
 		<ul>
-			<li><a href="FriendListServlet" class="active">フレンド</a></li>
-			<li><a href="GroupListServlet">グループ</a></li>
-			<li><a href="RequestServlet">リクエスト</a></li>
-			<li><a href="RankingServlet">ランキング</a></li>
+			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
+			<li><a href="/a2/RequestServlet">リクエスト</a></li>
 		</ul>
 	</nav>
-	
+	<p><c:out value="${message}"/></p>
+	<p id="msg"></p>
 	<div class="search-area">
 		<form action="/a2/FriendListServlet" method="POST" id="form">
 			<label for="searchId">ID検索：</label>
@@ -185,7 +184,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 					名前: ${searchAns.userName}
 				</div>
 				<!-- フレンド申請 -->
-				<form action="FriendRequestServlet" method="post">
+				<form action="FriendAddServlet" method="post">
 					<input type="hidden" name="targetUserId" value="${searchAns.userId}" id="sCheck">
 					<button type="submit">
 						フレンド申請
@@ -276,6 +275,11 @@ document.getElementById('form').onsubmit = function(event){
 	// 申請中
 	if(alreadyFriendIds.includes(searchId)){
 		alert('リクエスト中または、リクエスト承認待ちです。');
+		event.preventDefault();
+	}
+	// 空の文字列
+	if(searchId===''){
+		alert('IDを入力してください');
 		event.preventDefault();
 	}
 }
