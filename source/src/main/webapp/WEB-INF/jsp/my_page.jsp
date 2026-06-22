@@ -21,6 +21,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </style>  -->
 </head>
 <body>
+<div class="app-wrapper">
 <!--ヘッダーここから-->
 <header>
     <div class="header-left">
@@ -143,5 +144,6 @@ window.addEventListener("scroll", () => {
   lastScroll = current;
 });
 </script>
+</div>
 </body>
 </html>

@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><!--デバイスの幅に合わせる-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>フレンド一覧</title>
@@ -89,6 +90,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </head>
 <body>
+<div class="app-wrapper">
 <!--*=====ヘッダーここから=====*-->
 <header>
 
@@ -312,5 +314,6 @@ function closeSearchModal() {
     document.getElementById("search-modal").style.display = "none";
 }
 </script>
+</div>
 </body>
 </html>

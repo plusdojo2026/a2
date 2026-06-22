@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--デバイスの幅に合わせる-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="app-wrapper">
 <!--　ヘッダーここから　-->
 <header>
 
@@ -54,5 +57,6 @@
 
 </footer>
 <!--　フッターここまで　-->
+</div>
 </body>
 </html>
