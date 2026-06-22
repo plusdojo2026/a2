@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--デバイスの幅に合わせる-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>マメッスル　カレンダー</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
 <link rel="stylesheet"
