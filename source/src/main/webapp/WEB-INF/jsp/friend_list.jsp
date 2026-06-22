@@ -200,10 +200,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <footer>
 <nav class="bottom-bar" id="bar">
   <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up"></i></a>
-  <a href="/a2/FriendListServlet"><i class="fa-solid fa-user-group"></i></a>
+  <a href="/a2/FriendListServlet"><i class="fa-solid fa-user-group nowpage"></i></a>
   <a href="/a2/HomeServlet"><i class="fa-regular fa-square-plus"></i></a>
   <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
-  <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user nowpage"></i></a>
+  <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user"></i></a>
 </nav>
 </footer>
 <script>
