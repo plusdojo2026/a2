@@ -131,7 +131,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 				    
 					<label>メモ：</label>
 					<br>
-				    <textarea name="memo" id="modal-memo" rows="3"></textarea>
+				    <textarea name="comments" id="modal-memo" rows="3"></textarea>
 				
 				    <button type="submit">更新</button>
 	            </form>
@@ -164,14 +164,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	//const weightMapJs = ${weightMapJson};
 
 	// モーダルを開く関数
-	function openModal(date, stamp, memo, list, weight) {
+	function openModal(date, stamp, comments, list, weight) {
 	    document.getElementById("modal-date").innerText = date;
 	    document.getElementById("modalDate").value = date;
 	
 	    // スタンプ初期値
 	    document.querySelector("select[name='stamp']").value = stamp;
 	    // トレーニング内容初期値
-	    document.getElementById("modal-memo").value = memo || "";
+	    document.getElementById("modal-memo").value = comments || "";
 	 	// 体重初期値
 	    document.getElementById("modal-weight").value = weight || "";
 	    	

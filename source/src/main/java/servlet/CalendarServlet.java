@@ -140,10 +140,10 @@ public class CalendarServlet extends HttpServlet {
             // 既存の「スタンプ・体重・全体メモ」の更新
             String date = request.getParameter("date");
             int stamp = Integer.parseInt(request.getParameter("stamp"));
-            String memo = request.getParameter("memo");
+            String comments = request.getParameter("comments");
             double weight = Double.parseDouble(request.getParameter("weight"));
             
-            dao.saveRecord(userId, date, stamp, memo, weight);
+            dao.saveRecord(userId, date, stamp, comments, weight);
 
         } else if (action.equals("update")) {
             // トレーニング内容の「変更」
