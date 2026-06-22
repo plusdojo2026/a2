@@ -97,9 +97,10 @@
 
 <h2>基本データ</h2>
 
-体重(kg)　<input type="text" name="weight" value="${weight}"><br>
-体脂肪率(％)<input type="text" name="fat" value="${fat}"><br>
-
+体重(kg)　<input type="number" name="weight" value="${weight}" step="0.1" required><br>
+体脂肪率(％)<input type="number" name="fat" value="${fat}" step="0.1" required><br>
+<div id="weightEr" style="color:red;"></div>
+<div id="fatEr" style="color:red;"></div>
 
 <!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
@@ -250,20 +251,53 @@
 	
 	
 	
+
 	
 	
 	
+	
+	
+
 	
 	
 	//保存用の時のモーダル
 	function openSaveModal() {
 		
 		
+		
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
 		//inputの中のname="fat"のvalueを取り出す（中身ということ）
-	    let fat = document.querySelector('input[name="fat"]').value;
+	    let fat = document.querySelector('input[name="fat"]').value; 
+		
+		
+		
+		
+		//体重が空欄だった場合 err = true;はエラーがあったということ
+	    if (weight.trim() === "") {
+	        document.getElementById("weightEr").textContent =
+	            "体重を入力してください";
+	        err = true;
+	    }
+
+		
+	  //体脂肪が空欄だった場合
+	    if (fat.trim() === "") {
+	        document.getElementById("fatEr").textContent =
+	            "体脂肪を入力してください";
+	        err = true;
+	    }
+		
+		//ここでまとめて返すことでどっちも表示できる
+	    if (err) {
+	        return;
+	    }
+	  
+	  
+	  
+	  
+	  
 		
 	  	//inputの中のname="comments"のvalueを取り出す（中身ということ）
 	    let comments = document.querySelector('textarea[name="comments"]').value;
@@ -273,6 +307,9 @@
 	    let stampText = select.options[select.selectedIndex].text;
 	  	
 	  	
+	    
+	    
+	    
 	  	
 	  	//空箱づくり
 	    let html = "";
@@ -699,8 +736,8 @@
  	
  	changestamp();
  	
-/*  	const trSaveJson =${trSaveJson};
-	alert(trSaveJson[0].getTrItem()); */
+ 	/* const trSaveJson =JSON.parse('${trSaveJson}');
+	alert(trSaveJson[0].getTrItem());  */
  	}
  	
  	
@@ -814,7 +851,7 @@
 	} 
     
 	
-	//ヘッダー日付表示用
+/* 	//ヘッダー日付表示用
 	 window.onload = function(){
 	const now =new Date();
 	const year = now.getFullYear();
@@ -842,7 +879,7 @@
 	}
 	document.getElementById('today').textContent=text;
 	}
-
+ */
   </script>
 
 </body>
