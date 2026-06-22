@@ -254,6 +254,16 @@
         <p>
             カレンダーページから入力内容の変更ができます。
         </p>
+        
+        <br>
+        
+        <c:if test="${goalAchieved}">
+	    <p style="color:red;">
+	        🎉目標体重達成おめでとうございます！🎉<br>
+	        目標体重の変更はマイページから更新できます！<br>
+	        あなたは最強の豆ですね！！
+	    </p>
+		</c:if>
         <!-- <p>
         <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
         </p> -->
