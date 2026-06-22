@@ -56,6 +56,27 @@
     /* 内容がはみ出たらスクロール */
       overflow-y:auto;
     }
+    //モーダルが出た状態でもクリックできるようにした
+/*     .bottom-bar{
+    	z-index: 9999;
+    	position: relative;
+    	background-color:white;
+    } */
+    #bar{
+    	z-index: 20;
+    	position: relative;
+    	background-color:white;
+    }
+    .footer{
+    	position:relative;
+    	z-index: 20;
+    	background-color:white;
+    }
+    .logo, .bean-info{
+    	position:relative;
+    	z-index: 20;
+    	background-color:white;
+    }
     
   </style>
   
@@ -233,7 +254,9 @@
         <p>
             カレンダーページから入力内容の変更ができます。
         </p>
-        
+        <!-- <p>
+        <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
+        </p> -->
         <br>
 
     </div>
@@ -656,8 +679,9 @@
    			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
-   			weightinput.type = "text";
+   			weightinput.type = "number";
    			weightinput.name ="tr_weight"+ count;
+   			weightinput.step ="0.1"
    			div.appendChild(weightinput);
 			
 			
@@ -676,7 +700,7 @@
    			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
-			countinput.type = "text";
+			countinput.type = "number";
 			countinput.name ="counts" + count;
 			div.appendChild(countinput);
    			
@@ -694,7 +718,7 @@
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
-			setinput.type = "text";
+			setinput.type = "number";
 			setinput.name ="sets" + count;
 			div.appendChild(setinput);
 			
@@ -833,7 +857,7 @@
     div.appendChild(document.createElement("br"));
 
     const weightinput = document.createElement("input");
-    weightinput.type = "text";
+    weightinput.type = "number";
     weightinput.name = "tr_weight" + count;
     weightinput.value = weight;
 
@@ -846,7 +870,7 @@
     div.appendChild(document.createElement("br"));
 
     const countinput = document.createElement("input");
-    countinput.type = "text";
+    countinput.type = "number";
     countinput.name = "counts" + count;
     countinput.value = counts;
 
@@ -859,7 +883,7 @@
     div.appendChild(document.createElement("br"));
 
     const setinput = document.createElement("input");
-    setinput.type = "text";
+    setinput.type = "number";
     setinput.name = "sets" + count;
     setinput.value = sets;
 
