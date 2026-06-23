@@ -116,6 +116,11 @@
         ${message}
     </div>
 </c:if>
+<c:if test="${not empty message2}">
+    <div style="color: blue;">
+        <a href="FriendrequestsServlet">フレンド申請</a>が来てます！
+    </div>
+</c:if>
 
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
@@ -580,7 +585,7 @@
     	const  div = document.createElement("div");
     	div.id = "item"+count;
     	
-    	
+    	//項目追加した時に線を入れている
     	div.style.borderTop = "1px solid #ccc";
     	div.style.marginTop = "20px";
     	div.style.paddingTop = "20px";

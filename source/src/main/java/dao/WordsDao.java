@@ -23,7 +23,7 @@ public class WordsDao {
 
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 
 			// SQL文を準備する,検索SELECTで氏名と都道府県について検索し登録番号の昇順で表示
 			String sql = " SELECT word ,word_of_day "

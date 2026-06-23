@@ -36,7 +36,7 @@ public class TrItemsDao {
 	    	// データベースに接続する
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 	    	+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-	    	"root", "password");
+	    	"a2", "Q9wE3rJYtjnxjH4g");
 	    	
 	    	// SQL文を準備する
 	    	String sql ="SELECT tr_item FROM tr_items";
@@ -78,7 +78,7 @@ public class TrItemsDao {
 		    	
 		    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 		    	    	+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-		    	    	"root", "password");
+		    	    	"a2", "Q9wE3rJYtjnxjH4g");
 		    	    	
 
 		    	
@@ -120,7 +120,7 @@ public class TrItemsDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 				
 				String sql = "SELECT tr_id, tr_item FROM tr_items ORDER BY tr_id ASC";
 				ps = conn.prepareStatement(sql);

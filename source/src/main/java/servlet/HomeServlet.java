@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import dao.FriendsDao;
 import dao.SavesDao;
 import dao.StoragesDao;
 import dao.TrItemsDao;
@@ -32,18 +33,29 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// セッションからユーザー情報を取得
 		//sessionという名前を付けた sessionという箱に
-		HttpSession session = request.getSession();
+    	HttpSession session = request.getSession();
+    	//"user"という名前で保存されているデータを取り出している
+    	User user = (User) session.getAttribute("user");
+    	// ログインしていない場合はログイン画面に飛ばす
+    	if (user == null) {
+    		response.sendRedirect("/a2/LoginServlet");
+    		return;
+    	}
+    	// ログイン中のユーザーIDを取得
+    	String userId = user.getUserId();
+		
+		
 
-		//"user"という名前で保存されているデータを取り出している
-	    User user = (User)session.getAttribute("user");
+		
+	  
 	    
 	    
-	    // ログインチェック：ログインしていなければログイン画面へ即リダイレクト
-	    if (user == null) {
-	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
-	        return;
-	    }
+		/*
+		 * // ログインチェック：ログインしていなければログイン画面へ即リダイレクト if (user == null) {
+		 * response.sendRedirect(request.getContextPath() + "/LoginServlet"); return; }
+		 */
 	    
 	    
 	    // 現在の日付（今日）を取得 コピペ
@@ -204,11 +216,11 @@ public class HomeServlet extends HttpServlet {
 	    if ("tempSaved".equals(msg)) {
 	        request.setAttribute("message", "一時保存できました");
 	    }
-	    
-	    
-	    
-
-	    	
+	  //フレンド申請確認用
+	    FriendsDao dao = new FriendsDao();
+	    if (dao.requestCheck(userId)) { 
+			session.setAttribute("message2","フレンド申請が来てます！");
+		}
 		
 	    	// メニューページにフォワードする
 	 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");

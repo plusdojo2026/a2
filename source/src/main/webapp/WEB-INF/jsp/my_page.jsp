@@ -48,12 +48,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         名前：<c:out value="${userInfo.userName}"/>
     </div>
 </div>
-
-<div>
-<a href="/a2/DesignServlet" class="design">
-	背景・アイコンの変更
-</a>
-</div>
 <br>
 <div>
 <a href="/a2/EditProfileServlet" class="profile">

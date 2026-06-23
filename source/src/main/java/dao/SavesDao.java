@@ -32,7 +32,7 @@ public class SavesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			
 			
@@ -111,14 +111,9 @@ public class SavesDao {
 
 		        Class.forName("com.mysql.cj.jdbc.Driver");
 
-		        conn = DriverManager.getConnection(
-		            "jdbc:mysql://localhost:3306/a2?"
-		            + "characterEncoding=utf8&useSSL=false"
-		            + "&serverTimezone=GMT%2B9",
-		            "root",
-		            "password"
-		        );
-
+		        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"a2", "Q9wE3rJYtjnxjH4g");
 		        String sql =
 		            "DELETE FROM tr_saves WHERE user_id = ?";
 
@@ -155,13 +150,9 @@ public class SavesDao {
 
 		        Class.forName("com.mysql.cj.jdbc.Driver");
 
-		        conn = DriverManager.getConnection(
-		            "jdbc:mysql://localhost:3306/a2?"
-		            + "characterEncoding=utf8&useSSL=false"
-		            + "&serverTimezone=GMT%2B9",
-		            "root",
-		            "password"
-		        );
+		        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 		        String sql =
 		            "SELECT weight,fat,comments,stamp " +
@@ -214,7 +205,7 @@ public class SavesDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 				
 
 
@@ -256,7 +247,7 @@ public class SavesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			
 			//古いデータを削除するSQL文
@@ -321,13 +312,9 @@ public class SavesDao {
 		        Class.forName("com.mysql.cj.jdbc.Driver");
 
 		        // データベースに接続する
-		        conn = DriverManager.getConnection(
-		            "jdbc:mysql://localhost:3306/a2?"
-		            + "characterEncoding=utf8&useSSL=false"
-		            + "&serverTimezone=GMT%2B9",
-		            "root",
-		            "password"
-		        );
+		        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 		        String sql =
 		                "SELECT t.tr_item, s.tr_weight, s.counts, s.sets, s.memo "
@@ -385,14 +372,9 @@ public class SavesDao {
 		    try {
 		    	 Class.forName("com.mysql.cj.jdbc.Driver");
 
-			        conn = DriverManager.getConnection(
-			            "jdbc:mysql://localhost:3306/a2?"
-			            + "characterEncoding=utf8&useSSL=false"
-			            + "&serverTimezone=GMT%2B9",
-			            "root",
-			            "password"
-			        );
-
+		    	 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+							+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+							"a2", "Q9wE3rJYtjnxjH4g");
 			        
 			        
 			        
