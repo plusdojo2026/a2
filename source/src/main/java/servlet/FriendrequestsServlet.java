@@ -20,7 +20,7 @@ import dto.User;
 public class FriendrequestsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//セッション
 		HttpSession session = request.getSession();
     	User user = (User) session.getAttribute("user");
@@ -95,19 +95,20 @@ public class FriendrequestsServlet extends HttpServlet {
 		
 		if ("approve".equals(action)) {
 			if (dao.requestPermission(actionFriend)) { // 🟢 承認（UPDATE）成功
-				session.setAttribute("message","["+ userId +"]とフレンドになりました!");
+				session.setAttribute("message","フレンドになりました!");
 			} else { //承認（UPDATE）失敗
 				session.setAttribute("message", "承認失敗");
 			}
         } else if ("reject".equals(action)) {
         	if (dao.requestRejected(actionFriend)) { 
-        		session.setAttribute("message", "["+ userId +"]のフレンド申請を拒否しました");
+        		session.setAttribute("message", "フレンド申請を拒否しました");
 			} else { 
 				session.setAttribute("message", "フレンド申請を拒否できませんでした");
 			}
         }
 
         // 処理が終わったら、リクエスト一覧画面（RequestServlet）に引き返す
-        response.sendRedirect(request.getContextPath() + "/a2/FriendrequestsServlet");
+       response.sendRedirect(request.getContextPath() + "/FriendrequestsServlet");
+
     }
 }
