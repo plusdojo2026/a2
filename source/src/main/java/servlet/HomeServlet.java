@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import dao.FriendsDao;
 import dao.SavesDao;
 import dao.StoragesDao;
 import dao.TrItemsDao;
@@ -215,11 +216,11 @@ public class HomeServlet extends HttpServlet {
 	    if ("tempSaved".equals(msg)) {
 	        request.setAttribute("message", "一時保存できました");
 	    }
-	    
-	    
-	    
-
-	    	
+	  //フレンド申請確認用
+	    FriendsDao dao = new FriendsDao();
+	    if (dao.requestCheck(userId)) { 
+			session.setAttribute("message2","フレンド申請が来てます！");
+		}
 		
 	    	// メニューページにフォワードする
 	 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
