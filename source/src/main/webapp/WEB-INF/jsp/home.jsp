@@ -116,6 +116,11 @@
         ${message}
     </div>
 </c:if>
+<c:if test="${not empty message2}">
+    <div style="color: blue;">
+        ${message2}
+    </div>
+</c:if>
 
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
