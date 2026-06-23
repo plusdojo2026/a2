@@ -155,11 +155,16 @@ public class HomeServlet extends HttpServlet {
 		
 		Object weight = session.getAttribute("weight");
 
+		//画面を開いたときに体重・体脂肪・メモ・スタンプどこから取得するか決めるための文
+		//weight == null もしセッションに体重が入ってなかったら（ログインしなおしたときやブラウザ閉じた時のため）
 		if(weight == null){
 
 		    Save save = sdao.selectSave(user.getUserId());
 
+		    //もし一時保存のところに入っていたら データベースに入っていたら（nullじゃなかったら）
 		    if(save != null){
+		    	
+		    	//jspにデータを渡してあげる（データを表示させてあげるため）
 		        request.setAttribute("weight", save.getWeight());
 		        request.setAttribute("fat", save.getFat());
 		        request.setAttribute("comments", save.getComments());
@@ -168,6 +173,9 @@ public class HomeServlet extends HttpServlet {
 
 		}else{
 
+			//weight == nullに対してのelse もしセッションに体重が入っていたら！
+			
+			//その場合はセッションからとってくるようにする
 		    request.setAttribute("weight", session.getAttribute("weight"));
 		    request.setAttribute("fat", session.getAttribute("fat"));
 		    request.setAttribute("comments", session.getAttribute("comments"));
@@ -177,14 +185,7 @@ public class HomeServlet extends HttpServlet {
 		
 		
 
-		// IDが削除された場合、同じIDでログインしてホームに飛べないようにする
 
-//		String userId = "mamemame01";
-//		
-//		// 登録処理を行う
-//		UsersDao uDao = new UsersDao();
-//		int logocal = uDao.getLogical(userId);
-//		
 
 		
 		
@@ -192,9 +193,10 @@ public class HomeServlet extends HttpServlet {
 		
 		// スタンプを取得している
 //		String userId = request.getParameter();
-		//下の実装は上で行っている
+		
 		/* StoragesDao stdao = new StoragesDao(); */
 
+		//下の実装は上で行っている
 		List<Integer> stampList = stdao.getStampList();
 
 		request.setAttribute("stampList", stampList);
@@ -223,7 +225,7 @@ public class HomeServlet extends HttpServlet {
 	}
 		 
 
-		// ここで色んな処理をする（daoに処理を依頼して、requestにセットしたりする）
+	
 
 		
 
@@ -332,11 +334,7 @@ public class HomeServlet extends HttpServlet {
 			}
 
 						
-			// ユーザーIDなどをもってきて作るところ
-			/*
-			 * int storageId = Integer.parseInt(request.getParameter("storage_id")); String
-			 * user_id = request.getParameter("user_id");
-			 */
+			
 
 				
 			//二つ目のリストを作る（データベースが違うので違う豆を作る）
