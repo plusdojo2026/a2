@@ -46,14 +46,14 @@ ${Sw.word_of_day}
 </div>
 
 <div>
-	トレーニング項目：<select id="itemSelect" onchange="changeItem()">
+	<label for="itemSelect">トレーニング項目：</label><select id="itemSelect" onchange="changeItem()">
 		 <c:forEach var="gi" items="${WeekGraph}">
 		<option value="${gi.key}"><c:out value="${gi.key}"/>
 		 </option>
 	 	</c:forEach> 
 	</select>
 </div> 
-		重量：<select id="weightSelect" onchange="changeWeight()">
+		<label for="weightSelect">重量：</label><select id="weightSelect" onchange="changeWeight()">
 </select><br>
 
 
@@ -66,10 +66,10 @@ ${Sw.word_of_day}
 <!-- 表示変更 -->
 <ul>
 <li>
-<button onclick="updateChart(weekData)" >直近7回の記録</button>
+<button id ="cbutton" onclick="updateChart(weekData)" >直近7回の記録</button>
 </li>
 <li>
-<button onclick="updateChart(monthData)" >直近30回の記録</button>
+<button id ="cbutton" onclick="updateChart(monthData)" >直近30回の記録</button>
 </li>
 </ul>
 
