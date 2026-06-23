@@ -4,10 +4,15 @@
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
+  color: #fff;
+  font-size: 40px !important;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+  
 }
 
 .logo {
     text-align: center;
+    
 }
 
 /* 画像の「大きな角丸の箱」を作る部分 */

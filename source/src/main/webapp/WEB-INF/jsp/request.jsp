@@ -34,7 +34,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	</nav>
 	
 <main style="max-width: 500px; margin: 50px auto; padding: 20px;  border-radius: 10px;">
-
+<p><c:out value="${message}"/></p>
 
 	    <h2>フレンド申請</h2>
     <ul style="list-style: none; padding: 0;">
@@ -50,6 +50,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 
                 <form action="/a2/FriendrequestsServlet" method="POST" style="margin: 0;">
                     <input type="hidden" name="targetUserId" value="${req.userId}"> 
+      
                     
                     <div style="display: flex; gap: 10px;">
                     

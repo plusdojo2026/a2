@@ -26,6 +26,7 @@
 
 <div class="logo">
 <h1>マメッスル</h1>
+
 </div>
 
 <div class="form-container">
