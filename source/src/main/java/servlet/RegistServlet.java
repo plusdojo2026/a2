@@ -63,5 +63,19 @@ public class RegistServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
+	
+	    
+	    // どのボタンが押されたかを取得
+	    String action = request.getParameter("action");
+	    
+	    if (action != null && action.equals("back")) {
+	        // --- 戻るボタンが押されたときの処理 ---
+	        
+	        // 前の画面にリダイレクト
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
+	    }
 	}
+	
+	
 }

@@ -71,6 +71,7 @@
 
 
 	<input type="button"  onclick="re()" value="リセット">
+	<input type="button"  onclick="location.href='/a2/login.jsp'" value="戻る">
 	<input type="submit"  value="登録">
 	
 </form>
@@ -126,6 +127,8 @@ document.getElementById('fr').onsubmit = function(event){
 
 	    
 	}
+    
+   
 
 </script>
 
