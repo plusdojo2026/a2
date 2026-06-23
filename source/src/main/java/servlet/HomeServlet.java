@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,30 +48,39 @@ public class HomeServlet extends HttpServlet {
 	    // 現在の日付（今日）を取得 コピペ
         java.time.LocalDate today = java.time.LocalDate.now();
         
+       
         // セッションから「前回チェックした日付」を取得
-        java.time.LocalDate lastCheckDate = (java.time.LocalDate) session.getAttribute("lastCheckDate");
-	    
-	    
-	    
-	    
-	        
-        // 初回アクセス、または日付が変わっていた場合
-        if (lastCheckDate == null || !lastCheckDate.equals(today)) {
+        LocalDate lastCheckDate = (LocalDate) session.getAttribute("lastCheckDate");
+      //今日もう一時データを本保存に移したかどうか ストッパーになる
+        Boolean migratedToday = (Boolean) session.getAttribute("migratedToday");
+
+        
+        
+        
+        //lastCheckDate == null ではまた今日チェックしていないか（つまり初回ログイン、アクセスか）
+        //!lastCheckDate.equals(today) は前回見た日付と違うか
+        //&& (migratedToday == null || !migratedToday)) ではnull と falseが移行していないという意味
+        //日付が変わっていて、まだ移行してない時だけ回す処理をしている
+        // lastCheckDateがnullなら「まだ判定しない」
+        if (lastCheckDate != null
+                && !lastCheckDate.equals(today)
+                && (migratedToday == null || !migratedToday)) {
+
+        	SavesDao sdao = new SavesDao();
         	
-        	// ここで一時保存データを本保存に移行する（Daoのメソッドを呼ぶ）
-            SavesDao sdao = new SavesDao();
-            sdao.migrateTempToMain(user.getUserId()); // ユーザーIDを渡して、その人の分だけ移行
+            sdao.migrateTempToMain(user.getUserId());
+            session.setAttribute("migratedToday", true);
+            
+            
         }
+        
+        
+	  
 	        
 	        // 日付チェック更新
             session.setAttribute("lastCheckDate", today);
             
-            // 自動保存されたので、画面表示用の一時保存セッションもさっぱり消しておく
-            session.removeAttribute("weight");
-            session.removeAttribute("fat");
-            session.removeAttribute("comments");
-            session.removeAttribute("stamp");
-	    	
+			
 	    
 	    
 	
@@ -124,8 +134,7 @@ public class HomeServlet extends HttpServlet {
 		//saveDetailList を"saveDetailList"という名前でjspに渡してる
 		request.setAttribute("saveDetailList", saveDetailList);
 		
-		// ここで定義されているので、この if 文の中でしか svdetalist は使えません
-		ArrayList<Save> svdetalist = new ArrayList<>();
+		
 		
 		
 		//セッションに保存していた値をJSPへ渡している処理をする このタイミングでセッションから取り出している
@@ -138,8 +147,7 @@ public class HomeServlet extends HttpServlet {
 
 		request.setAttribute("stamp",request.getSession().getAttribute("stamp"));
 		
-		// 先ほど追加したカスタム項目のリストもここに並びます
-		session.setAttribute("sessionTrList", svdetalist);
+		
 		
 
 		// IDが削除された場合、同じIDでログインしてホームに飛べないようにする
@@ -514,11 +522,11 @@ public class HomeServlet extends HttpServlet {
 			sdao.deleteSaves(user.getUserId());
 			
 			
-			//セッションからも情報を取り除く
-			session.removeAttribute("weight");
-		    session.removeAttribute("fat");
-		    session.removeAttribute("comments");
-		    session.removeAttribute("stamp");
+			/*
+			 * //セッションからも情報を取り除く session.removeAttribute("weight");
+			 * session.removeAttribute("fat"); session.removeAttribute("comments");
+			 * session.removeAttribute("stamp");
+			 */
 		    
 
 			response.sendRedirect(request.getContextPath() + "/HomeServlet");
