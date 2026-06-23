@@ -38,11 +38,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　メインここから　-->
 <main>
 
-<div>
+<div id = " todaycomment ">
 今日のひとこと：
+<div id= " daycomment ">
 <c:forEach var="Sw" items="${SelectWord}">
 ${Sw.word_of_day}
 </c:forEach>
+</div>
 </div>
 
 <div>
