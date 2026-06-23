@@ -70,14 +70,6 @@ public class HomeServlet extends HttpServlet {
         
         
         
-        //lastCheckDate == null ではまた今日チェックしていないか（つまり初回ログイン、アクセスか）
-        
-        //!lastCheckDate.equals(today) は前回見た日付と違うか
-        
-        //&& (migratedToday == null || !migratedToday)) ではnull と falseが移行していない（本保存にいっていない）という意味
-       
-        // lastCheckDateがnullなら「まだ判定しない」
-        
         
         //つまり、日付が変わっていて、まだ自動保存の移行をしていないときだけ処理を実行する
         if (lastCheckDate != null
@@ -114,6 +106,7 @@ public class HomeServlet extends HttpServlet {
 	    request.setAttribute("todaySaved",todaySaved);
 	    
 	    
+	    
 	    //目標体重の判別用
 	    Boolean goalAchieved =(Boolean)session.getAttribute("goalAchieved");
 
@@ -122,6 +115,7 @@ public class HomeServlet extends HttpServlet {
 	    
 	    
 	
+	    
 	    //TrItemsDaoをインスタンス化するnewする
 
 		TrItemsDao trdao = new TrItemsDao();
@@ -138,13 +132,13 @@ public class HomeServlet extends HttpServlet {
 		
 		
 		
-//		SavesDaoをインスタンス化するnewする
+			//SavesDaoをインスタンス化するnewする
 			SavesDao sdao = new SavesDao();
 			
-			// 【修正】まずはセッションに一時保存されたカスタム項目のリストがあるか確認する
+			// まずはセッションに一時保存されたカスタム項目のリストがあるか確認する
 			List<Save> saveDetailList = (List<Save>) session.getAttribute("sessionTrList");
 			
-			// セッションに無ければ（初めて画面を開いた時など）、従来通りデータベースから取得しに行く
+			// セッションに無ければ（初めて画面を開いた時など）、今まで通りデータベースから取得しに行く
 			if (saveDetailList == null) {
 				saveDetailList = sdao.selectTrSaves(user.getUserId());
 			}
