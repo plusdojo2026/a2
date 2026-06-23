@@ -52,7 +52,7 @@
 
 
 <div class="register-link">
-<p>新規会員登録は</p><a href="/a2/NewRegistServlet">こちら</a>
+<p>新規会員登録は</p><a href="/a2/RegistServlet">こちら</a>
 </div>
 
 
