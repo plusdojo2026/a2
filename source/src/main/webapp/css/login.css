@@ -6,6 +6,11 @@ h1 {
   margin-bottom: 20px;
 }
 
+.bordering02 {
+  color: #fff;
+  font-size: 40px !important;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+}
 .logo {
     text-align: center;
 }
