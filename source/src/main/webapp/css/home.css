@@ -73,16 +73,16 @@
     } */
     #bar{
     	z-index: 20;
-    	position:relative;
+    	/* position:relative; */
     	background-color:white;
-    }
+    } 
     .footer{
     	
     	z-index: 20;
-    	position:relative;
+    	/* position:relative; */
     	background-color:white;
     }
-    
+     
     
     
     .logo, .bean-info{
