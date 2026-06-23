@@ -118,7 +118,7 @@
 </c:if>
 <c:if test="${not empty message2}">
     <div style="color: blue;">
-        ${message2}
+        <a href="FriendrequestsServlet">フレンド申請</a>が来てます！
     </div>
 </c:if>
 
