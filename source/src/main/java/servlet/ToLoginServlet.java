@@ -15,6 +15,6 @@ public class ToLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 		
-		resp.sendRedirect(req.getContextPath() + "LoginServlet");
+		resp.sendRedirect(req.getContextPath() + "/LoginServlet");
 	}
 }
