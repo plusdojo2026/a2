@@ -467,6 +467,54 @@ public boolean friendAdd(Friend frAdd) {
 		// 結果を返す
 		return rqSearchAns;
 	}
+	
+//==========================リクエスト受けてるか確認(boolean)=============================
+	public boolean requestCheck(String userId) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+	
+			// SQL文を準備する//
+			String sql = "SELECT "
+					+" user_id "
+					+" FROM friends "
+					+" WHERE friend_user_id = ? "
+					+" AND friend_request = 0 ";
+					
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			//?に代入する
+			pStmt.setString(1,userId);
+			//実行
+			ResultSet rs = pStmt.executeQuery();
+	
+			if(rs.next()) {
+				result=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		// 結果を返す
+		return result;
+	}
 //==========================リクエスト出来ているかの確認=============================
 	public List<Friend> requestFromMeSearch(Friend fmSearch) {
 		Connection conn = null;

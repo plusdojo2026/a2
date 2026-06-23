@@ -95,7 +95,7 @@
 
 </head>
 <body>
-
+<div class="app-wrapper">
 <!--　ヘッダーここから　-->
 <header>
     <div class="header-left">
@@ -986,6 +986,6 @@
 	
  	
   </script>
-
+</div>
 </body>
 </html>
