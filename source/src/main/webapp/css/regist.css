@@ -101,7 +101,7 @@ h1 {
 	text-align: center;
     border: none;
     padding: 10px;
-    width: 60px;
+    width: 80px;
     background-position: center;
     background-color: #98fb98;
     color: #556b2f;
@@ -111,11 +111,11 @@ h1 {
 	
 .button .reset-button{
 	position:absolute;
-	left:100px;
+	left:230px;
 	text-align: center;
     border: none;
     padding: 10px;
-    width: 70px;
+    width: 80px;
     background-position: center;
     background-color: #98fb98;
     color: #556b2f;
