@@ -130,10 +130,10 @@ friend_request BIT DEFAULT 0				/*申請の承認フラグ*/
 /*内容入力*/
 INSERT INTO friends (user_id, friend_user_id,friend_request) VALUES
 -- user1（多め・中心ユーザー）
-('user1', 'user2',1),
-('user1', 'user3',1),
-('user4', 'user1',1),
-('user5', 'user1',1),
+('user1', 'user2',0),
+('user1', 'user3',0),
+('user4', 'user1',0),
+('user5', 'user1',0),
 ('user6', 'user1',0),
 ('user7', 'user1',0),
 ('user1', 'user8',0),
