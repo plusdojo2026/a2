@@ -21,7 +21,7 @@ public class UsersDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 
 			// SELECT文を準備する
 			String sql = "SELECT * FROM users WHERE user_id=? AND password=? AND logical_delete=0";
@@ -136,7 +136,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "INSERT INTO Users(number,user_name,height,gender,target_weight,user_id,password) "
@@ -211,7 +211,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する//
 				String sql = 
@@ -289,7 +289,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "UPDATE users SET "
@@ -339,7 +339,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "SELECT password "
@@ -388,7 +388,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "UPDATE Users SET "
@@ -456,7 +456,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "UPDATE Users SET "
@@ -504,7 +504,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "UPDATE Users SET "
@@ -552,7 +552,7 @@ public class UsersDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
 				String sql = "UPDATE Users SET "
@@ -601,7 +601,7 @@ public class UsersDao {
 						// データベースに接続する
 						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 								+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-								"root", "password");
+								"a2", "Q9wE3rJYtjnxjH4g");
 
 						// SQL文を準備する
 						//UPDATE文でポイントを新たに付与するためのSQL文で準備
@@ -676,7 +676,7 @@ public class UsersDao {
 				    	// データベースに接続する
 						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 								+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-								"root", "password");
+								"a2", "Q9wE3rJYtjnxjH4g");
 
 						//目標体重取得する
 				        String sql =
