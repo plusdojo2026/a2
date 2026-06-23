@@ -34,7 +34,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 
             // INSERTかUPDATEを1回で実行するSQL
             String sql =
@@ -93,7 +93,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 	        
 	        // SQL文を準備する
 	        String sql = "SELECT date, stamp FROM storages "
@@ -150,7 +150,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			// SQL文を準備する
 	        // yearMonth = "2026-06"のような形式
@@ -208,7 +208,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			// SQL文を準備する
 			String sql = "SELECT date, id, tr_id, tr_weight, counts, sets, memo "
@@ -272,7 +272,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			// SQL文を準備する
 			String sql = "SELECT date, weight FROM storages WHERE user_id = ? AND date LIKE ?";
@@ -322,7 +322,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			// SQL文を準備する
 	        String sql = "INSERT INTO tr_storages (user_id, date, tr_id, tr_weight, counts, sets, memo) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -366,7 +366,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			// SQL文を準備する
 	        String sql = "UPDATE tr_storages SET tr_id = ?, tr_weight = ?, counts = ?, sets = ?, memo = ? WHERE id = ?";
@@ -409,7 +409,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			// SQL文を準備する
 	        String sql = "DELETE FROM tr_storages WHERE id = ?";
@@ -456,7 +456,7 @@ public class StoragesDao {
 
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 //			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
@@ -523,7 +523,7 @@ public class StoragesDao {
 
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 //			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
@@ -588,7 +588,7 @@ public class StoragesDao {
 
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 			
 			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでtr_storagesの中のtr_itemを選ぶ
@@ -661,7 +661,7 @@ public class StoragesDao {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-						"root", "password");
+						"a2", "Q9wE3rJYtjnxjH4g");
 		        
 				
 				
@@ -728,7 +728,7 @@ public class StoragesDao {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a2", "Q9wE3rJYtjnxjH4g");
 		
 		
 			
@@ -798,7 +798,7 @@ public class StoragesDao {
 		// データベースに接続する
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-				"root", "password");
+				"a2", "Q9wE3rJYtjnxjH4g");
 		
 		
         
@@ -864,13 +864,9 @@ public class StoragesDao {
 
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 
-	        conn = DriverManager.getConnection(
-	            "jdbc:mysql://localhost:3306/a2?"
-	            + "characterEncoding=utf8&useSSL=false"
-	            + "&serverTimezone=GMT%2B9",
-	            "root",
-	            "password"
-	        );
+	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"a2", "Q9wE3rJYtjnxjH4g");
 
 //	        storagesにしたのは項目よりも確実に保存するので
 	        String sql =
