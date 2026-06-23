@@ -580,7 +580,7 @@
     	const  div = document.createElement("div");
     	div.id = "item"+count;
     	
-    	
+    	//項目追加した時に線を入れている
     	div.style.borderTop = "1px solid #ccc";
     	div.style.marginTop = "20px";
     	div.style.paddingTop = "20px";

@@ -30,12 +30,29 @@
     }
     
     
+    .modal {
+	  background: #fff;
+	  width: 92%;
+	  max-width: 390px; /* スマホ枠の中に収まる横幅 */
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%); /* 画面の真ん中に配置 */
+	  padding: 20px;
+	  border-radius: 16px;
+	  text-align: left;
+	  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+	  box-sizing: border-box;
+	  max-height: calc(100vh - 40px);
+	  display: flex;
+	  flex-direction: column;
+	}
     
     
     /* モーダルの本体  確認表示用*/
     .modal-content-two {
       background-color: white;
-      width: 200px;
+      width: 400px;
       margin: 100px auto;
       padding: 20px;
       border-radius: 10px;
