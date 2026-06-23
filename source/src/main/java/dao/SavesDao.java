@@ -142,6 +142,62 @@ public class SavesDao {
 		
 		
 		
+		//体重、体脂肪などの項目を取り出してホームサーブレットに渡すためのもの
+		public Save selectSave(String userId){
+
+		    Connection conn = null;
+		    PreparedStatement pStmt = null;
+		    ResultSet rs = null;
+
+		    Save dto = null;
+
+		    try {
+
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+
+		        conn = DriverManager.getConnection(
+		            "jdbc:mysql://localhost:3306/a2?"
+		            + "characterEncoding=utf8&useSSL=false"
+		            + "&serverTimezone=GMT%2B9",
+		            "root",
+		            "password"
+		        );
+
+		        String sql =
+		            "SELECT weight,fat,comments,stamp " +
+		            "FROM saves WHERE user_id = ?";
+
+		        pStmt = conn.prepareStatement(sql);
+		        pStmt.setString(1, userId);
+
+		        rs = pStmt.executeQuery();
+
+		        if(rs.next()){
+
+		            dto = new Save();
+
+		            dto.setWeight(rs.getDouble("weight"));
+		            dto.setFat(rs.getDouble("fat"));
+		            dto.setComments(rs.getString("comments"));
+		            dto.setStamp(rs.getInt("stamp"));
+		        }
+
+		    } catch(Exception e){
+		        e.printStackTrace();
+		    } finally {
+
+		        try{
+		            if(rs != null) rs.close();
+		            if(pStmt != null) pStmt.close();
+		            if(conn != null) conn.close();
+		        } catch(Exception e){
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return dto;
+		}
+		
 		
 		//本保存されたときにデータを消すDaoのSQL
 		

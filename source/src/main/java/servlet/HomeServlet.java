@@ -32,9 +32,10 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
+		//sessionという名前を付けた sessionという箱に
 		HttpSession session = request.getSession();
 
+		//"user"という名前で保存されているデータを取り出している
 	    User user = (User)session.getAttribute("user");
 	    
 	    
@@ -58,10 +59,15 @@ public class HomeServlet extends HttpServlet {
         
         
         //lastCheckDate == null ではまた今日チェックしていないか（つまり初回ログイン、アクセスか）
+        
         //!lastCheckDate.equals(today) は前回見た日付と違うか
-        //&& (migratedToday == null || !migratedToday)) ではnull と falseが移行していないという意味
-        //日付が変わっていて、まだ移行してない時だけ回す処理をしている
+        
+        //&& (migratedToday == null || !migratedToday)) ではnull と falseが移行していない（本保存にいっていない）という意味
+       
         // lastCheckDateがnullなら「まだ判定しない」
+        
+        
+        //つまり、日付が変わっていて、まだ自動保存の移行をしていないときだけ処理を実行する
         if (lastCheckDate != null
                 && !lastCheckDate.equals(today)
                 && (migratedToday == null || !migratedToday)) {
@@ -69,6 +75,8 @@ public class HomeServlet extends HttpServlet {
         	SavesDao sdao = new SavesDao();
         	
             sdao.migrateTempToMain(user.getUserId());
+            
+            //ここで一時保存データを保存したのでtrueに変えてあげる
             session.setAttribute("migratedToday", true);
             
             
@@ -139,13 +147,26 @@ public class HomeServlet extends HttpServlet {
 		
 		//セッションに保存していた値をJSPへ渡している処理をする このタイミングでセッションから取り出している
 		
-		request.setAttribute("weight",request.getSession().getAttribute("weight"));
+		Object weight = session.getAttribute("weight");
 
-		request.setAttribute("fat",request.getSession().getAttribute("fat"));
+		if(weight == null){
 
-		request.setAttribute("comments",request.getSession().getAttribute("comments"));
+		    Save save = sdao.selectSave(user.getUserId());
 
-		request.setAttribute("stamp",request.getSession().getAttribute("stamp"));
+		    if(save != null){
+		        request.setAttribute("weight", save.getWeight());
+		        request.setAttribute("fat", save.getFat());
+		        request.setAttribute("comments", save.getComments());
+		        request.setAttribute("stamp", save.getStamp());
+		    }
+
+		}else{
+
+		    request.setAttribute("weight", session.getAttribute("weight"));
+		    request.setAttribute("fat", session.getAttribute("fat"));
+		    request.setAttribute("comments", session.getAttribute("comments"));
+		    request.setAttribute("stamp", session.getAttribute("stamp"));
+		}
 		
 		
 		
