@@ -8,7 +8,7 @@
 <title>ホームページ</title>
 
 
-<style>
+<!-- <style>
     /* モーダルの背景（暗い部分） */
     .modal-background {
       display: none; /* 最初は非表示 */
@@ -64,29 +64,38 @@
     } */
     #bar{
     	z-index: 20;
-    	position: relative;
+    	position:relative;
     	background-color:white;
     }
     .footer{
-    	position:relative;
+    	
     	z-index: 20;
+    	position:relative;
     	background-color:white;
     }
+    
+    
+    
     .logo, .bean-info{
-    	position:relative;
+    	position:static;
     	z-index: 20;
     	background-color:white;
     }
     
   </style>
-  
+   -->
+   
+   
+   
+   
   <link rel="stylesheet" href="/a2/css/header_footer.css">
+  <link rel="stylesheet" href="/a2/css/home.css">
 	<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 </head>
 <body>
-
+<div class="app-wrapper">
 <!--　ヘッダーここから　-->
 <header>
     <div class="header-left">
@@ -110,7 +119,8 @@
 
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
-<input type="submit" name="savetime" value="一時保存">
+<!-- <input type="submit" name="savetime" value="一時保存"> -->
+<input type="button" value="一時保存" onclick="submitTempSave()">
 
 
 
@@ -232,6 +242,7 @@
 		</c:forEach>    	
     </select>
 	
+	<br>
       メモ：<input type="radio" name="memo" value="1">有
       		<input type="radio" name="memo" value="2" checked>無<br>
       <div style="display: none" id="tx">
@@ -254,6 +265,16 @@
         <p>
             カレンダーページから入力内容の変更ができます。
         </p>
+        
+        <br>
+        
+        <c:if test="${goalAchieved}">
+	    <p style="color:red;">
+	        🎉目標体重達成おめでとうございます！🎉<br>
+	        目標体重の変更はマイページから更新できます！<br>
+	        あなたは最強の豆ですね！！
+	    </p>
+		</c:if>
         <!-- <p>
         <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
         </p> -->
@@ -268,6 +289,7 @@
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
+<div class="footer">
 <footer>
 <nav class="bottom-bar" id="bar">
   <a href="/a2/GraphServlet"><i class="fa-solid fa-arrow-trend-up"></i></a>
@@ -277,6 +299,7 @@
   <a href="/a2/MyPageServlet"><i class="fa-solid fa-circle-user"></i></a>
 </nav>
 </footer>
+</div>
 <!--　フッターここまで　-->
 
 <script>
@@ -286,6 +309,36 @@
 	let count=0;
 	
 	
+	// ⭕ 追加する関数：一時保存ボタンを押したときに安全にチェックして送信する
+	function submitTempSave() {
+	    let weight = document.querySelector('input[name="weight"]').value;
+	    let fat = document.querySelector('input[name="fat"]').value;
+	    
+	    document.getElementById("weightEr").textContent = "";
+	    document.getElementById("fatEr").textContent = "";
+
+	    let err = false;
+	    if (weight.trim() === "") {
+	        document.getElementById("weightEr").textContent = "体重を入力してください";
+	        err = true;
+	    }
+	    if (fat.trim() === "") {
+	        document.getElementById("fatEr").textContent = "体脂肪を入力してください";
+	        err = true;
+	    }
+
+	    if (err) return; // エラーがあれば送信しない
+
+	    // 隠しボタンの代わりに、一時保存であることを示すパラメータを動的に作って送信
+	    let form = document.getElementById("homeForm");
+	    let hiddenInput = document.createElement("input");
+	    hiddenInput.type = "hidden";
+	    hiddenInput.name = "savetime";
+	    hiddenInput.value = "一時保存";
+	    form.appendChild(hiddenInput);
+	    
+	    form.submit();
+	} 
 	
 	
 
@@ -360,6 +413,8 @@
 	
 	        if(item != null){
 	
+	        	//オプショナルチェーン 「?.」のこと
+	        	//0でいい理由としては前でとってきているデータが「"tr_weight" + i」でかわっているから
 	            let tr_weight = document.getElementsByName("tr_weight" + i)[0]?.value || "";
 	
 	            let counts = document.getElementsByName("counts" + i)[0]?.value || "";
@@ -610,7 +665,6 @@
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight" +count;
-   			weightinput.step ="0.1"
    			div.appendChild(weightinput);
 			
 			
@@ -681,7 +735,6 @@
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight"+ count;
-   			weightinput.step ="0.1"
    			div.appendChild(weightinput);
 			
 			
@@ -933,6 +986,6 @@
 	
  	
   </script>
-
+</div>
 </body>
 </html>

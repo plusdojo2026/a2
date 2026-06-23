@@ -648,4 +648,53 @@ public class UsersDao {
 					// 結果を返す
 					return result;
 				}
+				
+				
+				
+				
+				
+				
+				
+				
+				//==========================ホームページ用=============================
+				
+				//目標体重取得のためのSQL文
+				
+				public double getTargetWeight(String userId) {
+
+				    Connection conn = null;
+				    PreparedStatement pStmt = null;
+				    ResultSet rs = null;
+
+				    double targetWeight = 0;
+
+				    try {
+				    	
+				    	// JDBCドライバを読み込む
+						Class.forName("com.mysql.cj.jdbc.Driver");
+						
+				    	// データベースに接続する
+						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+								+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+								"root", "password");
+
+						//目標体重取得する
+				        String sql =
+				            "SELECT target_weight FROM users WHERE user_id = ?";
+
+				        pStmt = conn.prepareStatement(sql);
+				        pStmt.setString(1, userId);
+
+				        rs = pStmt.executeQuery();
+
+				        if(rs.next()) {
+				            targetWeight = rs.getDouble("target_weight");
+				        }
+
+				    } catch(Exception e) {
+				        e.printStackTrace();
+				    }
+
+				    return targetWeight;
+				}
 }

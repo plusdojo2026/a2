@@ -5,30 +5,26 @@ import java.io.Serializable;
 public class Word implements Serializable{
 	
 	private int Word;
-	private String WordOfDay;
-	
-	// コンストラクタ
-	public Word(int word, String wordOfDay) {
+	private String word_of_day;
+	//コンストラクタ
+	public Word(int word, String word_of_day) {
 		super();
 		Word = word;
-		WordOfDay = wordOfDay;
+		this.word_of_day = word_of_day;
 	}
-	public Word() {
-	}
-	
-	// 以下ゲッタセッタ
+	//getset
 	public int getWord() {
 		return Word;
 	}
+
 	public void setWord(int word) {
 		Word = word;
 	}
-	public String getWordOfDay() {
-		return WordOfDay;
+	public String getWord_of_day() {
+		return word_of_day;
 	}
-	public void setWordOfDay(String wordOfDay) {
-		WordOfDay = wordOfDay;
+	public void setWord_of_day(String word_of_day) {
+		this.word_of_day = word_of_day;
 	}
-	
 	
 }
