@@ -37,9 +37,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <main>
 
 <div>
-	トレーニング項目<select id="itemSelect">
-		<c:forEach var="gi" items="${WeekGraph}">
-		 <option value="${gi.key}"><c:out value="${gi.key}" />
+今日のひとこと：
+<c:forEach var="Sw" items="${SelectWord}">
+${Sw.word_of_day}
+</c:forEach>
+</div>
+
+<div>
+	トレーニング項目<select id="itemSelect" onchange="changeItem()">
+		 <c:forEach var="gi" items="${WeekGraph}">
+		重量<option value="${gi.key}"><c:out value="${gi.key}" />
 		 </option>
 	 	</c:forEach> 
 	</select>

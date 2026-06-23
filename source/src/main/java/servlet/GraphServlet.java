@@ -13,11 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.StoragesDao;
+import dao.WordsDao;
 import dto.Graph;
-//import dto.User;
-	
+import dto.User;
+import dto.Word;
+
 /**
  * Servlet implementation class GraphServlet
  */
@@ -33,19 +36,20 @@ public class GraphServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//    	User user = (User) session.getAttribute("user");
-//		if (user == null) {
-//			response.sendRedirect("/a2/LoginServlet");
-//			return;
-//		}
+		HttpSession session = request.getSession();
+    	User user = (User) session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a2/LoginServlet");
+			return;
+		}
 		
 		// リクエストパラメータを取得する,後で項目を増やす
 		request.setCharacterEncoding("UTF-8");
 		
 		//ログインユーザー情報の取得(仮情報後で直す)
-		String userId = "user1";
-//		String userId = user.getUserId();
+//		String userId = "user1";
+		String userId = user.getUserId();
+		
 		
 //直近30日のデータを格納する		
 //記録情報のトレーニング内容を取得する	
@@ -94,6 +98,8 @@ public class GraphServlet extends HttpServlet {
 		
 				
 		//一言セリフを受け取る
+		WordsDao selectedWord = new WordsDao();
+		List<Word> SelectWord = selectedWord.SelectWord();
 		
 		//背景などのユーザー情報を受け取る
 		
@@ -102,6 +108,7 @@ public class GraphServlet extends HttpServlet {
 //		request.setAttribute("gItem",gItemList );
 		request.setAttribute("MonthGraph",MonthGraph );
 		request.setAttribute("WeekGraph",WeekGraph );
+		request.setAttribute("SelectWord",SelectWord );
 
 		
 		
