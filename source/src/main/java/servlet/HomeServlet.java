@@ -424,7 +424,7 @@ public class HomeServlet extends HttpServlet {
 			System.out.println("coun=" + coun);
 
 			
-
+			
 			// もらってきたデータを登録するアレイリスト
 			ArrayList<Storage> detalist = new ArrayList<>();
 
