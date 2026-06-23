@@ -33,36 +33,36 @@
 <hr>
 <div class="form-container">
 <form method="POST" action="/a2/RegistServlet" id="fr">
-<div class="form-group">
-	<label for="user-id">ユーザーID*</label><br>
-	<input type="text" name="user_id"><br>
+	<div class="form-group">
+		<label for="user-id">ユーザーID*</label><br>
+		<input type="text" name="user_id"><br>
 	</div>
-<div class="form-group">
-	<label for="password">パスワード*</label>
-	<input type="text" name="password"><br>
+	<div class="form-group">
+		<label for="password">パスワード*</label>
+		<input type="text" name="password"><br>
 	</div>
-<div class="form-group">
-	<label for="username">ユーザー名*</label>
-	<input type="text" name="user"><br>
+	<div class="form-group">
+		<label for="username">ユーザー名*</label>
+		<input type="text" name="user"><br>
 	</div>
-<div class="form-group">
-	<span class="label-text">性別</span>
-	<div class="radio-group">
+	<div class="form-group">
+		<span class="label-text">性別</span>
+		<div class="radio-group">
 	    <label><input type="radio" name="gender" value="male"> 男性</label>
 	　　　<label><input type="radio" name="gender" value="female"> 女性</label>
 	　　　<label><input type="radio" name="gender" value="other" checked> その他</label><br>
 	    </div>
 	</div>
-<div class="form-group">
-	<label for="height">身長*</label>
-	<input type="number" step="0.1" name="height"><br>
+	<div class="form-group">
+		<label for="height">身長*</label>
+		<input type="number" step="0.1" name="height" min="0"><br>
 	</div>
-<div class="form-group">
-	<label for="weight">目標体重*</label>
-	<input type="number" step="0.1" name="target_weight"><br>
+	<div class="form-group">
+		<label for="weight">目標体重*</label>
+		<input type="number" step="0.1" name="target_weight" min="0"><br>
 	</div>
-	</form>
-</div>
+		
+	
 
 	
 	<p id="msg" style="color:red">*必須項目</p>
@@ -70,9 +70,11 @@
 	
 
 
-<input type="button"  onclick="re()" value="リセット">
-<input type="submit"  value="登録">
-
+	<input type="button"  onclick="re()" value="リセット">
+	<input type="submit"  value="登録">
+	
+</form>
+</div>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -83,9 +85,9 @@
 //未入力がある場合に'必須項目を入力してください'という文面を出す構文
 document.getElementById('fr').onsubmit = function(event){
 	
-	const numberPattern = /^[0-9]+(\.[0-9]+)?$/;
+	/* const numberPattern = /^[0-9]+(\.[0-9]+)?$/;
 	const form = document.getElementById('fr');
-    const errorArea = document.getElementById('msg');
+    const errorArea = document.getElementById('msg'); */
 	
 	let id = document.getElementById('fr').user_id.value;
 	let pw = document.getElementById('fr').password.value;
@@ -98,10 +100,10 @@ document.getElementById('fr').onsubmit = function(event){
 		event.preventDefault();
  	}
 	
-	else if (!numberPattern.test(height) || !numberPattern.test(weight)) {
+	/* else if (!numberPattern.test(height) || !numberPattern.test(weight)) {
 	    document.getElementById('msg').textContent = '身長と体重は正しい正の数（半角数字）で入力してください';
 	    event.preventDefault();
-	}
+	} */
 	
 
 
