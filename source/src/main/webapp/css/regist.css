@@ -66,7 +66,7 @@ h1 {
 }
 
 
-input[type="submit"]{
+/*input[type="submit"]{
     border: none;
     padding: 10px;
     width: 100px;
@@ -75,20 +75,63 @@ input[type="submit"]{
     color: #FFFFFF;
     font-size :1rem;
     display: block;
-    margin: 20px auto 50px auto;  
-}
+    /*margin: 20px auto 50px auto;  */
+*/
 
-input[type="button"]{
+/*input[type="button"]{
     text-align: center;
     border: none;
     padding: 10px;
-    width: 100px;
+    width: 80px;
     background-position: center;
     background-color: #98fb98;
     color: #556b2f;
     font-size :0.8rem;
     display: block;
-    margin: 20px auto 50px auto;
+    /*margin: 20px auto 50px auto;  */
     
+
+.button{
+	width:100%;
 }
 
+.button .back-button{
+	position:absolute;
+	left:40px;
+	text-align: center;
+    border: none;
+    padding: 10px;
+    width: 60px;
+    background-position: center;
+    background-color: #98fb98;
+    color: #556b2f;
+    font-size :0.8rem;
+    display: block;
+}
+	
+.button .reset-button{
+	position:absolute;
+	left:100px;
+	text-align: center;
+    border: none;
+    padding: 10px;
+    width: 70px;
+    background-position: center;
+    background-color: #98fb98;
+    color: #556b2f;
+    font-size :0.8rem;
+    display: block;
+}
+
+.button .regist-button{
+	position:absolute;
+	right:30px;
+	border: none;
+    padding: 10px;
+    width: 80px;
+    background-position: center;
+    background-color: #008000;
+    color: #FFFFFF;
+    font-size :1rem;
+    display: block;
+}

@@ -69,11 +69,12 @@
 	<p style="color:red">${result}</p> <!-- home.jspにもこれを書いたら登録完了の表示ができるよ -->
 	
 
+<div class="button">
+	<input type="button"  class="back-button" onclick="location.href='/a2/LoginServlet'" value="戻る">
+	<input type="button"  class="reset-button" onclick="re()" value="リセット">
+	<input type="submit"   class="regist-button" value="登録">
+</div>
 
-	<input type="button"  onclick="re()" value="リセット">
-	<input type="button"  onclick="location.href='/a2/login.jsp'" value="戻る">
-	<input type="submit"  value="登録">
-	
 </form>
 </div>
 </main>
