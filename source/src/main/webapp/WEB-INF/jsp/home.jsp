@@ -410,6 +410,8 @@
 	     for(let i = 0; i < count; i++){
 	
 	        let item = document.getElementById("it" + i);
+	        
+	       
 	
 	        if(item != null){
 	
@@ -577,10 +579,14 @@
 		let itemArea=document.getElementById("itemArea");
     	const  div = document.createElement("div");
     	div.id = "item"+count;
+    	
+    	
+    	div.style.borderTop = "1px solid #ccc";
+    	div.style.marginTop = "20px";
+    	div.style.paddingTop = "20px";
+
     	//改行のことをbrという変数に入れている
     	const br = document.createElement("br");
-    	
-    	
     	
     	
     	
@@ -715,7 +721,9 @@
    			//上のpとtextを入れている
    			div.appendChild(p); 
    			//文字が書けるテキストボックスを入れている。
-   			div.appendChild(textarea); 
+   			div.appendChild(textarea);
+   			
+   			div.appendChild(document.createElement("br"));
    			
    			itemArea.appendChild(div);
    			
@@ -774,6 +782,7 @@
 			setinput.type = "number";
 			setinput.name ="sets" + count;
 			div.appendChild(setinput);
+			
 			
 			itemArea.appendChild(div);
 		
@@ -890,6 +899,12 @@
     const div = document.createElement("div");
     div.id = "item" + count;
 
+    
+ 	// 項目同士の間隔を作る
+    div.style.marginBottom = "30px";
+    div.style.paddingBottom = "15px";
+    div.style.borderTop = "1px solid #ccc";
+    
     // 項目
     const input = document.createElement("input");
     input.type = "text";
@@ -901,9 +916,15 @@
     input.value = itemName;
 
     //"項目"と上で作ったinputが表示される
-    div.appendChild(document.createTextNode("項目"));
-    div.appendChild(input);
+    /* div.appendChild(document.createTextNode("項目"));
+    div.appendChild(input); */
 
+    
+    let title = document.createElement("div");
+    title.textContent = "項目";
+
+    div.appendChild(title);
+    div.appendChild(input);
     
     
     // 重さ
@@ -914,7 +935,12 @@
     weightinput.name = "tr_weight" + count;
     weightinput.value = weight;
 
-    div.appendChild(document.createTextNode("重さ（距離）"));
+    /* div.appendChild(document.createTextNode("重さ（距離）")); */
+    let w = document.createElement("div");
+	w.textContent = "重さ（距離）";
+	div.appendChild(w);
+    
+    
     div.appendChild(weightinput);
 
     
@@ -927,7 +953,12 @@
     countinput.name = "counts" + count;
     countinput.value = counts;
 
-    div.appendChild(document.createTextNode("回数"));
+    /* div.appendChild(document.createTextNode("回数")); */
+    
+    let c = document.createElement("div");
+	c.textContent = "回数";
+	div.appendChild(c);
+    
     div.appendChild(countinput);
 
     
@@ -940,7 +971,11 @@
     setinput.name = "sets" + count;
     setinput.value = sets;
 
-    div.appendChild(document.createTextNode("セット"));
+    /* div.appendChild(document.createTextNode("セット")); */
+    
+    let s = document.createElement("div");
+	s.textContent = "セット";
+	div.appendChild(s);
     div.appendChild(setinput);
 
     
