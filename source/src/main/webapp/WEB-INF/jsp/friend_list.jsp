@@ -222,7 +222,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	alert('フレンドが選択されていません。');
 		return;
 	}
-	
 	const ok = confirm('選択したフレンドを削除してよろしいですか？');
 	if (!ok) {
 		event.preventDefault();

@@ -55,7 +55,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                     <div style="display: flex; gap: 10px;">
                     
                         <button type="submit" name="action"  value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">承認</button>
-                        <button type="submit" name="action"  value="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
+                        <button type="submit" name="action"  value="reject" class="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
                    
                     </div>
                 </form>
@@ -94,6 +94,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--スクリプトここから-->
 <script>
     'use strict';
+	
+    const buttons = document.querySelectorAll('.reject');
+    buttons.forEach((button) => {
+    	button.addEventListener('click', (e) => {
+    		const ok = confirm('拒否しますか？');
+    		if (!ok) {
+    		      e.preventDefault();
+    		    }
+    	});
+    });
+    
 //ヘッダー日付表示用
  window.onload = function(){
 const now =new Date();

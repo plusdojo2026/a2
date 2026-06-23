@@ -11,15 +11,17 @@
 <title>マメッスル|成長記録</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
 <link rel="stylesheet" href="/a2/css/mypage.css">
+<link rel="stylesheet" href="/a2/css/graph.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-<!-- <style>
+ <style>
             *{
                 outline: 1px solid #000000;
             }
-        </style>  -->
+        </style>  
 </head>
 <body>
+<div class="app-wrapper">
 <!--　ヘッダーここから　-->
 <header>
     <div class="header-left">
@@ -44,20 +46,21 @@ ${Sw.word_of_day}
 </div>
 
 <div>
-	トレーニング項目<select id="itemSelect" onchange="changeItem()">
+	トレーニング項目：<select id="itemSelect" onchange="changeItem()">
 		 <c:forEach var="gi" items="${WeekGraph}">
-		重量<option value="${gi.key}"><c:out value="${gi.key}" />
+		<option value="${gi.key}"><c:out value="${gi.key}"/>
 		 </option>
 	 	</c:forEach> 
 	</select>
 </div> 
-<select id="weightSelect" onchange="changeWeight()">
+		重量：<select id="weightSelect" onchange="changeWeight()">
 </select><br>
 
 
 <!-- グラフを表示する場所 -->
-<canvas id="lineChart" width="600" height="300"></canvas>
-
+<div class = "canvas-container">
+<canvas id="lineChart" width="400" height="300"></canvas>
+</div>
 
 
 <!-- 表示変更 -->
@@ -180,7 +183,8 @@ let weekData = {
 			  }<c:if test="${!st.last}">,</c:if>
 			</c:forEach>
 			};
-			
+
+ 
 //------グラフ表示-------
 let context3 = document.querySelector("#lineChart").getContext('2d')
 let chart = new Chart(context3, {
@@ -196,8 +200,15 @@ let chart = new Chart(context3, {
     }]
   },
   options: {
-	    responsive: false,
-	    scales: {
+      responsive: true,
+      maintainAspectRatio: false,	
+      
+      plugins: {
+          title:  { display: false, }, // グラフタイトルの表示/非表示
+          legend: { display: false, }, // 判例の表示/非表示
+        },
+      //Y軸設定
+      scales: {
 	        y: {
 	            ticks: {
 	                stepSize: 5,
@@ -211,7 +222,7 @@ let chart = new Chart(context3, {
 	                text: "回数×セット",
 	                color: "blue",
 	                font: {
-	                    size: 16
+	                    size: 14
 	                }
 	            }
 	        }
@@ -364,5 +375,6 @@ function updateChart(newData) {
 
 
 </script>
+</div>
 </body>
 </html>
