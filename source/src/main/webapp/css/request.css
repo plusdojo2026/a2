@@ -58,3 +58,8 @@ a:active {  /* カチッとクリックした瞬間 */
 	text-align: center;
 	background-color: transparent;
 }
+
+#img{
+	width: 40px;
+	height: auto;
+}

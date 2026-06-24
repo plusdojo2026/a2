@@ -117,3 +117,7 @@ a:active {  /* カチッとクリックした瞬間 */
 .delete-target{
 	margin:0 20px 0 0;
 }
+#img{
+	width: 40px;
+	height: auto;
+}

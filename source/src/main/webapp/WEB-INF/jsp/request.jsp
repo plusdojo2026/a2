@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="/a2/css/request.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- <!--   <style>
+    <style>
             *{
                 outline: 1px solid #000000;
             }
-        </style>  -->
+        </style>  
 </head>
 <body>
 <div class="app-wrapper">
@@ -50,8 +50,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-              <!--  <span style="font-size: 30px;">${req.iconId}</span>  --> 
-                    <span style="font-size: 12px;">${req.userId}</span>
+             		<img  id = "img" src='img/${req.iconId}.png'> 
+                    <label id ="requserid">${req.userId}</label>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんから</span>
                 </div>
@@ -77,7 +77,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-<!--                <span style="font-size: 30px;">${req.iconId}</span>  --> 
+             		<img  id = "img" src='img/${req.iconId}.png'> 
                     <span style="font-size: 12px;">${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんへ</span>
@@ -167,7 +167,7 @@ window.addEventListener("scroll", () => {
   lastScroll = current;
 });
 
-//アイコン画像を置き換える
+
 
 
 </script>
