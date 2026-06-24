@@ -1,5 +1,9 @@
 @charset "UTF-8";
-
+/*メイン*/
+main{
+	padding:30px;
+	
+}
 
     /* モーダルの背景（暗い部分） */
     .modal-background {
@@ -71,23 +75,24 @@
     	position: relative;
     	background-color:white;
     } */
-    #bar{
-    	z-index: 20;
-    	/* position:relative; */
-    	background-color:white;
-    } 
-    .footer{
-    	
-    	z-index: 20;
-    	/* position:relative; */
-    	background-color:white;
-    }
-     
-    
+
+
+    /*記録のところ*/
+     .input{
+		background-color:white;
+     	padding:30px;
+     	border-radius:25px;
+     	border:solid 2px #008000;
+     	margin-bottom:100px;
+     }
     
     .logo, .bean-info{
     	position:static;
-    	z-index: 20;
-    	background-color:white;
+    	z-index: 40;
     }
     
+ .save{
+ 	position: fixed;
+ 	top:100px;
+ 	right:50px;
+ }

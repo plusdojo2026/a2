@@ -7,94 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ホームページ</title>
-
-
-<!-- <style>
-    /* モーダルの背景（暗い部分） */
-    .modal-background {
-      display: none; /* 最初は非表示 */
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 10;
-    }
-
-    /* モーダルの本体  項目追加の部分*/
-    .modal-content {
-      background-color: white;
-      width: 300px;
-      margin: 100px auto;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      z-index: 11;
-    }
-
-    /* 閉じるボタン */
-    .close-btn {
-      margin-top: 10px;
-    }
-    
-    
-    
-    
-    /* モーダルの本体  確認表示用*/
-    .modal-content-two {
-      background-color: white;
-      width: 500px;
-      margin: 100px auto;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      z-index: 11;
-      
-      /* 画面の80%まで */
-    max-height:60vh;
-
-    /* 内容がはみ出たらスクロール */
-      overflow-y:auto;
-    }
-    //モーダルが出た状態でもクリックできるようにした
-/*     .bottom-bar{
-    	z-index: 9999;
-    	position: relative;
-    	background-color:white;
-    } */
-    #bar{
-    	z-index: 20;
-    	position:relative;
-    	background-color:white;
-    }
-    .footer{
-    	
-    	z-index: 20;
-    	position:relative;
-    	background-color:white;
-    }
-    
-    
-    
-    .logo, .bean-info{
-    	position:static;
-    	z-index: 20;
-    	background-color:white;
-    }
-    
-  </style>
-   -->
-   
-   
-   
-   
+<title>ホームページ</title> 
   <link rel="stylesheet" href="/a2/css/header_footer.css">
   <link rel="stylesheet" href="/a2/css/home.css">
 	<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
 </head>
 <body>
 <div class="app-wrapper">
@@ -111,7 +28,6 @@
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
-
 <!--ホームサーブレットにある、messageを表示させている　if文でもしメッセージが存在したらと書く-->
 <c:if test="${not empty message}">
     <div style="color: blue;">
@@ -123,29 +39,37 @@
         <a href="FriendrequestsServlet">フレンド申請</a>が来てます！
     </div>
 </c:if>
-
-<form id="homeForm" method="POST" action="/a2/HomeServlet">
 <h1>今日の記録</h1>
+<div class="input">
+<form id="homeForm" method="POST" action="/a2/HomeServlet">
+
 <!-- <input type="submit" name="savetime" value="一時保存"> -->
-<input type="button" value="一時保存" onclick="submitTempSave()">
-
-
-
-
+<input type="button" value="一時保存" onclick="submitTempSave()" class="save">
 
 <h2>基本データ</h2>
-
-体重(kg)　<input type="number" name="weight" value="${weight}" step="0.1" required><br>
-体脂肪率(％)<input type="number" name="fat" value="${fat}" step="0.1" ><br>
+<table>
+	<tr>
+		<td>
+			体重(kg)
+		</td>
+		<td>
+			<input type="number" name="weight" value="${weight}" step="0.1" required>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			体脂肪率(％)
+		</td>
+		<td>
+			<input type="number" name="fat" value="${fat}" step="0.1" >
+		</td>
+</table>
 <div id="weightEr" style="color:red;"></div>
 <!-- <div id="fatEr" style="color:red;"></div>
  -->
 <!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
 <br>
-
-
-
 
 一日メモ<br>
 <textarea name="comments">${comments}</textarea>
@@ -182,60 +106,34 @@
 		
 	    <option value="8"<c:if test="${stamp == '8'}">selected</c:if>>
 		酒
-		</option>
-	    
+		</option>    
 	</select>
-
 	<br>
 	<br>
-
 	<img id="stampImage" src="" width="200">
-	
-	
-	
 <br>
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
-
-
-<!-- 保存確認のモーダル -->
+<button onclick="openModal()">＋項目を追加</button>
+<!-- ✧✧✧✧✧✧✧保存確認のモーダル✧✧✧✧✧✧✧ -->
 <button type="button" onclick="openSaveModal()">保存</button>
-
-
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
-
 <div id="saveModal" class="modal-background">
 	<div class="modal-content-two">
 		<h3>確認</h3>
 		<h4>以下の内容でしてよろしいでしょうか？​</h4>
 		<br>
-		
-		
-		<div id="confirmArea"></div>
-		
-		
+		<div id="confirmArea"></div>	
 		<button type="button" onclick="submitSave()">はい</button>
 	    <button type="button" onclick="closeSaveModal()">いいえ</button>
-	
 	</div>
-
-
 </div>
-
-
 </form>
-<button onclick="openModal()">＋項目を追加</button>
-
-
-
-
-
+</div>
 <div id="memoArea"></div>
-  
    <div id="modal" class="modal-background">
-   
     <div class="modal-content">
       <p>項目を追加</p>
       <!--  下の文でここに警告文が出るようになる　使用するために id="msg”をつけた-->
@@ -248,7 +146,6 @@
         	</option>
 		</c:forEach>    	
     </select>
-	
 	<br>
       メモ：<input type="radio" name="memo" value="1">有
       		<input type="radio" name="memo" value="2" checked>無<br>
@@ -260,21 +157,14 @@
       <button class="addi-btn" onclick="addItem()" >追加する</button>
     </div>
   </div>
-
-
  <div id="completeModal" class="modal-background" style="display:none;">
     <div class="modal-content-two">
-
         <h2>本日の入力ありがとうございました。</h2>
-
         <br>
-
         <p>
             カレンダーページから入力内容の変更ができます。
-        </p>
-        
+        </p>   
         <br>
-        
         <c:if test="${goalAchieved}">
 	    <p style="color:red;">
 	        🎉目標体重達成おめでとうございます！🎉<br>
@@ -286,13 +176,8 @@
         <a href="/a2/CalendarServlet"><i class="fa-regular fa-calendar"></i></a>
         </p> -->
         <br>
-
     </div>
 </div> 
-  
-
-
-
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -308,22 +193,32 @@
 </footer>
 </div>
 <!--　フッターここまで　-->
-
 <script>
-
-	
+//スクロールに合わせたアイコンバーの変更
+/*id=barを定数barに代入*/
+const bar = document.getElementById("bar");
+let lastScroll = 0;
+/*スクロールすると以下の処理を実行する*/
+window.addEventListener("scroll", () => {
+  /*スクロール幅の取得*/
+  const current = window.scrollY;
+  /*下スクロールでsmallクラスを付与する*/
+  if(current > lastScroll && current > 40){
+    bar.classList.add("small");
+    }
+  /*上スクロールでsmallクラスを削除*/
+  else{bar.classList.remove("small");
+  }
+  lastScroll = current;
+});
 	//ここでcount宣言
 	let count=0;
-	
-	
 	// ⭕ 追加する関数：一時保存ボタンを押したときに安全にチェックして送信する
 	function submitTempSave() {
 	    let weight = document.querySelector('input[name="weight"]').value;
 	   /*  let fat = document.querySelector('input[name="fat"]').value; */
-	    
 	    document.getElementById("weightEr").textContent = "";
 	   /*  document.getElementById("fatEr").textContent = ""; */
-
 	    let err = false;
 	    if (weight.trim() === "") {
 	        document.getElementById("weightEr").textContent = "体重を入力してください";
@@ -333,9 +228,7 @@
 	        document.getElementById("fatEr").textContent = "体脂肪を入力してください";
 	        err = true;
 	    } */
-
 	    if (err) return; // エラーがあれば送信しない
-
 	    // 隠しボタンの代わりに、一時保存であることを示すパラメータを動的に作って送信
 	    let form = document.getElementById("homeForm");
 	    let hiddenInput = document.createElement("input");
@@ -343,61 +236,25 @@
 	    hiddenInput.name = "savetime";
 	    hiddenInput.value = "一時保存";
 	    form.appendChild(hiddenInput);
-	    
 	    form.submit();
 	} 
-	
-	
-
-	
-	
-	
-
-	
-	
 	//保存用の時のモーダル
 	function openSaveModal() {
-		
-		
-		
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
 		/* //inputの中のname="fat"のvalueを取り出す（中身ということ）
 	    let fat = document.querySelector('input[name="fat"]').value;  */
-		
 	    let err = false;
 	    document.getElementById("weightEr").textContent = "";
 	    /* document.getElementById("fatEr").textContent = ""; */
-
-		
 		//体重が空欄だった場合 err = true;はエラーがあったということ
 	    if (weight.trim() === "") {
 	        document.getElementById("weightEr").textContent =
 	            "体重を入力してください";
 	        err = true;
 	    }
-
-		
-		
-		
-		
-		
-		
-		
-	
 		let fat = document.querySelector('input[name="fat"]').value; 
-			
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	  /* //体脂肪が空欄だった場合
 	    if (fat.trim() === "") {
 	        document.getElementById("fatEr").textContent =
@@ -444,13 +301,9 @@
 	        	//オプショナルチェーン 「?.」のこと
 	        	//0でいい理由としては前でとってきているデータが「"tr_weight" + i」でかわっているから
 	            let tr_weight = document.getElementsByName("tr_weight" + i)[0]?.value || "";
-	
 	            let counts = document.getElementsByName("counts" + i)[0]?.value || "";
-	
 	            let sets = document.getElementsByName("sets" + i)[0]?.value || "";
-	            
 	            let memo = document.getElementsByName("memo" + i)[0]?.value || "";
-	
 	            //表示パターン１
 	          /*   html += "<hr>";
 	            html += "項目：" + item.value + "<br>";
@@ -460,8 +313,6 @@
 	            html +="<br>"
 	            html += "メモ"+"<br>"
 	            html += memo + "<br>" */
-	            
-	            
 	            html += "[" + item.value + "]"+"<br>";
 	            html += tr_weight +" kg(km) ×";
 	            html += counts + " 回 ×";
@@ -469,51 +320,26 @@
 	            /* html +="<br>"; */
 	            html += "[メモ]"+"<br>";
 	            html += memo + "<br>";
-	            
 	            html +="<br>";
 	        } 
-	   
 	    }
 		document.getElementById("confirmArea").innerHTML = html;
-		
 	    document.getElementById("saveModal").style.display = "block";
 	}
-
 	function closeSaveModal() {
 	    document.getElementById("saveModal").style.display = "none";
 	}
-	
 	//保存押したときだけ送信される
 	function submitSave() {
-
 	    document.getElementById("saveb").value = "保存";
-
 	    document.getElementById("homeForm").submit();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
     //画像表示する
-    
-    
     function changestamp(){
-    	
     	/* alert("動いた"); */
-    	
     	const stamp = document.getElementById("stamp").value;
 
         const image = document.getElementById("stampImage");
-        
-  
-        
         if (stamp == "2") {
         	image.src = "img/stamp1.png";
         }else if (stamp == "3") {
@@ -531,22 +357,10 @@
         }else{
         	image.src = "";
         }
-    	
-    	
     }
-	
-
-    
-    
-    
-    
-    
-
-
     //項目用のモーダル
 	 function closeModal() {
  	    document.getElementById("modal").style.display = "none";
-
  	    // エラーメッセージを消す
  	    document.getElementById("msg").textContent = "";
  	}
@@ -557,10 +371,7 @@
  	    // エラーメッセージを消す
  	    document.getElementById("msg").textContent = "";
  	}  
- 	
-    
 
-    
     function addItem(){
     	//とりあえずansをfalseとして宣言
     	let ans = false;
@@ -588,12 +399,7 @@
     		
     		
     }
-    	
-    	
-    	
-    	
-    	
-    	
+
     	//ひとつでも過去の種目と被っていたら
     	if(ans==true){
     		//エラーメッセージを出して

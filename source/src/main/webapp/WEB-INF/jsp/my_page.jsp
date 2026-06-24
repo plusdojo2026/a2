@@ -61,8 +61,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </a>
 </div>
 <br>
-<div>
-<div class="logout">
+<div class="flex">
+<div class="logout-div">
 <a href="/a2/LogoutServlet" class="logout" id="logout">
 	ログアウト
 </a>
@@ -72,6 +72,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <a href="/a2/DeleteAccountServlet" class="delete_account">
 	退会手続き
 </a>
+</div>
 </div>
 
 
