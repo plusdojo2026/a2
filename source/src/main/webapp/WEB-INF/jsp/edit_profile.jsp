@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>退会画面</title>
+<title>基本情報の変更</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet" href="/a2/css/mypage.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>

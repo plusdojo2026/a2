@@ -30,6 +30,7 @@
     padding: 30px 10px;
     color: #333333;              /* 文字の色 */
     text-decoration: none;       /* 下線を消す */
+    
 	
 }
 .pass{
@@ -61,6 +62,7 @@
     margin-bottom: 25px;
     color: #333333;              /* 文字の色 */
     text-decoration: none;       /* 下線を消す */
+    margin: 5px;
 }
 
 .taikai{
@@ -77,4 +79,5 @@
     margin-bottom: 25px;
     color: #333333;              /* 文字の色 */
     text-decoration: none;       /* 下線を消す */
+    
 }
