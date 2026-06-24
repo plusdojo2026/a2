@@ -19,7 +19,7 @@ h1 {
   max-width: 600px;         /* 横幅の最大値 */
   border: 2px solid #333;    /* 黒い枠線 */
   border-radius: 40px;       /* 大きな角丸（画像のように丸くする） */
-  padding: 40px;             /* 内側の余白 */
+  padding: 50px 50px 80px 50px;             /* 内側の余白 */
   background-color: #fff;
 }
 
@@ -27,7 +27,8 @@ h1 {
 .form-group {
   display: flex;             /* 横並びにする */
   align-items: center;       /* 上下の中央に揃える */
-  margin-bottom: 24px;       /* 行と行の間の隙間 */
+  margin-bottom: 24px;        /* 行と行の間の隙間 */
+  width: 330px;     
 }
 
 /* 各行の左側（ラベル）の幅を統一する */
@@ -105,7 +106,7 @@ h1 {
     background-position: center;
     background-color: #98fb98;
     color: #556b2f;
-    font-size :0.8rem;
+    font-size :0.7rem;
     display: block;
 }
 	
@@ -119,7 +120,7 @@ h1 {
     background-position: center;
     background-color: #98fb98;
     color: #556b2f;
-    font-size :0.8rem;
+    font-size :0.7rem;
     display: block;
 }
 
@@ -132,6 +133,6 @@ h1 {
     background-position: center;
     background-color: #008000;
     color: #FFFFFF;
-    font-size :1rem;
+    font-size :0.7rem;
     display: block;
 }
