@@ -89,15 +89,35 @@ a:active {  /* カチッとクリックした瞬間 */
 	position:fixed;bottom:18%;
 	
 }
-.deletefriend{
-	
-	display:flex;
+.friend-icon{
+
 	gap:10px;
 	align-items:center;
+	background:white;
+    width:200px;
+    height:100px;
+    max-width:60%;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    border-radius:10px;
+    margin:0 auto;
+    vertical-align: middle;
+    padding-left:65px;
+    padding-top:15px;
+    
 }
-.delete-button-area{
+
+.deletefriend{
+	display:flex;
+	align-items:center;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
 	
 }
 .delete-target{
-	
+	margin:0 20px 0 0;
+}
+#img{
+	width: 40px;
+	height: auto;
 }
