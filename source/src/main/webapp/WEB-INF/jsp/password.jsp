@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet" href="/a2/css/mypage.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
@@ -31,39 +32,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <main>
 <c:out value="${message}"/>
 <p id="msg"></p>
-<form method=POST action="/a2/PasswordServlet" id="form">
-<input type="hidden" name="userId" value="${userInfo.userId}">
-<table>
-    <tr>
-        <td>現在のパスワード</td>
-        <td>
-        	<input type="password" name="inputPassword" id="password1">
-        </td>
+<form method="POST" action="/a2/PasswordServlet" id="form">
+	<div class="form-container">
+		<input type="hidden" name="userId" value="${userInfo.userId}">
+		<table>
+    		<tr>
+        		<td>現在のパスワード</td>
+        		<td>
+        			<input type="password" name="inputPassword" id="password1">
+        		</td>
 
-    </tr>
-    <tr>
-        <td>新しいパスワード</td>
-        <td>
-        	<input type="password" name="newPassword" id="password2">
-        </td>
+    		</tr>
+    		<tr>
+        		<td>新しいパスワード</td>
+        		<td>
+        			<input type="password" name="newPassword" id="password2">
+        		</td>
 
-    </tr>
-    <tr>
-        <td>新しいパスワード</td>
-        <td>
-        	<input type="password" id="password3">
-        </td>
+    		</tr>
+    		<tr>
+        		<td>新しいパスワード</td>
+       			<td>
+        			<input type="password" id="password3">
+        		</td>
  
-    </tr>
-</table>  
-    <button type="button" id="show">
-    	<i class="fa-regular fa-eye-slash" id="icon"></i>
-    </button>
+    		</tr>
+		</table>  
+    	<button type="button" id="show">
+    		<i class="fa-regular fa-eye-slash" id="icon"></i>
+   		</button>
     
-    <input type="submit" value="変更">
+   		<div class="button">
+    		<input type="submit" class="regist-button" value="変更">
+			<input type="button" class="back-button" onclick="location.href='/a2/MyPageServlet'" value="戻る">
+		</div>
+		
+	</div>
 </form>
-<a href="/a2/MyPageServlet">戻る</a>
 </main>
+
 <!--　メインここまで　-->
 <!--　フッターここから　-->
 <footer>
@@ -76,6 +83,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </nav>
 </footer>
 <!--　フッターここまで　-->
+</div>
 <script>
 	'use strict';
 	//パスワード表示切替
@@ -167,6 +175,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     });
 
 </script>
-</div>
+
 </body>
 </html>
