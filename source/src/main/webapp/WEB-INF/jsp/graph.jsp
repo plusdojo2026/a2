@@ -14,11 +14,11 @@
 <link rel="stylesheet" href="/a2/css/graph.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- <style>
+ <!-- <style>
             *{
                 outline: 1px solid #000000;
             }
-        </style>  
+        </style>   -->
 </head>
 <body>
 <div class="app-wrapper">
@@ -47,16 +47,25 @@ ${Sw.word_of_day}
 </div>
 </div>
 
-<div>
-	<label for="itemSelect">トレーニング項目：</label><select id="itemSelect" onchange="changeItem()">
+
+<ul id = "select">
+<li>
+<div id ="selectitem">
+	<label for="itemSelect">トレーニング項目：</label><select id="itemSelect"  onchange="changeItem()">
 		 <c:forEach var="gi" items="${WeekGraph}">
 		<option value="${gi.key}"><c:out value="${gi.key}"/>
 		 </option>
 	 	</c:forEach> 
-	</select>
+	</select><br>
 </div> 
-		<label for="weightSelect">重量：</label><select id="weightSelect" onchange="changeWeight()">
+</li>
+<li>
+<div id = "selectweight">
+<label for="weightSelect">重量：</label><select id="weightSelect" onchange="changeWeight()">
 </select><br>
+</div>
+</li>
+</ul>
 
 
 <!-- グラフを表示する場所 -->
@@ -208,6 +217,7 @@ let chart = new Chart(context3, {
       plugins: {
           title:  { display: false, }, // グラフタイトルの表示/非表示
           legend: { display: false, }, // 判例の表示/非表示
+          
         },
       //Y軸設定
       scales: {
