@@ -697,6 +697,7 @@
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight" +count;
+   			weightinput.value = "0";
    			div.appendChild(weightinput);
 			
 			
@@ -714,6 +715,7 @@
    			let countinput = document.createElement("input");
 			countinput.type = "number";
 			countinput.name ="counts" +count;
+			countinput.value = "0";
 			div.appendChild(countinput);
    			
 			
@@ -731,6 +733,7 @@
    			let setinput = document.createElement("input");
 			setinput.type = "number";
 			setinput.name ="sets" + count;
+			setinput.value = "0";
 			div.appendChild(setinput);
    			
 			
@@ -769,6 +772,7 @@
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight"+ count;
+   			weightinput.value = "0";
    			div.appendChild(weightinput);
 			
 			
@@ -789,6 +793,7 @@
    			let countinput = document.createElement("input");
 			countinput.type = "number";
 			countinput.name ="counts" + count;
+			countinput.value = "0";
 			div.appendChild(countinput);
    			
    			
@@ -807,6 +812,7 @@
    			let setinput = document.createElement("input");
 			setinput.type = "number";
 			setinput.name ="sets" + count;
+			setinput.value = "0";
 			div.appendChild(setinput);
 			
 			
