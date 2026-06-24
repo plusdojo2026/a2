@@ -471,7 +471,7 @@ public class StoragesDao {
 					+ " WHERE TS.user_id = ? "
 					+ " ) AS t "
 					+ " WHERE t.rn <= 30 "
-					+ " ORDER BY t.tr_id, t.td_date ";
+					+ " ORDER BY t.tr_id, t.td_date ,t.tr_weight DESC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -527,7 +527,7 @@ public class StoragesDao {
 			
 //			String yearMonth = String.format("%04d-%02d", year, MonthNumber);
 			// SQL文を準備する,SELECTでユーザーIDが同じtr_storagesを選ぶ
-			//直近10回分の記録を取得
+			//直近7回分の記録を取得
 			String sql = "SELECT * FROM"
 					+ "(SELECT TS.tr_id , tr_item, tr_weight,"
 					+ " counts, sets, DATE_FORMAT(TS.date, '%Y-%m-%d') AS td_date ,"
@@ -538,7 +538,7 @@ public class StoragesDao {
 					+ " WHERE TS.user_id = ? "
 					+ " ) AS t "
 					+ " WHERE t.rn <= 7 "
-					+ " ORDER BY t.tr_id, t.td_date ,t.tr_weight ASC";
+					+ " ORDER BY t.tr_id, t.td_date ,t.tr_weight DESC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
