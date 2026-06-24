@@ -109,13 +109,9 @@
 <main>
 	<div class="tab-menu">
 		<ul>
-		<label>
-			<a href="/a2/FriendListServlet" class="active">フレンド</a>
-		</label>
+			<li><a href="/a2/FriendListServlet" class="active" >フレンド</a></li>
 			<li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
-		
 		</ul>
-		
 	</div>
 	<p><c:out value="${message}"/></p>
 	<p id="msg"></p>
@@ -147,9 +143,11 @@
 					<!-- <div class="friend-info"> -->
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
+					<div class="friend">
 						ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
 						<span class="friend-point">${f.friendInfo.point}</span>:pt<br>
+					</div>
 					</div>
 						
 					<!-- </div> -->
