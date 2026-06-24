@@ -59,7 +59,7 @@ a:active {  /* カチッとクリックした瞬間 */
 	background-color: transparent;
 }
 
-#img{
+.icon-id{
 	width: 40px;
 	height: auto;
 }

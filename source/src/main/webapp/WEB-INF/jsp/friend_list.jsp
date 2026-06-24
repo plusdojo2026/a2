@@ -144,7 +144,7 @@
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
 					<div class="friend">
-						<img  id = "img" src='img/${f.friend.iconId}.png'> 
+						<img  id="icon-id" class="icon-id" src='img/${f.friend.iconId}.png'> 
 						ID:<span class="friend-id">${friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
 						<span class="friend-point">${f.friendInfo.point}</span>:pt<br>
@@ -260,11 +260,12 @@ function openModal(friendUserId) {
 	const date = data.latestTraining[0]?.date || "";
 	if (!data) return;
 	// 表示データセット
+	document.getElementById("icon-id").innerText = data.friend.iconId;
 	document.getElementById("friend-id").innerText = "ID:"+ data.friend.friendUserId;
 	document.getElementById("friend-name").innerText = "名前:"+data.friendInfo.userName;
 	document.getElementById("friend-point").innerText = data.friendInfo.point + " pt";
 	document.getElementById("training-date").innerText = date;
-	document.getElementById("icon-id").innerText = data.friendInfo.iconId;
+	
 
 
 	

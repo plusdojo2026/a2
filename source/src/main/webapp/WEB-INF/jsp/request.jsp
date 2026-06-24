@@ -31,6 +31,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </header>
 <!--ヘッダーここまで-->
+<main>
 	<div class="tab-menu">
 		<ul>
 			<li id = "friend"><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
@@ -41,7 +42,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		
 	</div>
 	
-<main style="max-width: 500px; margin: 50px auto; padding: 20px;  border-radius: 10px;">
+
 <p><c:out value="${message}"/></p>
 
 	    <h2>フレンド申請</h2>
@@ -50,7 +51,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-             		<img  id = "img" src='img/${req.iconId}.png'> 
+             		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
                     <label id ="requserid">${req.userId}</label>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんから</span>
@@ -77,7 +78,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-             		<img  id = "img" src='img/${req.iconId}.png'> 
+             		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
                     <span style="font-size: 12px;">${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんへ</span>
