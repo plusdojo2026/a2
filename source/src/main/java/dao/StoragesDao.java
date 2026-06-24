@@ -744,7 +744,7 @@ public class StoragesDao {
 			//データをStorage.java（dto）から受け取る
 			 ps.setString(1, dto.getUser_id());   // 後でログイン情報から取得
 			 ps.setDouble(2, dto.getWeight());
-			 ps.setDouble(3, dto.getFat());
+			 ps.setObject(3, dto.getFat());
 			 ps.setString(4, dto.getComments());
 			 ps.setInt(5, dto.getStamp());
 			 
