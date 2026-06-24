@@ -264,6 +264,9 @@ function openModal(friendUserId) {
 	document.getElementById("friend-name").innerText = "名前:"+data.friendInfo.userName;
 	document.getElementById("friend-point").innerText = data.friendInfo.point + " pt";
 	document.getElementById("training-date").innerText = date;
+	document.getElementById("icon-id").innerText = data.friendInfo.iconId;
+
+
 	
 	// トレーニング表示
 	let html = "";
