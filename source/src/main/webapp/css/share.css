@@ -101,7 +101,11 @@ a:active {  /* カチッとクリックした瞬間 */
     border-radius:10px;
     margin:0 auto;
     vertical-align: middle;
+    padding-left:65px;
+    padding-top:15px;
+    
 }
+
 .deletefriend{
 	display:flex;
 	align-items:center;
