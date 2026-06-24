@@ -345,10 +345,26 @@ public class HomeServlet extends HttpServlet {
 			
 			
 			
+			
 			// もともと表示がある項目を受け取る
 
 			sdto.setWeight(Double.parseDouble(request.getParameter("weight")));
-			sdto.setFat(Double.parseDouble(request.getParameter("fat")));
+			
+			
+			
+			  
+			  String fat = request.getParameter("fat");
+
+			  if (fat == null || fat.trim().isEmpty()) {
+			      sdto.setFat(null);
+			  } else {
+			      sdto.setFat(Double.parseDouble(fat));
+			  }
+			
+				/* sdto.setFat(Double.parseDouble(request.getParameter("fat"))); */
+			
+			
+			
 			sdto.setComments(request.getParameter("comments"));
 			sdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
 			sdto.setUser_id(user.getUserId());
@@ -491,8 +507,17 @@ public class HomeServlet extends HttpServlet {
 			double weight = Double.parseDouble(request.getParameter("weight"));
 			mdto.setWeight(weight);
 			
+			String fat = request.getParameter("fat");
+
+			  if (fat == null || fat.trim().isEmpty()) {
+			      mdto.setFat(null);
+			  } else {
+			      mdto.setFat(Double.parseDouble(fat));
+			  }
 			
-			mdto.setFat(Double.parseDouble(request.getParameter("fat")));
+			
+			
+				/* mdto.setFat(Double.parseDouble(request.getParameter("fat"))); */
 			mdto.setComments(request.getParameter("comments"));
 			mdto.setStamp(Integer.parseInt(request.getParameter("stamp")));
 			mdto.setUser_id(user.getUserId());

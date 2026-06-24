@@ -67,7 +67,7 @@ public class SavesDao {
 			 //データをsave.java（dto）から受け取る
 			 psInsert.setString(1, dto.getUser_id());   // 後でログイン情報から取得
 			 psInsert.setDouble(2, dto.getWeight());
-			 psInsert.setDouble(3, dto.getFat());
+			 psInsert.setObject(3, dto.getFat());
 			 psInsert.setString(4, dto.getComments());
 			 psInsert.setInt(5, dto.getStamp());
 			 
@@ -166,6 +166,13 @@ public class SavesDao {
 		        if(rs.next()){
 
 		            dto = new Save();
+		            
+					/*
+					 * if(rs.getString("fat") == "") {
+					 * 
+					 * }
+					 */
+		            
 
 		            dto.setWeight(rs.getDouble("weight"));
 		            dto.setFat(rs.getDouble("fat"));
