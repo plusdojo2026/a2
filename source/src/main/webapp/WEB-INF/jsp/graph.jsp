@@ -18,7 +18,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             *{
                 outline: 1px solid #000000;
             }
-        </style>   -->
+        </style>    --> 
 </head>
 <body>
 <div class="app-wrapper">
@@ -37,21 +37,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　ヘッダーここまで　-->
 <!--　メインここから　-->
 <main>
+<div class ="graph">
 
-<div id = " todaycomment ">
-豆のひとこと：
-<div id= " daycomment ">
+<nav id = "todaycomment">
+豆のひとこと
+</nav>
+<nav class="daycomment" id= "daycomment">
 <c:forEach var="Sw" items="${SelectWord}">
 ${Sw.word_of_day}
 </c:forEach>
-</div>
-</div>
+</nav>
 
 
 <ul id = "select">
 <li>
 <div id ="selectitem">
-	<label for="itemSelect">トレーニング項目：</label><select id="itemSelect"  onchange="changeItem()">
+	<label for="itemSelect">トレーニング項目</label><select id="itemSelect"  onchange="changeItem()">
 		 <c:forEach var="gi" items="${WeekGraph}">
 		<option value="${gi.key}"><c:out value="${gi.key}"/>
 		 </option>
@@ -61,7 +62,7 @@ ${Sw.word_of_day}
 </li>
 <li>
 <div id = "selectweight">
-<label for="weightSelect">重量：</label><select id="weightSelect" onchange="changeWeight()">
+<label for="weightSelect">重量</label><select id="weightSelect" onchange="changeWeight()">
 </select><br>
 </div>
 </li>
@@ -75,7 +76,7 @@ ${Sw.word_of_day}
 
 
 <!-- 表示変更 -->
-<ul>
+<ul id="dayschange">
 <li>
 <button id ="cbutton" onclick="updateChart(weekData)" >直近7回の記録</button>
 </li>
@@ -83,7 +84,7 @@ ${Sw.word_of_day}
 <button id ="cbutton" onclick="updateChart(monthData)" >直近30回の記録</button>
 </li>
 </ul>
-
+</div>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -210,6 +211,7 @@ let chart = new Chart(context3, {
  //     tension: 0,  // 線を少し曲線にする（0にすると直線）
     }]
   },
+  //オプションここから
   options: {
       responsive: true,
       maintainAspectRatio: false,	
@@ -219,8 +221,12 @@ let chart = new Chart(context3, {
           legend: { display: false, }, // 判例の表示/非表示
           
         },
-      //Y軸設定
+      //軸設定
       scales: {
+    	  //X軸ここから
+    	  
+    	  //X軸ここまで	
+    	  //Y軸ここから
 	        y: {
 	            ticks: {
 	                stepSize: 5,
@@ -237,9 +243,9 @@ let chart = new Chart(context3, {
 	                    size: 14
 	                }
 	            }
-	        }
-	    }
-	}
+	        }//Y軸ここまで
+	    }//軸設定ここまで
+	}  //オプションここまで
 });
 
 
