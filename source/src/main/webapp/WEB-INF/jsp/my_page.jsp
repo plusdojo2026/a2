@@ -49,26 +49,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </div>
 </div>
 <br>
-<div>
+<div class="kihon">
 <a href="/a2/EditProfileServlet" class="profile">
 	基本情報の変更
 </a>
+</div>
+
+<div class="pass">
 <a href="/a2/PasswordServlet" class="password">
 	パスワードの変更
 </a>
 </div>
 <br>
 <div>
+<div class="logout">
 <a href="/a2/LogoutServlet" class="logout" id="logout">
 	ログアウト
 </a>
 </div>
 <br>
-
+<div class="taikai">
 <a href="/a2/DeleteAccountServlet" class="delete_account">
 	退会手続き
 </a>
-
+</div>
 </main>
 <!--メインここまで-->
 <!--フッターここから-->
