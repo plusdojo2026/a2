@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>リクエスト一覧</title>
     <link rel="stylesheet" href="/a2/css/header_footer.css">
+    <link rel="stylesheet" href="/a2/css/request.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
@@ -25,13 +26,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </header>
 <!--ヘッダーここまで-->
-<nav class="tab-menu">
+	<div class="tab-menu">
 		<ul>
+		<label>
 			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
-            <li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
-
+		</label>
+			<li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
+		
 		</ul>
-	</nav>
+		
+	</div>
 	
 <main style="max-width: 500px; margin: 50px auto; padding: 20px;  border-radius: 10px;">
 <p><c:out value="${message}"/></p>
