@@ -144,7 +144,6 @@
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
 					<div class="friend">
-						<img  id = "img" src='img/${f.friendiconId}.png'> 
 						ID:<span class="friend-id">${friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
 						<span class="friend-point">${f.friendInfo.point}</span>:pt<br>
