@@ -136,10 +136,10 @@
 <h2>基本データ</h2>
 
 体重(kg)　<input type="number" name="weight" value="${weight}" step="0.1" required><br>
-体脂肪率(％)<input type="number" name="fat" value="${fat}" step="0.1" required><br>
+体脂肪率(％)<input type="number" name="fat" value="${fat}" step="0.1" ><br>
 <div id="weightEr" style="color:red;"></div>
-<div id="fatEr" style="color:red;"></div>
-
+<!-- <div id="fatEr" style="color:red;"></div>
+ -->
 <!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
 <br>
@@ -319,20 +319,20 @@
 	// ⭕ 追加する関数：一時保存ボタンを押したときに安全にチェックして送信する
 	function submitTempSave() {
 	    let weight = document.querySelector('input[name="weight"]').value;
-	    let fat = document.querySelector('input[name="fat"]').value;
+	   /*  let fat = document.querySelector('input[name="fat"]').value; */
 	    
 	    document.getElementById("weightEr").textContent = "";
-	    document.getElementById("fatEr").textContent = "";
+	   /*  document.getElementById("fatEr").textContent = ""; */
 
 	    let err = false;
 	    if (weight.trim() === "") {
 	        document.getElementById("weightEr").textContent = "体重を入力してください";
 	        err = true;
 	    }
-	    if (fat.trim() === "") {
+	   /*  if (fat.trim() === "") {
 	        document.getElementById("fatEr").textContent = "体脂肪を入力してください";
 	        err = true;
-	    }
+	    } */
 
 	    if (err) return; // エラーがあれば送信しない
 
@@ -363,12 +363,12 @@
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
-		//inputの中のname="fat"のvalueを取り出す（中身ということ）
-	    let fat = document.querySelector('input[name="fat"]').value; 
+		/* //inputの中のname="fat"のvalueを取り出す（中身ということ）
+	    let fat = document.querySelector('input[name="fat"]').value;  */
 		
 	    let err = false;
 	    document.getElementById("weightEr").textContent = "";
-	    document.getElementById("fatEr").textContent = "";
+	    /* document.getElementById("fatEr").textContent = ""; */
 
 		
 		//体重が空欄だった場合 err = true;はエラーがあったということ
@@ -379,13 +379,32 @@
 	    }
 
 		
-	  //体脂肪が空欄だった場合
+		
+		
+		
+		
+		
+		
+	
+		let fat = document.querySelector('input[name="fat"]').value; 
+			
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	  /* //体脂肪が空欄だった場合
 	    if (fat.trim() === "") {
 	        document.getElementById("fatEr").textContent =
 	            "体脂肪を入力してください";
 	        err = true;
 	    }
-		
+		 */
 		//ここでまとめて返すことでどっちも表示できる
 	    if (err) {
 	        return;

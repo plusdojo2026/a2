@@ -9,7 +9,7 @@ public class Storage implements Serializable{
 	private int storage_id;
 	private String user_id;
 	private double weight;
-	private double fat;
+	private Double fat;
 	private String memo;
 	private String comments;
 	private int stamp;
@@ -49,10 +49,10 @@ public class Storage implements Serializable{
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-	public double getFat() {
+	public Double getFat() {
 		return fat;
 	}
-	public void setFat(double fat) {
+	public void setFat(Double fat) {
 		this.fat = fat;
 	}
 	public String getMemo() {
@@ -115,7 +115,7 @@ public class Storage implements Serializable{
 	}
 	
 	//コンストラクタ
-	public Storage(int storage_id, String user_id, double weight, double fat, String memo, String comments, int stamp,
+	public Storage(int storage_id, String user_id, double weight, Double fat, String memo, String comments, int stamp,
 			Date date, int id, int tr_id, int tr_weight, int counts, int sets) {
 		super();
 		this.storage_id = storage_id;

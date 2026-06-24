@@ -10,7 +10,8 @@ public class Save implements Serializable{
 	private int save_id;
 	private String user_id;
 	private double weight;
-	private double fat;
+	
+	private Double fat;
 	private String memo;
 	private int stamp;
 	private Date date;
@@ -22,12 +23,20 @@ public class Save implements Serializable{
 	private String comments;
 	private String trItem;
 	
+	private String fatTwo;
+	
 	
 	
 	
 	
 	//ゲッターとセッター
 	
+	public String getFatTwo() {
+		return fatTwo;
+	}
+	public void setFatTwo(String fatTwo) {
+		this.fatTwo = fatTwo;
+	}
 	public String getTrItem() {
 		return trItem;
 	}
@@ -58,10 +67,10 @@ public class Save implements Serializable{
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-	public double getFat() {
+	public Double getFat() {
 		return fat;
 	}
-	public void setFat(double fat) {
+	public void setFat(Double fat) {
 		this.fat = fat;
 	}
 	public String getMemo() {
@@ -123,7 +132,7 @@ public class Save implements Serializable{
 		
 		
 	}
-public Save(int save_id, String user_id, double weight, double fat, String memo, int stamp, Date date, int id,
+public Save(int save_id, String user_id, double weight, Double fat, String memo, int stamp, Date date, int id,
 		int tr_id, int tr_weight, int counts, int sets, String comments) {
 	super();
 	this.save_id = save_id;
