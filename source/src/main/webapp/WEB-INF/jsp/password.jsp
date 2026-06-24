@@ -51,16 +51,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     		</tr>
     		<tr>
-        		<td>新しいパスワード</td>
-       			<td>
-        			<input type="password" id="password3">
+        		<td><nobr>新しいパスワード</nobr></td>
+       			<td style="text-align: right;">
+       				<div class="eye-slash">
+        				<input type="password" id="password3">
+        			</div>
         		</td>
  
     		</tr>
-		</table>  
-    	<button type="button" id="show">
-    		<i class="fa-regular fa-eye-slash" id="icon"></i>
-   		</button>
+    		
+		</table> 
+		<button type="button" id="show" class="right">
+        				<i class="fa-regular fa-eye-slash" id="icon"></i>
+        </button>
+    	
+   	
+   		
     
    		<div class="button">
     		<input type="submit" class="regist-button" value="変更">

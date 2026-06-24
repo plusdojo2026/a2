@@ -64,7 +64,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 	<div class="button">
 		<input type="button"  class="back-button" onclick="location.href='/a2/MyPageServlet'" value="戻る">
-		<input type="submit"   class="regist-button" value="登録">
+		<input type="submit"  class="regist-button" value="登録">
 	</div>
 </div>
 </form>
