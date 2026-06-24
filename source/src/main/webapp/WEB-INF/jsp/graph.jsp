@@ -14,11 +14,11 @@
 <link rel="stylesheet" href="/a2/css/graph.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- <style>
+ <!-- <style>
             *{
                 outline: 1px solid #000000;
             }
-        </style>  
+        </style>   -->
 </head>
 <body>
 <div class="app-wrapper">
@@ -48,10 +48,10 @@ ${Sw.word_of_day}
 </div>
 
 
-<ul>
+<ul id = "select">
 <li>
-<div>
-	<label for="itemSelect">トレーニング項目：</label><select id="itemSelect" onchange="changeItem()">
+<div id ="selectitem">
+	<label for="itemSelect">トレーニング項目：</label><select id="itemSelect"  onchange="changeItem()">
 		 <c:forEach var="gi" items="${WeekGraph}">
 		<option value="${gi.key}"><c:out value="${gi.key}"/>
 		 </option>
@@ -60,7 +60,7 @@ ${Sw.word_of_day}
 </div> 
 </li>
 <li>
-<div>
+<div id = "selectweight">
 <label for="weightSelect">重量：</label><select id="weightSelect" onchange="changeWeight()">
 </select><br>
 </div>
