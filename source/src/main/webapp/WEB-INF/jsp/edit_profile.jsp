@@ -30,24 +30,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　メインここから　-->
 <main>
 <c:out value="${message}"/>
-<form method=POST action="/a2/EditProfileServlet">
+<form method=POST action="/a2/EditProfileServlet" id="form">
 <p>　ID：<c:out value="${userInfo.userId}"/></p>
 <input type="hidden" name="userId" value="${userInfo.userId}">
 <div>
 	<table>
 		<tr>
 			<th>ユーザー名</th>
-			<td><input type="text" name="userName" value="${userInfo.userName}"></td>
+			<td><input type="text" id="must1" name="userName" value="${userInfo.userName}"></td>
 		<tr>
 		<tr>
 			<th>身長</th>
-			<td><input type="text" name="height" id="height" value="${userInfo.height}"></td>
+			<td><input type="text" id="must2" name="height" id="height" value="${userInfo.height}"></td>
 		<tr>
 		<tr>
 			<th>性別</th>
 			<td>
 				男:<input type="radio" name="gender" value="man" 
-				${userInfo.gender == 'man' ? 'checked' : ''}>
+				${userInfo.gender == 'man' ? 'checked' : ''} >
 				女:<input type="radio" name="gender" value="woman" 
 				${userInfo.gender == 'woman' ? 'checked' : ''}>
 				その他:<input type="radio" name="gender" value="other" 
@@ -56,7 +56,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		<tr>
 		<tr>
 			<th>目標体重</th>
-			<td><input type="text" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}"></td>
+			<td><input type="text" id="must3" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}"></td>
 		<tr>
 	</table>
 </div>
@@ -79,6 +79,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　フッターここまで　-->
 <script>
 'use strict'
+
+document.getElementById('form').onsubmit = function(event){
+
+        let m1 = document.getElementById('form').must1.value;
+        let m2 = document.getElementById('form').must2.value;
+        let m3 = document.getElementById('form').must3.value;
+//もし、名前が未入力なら進めない
+         if( m1 === '' || m2 === '' || m3 ===''){
+        	alert('必須項目が未入力です。');
+            event.preventDefault();
+        }
+};
+
 document.querySelector("form").addEventListener("submit", function(event) {
 
 	const height = document.querySelector("input[name='height']").value.trim();
@@ -129,13 +142,6 @@ if( month === 6 && date === 17 ){
     document.getElementById('anniversary').textContent='豆の日';
 }
 document.getElementById('today').textContent=text;
-}
-//ログアウトアラート
-document.getElementById('logout').onclick = function(event){
-    let logout = window.confirm('ログアウトしてよろしいですか？');
-    if( logout === false){
-        event.preventDefault();
-    }
 }
 
 //スクロールに合わせたアイコンバーの変更
