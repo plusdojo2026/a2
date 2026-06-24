@@ -44,7 +44,7 @@
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 
 <!-- <input type="submit" name="savetime" value="一時保存"> -->
-<input type="button" value="一時保存" onclick="submitTempSave()">
+<input type="button" value="一時保存" onclick="submitTempSave()" class="save">
 
 <h2>基本データ</h2>
 <table>

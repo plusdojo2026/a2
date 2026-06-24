@@ -91,3 +91,8 @@ main{
     	z-index: 40;
     }
     
+ .save{
+ 	position: fixed;
+ 	top:100px;
+ 	right:50px;
+ }
