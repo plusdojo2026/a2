@@ -63,15 +63,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <br>
 <div class="flex">
 <div class="logout-div">
-<a href="/a2/LogoutServlet" class="logout" id="logout">
-	ログアウト
-</a>
+	<input type="button"  class="logout-button" onclick="location.href='/a2/MyPageServlet'" value="ログアウト" class="logout" id="logout">
+	<input type="button"  class="taikai-button" onclick="location.href='/a2/DeleteAccountServlet'" value="退会手続き" class="delete_account">
+
 </div>
 <br>
 <div class="taikai">
-<a href="/a2/DeleteAccountServlet" class="delete_account">
-	退会手続き
-</a>
+
 </div>
 </div>
 
