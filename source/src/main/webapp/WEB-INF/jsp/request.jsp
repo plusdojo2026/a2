@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="/a2/css/request.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+ <!--   <style>
+            *{
+                outline: 1px solid #000000;
+            }
+        </style>  -->
 </head>
 <body>
 <div class="app-wrapper">
@@ -28,10 +33,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--ヘッダーここまで-->
 	<div class="tab-menu">
 		<ul>
-		<label>
-			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
-		</label>
-			<li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
+			<li id = "friend"><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
+
+			<li id= "request"><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
 		
 		</ul>
 		
@@ -46,7 +50,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 30px;">${req.iconId}</span>
+              <!--  <span style="font-size: 30px;">${req.iconId}</span>  --> 
                     <span style="font-size: 12px;">${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんから</span>
@@ -73,7 +77,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 30px;">${req.iconId}</span>
+<!--                <span style="font-size: 30px;">${req.iconId}</span>  --> 
                     <span style="font-size: 12px;">${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんへ</span>
@@ -162,6 +166,10 @@ window.addEventListener("scroll", () => {
   }
   lastScroll = current;
 });
+
+//アイコン画像を置き換える
+
+
 </script>
 </div>
 </body>

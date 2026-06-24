@@ -8,7 +8,6 @@
     list-style-type: none;
     display: flex; /* 横並びにする設定 */
     justify-content: center; /* 中央に寄せる */
-    gap: 100px; /* メニュー同士の隙間 */
     font-size: 20px;
     background-color: #22fc4d;
     border-radius:40px;
@@ -29,7 +28,7 @@
     position: absolute;
     top: 0;          /* 上下の余白（10%短くしています。0にすると端から端まで引かれます） */
     bottom: 0;       /* 上下余白 */
-    right: -50px;      /* ★gap(100px)のちょうど半分の位置！ */
+    right: 0px;
     width: 2px;        /* 線の太さ */
     background-color: #333; /* 線の色（少し暗めのグレー。お好みで変えてください） */
 }
@@ -45,4 +44,17 @@ a:visited,  /* 飛んだ形跡のあるリンク */
 a:hover,    /* マウスを上に乗せたとき */
 a:active {  /* カチッとクリックした瞬間 */
   text-decoration: none;
+}
+
+
+#friend{
+	width: 220px;
+	text-align: center;
+	background-color: transparent;
+}
+
+#request{
+	width: 220px;
+	text-align: center;
+	background-color: transparent;
 }
