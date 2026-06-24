@@ -16,7 +16,8 @@ main{
       background-color: rgba(0,0,0,0.5);
       z-index: 10;
     }
-
+    
+ 
     /* モーダルの本体  項目追加の部分*/
     .modal-content {
       background-color: white;
@@ -91,3 +92,8 @@ main{
     	z-index: 40;
     }
     
+ .save{
+ 	position: fixed;
+ 	top:100px;
+ 	justify-content: flex-end; /* 子要素を右に寄せる */
+ }

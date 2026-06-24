@@ -7,8 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>リクエスト一覧</title>
     <link rel="stylesheet" href="/a2/css/header_footer.css">
+    <link rel="stylesheet" href="/a2/css/request.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <style>
+            *{
+                outline: 1px solid #000000;
+            }
+        </style>  
 </head>
 <body>
 <div class="app-wrapper">
@@ -25,13 +31,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </header>
 <!--ヘッダーここまで-->
-<nav class="tab-menu">
+	<div class="tab-menu">
 		<ul>
-			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
-            <li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
+			<li id = "friend"><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
 
+			<li id= "request"><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
+		
 		</ul>
-	</nav>
+		
+	</div>
 	
 <main style="max-width: 500px; margin: 50px auto; padding: 20px;  border-radius: 10px;">
 <p><c:out value="${message}"/></p>
@@ -42,8 +50,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 30px;">${req.iconId}</span>
-                    <span style="font-size: 12px;">${req.userId}</span>
+             		<img  id = "img" src='img/${req.iconId}.png'> 
+                    <label id ="requserid">${req.userId}</label>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんから</span>
                 </div>
@@ -69,7 +77,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 30px;">${req.iconId}</span>
+             		<img  id = "img" src='img/${req.iconId}.png'> 
                     <span style="font-size: 12px;">${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
                     <span style="font-size: 14px; color: #666;">さんへ</span>
@@ -158,6 +166,10 @@ window.addEventListener("scroll", () => {
   }
   lastScroll = current;
 });
+
+
+
+
 </script>
 </div>
 </body>

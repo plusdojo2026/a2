@@ -10,8 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>フレンド一覧</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="/a2/css/share.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 .modal-bg{
@@ -34,10 +34,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     transform:translate(-50%, -50%);
     
     background:white;
-    width:350px;
-    max-width:90%;
+    width:380px;
+    max-width:95%;
     
-    padding:20px;
+    
     border-radius:10px;
     
     box-shadow:0 4px 10px rgba(0,0,0,0.3);
@@ -107,18 +107,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--ヘッダーここまで-->
 <!--*=====メインここから=====*-->
 <main>
-	<nav class="tab-menu">
+	<div class="tab-menu">
 		<ul>
-			<li><a href="/a2/FriendListServlet" class="active">フレンド</a></li>
+			<li><a href="/a2/FriendListServlet" class="active" >フレンド</a></li>
 			<li><a href="/a2/FriendrequestsServlet">リクエスト</a></li>
 		</ul>
-	</nav>
+	</div>
 	<p><c:out value="${message}"/></p>
 	<p id="msg"></p>
 	<div class="search-area">
 		<form action="/a2/FriendListServlet" method="POST" id="form">
 			<label for="searchId">ID検索：</label>
-			<input type="text" id="searchId" name="searchId" placeholder="ユーザーIDを入力">
+			<input type="text" id="searchId" name="searchId" class="searchId" placeholder="ユーザーIDを入力">
 			<button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</form>
 	</div>
@@ -131,19 +131,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	
 	
 	<section class="friend-list-section">
-		<h2>フレンド一覧 <button type="button" id="toggle-delete-btn"><i class="fa-solid fa-trash"></i></button></h2>
+		<h2 style="justify-content: center; display: flex;" >フレンド一覧 <button type="button" id="toggle-delete-btn" class="delete"><i class="fa-solid fa-trash" style=>       </i></button></h2>
 
 			
 			<form action="/a2/FriendDeleteServlet" method="POST" id="deleteform">
 			
 			<!-- フレンド表示のループ -->
 				<c:forEach var="f" items="${friendFullList}">
+				<br>
+				  <div class="deletefriend">
 					<!-- <div class="friend-info"> -->
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
-						ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
+					<div class="friend">
+						<img  id = "img" src='img/${f.friend.iconId}.png'> 
+						ID:<span class="friend-id">${friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
 						<span class="friend-point">${f.friendInfo.point}</span>:pt<br>
+					</div>
 					</div>
 						
 					<!-- </div> -->
@@ -152,10 +157,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 							<input type="checkbox" name="deleteIds" value="${f.friend.friendUserId}"> 削除する
 						</label>
 					</div>
+				  </div>
 				</c:forEach>
 						
 				<div class="delete-button-area delete-target" style=" display: none;">
-					<button type="submit" class="delete-btn" id="delete-btn">選択したフレンドを削除</button>
+					<button type="submit" class="delete-btn" id="delete-btn" >選択したフレンドを削除</button>
 				</div>
 			</form>
 			
@@ -177,7 +183,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <div id="friend-modal" class="friend-modal" style="display:none;">
 	<div class="modal">
 	<!-- 名前とIDの表示 -->
-		<span id="icon-id"></span>
 		<span id="friend-id"></span>
 		<span id="friend-name"></span>
 		<span id="friend-point"></span>
@@ -255,11 +260,13 @@ function openModal(friendUserId) {
 	const date = data.latestTraining[0]?.date || "";
 	if (!data) return;
 	// 表示データセット
-	document.getElementById("icon-id").innerText = data.friendInfo.iconId;
 	document.getElementById("friend-id").innerText = "ID:"+ data.friend.friendUserId;
 	document.getElementById("friend-name").innerText = "名前:"+data.friendInfo.userName;
 	document.getElementById("friend-point").innerText = data.friendInfo.point + " pt";
 	document.getElementById("training-date").innerText = date;
+	document.getElementById("icon-id").innerText = data.friendInfo.iconId;
+
+
 	
 	// トレーニング表示
 	let html = "";

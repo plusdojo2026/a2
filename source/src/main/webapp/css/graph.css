@@ -8,12 +8,12 @@
 .canvas-container {
     position:absolute;
     width:  calc(100% - 20px);
-    height: 320px;
+    height: 350px;
     overflow: hidden;
     margin:10px;
     justify-content: center;
     
-    top: 180px;
+    top: 160px;
 }
 
 ul{
@@ -32,7 +32,7 @@ ul{
 
 #todaycomment{
 	position: absolute;
-	top:8px;
+	top:6px;
 }
 
 #daycomment{

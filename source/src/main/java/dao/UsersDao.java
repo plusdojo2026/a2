@@ -13,7 +13,7 @@ public class UsersDao {
 	public User login(User us) {
 		User user = null;
 		Connection conn = null;
-		boolean loginResult = false;
+
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -43,10 +43,10 @@ public class UsersDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			loginResult = false;
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			loginResult = false;
+		
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -54,7 +54,6 @@ public class UsersDao {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					loginResult = false;
 				}
 			}
 		}
