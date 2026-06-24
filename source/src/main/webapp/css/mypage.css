@@ -81,3 +81,44 @@
     text-decoration: none;       /* 下線を消す */
     
 }
+
+
+/* 画像の「大きな角丸の箱」を作る部分 */
+.form-container {
+  max-width: 600px;         /* 横幅の最大値 */
+  border: 2px solid #333;    /* 黒い枠線 */
+  border-radius: 40px;       /* 大きな角丸（画像のように丸くする） */
+  padding: 50px 50px 80px 50px;             /* 内側の余白 */
+  background-color: #fff;
+}
+
+
+.button .back-button{
+	position:absolute;
+	left:90px;
+	text-align: center;
+    border: none;
+    padding: 10px;
+    width: 80px;
+    background-position: center;
+    background-color: #98fb98;
+    color: #556b2f;
+    font-size :0.7rem;
+    display: block;
+    margin-top: 20px;
+}
+    
+    
+.button .regist-button{
+	position:absolute;
+	right:80px;
+	border: none;
+    padding: 10px;
+    width: 80px;
+    background-position: center;
+    background-color: #008000;
+    color: #FFFFFF;
+    font-size :0.7rem;
+    display: block;
+    margin-top: 20px;
+}
