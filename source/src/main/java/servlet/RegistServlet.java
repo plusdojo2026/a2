@@ -20,8 +20,6 @@ public class RegistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-//		}
-
 		// 登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/regist.jsp");
 		dispatcher.forward(request, response);
@@ -50,31 +48,23 @@ public class RegistServlet extends HttpServlet {
 				 userId,  password,  0,  0,  0,  dateTime);
 		if (uDao.insert(us)) { // 登録成功
 			request.setAttribute("result","登録成功しました");
-		// 結果ページにリダイレクトする
 			// ホームサーブレットにリダイレクトする
-			response.sendRedirect("/a2/HomeServlet");	
-		   
-
+			response.sendRedirect("/a2/HomeServlet");
 		} else { // 登録失敗			
 			request.setAttribute("result","ユーザーIDが重複しています");
+			// リクエストスコープに入力値格納して表示されたままにする
+			request.setAttribute("user_id", userId);
+		    request.setAttribute("password", password);
+		    request.setAttribute("user", userName);
+		    request.setAttribute("gender", gender);
+		    request.setAttribute("height", height);
+		    request.setAttribute("target_weight", targetWeight);
 			
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/regist.jsp");
 			dispatcher.forward(request, response);
 		}
 		
-	
-	    
-	    // どのボタンが押されたかを取得
-	    String action = request.getParameter("action");
-	    
-	    if (action != null && action.equals("back")) {
-	        // --- 戻るボタンが押されたときの処理 ---
-	        
-	        // 前の画面にリダイレクト
-	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-			dispatcher.forward(request, response);
-	    }
 	}
 	
 	

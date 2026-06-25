@@ -92,8 +92,10 @@ main{
     	z-index: 40;
     }
     
- .save{
+ .save{/*一時保存ボタン*/
+ 	width:80px;
+ 	height:25px;
  	position: fixed;
  	top:100px;
- 	justify-content: flex-end; /* 子要素を右に寄せる */
+ 	left:600px;
  }

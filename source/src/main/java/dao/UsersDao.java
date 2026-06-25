@@ -540,7 +540,7 @@ public class UsersDao {
 //========================アカウント論理削除用============================
 
 		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-		public boolean deleteAccount(User delAccount) {
+		public boolean deleteAccount(String userId) {
 			Connection conn = null;
 			boolean result = false;
 
@@ -555,13 +555,13 @@ public class UsersDao {
 
 				// SQL文を準備する
 				String sql = "UPDATE users SET "
-						+" logical_delete=1,"
+						+" logical_delete=1 "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 				// SQL文を完成させる
 				
-				pStmt.setString(1, delAccount.getUserId());
+				pStmt.setString(1, userId);
 				
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {
