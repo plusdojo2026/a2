@@ -11,6 +11,7 @@
 <title>新規会員登録</title>
 <link rel="stylesheet" href="css/regist.css">
 <link rel="stylesheet" href="css/header_footer.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
@@ -38,8 +39,13 @@
 		<input type="text" name="user_id" value="${user_id}"><br>
 	</div>
 	<div class="form-group">
-		<label for="password">パスワード*</label>
-		<input type="text" name="password" value="${password}"><br>
+	    <label for="password">パスワード*</label>
+	    <div class="password-wrapper">
+	        <input type="password" id="password1" name="password" value="${password}">
+	        <button type="button" id="show" class="pw-toggle">
+	            <i id="icon" class="fa-regular fa-eye-slash"></i>
+	        </button>
+	    </div>
 	</div>
 	<div class="form-group">
 		<label for="username">ユーザー名*</label>
@@ -135,6 +141,20 @@ document.getElementById('fr').onsubmit = function(event){
 	    
 	}
     
+	 // パスワード表示切替
+    const pas1 = document.getElementById('password1');
+    const icon = document.getElementById('icon');
+
+    document.getElementById('show').onclick = function() {
+        if (pas1.type === "password") {
+            pas1.type = "text";
+            icon.className = "fa-regular fa-eye";
+        } else {
+            pas1.type = "password";
+            icon.className = "fa-regular fa-eye-slash";
+        }
+    }
+
    
 
 </script>

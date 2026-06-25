@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
 import dto.User;
@@ -47,7 +48,9 @@ public class RegistServlet extends HttpServlet {
 		User us = new User(0,  userName,  height,  gender,  targetWeight,  0,
 				 userId,  password,  0,  0,  0,  dateTime);
 		if (uDao.insert(us)) { // 登録成功
-			request.setAttribute("result","登録成功しました");
+			// 登録成功したらセッションにユーザー情報を入れる
+		    HttpSession session = request.getSession();
+		    session.setAttribute("user", us);
 			// ホームサーブレットにリダイレクトする
 			response.sendRedirect("/a2/HomeServlet");
 		} else { // 登録失敗			
