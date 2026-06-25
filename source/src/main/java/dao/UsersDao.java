@@ -138,7 +138,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "INSERT INTO Users(number,user_name,height,gender,target_weight,user_id,password) "
+				String sql = "INSERT INTO users(number,user_name,height,gender,target_weight,user_id,password) "
 						+ "VALUES (0, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
@@ -458,7 +458,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE Users SET "
+				String sql = "UPDATE users SET "
 						+" icon_id=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -506,7 +506,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE Users SET "
+				String sql = "UPDATE users SET "
 						+" design_id=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -554,7 +554,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE Users SET "
+				String sql = "UPDATE users SET "
 						+" logical_delete=1,"
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -606,7 +606,7 @@ public class UsersDao {
 						//UPDATE文でポイントを新たに付与するためのSQL文で準備
 						//pointは、point +実際のポイント数を入れる
 						//WHEREでuser_idと紐づける
-						String sql = "UPDATE Users SET "
+						String sql = "UPDATE users SET "
 								+" point=point+?"
 								+" WHERE user_id=?";
 						
