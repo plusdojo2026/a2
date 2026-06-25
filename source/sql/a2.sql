@@ -389,3 +389,4 @@ INSERT INTO words (word, word_of_day) VALUES
 
 /* 1ユーザーにつき1日1回しか登録できない仕組みを作る文 */
 ALTER TABLE storages ADD UNIQUE KEY unique_user_date (user_id, date);
+ALTER TABLE users ADD UNIQUE (user_id);
