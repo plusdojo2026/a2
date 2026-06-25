@@ -131,30 +131,34 @@
 	
 	
 	<section class="friend-list-section">
-		<h2 style="justify-content: center; display: flex;" >フレンド一覧 <button type="button" id="toggle-delete-btn" class="delete"><i class="fa-solid fa-trash" style=>       </i></button></h2>
+		<h2 style="justify-content: center; display: flex; margin:0 0 20px 0" >フレンド一覧 <button type="button" id="toggle-delete-btn" class="delete"><i class="fa-solid fa-trash" style=>       </i></button></h2>
 
 			
 			<form action="/a2/FriendDeleteServlet" method="POST" id="deleteform">
 			
 			<!-- フレンド表示のループ -->
 				<c:forEach var="f" items="${friendFullList}">
-				<br>
+				
 				  <div class="deletefriend">
 					<!-- <div class="friend-info"> -->
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
 					<div class="friend">
 						<img  id="icon-id" class="icon-id" src='img/${f.friend.iconId}.png'> 
+					<div class="friend-info">
 						ID:<span class="friend-id">${friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
+					</div>	
+					<div class="friend-point">
 						<span class="friend-point">${f.friendInfo.point}</span>:pt<br>
+					</div>
 					</div>
 					</div>
 						
 					<!-- </div> -->
-					<div class="friend-action delete-target" style="display: none;">
+					<div class="friend-action delete-target" style="display: none; transform: scale(1.5);">
 						<label>
-							<input type="checkbox" name="deleteIds" value="${f.friend.friendUserId}"> 削除する
+							<input type="checkbox" name="deleteIds" value="${f.friend.friendUserId}"> 
 						</label>
 					</div>
 				  </div>

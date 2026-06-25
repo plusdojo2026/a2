@@ -3,7 +3,7 @@
 
 
 .tab-menu ul {
-    margin: 0 0 10px 0;
+    margin: 0 0 30px 0;
     padding: 0;
     list-style-type: none;
     display: flex; /* 横並びにする設定 */
@@ -27,23 +27,23 @@
 .tab-menu li:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: 0;          /* 上下の余白（10%短くしています。0にすると端から端まで引かれます） */
-    bottom: 0;       /* 上下余白 */
-    right: -50px;      /* ★gap(100px)のちょうど半分の位置！ */
-    width: 2px;        /* 線の太さ */
-    background-color: #333; /* 線の色（少し暗めのグレー。お好みで変えてください） */
+    top: 0;          
+    bottom: 0;       
+    right: -50px;     
+    width: 2px;       
+    background-color: #333;
 }
 .tab-menu a {
-    display: block; /* ★ここが一番重要！aタグを箱型に広げます */
-    padding: 0 0; /* 上下左右に余白をつけて、クリックできる「面」を作る */
+    display: block;
+    padding: 0 0; 
     color: #ffffff; 
 }
 
 
-a:link,     /* まだ飛んでいない通常のリンク */
-a:visited,  /* 飛んだ形跡のあるリンク */
-a:hover,    /* マウスを上に乗せたとき */
-a:active {  /* カチッとクリックした瞬間 */
+a:link,     
+a:visited,  
+a:hover,   
+a:active {  
   text-decoration: none;
 }
 .searchId{
@@ -55,7 +55,7 @@ a:active {  /* カチッとクリックした瞬間 */
 	font-size: 17px;
 	display: flex;
     justify-content: center;
-    margin:0 0 10px 0;
+    margin:0 0 30px 0;
 }
 .fa-magnifying-glass{
   font-size:17px;
@@ -80,8 +80,8 @@ a:active {  /* カチッとクリックした瞬間 */
   align-items:center;
 }
 .delete-btn{
-	font-size:15px;
-	background-color: #ff0000;
+	font-size:19px;
+	background-color: #ff7171;
 	border-radius:3px;
 	position: relative;
 	left: 50%;
@@ -90,19 +90,13 @@ a:active {  /* カチッとクリックした瞬間 */
 	
 }
 .friend-icon{
-
-	gap:10px;
-	align-items:center;
-	background:white;
-    width:200px;
-    height:100px;
-    max-width:60%;
-    box-shadow:0 4px 10px rgba(0,0,0,0.3);
-    border-radius:10px;
-    margin:0 auto;
-    vertical-align: middle;
-    padding-left:65px;
-    padding-top:15px;
+	font-size:21px;
+	background: #ffffff;
+    width: 90%;          
+    max-width: 450px;    
+    margin: 2px auto;  
+    border: 2px solid #0b2434; 
+    border-radius: 15px; 
     
 }
 
@@ -115,10 +109,35 @@ a:active {  /* カチッとクリックした瞬間 */
 	
 }
 .delete-target{
-	margin:0 20px 0 0;
+	
+	margin:0 10px 0 0;
 }
 
 .icon-id{
-	width: 40px;
-	height: auto;
+	width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover
+}
+
+.friend {
+    display: flex;
+    align-items: center; 
+    padding: 20px 25px;
+}
+
+.friend-info {
+    
+    
+    margin-left: 20px;
+    margin-top: 0;     
+    margin-bottom: 0;    
+    flex-grow: 1;
+    text-align: left;
+}
+
+.friend-point {
+    font-size: 21px;
+    color: #333;
+    text-align: right;
 }
