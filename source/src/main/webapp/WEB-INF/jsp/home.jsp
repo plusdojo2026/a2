@@ -53,7 +53,7 @@
 			体重(kg)
 		</td>
 		<td>
-			<input type="number" name="weight" value="${weight}" step="0.1" required>
+			<input type="number" name="weight" value="${weight}" step="0.1" required min=0>
 		</td>
 	</tr>
 	<tr>
@@ -61,7 +61,7 @@
 			体脂肪率(％)
 		</td>
 		<td>
-			<input type="number" name="fat" value="${fat}" step="0.1" >
+			<input type="number" name="fat" value="${fat}" step="0.1" min=0>
 		</td>
 </table>
 <div id="weightEr" style="color:red;"></div>
@@ -213,21 +213,56 @@ window.addEventListener("scroll", () => {
 });
 	//ここでcount宣言
 	let count=0;
+	
+	//マイナスが入ったときの処理 アラートを出す
+	function checkMinus(){
+
+		//document.querySelectorAllはCSSで使用したり属性指定をまとめて持ってこれる
+		//'input[type="number"]'を今回は持ってきている
+	    const numbers = document.querySelectorAll( 'input[type="number"]');
+
+		//input[type="number"]をすべて繰り返して確認する処理
+	    for(let i = 0; i < numbers.length; i++){
+
+	    	//iにinput[type="number"] の中身を持ってくる
+	        const value = numbers[i].value;
+
+	    	//空欄ではないことと、マイナスの値であることが重なったらアラートを表示する
+	        if(value !== "" && Number(value) < 0){
+	            alert("マイナスの値は入力できません。");
+	            //カーソルをマイナスを入れて止まった場所に持っていく
+	            numbers[i].focus();
+	            //マイナスが入っていたということを返す
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+	
+	
 	// ⭕ 追加する関数：一時保存ボタンを押したときに安全にチェックして送信する
 	function submitTempSave() {
+		
+		//マイナスチェックの関数を呼ぶ
+		//checkMinus == false が !だったら
+		 if(!checkMinus()){
+		        return;
+		    }
+		
 	    let weight = document.querySelector('input[name="weight"]').value;
-	   /*  let fat = document.querySelector('input[name="fat"]').value; */
+	   
+	    
 	    document.getElementById("weightEr").textContent = "";
-	   /*  document.getElementById("fatEr").textContent = ""; */
+	
+	    
 	    let err = false;
 	    if (weight.trim() === "") {
 	        document.getElementById("weightEr").textContent = "体重を入力してください";
 	        err = true;
 	    }
-	   /*  if (fat.trim() === "") {
-	        document.getElementById("fatEr").textContent = "体脂肪を入力してください";
-	        err = true;
-	    } */
+	   
+	    
 	    if (err) return; // エラーがあれば送信しない
 	    // 隠しボタンの代わりに、一時保存であることを示すパラメータを動的に作って送信
 	    let form = document.getElementById("homeForm");
@@ -240,6 +275,13 @@ window.addEventListener("scroll", () => {
 	} 
 	//保存用の時のモーダル
 	function openSaveModal() {
+		
+		//マイナスがあるときにfalseを返している (checkMinus() == false)だったらという意味
+		//この関数自体がマイナスを渡すときという意味だから、ここではtrueが入ることで動く
+		if(!checkMinus()){
+	        return;
+	    }
+		
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
@@ -305,14 +347,7 @@ window.addEventListener("scroll", () => {
 	            let sets = document.getElementsByName("sets" + i)[0]?.value || "";
 	            let memo = document.getElementsByName("memo" + i)[0]?.value || "";
 	            //表示パターン１
-	          /*   html += "<hr>";
-	            html += "項目：" + item.value + "<br>";
-	            html += "重さ：" + tr_weight + "<br>";
-	            html += "回数：" + counts + "<br>";
-	            html += "セット：" + sets + "<br>";
-	            html +="<br>"
-	            html += "メモ"+"<br>"
-	            html += memo + "<br>" */
+	        
 	            html += "[" + item.value + "]"+"<br>";
 	            html += tr_weight +" kg(km) ×";
 	            html += counts + " 回 ×";
@@ -503,6 +538,7 @@ window.addEventListener("scroll", () => {
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight" +count;
+   			weightinput.min = 0;
    			div.appendChild(weightinput);
 			
 			
@@ -520,6 +556,7 @@ window.addEventListener("scroll", () => {
    			let countinput = document.createElement("input");
 			countinput.type = "number";
 			countinput.name ="counts" +count;
+			countinput.min = 0;
 			div.appendChild(countinput);
    			
 			
@@ -537,6 +574,7 @@ window.addEventListener("scroll", () => {
    			let setinput = document.createElement("input");
 			setinput.type = "number";
 			setinput.name ="sets" + count;
+			setinput.min = 0;
 			div.appendChild(setinput);
    			
 			
@@ -575,6 +613,7 @@ window.addEventListener("scroll", () => {
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
    			weightinput.name ="tr_weight"+ count;
+   			weightinput.min = 0;
    			div.appendChild(weightinput);
 			
 			
@@ -595,6 +634,7 @@ window.addEventListener("scroll", () => {
    			let countinput = document.createElement("input");
 			countinput.type = "number";
 			countinput.name ="counts" + count;
+			countinput.min = 0;
 			div.appendChild(countinput);
    			
    			
@@ -613,6 +653,7 @@ window.addEventListener("scroll", () => {
    			let setinput = document.createElement("input");
 			setinput.type = "number";
 			setinput.name ="sets" + count;
+			setinput.min = 0;
 			div.appendChild(setinput);
 			
 			
@@ -640,10 +681,6 @@ window.addEventListener("scroll", () => {
     }
     
     
- /*    function openModal() {
-        document.getElementById("modal").style.display = "block";
-    }
-     */
     
     function closeModal() {
         document.getElementById("modal").style.display = "none";
