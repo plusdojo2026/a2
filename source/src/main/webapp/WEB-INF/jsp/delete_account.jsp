@@ -30,7 +30,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
-<form method=POST action="/a2/DeleteAccountServlet">
+
 <div class="my_page_user_info">
     <div class="circle">
     </div>
@@ -43,6 +43,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <p>上記アカウントの退会手続きを行います。<br>
 退会後は、アカウントの利用・ログインが出来なくなります。
 </p>
+<form method=POST action="/a2/DeleteAccountServlet">
+	<input type="hidden" name="userId" value="${userInfo.userId}">
 <input type="submit" value="退会する" id="delete">
 </form>
 
