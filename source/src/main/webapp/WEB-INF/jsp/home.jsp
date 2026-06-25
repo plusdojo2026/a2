@@ -410,7 +410,7 @@ window.addEventListener("scroll", () => {
     		//mの中にダンベルとかの種目が入る
     		
     		
-    		/* let m = document.getElementById("it"+i).value; */
+    		
     		
     		let mm = document.getElementById("it"+i);
     		
@@ -440,6 +440,16 @@ window.addEventListener("scroll", () => {
 		let itemArea=document.getElementById("itemArea");
     	const  div = document.createElement("div");
     	div.id = "item"+count;
+    	
+    	
+    	
+    	//クラスを追加 
+    	//div.classList.addでクラス追加される
+    	//divが全部囲っているものなので項目、重さ、回数、セット全部入っているはず
+    	//名前は適当に決めたので変えて大丈夫です◎
+    	div.classList.add("item-box"); 
+    	
+    	
     	
     	//項目追加した時に線を入れている
     	div.style.borderTop = "1px solid #ccc";
@@ -758,10 +768,23 @@ window.addEventListener("scroll", () => {
     //<div id="itemArea"></div>のところに追加するので取得
     let itemArea = document.getElementById("itemArea");
 
+    
+    
+    
     //divを作っている、項目は追加式なので+ countで　○○1,○○2のようにしている
     const div = document.createElement("div");
     div.id = "item" + count;
-
+    
+    
+    
+ 	//クラスを追加 （一時保存した後は項目やデータの入力が作り直しされているのでこっちにもタグが必要）
+	//div.classList.addでクラス追加される
+	//divが全部囲っているものなので項目、重さ、回数、セット全部入っているはず
+	//名前は適当に決めたので変えて大丈夫です◎
+    div.classList.add("item-box"); 
+    
+   
+    
     
  	// 項目同士の間隔を作る
     div.style.marginBottom = "30px";
