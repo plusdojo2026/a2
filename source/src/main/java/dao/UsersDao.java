@@ -390,7 +390,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE Users SET "
+				String sql = "UPDATE users SET "
 						+" user_name=?,"
 						+" height=?,"
 						+" gender=?,"
