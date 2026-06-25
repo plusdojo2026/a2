@@ -316,23 +316,72 @@
 	let count=0;
 	
 	
-	// ⭕ 追加する関数：一時保存ボタンを押したときに安全にチェックして送信する
+	
+	
+	
+	//マイナスが入らないようにする↓
+
+	function checkMinus(){
+
+		//画面にあるinput[type="number"]をすべて取ってきている
+		//CSSのタグなどに使うdocument.querySelectorAll だが、属性も持ってこれる
+	    const numbers = document.querySelectorAll('input[type="number"]');
+
+		//number がついているものすべてを最初から最後まで繰り返し見続ける
+	    for(let i = 0; i < numbers.length; i++){
+
+	    	//繰り返し見ていく（valueで中身を見てる）
+	        const value = numbers[i].value;
+
+	    	//空欄ではないこと（空は入れられるから）中身が０より小さければ
+	        if(value !== "" && Number(value) < 0){
+	        	
+	        	//アラートを出すことにする
+	            alert("マイナスの値は入力できません。");
+	        	
+	        	//カーソルがエラーになった部分に戻るようになる
+	            numbers[i].focus();
+	        	
+	        	//チェック失敗という意味を返す
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 一時保存ボタンを押したときに安全にチェックして送信する
 	function submitTempSave() {
+		
+			//checkMinus関数を呼び出している
+			//checkMinus == false が！（否定なので反対）の時に返す
+			//つまりマイナスだとtrueになるので return;で返してくれる
+		    if(!checkMinus()){
+		        return;
+		    }
+		
+		    
 	    let weight = document.querySelector('input[name="weight"]').value;
-	   /*  let fat = document.querySelector('input[name="fat"]').value; */
 	    
 	    document.getElementById("weightEr").textContent = "";
-	   /*  document.getElementById("fatEr").textContent = ""; */
+	   
 
 	    let err = false;
 	    if (weight.trim() === "") {
 	        document.getElementById("weightEr").textContent = "体重を入力してください";
 	        err = true;
 	    }
-	   /*  if (fat.trim() === "") {
-	        document.getElementById("fatEr").textContent = "体脂肪を入力してください";
-	        err = true;
-	    } */
+	   
 
 	    if (err) return; // エラーがあれば送信しない
 
@@ -358,17 +407,20 @@
 	//保存用の時のモーダル
 	function openSaveModal() {
 		
+		//checkMinus関数を呼び出す。マイナスチェックしている
+		if(!checkMinus()){
+	        return;
+	    }
 		
 		
 		//inputの中のname="weight"のvalueを取り出す（中身ということ）
 		let weight = document.querySelector('input[name="weight"]').value;
 		
-		/* //inputの中のname="fat"のvalueを取り出す（中身ということ）
-	    let fat = document.querySelector('input[name="fat"]').value;  */
+	
 		
 	    let err = false;
 	    document.getElementById("weightEr").textContent = "";
-	    /* document.getElementById("fatEr").textContent = ""; */
+	    
 
 		
 		//体重が空欄だった場合 err = true;はエラーがあったということ
@@ -398,13 +450,7 @@
 		
 		
 		
-	  /* //体脂肪が空欄だった場合
-	    if (fat.trim() === "") {
-	        document.getElementById("fatEr").textContent =
-	            "体脂肪を入力してください";
-	        err = true;
-	    }
-		 */
+	 
 		//ここでまとめて返すことでどっちも表示できる
 	    if (err) {
 	        return;
@@ -451,15 +497,7 @@
 	            
 	            let memo = document.getElementsByName("memo" + i)[0]?.value || "";
 	
-	            //表示パターン１
-	          /*   html += "<hr>";
-	            html += "項目：" + item.value + "<br>";
-	            html += "重さ：" + tr_weight + "<br>";
-	            html += "回数：" + counts + "<br>";
-	            html += "セット：" + sets + "<br>";
-	            html +="<br>"
-	            html += "メモ"+"<br>"
-	            html += memo + "<br>" */
+	          
 	            
 	            
 	            html += "[" + item.value + "]"+"<br>";
@@ -490,7 +528,6 @@
 
 	    document.getElementById("homeForm").submit();
 	}
-	
 	
 	
 	
@@ -846,10 +883,8 @@
     }
     
     
- /*    function openModal() {
-        document.getElementById("modal").style.display = "block";
-    }
-     */
+ 
+   
     
     function closeModal() {
         document.getElementById("modal").style.display = "none";
