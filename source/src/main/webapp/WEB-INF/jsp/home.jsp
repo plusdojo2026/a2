@@ -528,8 +528,8 @@ window.addEventListener("scroll", () => {
    			
    			
    			//重さ（距離）を追加する文
-   			div.appendChild(document.createElement("br"));
-   			let w = document.createElement("div");
+   			 div.appendChild(document.createElement("br"));
+   			let w = document.createElement("span");
    			w.textContent = "重さ（距離）";
    			
    			div.appendChild(w); 
@@ -547,7 +547,7 @@ window.addEventListener("scroll", () => {
 			//回数を追加する文
    			
    			div.appendChild(document.createElement("br"));
-   			let k = document.createElement("div");
+   			let k = document.createElement("span");
    			k.textContent = "回数";
    			
    			div.appendChild(k); 
@@ -565,7 +565,7 @@ window.addEventListener("scroll", () => {
    			//セット数を追加する文
    			
    			div.appendChild(document.createElement("br"));
-   			let s = document.createElement("div");
+   			let s = document.createElement("span");
    			s.textContent = "セット";
    			
    			div.appendChild(s); 
@@ -585,7 +585,7 @@ window.addEventListener("scroll", () => {
    			//改行を作っている文章があり（document.createElement("br")のこと）、それをjspのitemAreaに追加している。（itemArea.appendChild(...)の文章の部分）
    			div.appendChild(document.createElement("br"));
    			//メモという文字を入れる為のdiv作っている
-   			let p = document.createElement("div");
+   			let p = document.createElement("span");
    			p.textContent = "メモ";
    			
    			//上のpとtextを入れている
@@ -604,7 +604,7 @@ window.addEventListener("scroll", () => {
     		
     		//重さ（距離）を追加する文
    			div.appendChild(document.createElement("br"));
-   			let w = document.createElement("div");
+   			let w = document.createElement("span");
    			w.textContent = "重さ（距離）";
    			
    			div.appendChild(w); 
@@ -623,7 +623,7 @@ window.addEventListener("scroll", () => {
 			//回数を追加する文
    			
    			div.appendChild(document.createElement("br"));
-   			let k = document.createElement("div");
+   			let k = document.createElement("span");
    			k.textContent = "回数";
    			
    			div.appendChild(k);
@@ -644,7 +644,7 @@ window.addEventListener("scroll", () => {
    			//セット数を追加する文
    			
    			div.appendChild(document.createElement("br"));
-   			let s = document.createElement("div");
+   			let s = document.createElement("span");
    			s.textContent = "セット";
    			
    			div.appendChild(s); 
@@ -789,7 +789,7 @@ window.addEventListener("scroll", () => {
     div.appendChild(input); */
 
     
-    let title = document.createElement("div");
+    let title = document.createElement("span");
     title.textContent = "項目";
 
     div.appendChild(title);
@@ -805,7 +805,7 @@ window.addEventListener("scroll", () => {
     weightinput.value = weight;
 
     /* div.appendChild(document.createTextNode("重さ（距離）")); */
-    let w = document.createElement("div");
+    let w = document.createElement("span");
 	w.textContent = "重さ（距離）";
 	div.appendChild(w);
     
@@ -824,7 +824,7 @@ window.addEventListener("scroll", () => {
 
     /* div.appendChild(document.createTextNode("回数")); */
     
-    let c = document.createElement("div");
+    let c = document.createElement("span");
 	c.textContent = "回数";
 	div.appendChild(c);
     
@@ -842,7 +842,7 @@ window.addEventListener("scroll", () => {
 
     /* div.appendChild(document.createTextNode("セット")); */
     
-    let s = document.createElement("div");
+    let s = document.createElement("span");
 	s.textContent = "セット";
 	div.appendChild(s);
     div.appendChild(setinput);
@@ -854,7 +854,7 @@ window.addEventListener("scroll", () => {
 
         div.appendChild(document.createElement("br"));
 
-        const memoTitle = document.createElement("div");
+        const memoTitle = document.createElement("span");
         memoTitle.textContent = "メモ";
         div.appendChild(memoTitle);
 
