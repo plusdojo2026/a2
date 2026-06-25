@@ -86,6 +86,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 								    data-stamp="${stampMap[dayData.fullDate] != null ? stampMap[dayData.fullDate] : 0}"
 								    data-memo="${fn:escapeXml(memoMap[dayData.fullDate])}"
 								    data-weight="${weightMap[dayData.fullDate] != null ? weightMap[dayData.fullDate] : ''}"
+								    data-fat="${fatMap[dayData.fullDate] != null ? fatMap[dayData.fullDate] : ''}"
 								    onclick="openModalFromTd(this)">
 									<%-- 日付数字 --%>
 							        <div class="date-num">${dayData.day}</div>
@@ -129,7 +130,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 					<br>
 					
 					<label>体重：</label>
-				    <input type="number" step="0.1" name="weight" id="modal-weight" style="width: 70px;"> kg
+				    <input type="number" step="0.1" name="weight" id="modal-weight" style="width: 70px;" required> kg
+				    <br>
+				    
+				    <label>体脂肪率：</label>
+				    <input type="number" step="0.1" name="fat" id="modal-fat" style="width: 70px;"> %
 				    <br>
 				    
 					<label>メモ：</label>
@@ -167,7 +172,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	//const weightMapJs = ${weightMapJson};
 
 	// モーダルを開く関数
-	function openModal(date, stamp, comments, list, weight) {
+	function openModal(date, stamp, comments, list, weight, fat) {
 	    document.getElementById("modal-date").innerText = date;
 	    document.getElementById("modalDate").value = date;
 	
@@ -177,6 +182,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    document.getElementById("modal-memo").value = comments || "";
 	 	// 体重初期値
 	    document.getElementById("modal-weight").value = weight || "";
+	 	// 体脂肪率初期値
+	    document.getElementById("modal-fat").value = fat || "";
 	    	
 	    let area = document.getElementById("modal-training-area");
 	    area.innerHTML = "";
@@ -222,12 +229,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    masterItemsJs.forEach(item => {
 	        optionsHtml += '<option value="' + item.TrId + '">' + item.TrItem + '</option>';
 	    });
+	    
+	    const registeredIdsStr = list.map(obj => obj.tr_id).join(",");
 	
 	    area.innerHTML += 
 	    	'<form action="/a2/CalendarServlet" method="post" class="training-add-form" novalidate onsubmit="return validateAddForm(this)">' +
 		        '<input type="hidden" name="date" value="' + date + '">' +
 		        '<input type="hidden" name="action" value="insert">' +
-		        	
+		        '<input type="hidden" name="registered_ids" value="' + registeredIdsStr + '">' +
 		        '<h5>＋ 新しいトレーニングを追加</h5>' +
 		        
 		        '<div id="add-error-msg" style="color: red;"></div>' +
@@ -256,11 +265,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    const weight = form.tr_weight.value;
 	    const counts = form.counts.value;
 	    const sets = form.sets.value;
+	    const registeredIds = form.registered_ids.value ? form.registered_ids.value.split(",") : [];
 
 	    // 種目の未選択チェック
 	    if (!trId || trId === "") {
 	        errorArea.innerText = "種目を選択してください。";
 	        form.tr_id.focus(); // 入力箇所にカーソルを合わせる
+	        return false; // 送信を中止
+	    }
+	    
+	    if (registeredIds.includes(trId)) {
+	        errorArea.innerText = "その種目はすでに登録されています。";
+	        form.tr_id.focus();
 	        return false; // 送信を中止
 	    }
 
@@ -284,9 +300,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    errorArea.innerText = ""; // メッセージをクリア
 
 	    const weight = form.weight.value;
+	    const fat = form.fat.value;
 	    
-	    // 本当に空っぽ（未入力）の場合は、そのまま保存を許可
-	    if (weight === "" && form.weight.validity.valid) {
+	    if (weight.trim() === "") {
+	        errorArea.innerText = "体重を入力してください。";
+	        form.weight.focus();
+	        return false;
+	    }
+	    if (fat === "" && form.fat.validity.valid) {
 	        return true;
 	    }
 
@@ -296,11 +317,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	        form.weight.focus();
 	        return false;
 	    }
+	    if (!form.fat.validity.valid || /[eE]/.test(fat) || isNaN(parseFloat(fat))) {
+	        errorArea.innerText = "体脂肪率には数値を入力してください";
+	        form.fat.focus();
+	        return false;
+	    }
 
 	    // 負の数チェック
 	    if (parseFloat(weight) < 0) {
 	        errorArea.innerText = "体重には0以上の数値を入力してください。";
 	        form.weight.focus();
+	        return false;
+	    }
+	    if (parseFloat(fat) < 0) {
+	        errorArea.innerText = "体脂肪率には0以上の数値を入力してください。";
+	        form.fat.focus();
 	        return false;
 	    }
 
@@ -350,13 +381,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    const stamp = td.dataset.stamp;
 	    const memo = td.dataset.memo;
 	    const weight = td.dataset.weight;
+	    const fat = td.dataset.fat;
 
 	    const list = trainingMapJs[date] || [];
 
 	    console.log("選択された日付:", date);
 	    console.log("取得されたリスト:", list);
 
-	    openModal(date, stamp, memo, list, weight);
+	    openModal(date, stamp, memo, list, weight, fat);
 	}
 
 	function closeModal() {

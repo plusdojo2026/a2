@@ -22,10 +22,11 @@ public class StoragesDao {
      * スタンプやメモを更新、新規追加するメソッド
      * 返り値：trueかfaulse
      */
-	public boolean saveRecord(String userId, String date, Integer stamp, String comments, Double weight) {
+	public void saveRecord(String userId, String date, int stamp, String comments, double weight, double fat) {
 
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
         	// JDBCドライバを読み込む
@@ -37,23 +38,42 @@ public class StoragesDao {
 					"a2", "Q9wE3rJYtjnxjH4g");
 
             // INSERTかUPDATEを1回で実行するSQL
-            String sql =
-                "INSERT INTO storages (user_id, date, stamp, comments, weight) " +
-                "VALUES (?, ?, ?, ?, ?) " +
-                "ON DUPLICATE KEY UPDATE " +
-                "stamp = VALUES(stamp), " +
-                "comments = VALUES(comments), " +
-                "weight = VALUES(weight)";
+			String checkSql = "SELECT COUNT(*) FROM storages WHERE user_id = ? AND date = ?";
+	        ps = conn.prepareStatement(checkSql);
+	        ps.setString(1, userId);
+	        ps.setString(2, date);
+	        rs = ps.executeQuery();
 
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, userId);
-            ps.setString(2, date);
-            ps.setObject(3, stamp);
-            ps.setString(4, comments);
-            ps.setObject(5, weight);
-            
-            //ps.executeUpdate()で１件以上更新されてたらtrueが返る
-            return ps.executeUpdate() > 0;
+	        int count = 0;
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	        
+	        ps.close(); // 一度クローズ
+
+	        if (count > 0) {
+	            // 既にデータがある場合はUPDATE
+	            String updateSql = "UPDATE storages SET stamp = ?, comments = ?, weight = ?, fat = ? WHERE user_id = ? AND date = ?";
+	            ps = conn.prepareStatement(updateSql);
+	            ps.setInt(1, stamp);
+	            ps.setString(2, comments);
+	            ps.setDouble(3, weight);
+	            ps.setDouble(4, fat);
+	            ps.setString(5, userId);
+	            ps.setString(6, date);
+	            ps.executeUpdate();
+	        } else {
+	            // データがない場合は新規INSERT
+	            String insertSql = "INSERT INTO storages (user_id, date, stamp, comments, weight, fat) VALUES (?, ?, ?, ?, ?, ?)";
+	            ps = conn.prepareStatement(insertSql);
+	            ps.setString(1, userId);
+	            ps.setString(2, date);
+	            ps.setInt(3, stamp);
+	            ps.setString(4, comments);
+	            ps.setDouble(5, weight);
+	            ps.setDouble(6, fat);
+	            ps.executeUpdate();
+	        }
 
         } catch (SQLException e) {
 			e.printStackTrace();
@@ -69,8 +89,6 @@ public class StoragesDao {
 				}
 			}
 		}
-
-        return false;
     }
 	
 
@@ -308,6 +326,54 @@ public class StoragesDao {
 	    return map;
 	}
 	
+	/*
+     * 指定された年月の体脂肪率を取得するメソッド
+     * 返り値：Map<"2026-06-10", 体脂肪率>
+     */
+	public Map<String, Double> getFatByMonth(String userId, String yearMonth) {
+	    Map<String, Double> fatMap = new HashMap<>();
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a2?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"a2", "Q9wE3rJYtjnxjH4g");
+			
+			// SQL文を準備する
+	        String sql = "SELECT date, fat FROM storages WHERE user_id = ? AND DATE_FORMAT(date, '%Y-%m') = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, userId);
+	        ps.setString(2, yearMonth);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            String date = rs.getString("date");
+	            double fat = rs.getDouble("fat");
+	            fatMap.put(date, fat);
+	        }
+
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    return fatMap;
+	}
 	
 	/*
 	 * トレーニング内容を新規追加するメソッド
