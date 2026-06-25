@@ -1,1 +1,65 @@
 @charset "UTF-8";
+
+
+
+.tab-menu ul {
+    margin: 0 0 10px 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex; /* 横並びにする設定 */
+    justify-content: center; /* 中央に寄せる */
+    font-size: 20px;
+    background-color: #22fc4d;
+    border-radius:40px;
+}
+.tab-menu li {
+    
+    justify-content: center; /* 中央に寄せる */
+    background-color: #22fc4d;
+}
+
+/*真ん中の仕切り*/
+.tab-menu li:not(:last-child) {
+    position: relative; /* 線の基準位置にする */
+}
+
+.tab-menu li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;          /* 上下の余白（10%短くしています。0にすると端から端まで引かれます） */
+    bottom: 0;       /* 上下余白 */
+    right: 0px;
+    width: 2px;        /* 線の太さ */
+    background-color: #333; /* 線の色（少し暗めのグレー。お好みで変えてください） */
+}
+.tab-menu a {
+    display: block; /* ★ここが一番重要！aタグを箱型に広げます */
+    padding: 0 0; /* 上下左右に余白をつけて、クリックできる「面」を作る */
+    color: #ffffff; 
+}
+
+
+a:link,     /* まだ飛んでいない通常のリンク */
+a:visited,  /* 飛んだ形跡のあるリンク */
+a:hover,    /* マウスを上に乗せたとき */
+a:active {  /* カチッとクリックした瞬間 */
+  text-decoration: none;
+}
+
+
+#friend{
+	width: 220px;
+	text-align: center;
+	background-color: transparent;
+}
+
+#request{
+	width: 220px;
+	text-align: center;
+	background-color: transparent;
+}
+
+.icon-id{
+	width: 40px;
+	height: auto;
+}

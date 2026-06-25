@@ -43,9 +43,10 @@ public class UsersDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-	
+		
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -123,7 +124,7 @@ public class UsersDao {
 	
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 		public boolean insert(User us) {
-			System.out.println("usersDaoのinsertに入ったよ");
+			System.out.println("UsersDaoのinsertに入ったよ");
 			Connection conn = null;
 			boolean ans = false;
 
@@ -539,7 +540,7 @@ public class UsersDao {
 //========================アカウント論理削除用============================
 
 		// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-		public boolean deleteAccount(String userId) {
+		public boolean deleteAccount(User delAccount) {
 			Connection conn = null;
 			boolean result = false;
 
@@ -554,13 +555,13 @@ public class UsersDao {
 
 				// SQL文を準備する
 				String sql = "UPDATE users SET "
-						+" logical_delete=1 "
+						+" logical_delete=1,"
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 				// SQL文を完成させる
 				
-				pStmt.setString(1, userId);
+				pStmt.setString(1, delAccount.getUserId());
 				
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {
@@ -583,6 +584,7 @@ public class UsersDao {
 			// 結果を返す
 			return result;
 		}	
+
 		//==========================ポイント付与用==============================
 		
 				// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
@@ -616,7 +618,7 @@ public class UsersDao {
 						
 						//上２つでまとめたものをPreparedStatementの型に入れる
 						//pStmtで何の型のSQL文の何番目にpoint、pStmtで何の型のSQL文の何番目に何番目のidを入れる、
-						//つまり、UPDATE users SET point = point + 5 WHERE user_id = mamemame01の、
+						//つまり、UPDATE Users SET point = point + 5 WHERE user_id = mamemame01の、
 						//1番目がポイント、2番目にuser_idを入れるため、(1,point )(2,id)となっている
 						//この何番目のの部分はなんの意味であったか
 						// SQL文を完成させる

@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/a2/css/mypage.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<!-- <link rel="icon" href="/a2/img/taglogo.png" type="image/png"> -->
 <link rel="icon" href="/a2/img/mamekiti.png" type="image/png">
 <!-- <style>
             *{
@@ -48,31 +49,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         名前：<c:out value="${userInfo.userName}"/>
     </div>
 </div>
+
+<div>
+<a href="/a2/DesignServlet" class="design">
+	背景・アイコンの変更
+</a>
+</div>
 <br>
-<div class="kihon">
+<div>
 <a href="/a2/EditProfileServlet" class="profile">
 	基本情報の変更
 </a>
-</div>
-
-<div class="pass">
 <a href="/a2/PasswordServlet" class="password">
 	パスワードの変更
 </a>
 </div>
 <br>
 <div>
-<div class="logout">
 <a href="/a2/LogoutServlet" class="logout" id="logout">
 	ログアウト
 </a>
 </div>
 <br>
-<div class="taikai">
+
 <a href="/a2/DeleteAccountServlet" class="delete_account">
 	退会手続き
 </a>
-</div>
+
 </main>
 <!--メインここまで-->
 <!--フッターここから-->

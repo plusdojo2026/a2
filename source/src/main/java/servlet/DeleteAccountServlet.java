@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
+import dto.Message;
 import dto.User;
 
 @WebServlet("/DeleteAccountServlet")
@@ -63,13 +64,16 @@ public class DeleteAccountServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
+
 		UsersDao bDao = new UsersDao();
-			if (bDao.deleteAccount(userId)) { // 更新成功
+			if (bDao.deleteAccount(new User
+					(0,null,0.0,null,0.0,0,userId,null,0,0,0,null))) { // 更新成功
 				// 結果ページにフォワードする
 				response.sendRedirect("/a2/LoginServlet");
 			} else { // 更新失敗
-				request.setAttribute("message", "アカウントを削除できませんでした。");
-				response.sendRedirect("/a2/DeleteAccountServlet");
+				request.setAttribute("message", new Message("アカウントを削除できませんでした。"));
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/delete_account.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
 
