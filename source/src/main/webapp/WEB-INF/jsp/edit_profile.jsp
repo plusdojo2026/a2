@@ -7,9 +7,8 @@
 <meta charset="UTF-8">
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>基本情報の変更</title>
+<title>退会画面</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
-<link rel="stylesheet" href="/a2/css/mypage.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
@@ -33,9 +32,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <c:out value="${message}"/>
 <form method=POST action="/a2/EditProfileServlet" id="form">
 <p>　ID：<c:out value="${userInfo.userId}"/></p>
-<div class="form-container">
 <input type="hidden" name="userId" value="${userInfo.userId}">
-
+<div>
 	<table>
 		<tr>
 			<th>ユーザー名</th>
@@ -61,16 +59,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			<td><input type="text" id="must3" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}"></td>
 		<tr>
 	</table>
-
-	<div class="button">
-		<input type="button"  class="back-button" onclick="location.href='/a2/MyPageServlet'" value="戻る">
-		<input type="submit"  class="regist-button" value="登録">
-	</div>
 </div>
+<a href="/a2/MyPageServlet">戻る</a>
+<input type="submit" value="更新">
 </form>
-</main>
-</div>
 
+</main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
 <footer>

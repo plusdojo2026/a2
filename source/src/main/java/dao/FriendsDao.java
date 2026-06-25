@@ -230,20 +230,20 @@ public class FriendsDao {
 			// SQL文を準備する//
 			String sql = 
 				    "SELECT "
-				    +" ti.tr_item, "
-				    +" t.tr_weight, "
-				    +" t.counts, "
-				    +" t.sets,"
-				    +" t.memo,"
-				    +" DATE_FORMAT(t.date, '%Y-%m-%d') "
-				    +" AS date"
-				    +" FROM tr_storages t "
-				    +" JOIN tr_items ti "
-				    +" ON t.tr_id = ti.tr_id "
-				    +" WHERE t.user_id = ? "
-				    +" AND t.date = ( SELECT MAX(st.date) "
-				    +" FROM tr_storages st "
-				    +" WHERE st.user_id = t.user_id);";
+				    + " ti.tr_item, "
+				    + " t.tr_weight, "
+				    + " t.counts, "
+				    + " t.sets, "
+				    + " t.memo, "
+				    + " t.date "
+				    + " FROM tr_storages t "
+				    + " JOIN tr_items ti "
+				    + " ON t.tr_id = ti.tr_id "
+				    + " WHERE t.user_id = ? "
+				    + " AND t.date = ( "
+				    + " SELECT MAX(st.date) "
+				    + " FROM tr_storages st "
+				    + " WHERE st.user_id = t.user_id) ";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -262,7 +262,7 @@ public class FriendsDao {
 						rs.getInt("counts"),
 						rs.getInt("sets"),
 						rs.getString("memo"),
-						rs.getString("date")
+						rs.getDate("date")
 						);
 				frTrList.add(trSearch);
 				

@@ -70,7 +70,7 @@
 	
 
 <div class="button">
-	<input type="button"  class="back-button" onclick="location.href='/a2/LoginServlet" value="戻る">
+	<input type="button"  class="back-button" onclick="location.href='/a2/LoginServlet'" value="戻る">
 	<input type="button"  class="reset-button" onclick="re()" value="リセット">
 	<input type="submit"   class="regist-button" value="登録">
 </div>

@@ -13,7 +13,7 @@ public class UsersDao {
 	public User login(User us) {
 		User user = null;
 		Connection conn = null;
-
+		boolean loginResult = false;
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -43,10 +43,10 @@ public class UsersDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+			loginResult = false;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		
+			loginResult = false;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -54,6 +54,7 @@ public class UsersDao {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
+					loginResult = false;
 				}
 			}
 		}
@@ -138,7 +139,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "INSERT INTO users(number,user_name,height,gender,target_weight,user_id,password) "
+				String sql = "INSERT INTO Users(number,user_name,height,gender,target_weight,user_id,password) "
 						+ "VALUES (0, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
@@ -390,7 +391,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE users SET "
+				String sql = "UPDATE Users SET "
 						+" user_name=?,"
 						+" height=?,"
 						+" gender=?,"
@@ -458,7 +459,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE users SET "
+				String sql = "UPDATE Users SET "
 						+" icon_id=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -506,7 +507,7 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-				String sql = "UPDATE users SET "
+				String sql = "UPDATE Users SET "
 						+" design_id=? "
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -554,8 +555,13 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
+<<<<<<< HEAD
 				String sql = "UPDATE users SET "
 						+" logical_delete=1 "
+=======
+				String sql = "UPDATE Users SET "
+						+" logical_delete=1,"
+>>>>>>> e32c4b367bd2854f85c081829c01618a5626fbfe
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
@@ -606,7 +612,7 @@ public class UsersDao {
 						//UPDATE文でポイントを新たに付与するためのSQL文で準備
 						//pointは、point +実際のポイント数を入れる
 						//WHEREでuser_idと紐づける
-						String sql = "UPDATE users SET "
+						String sql = "UPDATE Users SET "
 								+" point=point+?"
 								+" WHERE user_id=?";
 						

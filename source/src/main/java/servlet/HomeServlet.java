@@ -243,7 +243,13 @@ public class HomeServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 
+		
+		
 		// ここからホームページからデータが飛んできたとき用//
+		
+		
+		
+	
 
 		//ボタンが押されたという情報をもってきている
 		String savetime = request.getParameter("savetime");
@@ -572,12 +578,7 @@ public class HomeServlet extends HttpServlet {
 			sdao.deleteSaves(user.getUserId());
 			
 			
-			/*
-			 * //セッションからも情報を取り除く session.removeAttribute("weight");
-			 * session.removeAttribute("fat"); session.removeAttribute("comments");
-			 * session.removeAttribute("stamp");
-			 */
-		    
+			
 
 			response.sendRedirect(request.getContextPath() + "/HomeServlet");
 			return;

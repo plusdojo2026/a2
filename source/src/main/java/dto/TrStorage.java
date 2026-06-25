@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 //フレンド一覧のフレンドのTr内容表示用のDTO
 public class TrStorage  implements Serializable{
@@ -10,8 +11,13 @@ public class TrStorage  implements Serializable{
 	private int count;
 	private int sets;
 	private String memo;
-	private String date;
-	public TrStorage(String friendUserId, String trItem, int trWeight, int count, int sets, String memo, String date) {
+	private Date date;
+	
+	
+	public TrStorage() {
+		super();
+	}
+	public TrStorage(String friendUserId, String trItem, int trWeight, int count, int sets, String memo, Date date) {
 		super();
 		this.friendUserId = friendUserId;
 		this.trItem = trItem;
@@ -20,9 +26,6 @@ public class TrStorage  implements Serializable{
 		this.sets = sets;
 		this.memo = memo;
 		this.date = date;
-	}
-	public TrStorage() {
-		super();
 	}
 	public String getFriendUserId() {
 		return friendUserId;
@@ -60,12 +63,12 @@ public class TrStorage  implements Serializable{
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	
 }

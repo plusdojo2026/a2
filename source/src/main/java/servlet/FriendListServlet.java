@@ -124,8 +124,6 @@ public class FriendListServlet extends HttpServlet {
 					fDao.trSearch(new TrStorage
 							(friendUserId, null, 0, 0, 0, null, null));
 			
-			
-			
 			// <===一覧用DAO③===>コンソール確認用
 			System.out.println("DAO③|| トレーニングの数 = " + trSearch.size());
 			
