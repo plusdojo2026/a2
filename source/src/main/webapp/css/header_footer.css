@@ -73,21 +73,22 @@ main {
 /*========================フッター=========================*/
  /* アイコンバー */
 .bottom-bar{
-  position:fixed;/*アイコンバー位置固定*/
-  left:12px;/*バーの配置*/
-  right:12px;
-  bottom:18px;
-  height:72px;
-  width:400px;
-  left: 50%;/*親要素の真ん中に合わせる*/
-  transform: translateX(-50%);
-  display:flex;
-  align-items:center;                   /*上下を整える*/
-  justify-content:space-around;
-  border-radius:40px;                   /*角を丸くする*/
-  background:rgba(55, 55, 55, 0.22);  /*色設定*/
-  backdrop-filter:blur(3px);            /*ぼかし*/
-  border:3px solid rgba(62, 62, 62, 0.525);/*枠色*/
+	position:fixed;/*アイコンバー位置固定*/
+	left:12px;/*バーの配置*/
+	right:12px;
+	bottom:18px;
+	height:72px;
+	width:400px;
+	left: 50%;/*親要素の真ん中に合わせる*/
+	transform: translateX(-50%);
+	display:flex;
+	align-items:center;                   /*上下を整える*/
+	justify-content:space-around;
+	border-radius:40px;                   /*角を丸くする*/
+	background: rgba(107, 175, 78, 0.2);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(107, 175, 78, 1);		/*枠色*/
   /* ===アニメーションの変化にかける時間=== */
   transition:
     height .3s cubic-bezier(.2,.8,.2,1),
@@ -99,7 +100,10 @@ main {
 }
 /* アイコンバー（縮小時） */
 .bottom-bar.small{
-  background:rgba(0, 0, 0, 0.2);       /*アイコンバーぼかし*/
+  background: rgba(107, 175, 78, 0.2);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(107, 175, 78, 1);       /*アイコンバーぼかし*/
   height:58px;
   width:350px;
    transform:
@@ -108,13 +112,15 @@ main {
   border-radius:30px; 
   transform: translateX(-50%);
   display:flex;                   /*角の丸まり具合*/
+  
+  
 }
 /* アイコン */
 .bottom-bar i{
   font-size:27px;
   width:60px;
   height:40px;
-  color:rgba(0, 0, 0, 0.778);
+  color: rgb(62, 142, 65);
   transition:
     transform .4s cubic-bezier(.2,.8,.2,1),
     opacity .25s ease;
@@ -124,9 +130,9 @@ main {
 }
 /*現在ページのアイコン*/
 .nowpage{
-    background-color: #ffffffa6;
+    background-color: rgba(107, 175, 78, 0.5);
     border-radius:15px;
-    box-shadow: 0 0 5px #ffffff;
+    box-shadow: 0 0 5px rgba(62, 142, 65, 1);
 }
 .bottom-bar.shrink i{
   transform:scale(0.82);
