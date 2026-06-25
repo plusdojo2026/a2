@@ -43,7 +43,7 @@
 <div class="input">
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 
-<!-- <input type="submit" name="savetime" value="一時保存"> -->
+
 <input type="button" value="一時保存" onclick="submitTempSave()" class="save">
 
 <h2>基本データ</h2>
@@ -115,7 +115,7 @@
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
-<button onclick="openModal()">＋項目を追加</button>
+<button type="button" onclick="openModal()">＋項目を追加</button>
 <!-- ✧✧✧✧✧✧✧保存確認のモーダル✧✧✧✧✧✧✧ -->
 <button type="button" onclick="openSaveModal()">保存</button>
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->

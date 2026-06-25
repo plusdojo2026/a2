@@ -49,9 +49,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			<th>性別</th>
 			<td>
 				男:<input type="radio" name="gender" value="man" 
-				${userInfo.gender == 'man' ? 'checked' : ''} >
+				${userInfo.gender == 'male' ? 'checked' : ''} >
 				女:<input type="radio" name="gender" value="woman" 
-				${userInfo.gender == 'woman' ? 'checked' : ''}>
+				${userInfo.gender == 'female' ? 'checked' : ''}>
 				その他:<input type="radio" name="gender" value="other" 
 				${userInfo.gender == 'other' ? 'checked' : ''}>
 			</td>
