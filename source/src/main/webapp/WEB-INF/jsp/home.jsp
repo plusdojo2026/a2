@@ -297,13 +297,7 @@ window.addEventListener("scroll", () => {
 	        err = true;
 	    }
 		let fat = document.querySelector('input[name="fat"]').value; 
-	  /* //体脂肪が空欄だった場合
-	    if (fat.trim() === "") {
-	        document.getElementById("fatEr").textContent =
-	            "体脂肪を入力してください";
-	        err = true;
-	    }
-		 */
+	 
 		//ここでまとめて返すことでどっちも表示できる
 	    if (err) {
 	        return;
