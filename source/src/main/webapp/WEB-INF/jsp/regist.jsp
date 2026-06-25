@@ -35,31 +35,31 @@
 <form method="POST" action="/a2/RegistServlet" id="fr">
 	<div class="form-group">
 		<label for="user-id">ユーザーID*</label><br>
-		<input type="text" name="user_id"><br>
+		<input type="text" name="user_id" value="${user_id}"><br>
 	</div>
 	<div class="form-group">
 		<label for="password">パスワード*</label>
-		<input type="text" name="password"><br>
+		<input type="text" name="password" value="${password}"><br>
 	</div>
 	<div class="form-group">
 		<label for="username">ユーザー名*</label>
-		<input type="text" name="user"><br>
+		<input type="text" name="user" value="${user}"><br>
 	</div>
 	<div class="form-group">
 		<span class="label-text">性別</span>
 		<div class="radio-group">
-	    <label><input type="radio" name="gender" value="male"> 男性</label>
-	　　　<label><input type="radio" name="gender" value="female"> 女性</label>
-	　　　<label><input type="radio" name="gender" value="other" checked> その他</label><br>
+	    <label><input type="radio" name="gender" value="male" ${gender == 'male' ? 'checked' : ''}> 男性</label>
+	　　　<label><input type="radio" name="gender" value="female" ${gender == 'female' ? 'checked' : ''}> 女性</label>
+	　　　<label><input type="radio" name="gender" value="other" ${empty gender || gender == 'other' ? 'checked' : ''}> その他</label><br>
 	    </div>
 	</div>
 	<div class="form-group">
 		<label for="height">身長*</label>
-		<input type="number" step="0.1" name="height" min="0"><br>
+		<input type="number" step="0.1" name="height" min="0" value="${height}"><br>
 	</div>
 	<div class="form-group">
 		<label for="weight">目標体重*</label>
-		<input type="number" step="0.1" name="target_weight" min="0"><br>
+		<input type="number" step="0.1" name="target_weight" min="0" value="${target_weight}"><br>
 	</div>
 		
 	
@@ -98,7 +98,7 @@ document.getElementById('fr').onsubmit = function(event){
 	let weight = document.getElementById('fr').target_weight.value;
 	
 	if (id === '' || pw === '' || name === '' || height === '' || weight === ''){
-		document.getElementById('msg').textContent = '必須項目を入力してください';
+		document.getElementById('msg').textContent = '*必須項目を入力してください';
 		event.preventDefault();
  	}
 	
@@ -110,17 +110,23 @@ document.getElementById('fr').onsubmit = function(event){
 
 
 }
-    //リセットボタンを押したときの処理
-    function re(){	
-	//document.getElementById('fr').user_id.value="";
-	//document.getElementById('fr').password.value="";
-	//document.getElementById('fr').user.value="";
-	     document.getElementById('fr').reset();
-	//document.getElementById('fr').height.value="";
-	//document.getElementById('fr').target_weight.value="";
+	function re(){
+	    document.getElementById('fr').user_id.value = "";
+	    document.getElementById('fr').password.value = "";
+	    document.getElementById('fr').user.value = "";
+	    document.getElementById('fr').height.value = "";
+	    document.getElementById('fr').target_weight.value = "";
 	
-	
-}
+	 	// ラジオボタンを全部外す
+	    let radios = document.getElementsByName('gender');
+	    for (let r of radios){
+	        r.checked = false;
+	    }
+	    // 性別のその他を初期状態として選択
+	    document.querySelector('input[name="gender"][value="other"]').checked = true;
+	    // メッセージも消す
+	    document.getElementById('msg').textContent = "*必須項目を入力してください";
+	}
     
     function validateMainForm(form) {
 	    const errorArea = document.getElementById("main-error-msg");
