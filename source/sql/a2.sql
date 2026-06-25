@@ -18,18 +18,18 @@ design_id INT DEFAULT 0,				/*背景ID*/
 point INT DEFAULT 0						/*豆ポイント*/
 );
 /*内容入力*/
-INSERT INTO users (user_name, height, target_weight,point, logical_delete, user_id, password)
+INSERT INTO users (user_name, height, gender, target_weight, point, logical_delete, user_id, password)
 VALUES
-('テスト太郎', 170.5, 60.0,600, 0, 'user1', 'pass1'),
-('サンプル花子', 158.2, 50.0,125, 0, 'user2', 'pass2'),
-('山田次郎', 175.0, 68.0,560, 0, 'user3', 'pass3'),
-('佐藤美咲', 162.3, 52.5,1200, 0, 'user4', 'pass4'),
-('鈴木健太', 180.0, 75.0, 70,0, 'user5', 'pass5'),
-('高橋あかり', 155.0, 48.0,40, 0, 'user6', 'pass6'),
-('伊藤翔', 168.8, 65.0, 450,0, 'user7', 'pass7'),
-('渡辺優奈', 165.5, 54.0,15, 0, 'user8', 'pass8'),
-('中村大輔', 172.2, 70.0, 90,0, 'user9', 'pass9'),
-('小林さくら', 160.0, 49.5,50, 0, 'user10', 'pass10');
+('テスト太郎', 170.5, 'male', 60.0, 600, 0, 'user1', 'pass1'),
+('サンプル花子', 158.2, 'female', 50.0, 125, 0, 'user2', 'pass2'),
+('山田次郎', 175.0, 'other', 68.0, 560, 0, 'user3', 'pass3'),
+('佐藤美咲', 162.3, 'female', 52.5,1200, 0, 'user4', 'pass4'),
+('鈴木健太', 180.0, 'male', 75.0, 70, 0, 'user5', 'pass5'),
+('高橋あかり', 155.0, 'female', 48.0, 40, 0, 'user6', 'pass6'),
+('伊藤翔', 168.8, 'male', 65.0, 450, 0, 'user7', 'pass7'),
+('渡辺優奈', 165.5, 'female', 54.0, 15, 0, 'user8', 'pass8'),
+('中村大輔', 172.2, 'male', 70.0, 90, 0, 'user9', 'pass9'),
+('小林さくら',160.0, 'female', 49.5, 50, 0, 'user10', 'pass10');
 
 /*記録情報*/
 CREATE TABLE storages(
