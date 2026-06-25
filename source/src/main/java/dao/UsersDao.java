@@ -555,13 +555,8 @@ public class UsersDao {
 						"a2", "Q9wE3rJYtjnxjH4g");
 
 				// SQL文を準備する
-<<<<<<< HEAD
 				String sql = "UPDATE users SET "
 						+" logical_delete=1 "
-=======
-				String sql = "UPDATE Users SET "
-						+" logical_delete=1,"
->>>>>>> e32c4b367bd2854f85c081829c01618a5626fbfe
 						+" WHERE user_id=? ";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
@@ -590,7 +585,6 @@ public class UsersDao {
 			// 結果を返す
 			return result;
 		}	
-
 		//==========================ポイント付与用==============================
 		
 				// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
