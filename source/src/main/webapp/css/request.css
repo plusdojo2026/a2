@@ -59,7 +59,100 @@ a:active {  /* カチッとクリックした瞬間 */
 	background-color: transparent;
 }
 
+
+/*-------フレンド申請----------*/
 .icon-id{
-	width: 40px;
+	width: 50px;
 	height: auto;
+	position:absolute;
+	left: 3px;
+}
+
+.friendreqest{
+	position: relative;
+	padding-left: 10px;	
+}
+
+.freqestList{
+	position: relative;
+	margin-bottom: 7px;
+	margin-left: 2px;
+	margin-right: 2px;
+	background-color: #f7f9f6;
+	border-bottom: 1px solid #eee; 
+	display: flex; 
+	align-items: center;
+	height: 50px;
+	border-radius:10px;
+}
+
+.requserid{
+	position: absolute;
+	top: 0;
+	left: 50px;
+}
+
+.reqname{
+	position: absolute;
+	top: 20px;
+	left: 50px;
+}
+
+.reqsan{
+	position: absolute;
+	width:55px;
+	margin-top:8px;  
+	padding-left: 5px;
+}
+
+.reqsubmit{
+	position: absolute;
+	right: 8px;
+	top: 7px;
+}
+
+
+.apply{
+	position: relative;
+	padding-left: 10px;
+}
+
+.friendapply{
+	position: relative;
+	margin-bottom: 7px;
+	margin-left: 2px;
+	margin-right: 2px;
+	background-color: #f7f9f6;
+	border-bottom: 2px solid #eee; 
+	display: flex; 
+	align-items: center;
+	height: 50px;
+	border-radius:10px;
+	
+}
+
+.applyuser{
+	position: absolute;
+	top: 0;
+	left: 50px;
+}
+
+.applyname{
+	position: absolute;
+	top: 20px;
+	left: 50px;
+}
+
+.applysan{
+	position: absolute;
+	width:55px;
+	margin-top:8px;  
+	padding-left: 5px;
+}
+
+.applypara{
+	position: absolute;
+	right: 30px;
+	display: grid;
+    place-items: center;
 }

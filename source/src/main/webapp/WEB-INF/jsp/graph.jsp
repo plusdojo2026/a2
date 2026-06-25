@@ -150,49 +150,77 @@ document.getElementById('today').textContent=text;
    lastScroll = current;
  });
  
- //-----------折れ線グラフ作成 --------------
+ //-----------グラフ作成 --------------
  	
 //-------------データ取得-------------
 
 //直近7回の記録
+ //Y軸label。サーブレットから拾ってくる
+ //X軸data。サーブレットから拾ってくる
+ //originalcounts,originalsetsカーソルを合わせたときに出るデータ
 let weekData = {
 			<c:forEach var="gi" items="${WeekGraph}" varStatus="st">
 			"${gi.key}":{
 					  <c:forEach var="gw" items="${gi.value}" varStatus="st2">
 					    "${gw.key}":{
-					        labels: [//X軸。サーブレットから拾ってくる
+					        labels: [
 					        <c:forEach var="g" items="${gw.value}" varStatus="st3">
 					            "${g.td_date}"<c:if test="${!st3.last}">,</c:if>
 					        </c:forEach>
 					        ],
-					        data: [//Y軸。サーブレットから拾ってくる
+					        data: [
 					        <c:forEach var="g" items="${gw.value}" varStatus="st4">
-					            ${g.counts}*${g.sets}<c:if test="${!st4.last}">,</c:if>
+					            ${g.counts * g.sets}<c:if test="${!st4.last}">,</c:if>
 					        </c:forEach>
-					        ]
-					    }<c:if test="${!st2.last}">,</c:if>//Listの中身があるときは,を入れる
+					        ],
+					        originalcounts:[
+						        <c:forEach var="g" items="${gw.value}" varStatus="st5">
+						            ${g.counts}<c:if test="${!st5.last}">,</c:if>
+						        </c:forEach>
+						        ],
+						        originalsets:[
+							    <c:forEach var="g" items="${gw.value}" varStatus="st6">
+						            ${g.sets}<c:if test="${!st6.last}">,</c:if>
+						        </c:forEach>
+						        ]
+					    }<c:if test="${!st2.last}">,</c:if>
 					 </c:forEach>
 				}<c:if test="${!st.last}">,</c:if>
 			</c:forEach>
 			};
  
  //直近30回の記録
+ //Y軸label。サーブレットから拾ってくる
+ //X軸data。サーブレットから拾ってくる
+ //originalcounts,originalsetsカーソルを合わせたときに出るデータ
  	let monthData = {
 			<c:forEach var="gi" items="${MonthGraph}" varStatus="st">
 			    "${gi.key}":{
 			  <c:forEach var="gm" items="${gi.value}" varStatus="st2">
 			    "${gm.key}": {
-			        labels: [//X軸。サーブレットから拾ってくる
+			        labels: [
 			        <c:forEach var="g" items="${gm.value}" varStatus="st3">
 			            "${g.td_date}"<c:if test="${!st3.last}">,</c:if>
 			        </c:forEach>
 			        ],
-			        data: [//Y軸。サーブレットから拾ってくる
+			        data: [
 			        <c:forEach var="g" items="${gm.value}" varStatus="st4">
-			            ${g.counts}*${g.sets}<c:if test="${!st4.last}">,</c:if>
+			            ${g.counts * g.sets}<c:if test="${!st4.last}">,</c:if>
+			        </c:forEach>
+			        ],
+			        originalcounts:[
+			        <c:forEach var="g" items="${gm.value}" varStatus="st5">
+			            ${g.counts}
+			            <c:if test="${!st5.last}">,</c:if>
+			        </c:forEach>
+			        ],
+			        originalsets:[
+				    <c:forEach var="g" items="${gm.value}" varStatus="st6">
+			            ${g.sets}
+			            <c:if test="${!st6.last}">,</c:if>
 			        </c:forEach>
 			        ]
-			      }<c:if test="${!st2.last}">,</c:if>//Listの中身があるときは,を入れる
+			      }<c:if test="${!st2.last}">,</c:if>
 			 	</c:forEach>
 			  }<c:if test="${!st.last}">,</c:if>
 			</c:forEach>
@@ -221,12 +249,46 @@ let chart = new Chart(context3, {
       plugins: {
           title:  { display: false, }, // グラフタイトルの表示/非表示
           legend: { display: false, }, // 判例の表示/非表示
-          
+          //マウスカーソルをホバーしたときに出るデータ
+          tooltip: {
+        	  callbacks: {
+        	    label: function(context) {
+        	      const index = context.dataIndex;
+        	      const dataset = context.dataset;
+
+        	      const date  = context.chart.data.labels[index];
+        	      const count = dataset.originalcounts[index];
+        	      const sets  = dataset.originalsets[index];
+        	      const total = context.raw;
+
+        	      return [
+        	        `日付: ${date}`,
+        	        `回数: ${count}`,
+        	        `セット: ${sets}`,
+        	        `合計: ${total}`
+        	      ];
+        	    }
+        	  }
+        	}
         },
+       //オプションここまで
       //軸設定
       scales: {
     	  //X軸ここから
-    	  
+			x:{
+				display:true,
+				type:'time',
+				//日付のフォーマット
+				time:{
+					unit:'day',
+					displayFormats:{ day:'MM/dd'}
+				},
+				//X軸のラベル変更
+				ticks:{
+					color:"blue"
+				}
+        
+			},
     	  //X軸ここまで	
     	  //Y軸ここから
 	        y: {
@@ -266,6 +328,8 @@ let weights = Object.keys(currentData[firstKey]);
 
 //一覧にある最初の重量を取得
 let firstWeight = weights[0];
+
+
 //項目をセッションに保存
 window.sessionStorage.setItem('gweight', firstWeight);
 
@@ -288,7 +352,11 @@ window.sessionStorage.setItem('gweight', firstWeight);
     chart.data.labels = chartData.labels;
     chart.data.datasets[0].data = chartData.data;
     chart.data.datasets[0].label = firstKey + "（" + firstWeight + "kg）";
+	 //マウスホバー表示
+	chart.data.datasets[0].originalcounts = chartData.originalcounts;
+	chart.data.datasets[0].originalsets = chartData.originalsets;
 
+    
     chart.update();
 
 
@@ -343,7 +411,11 @@ function changeWeight(){
 
     chart.data.labels = selected.labels;	//X軸
     chart.data.datasets[0].data = selected.data;//Y軸
-    chart.data.datasets[0].label = key + "(" + weight + "kg)";		
+    chart.data.datasets[0].label = key + "(" + weight + "kg)";	
+    //マウスホバー表示
+	chart.data.datasets[0].originalcounts = selected.originalcounts;
+	chart.data.datasets[0].originalsets = selected.originalsets;
+
 
     chart.update();
 }
@@ -385,6 +457,9 @@ function updateChart(newData) {
     chart.data.labels = changed.labels;			//X軸
     chart.data.datasets[0].data = changed.data;	//Y軸
     chart.data.datasets[0].label = key + "(" + weight + "kg)";
+    //マウスホバー表示
+	chart.data.datasets[0].originalcounts = changed.originalcounts;
+	chart.data.datasets[0].originalsets = changed.originalsets;
     
     // onchange を復活
     weightSelect.onchange = changeWeight;

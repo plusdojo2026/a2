@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="/a2/css/request.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <style>
+ <!--     <style>
             *{
                 outline: 1px solid #000000;
             }
-        </style>  
+        </style>  -->
 </head>
 <body>
 <div class="app-wrapper">
@@ -45,23 +45,23 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <p><c:out value="${message}"/></p>
 
-	    <h2>フレンド申請</h2>
-    <ul style="list-style: none; padding: 0;">
+	    <h2 class="friendreqest">フレンド申請</h2>
+    <ul style="list-style: none; padding: 0;" class = "freqest">
         <c:forEach var="req" items="${rqSearch}">
-            <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+            <li class="freqestList">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
              		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
-                    <label id ="requserid">${req.userId}</label>
-                    <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
-                    <span style="font-size: 14px; color: #666;">さんから</span>
+                    <label id ="requserid" class = "requserid">ID:${req.userId}</label>
+                    <span class = "reqname" style="font-size: 18px; font-weight: bold;">${req.userName}
+                    <span class= "reqsan" style="font-size: 12px; color: #666;">さんから</span></span>
                 </div>
                 
                 <form action="/a2/FriendrequestsServlet" method="POST" style="margin: 0;">
                     <input type="hidden" name="targetUserId" value="${req.userId}"> 
       
                     
-                    <div style="display: flex; gap: 10px;">
+                    <div style="display: flex; gap: 10px;" class= "reqsubmit">
                     
                         <button type="submit" name="action"  value="approve" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">承認</button>
                         <button type="submit" name="action"  value="reject" class="reject" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">拒否</button>
@@ -72,24 +72,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </c:forEach>
     </ul>
     
-	    <h2>申請中</h2>
-    <ul style="list-style: none; padding: 0;">
+	    <h2 class="apply">申請一覧</h2>
+    <ul style="list-style: none; padding: 0;" class = "applyreqest">
         <c:forEach var="req" items="${fmSearch}">
-            <li style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+            <li class="friendapply" style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
              		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
-                    <span style="font-size: 12px;">${req.userId}</span>
-                    <span style="font-size: 18px; font-weight: bold;">${req.userName}</span>
-                    <span style="font-size: 14px; color: #666;">さんへ</span>
+                    <span style="font-size: 12px;" class="applyuser">${req.userId}</span>
+                    <span style="font-size: 18px; font-weight: bold;" class="applyname">${req.userName}
+                    <span style="font-size: 14px; color: #666;" class="applysan">さんへ</span></span>
+                    <span class ="applypara" style="background-color: #c7dc68; color: white; border: none; padding: 8px 15px; border-radius: 2px; cursor: pointer; font-weight: bold;">
+                    申請中</span>
                 </div>
 
             </li>
         </c:forEach>
     </ul>
-    <div style="margin-top: 30px; text-align: center;">
+<!--    <div style="margin-top: 30px; text-align: center;">
         <a href="/a2/FriendListServlet" style="color: #007bff; text-decoration: none; font-weight: bold;">フレンド一覧に戻る</a>
-    </div>
+    </div>  
+-->
 </main>
 <footer>
 <nav class="bottom-bar" id="bar">
