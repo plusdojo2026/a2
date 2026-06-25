@@ -698,6 +698,7 @@
    			weightinput.type = "number";
    			weightinput.name ="tr_weight" +count;
    			weightinput.value = "0";
+   			weightinput.min = 0;
    			div.appendChild(weightinput);
 			
 			
@@ -716,6 +717,7 @@
 			countinput.type = "number";
 			countinput.name ="counts" +count;
 			countinput.value = "0";
+			countinput.min = 0;
 			div.appendChild(countinput);
    			
 			
@@ -734,6 +736,7 @@
 			setinput.type = "number";
 			setinput.name ="sets" + count;
 			setinput.value = "0";
+			setinput.min = 0;
 			div.appendChild(setinput);
    			
 			
@@ -773,6 +776,7 @@
    			weightinput.type = "number";
    			weightinput.name ="tr_weight"+ count;
    			weightinput.value = "0";
+   			weightinput.min = 0;
    			div.appendChild(weightinput);
 			
 			
@@ -794,6 +798,7 @@
 			countinput.type = "number";
 			countinput.name ="counts" + count;
 			countinput.value = "0";
+			countinput.min = 0;
 			div.appendChild(countinput);
    			
    			
@@ -813,6 +818,7 @@
 			setinput.type = "number";
 			setinput.name ="sets" + count;
 			setinput.value = "0";
+			setinput.min = 0;
 			div.appendChild(setinput);
 			
 			
