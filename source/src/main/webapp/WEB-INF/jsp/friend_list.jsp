@@ -138,13 +138,13 @@
 			
 			<!-- フレンド表示のループ -->
 				<c:forEach var="f" items="${friendFullList}">
-				
+
 				  <div class="deletefriend">
 					<!-- <div class="friend-info"> -->
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
-					<div class="friend">
-						<img  id="icon-id" class="icon-id" src='img/${f.friend.iconId}.png'> 
+					<div class="friend"><!-- 絶対パスで指定 -->
+						<img src="${pageContext.request.contextPath}/img/${f.friendInfo.iconId}.png" class="icon-id"> 
 					<div class="friend-info">
 						ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>

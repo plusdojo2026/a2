@@ -8,6 +8,7 @@
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>アイコン着せ替え変更</title>
+<link rel="stylesheet" href="/a2/css/design.css">
 <link rel="stylesheet" href="/a2/css/header_footer.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -32,30 +33,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <c:out value="${message}"/>
 <h3>アイコンの変更</h3>
 <form method=POST action="/a2/DesignServlet">
-<input type="hidden" name="userId" value="${userInfo.userId}">
-<div>
-<input type="submit" value="0" name="number">
-<input type="submit" value="1" name="number">
-<input type="submit" value="2" name="number">
-<input type="submit" value="3" name="number"><br>
-<input type="submit" value="4" name="number">
-<input type="submit" value="5" name="number">
-<input type="submit" value="6" name="number">
-<input type="submit" value="7" name="number">
+	<input type="hidden" name="userId" value="${userInfo.userId}">
+	<div>
+		<button type="submit" value="0" name="number">
+			<img  id="icon-id" class="icon-id" src='img/0.png'>
+		</button>
+		<button type="submit" value="1" name="number">
+			<img  id="icon-id" class="icon-id" src='img/1.png'>
+		</button>
+		<button type="submit" value="2" name="number">
+			<img  id="icon-id" class="icon-id" src='img/2.png'>
+		</button>
+		<button type="submit" value="3" name="number">
+			<img  id="icon-id" class="icon-id" src='img/3.png'>
+		</button>
+		<button type="submit" value="4" name="number">
+			<img  id="icon-id" class="icon-id" src='img/4.png'>
+		</button>
+		<button type="submit" value="5" name="number">
+			<img  id="icon-id" class="icon-id" src='img/5.png'>
+		</button>
+		
 </div>
 
 
-<h3>背景色の変更</h3>
-<div>
-<input type="submit" value="8" name="number">
-<input type="submit" value="9" name="number">
-<input type="submit" value="10" name="number">
-<input type="submit" value="11" name="number"><br>
-<input type="submit" value="12" name="number">
-<input type="submit" value="13" name="number">
-<input type="submit" value="14" name="number">
-<input type="submit" value="15" name="number">
-</div>
 </form>
 <a href="/a2/MyPageServlet">戻る</a>
 </main>
