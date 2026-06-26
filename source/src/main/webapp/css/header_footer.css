@@ -4,6 +4,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
+  font-family:游ゴシック;
 }
 
 /* PC表示時の中央寄せ設定 */
@@ -78,7 +79,7 @@ main {
 	right:12px;
 	bottom:18px;
 	height:72px;
-	width:400px;
+	width:380px;
 	left: 50%;/*親要素の真ん中に合わせる*/
 	transform: translateX(-50%);
 	display:flex;
@@ -121,18 +122,21 @@ main {
   width:60px;
   height:40px;
   color: rgb(62, 142, 65);
+  
   transition:
     transform .4s cubic-bezier(.2,.8,.2,1),
     opacity .25s ease;
   display:flex;
   align-items:center;                   /*上下を整える*/
   justify-content:space-around;
+  text-shadow: 0 0 1px black;
 }
 /*現在ページのアイコン*/
 .nowpage{
     background-color: rgba(107, 175, 78, 0.5);
     border-radius:15px;
-    box-shadow: 0 0 5px rgba(62, 142, 65, 1);
+    
+    
 }
 .bottom-bar.shrink i{
   transform:scale(0.82);

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*メイン*/
 main{
-	padding:30px;
+	padding:20px;
 	
 }
 
@@ -27,12 +27,10 @@ main{
       border-radius: 10px;
       text-align: center;
       z-index: 11;
+      box-shadow:0 0 20px #505050;
     }
 
-    /* 閉じるボタン */
-    .close-btn {
-      margin-top: 10px;
-    }
+   
     
     
     .modal {
@@ -63,7 +61,7 @@ main{
       border-radius: 10px;
       text-align: center;
       z-index: 11;
-      
+      box-shadow:0 0 20px #505050;
       /* 画面の80%まで */
     max-height:60vh;
 
@@ -81,10 +79,10 @@ main{
     /*記録のところ*/
      .input{
 		background-color:white;
-     	padding:30px;
+     	padding:20px;
      	border-radius:25px;
      	border:solid 2px #008000;
-     	margin-bottom:100px;
+     	margin-bottom:80px;
      }
     
     .logo, .bean-info{
@@ -92,10 +90,109 @@ main{
     	z-index: 40;
     }
     
+    .memo{
+    	width:100%;
+    	height:100px;
+    	border:solid 1px #008000;
+    	border-radius:7px; 
+    }
+    
  .save{/*一時保存ボタン*/
  	width:80px;
  	height:25px;
+ 	background:#ffffff;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 2px solid rgba(107, 175, 78, 1);
+ 	border-radius:40px; 
+ 	box-shadow: 0 0 5px gray;
+ 	margin-left:100px;
+ }
+  .storage{/*保存ボタン*/
+ 	width:80px;
+ 	height:25px;
+ 	background:#ffffff;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 2px solid rgba(107, 175, 78, 1);
+ 	border-radius:40px; 
  	position: fixed;
  	top:100px;
  	left:600px;
  }
+ .item-header{
+ 	white-space: nowrap;
+ 
+ }
+.krs{/*カスタムデータ用*/
+ 	width:20%;
+ 	text-align:center;
+ 	border: none;
+ 	background:#ffffff;
+ 	border-radius:7px;  
+}
+ 
+
+ 
+ .daymemo{
+    	width:70%;
+    	height:20px;
+    	border-radius:7px;
+    	padding-left:3px;
+    }
+ .item-box{/*TR内容の箱*/
+ 	background:#F0FFF0;
+ 	padding:10px;
+ 	margin-top:10px;
+ 	border:solid 1px Green;
+ 	border-radius:10px; 
+ }
+ .item-box-save{/*TR内容の箱*/
+ 	background:#F0FFF0;
+ 	padding:10px;
+ 	margin-top:10px;
+ 	border:dotted 1px Green;
+ 	border-radius:10px; 
+ }
+ .item-name{
+ 	border: none;
+ 	width:65%;
+ 	background:#F0FFF0;
+ }
+ .del-button{
+ 	margin-left:5px;
+ 	background:#dc3545;
+ 	padding-left:3px;
+ 	padding-right:3px;
+ 	color:#ffffff;
+ 	font-weight: bold;
+ 	border-radius:7px; 
+ }
+ .h2{
+ font-size: 24px;
+ font-weight: bold;
+ }
+ 
+ /*項目追加モーダル*/
+ .close-btn{
+ 	padding:3px 5px ;
+	margin-top: 10px;
+	border-radius:7px;
+	background:#FADBDA;
+	color:#000000;
+	border:solid 1px black;
+ }
+ .addi-btn{
+ 	padding:3px 5px ;
+	margin-top: 10px;
+	border-radius:7px;
+	background:#F0FFF0;
+	color:#000000;
+	border:solid 1px black;
+ }
+ 
+ .stamp-box{
+ 	width:100%;
+ 	text-align:center;
+ }
+ 
