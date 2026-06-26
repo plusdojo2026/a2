@@ -44,9 +44,10 @@
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 
 
-<input type="button" value="一時保存" onclick="submitTempSave()" class="save">
 
-<h2>基本データ</h2>
+
+<span class="h2">基本データ</span>
+<input type="button" value="一時保存" onclick="submitTempSave()" class="save">
 <table>
 	<tr>
 		<td>
@@ -69,10 +70,9 @@
  -->
 <!--countをしているので何回繰り返したかがわかる　隠れているので表には見えない-->
 <input type ="hidden" id ="c" name = "coun">
-<br>
 
 一日メモ<br>
-<textarea name="comments">${comments}</textarea>
+<textarea name="comments" class="memo">${comments}</textarea>
 <br>
 スタンプ：
 	<select id="stamp" onchange="changestamp()" name="stamp">
@@ -108,10 +108,9 @@
 		酒
 		</option>    
 	</select>
-	<br>
-	<br>
-	<img id="stampImage" src="" width="200">
-<br>
+	<div class="stamp-box">
+		<img id="stampImage" src="" width="200" class="stamp">
+	</div>
 <h2>カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
@@ -126,8 +125,8 @@
 		<h4>以下の内容でしてよろしいでしょうか？​</h4>
 		<br>
 		<div id="confirmArea"></div>	
-		<button type="button" onclick="submitSave()">はい</button>
-	    <button type="button" onclick="closeSaveModal()">いいえ</button>
+	    <button type="button" class="close-btn" onclick="closeSaveModal()">いいえ</button>
+	    <button type="button" class="addi-btn" onclick="submitSave()">はい</button>
 	</div>
 </div>
 </form>
@@ -138,19 +137,26 @@
       <p>項目を追加</p>
       <!--  下の文でここに警告文が出るようになる　使用するために id="msg”をつけた-->
       <div style="color:red" id="msg"></div>
-      項目：
-     <select name="trainingItem" id="item">
+		<nobr>
+      	項目：<select name="trainingItem" id="item">
+      
  		<c:forEach var="item" items="${itemList}">
         	<option value="${item}" >
             	${item}
         	</option>
 		</c:forEach>    	
-    </select>
+    	</select>
+		</nobr>
 	<br>
-      メモ：<input type="radio" name="memo" value="1">有
-      		<input type="radio" name="memo" value="2" checked>無<br>
+      メモ：<label class="check">
+      		<input type="radio" name="memo" value="1">有
+      		</label>
+      		<label class="check">
+      		<input type="radio" name="memo" value="2" checked>無
+      		</label>
+      		<br>
       <div style="display: none" id="tx">
-     	 <textarea name="memo" ></textarea>
+     	 <textarea name="memo"></textarea>
       </div>
 <!-- </form> -->
       <button class="close-btn" onclick="closeModal()">閉じる</button>
@@ -297,13 +303,7 @@ window.addEventListener("scroll", () => {
 	        err = true;
 	    }
 		let fat = document.querySelector('input[name="fat"]').value; 
-	  /* //体脂肪が空欄だった場合
-	    if (fat.trim() === "") {
-	        document.getElementById("fatEr").textContent =
-	            "体脂肪を入力してください";
-	        err = true;
-	    }
-		 */
+	 
 		//ここでまとめて返すことでどっちも表示できる
 	    if (err) {
 	        return;
@@ -416,7 +416,7 @@ window.addEventListener("scroll", () => {
     		//mの中にダンベルとかの種目が入る
     		
     		
-    		/* let m = document.getElementById("it"+i).value; */
+    		
     		
     		let mm = document.getElementById("it"+i);
     		
@@ -447,10 +447,14 @@ window.addEventListener("scroll", () => {
     	const  div = document.createElement("div");
     	div.id = "item"+count;
     	
-    	//項目追加した時に線を入れている
-    	div.style.borderTop = "1px solid #ccc";
-    	div.style.marginTop = "20px";
-    	div.style.paddingTop = "20px";
+    	
+    	
+    	//クラスを追加 
+    	//div.classList.addでクラス追加される
+    	//divが全部囲っているものなので項目、重さ、回数、セット全部入っているはず
+    	//名前は適当に決めたので変えて大丈夫です◎
+    	div.classList.add("item-box"); 
+    	
 
     	//改行のことをbrという変数に入れている
     	const br = document.createElement("br");
@@ -458,7 +462,7 @@ window.addEventListener("scroll", () => {
     	
     	
     	//テキストボックスに追加アイテムの作成（nameはit1~itn）
-    	//ここではjspでは一行で書くものをJavaScriptから入れるので細分化している
+    	//こaこではjspでは一行で書くものをJavaScriptから入れるので細分化している
     	
     	
     	//<input　inputをjspに入れるよ
@@ -477,6 +481,7 @@ window.addEventListener("scroll", () => {
 		const deleteButton = document.createElement("input");
 		deleteButton.type="button";
 		deleteButton.value="削除";
+		deleteButton.className = "del-button";
 
 		
 		deleteButton.onclick = function(){
@@ -498,21 +503,26 @@ window.addEventListener("scroll", () => {
    		//let pi = document.createElement("div");
    		//<div>項目</div>という形になる　タグの中に入れている
    		
+		const topDiv = document.createElement("div");
+		topDiv.classList.add("item-header");
+   		
    		//pi を itemArea (jspのitemAreaの位置）の中に追加
    		//itemArea.appendChild(pi);
    		//inputもitemArea (jspのitemAreaの位置）の中に追加
-   		let title = document.createElement("div");
-		title.textContent = "項目";
+   		let title = document.createElement("span");
+		title.textContent = "項目：";
 		
-		div.appendChild(title);
-		div.appendChild(input);
-		div.appendChild(deleteButton);
+		input.classList.add("item-name");
+		
+		topDiv.appendChild(title);
+		topDiv.appendChild(input);
+		topDiv.appendChild(deleteButton);
 		/* deleteButton.onclick = function(){
 			itemArea.removeChild(div);
 		} */
-   		
-   		 let input1 = document.createElement("input");
-     	input1.type = "text";
+		div.appendChild(topDiv);
+		
+
      	/* input1.name = "text"; */
      	
     
@@ -525,73 +535,58 @@ window.addEventListener("scroll", () => {
     	
     	
    		if(memo == "1"){
-   			
-   			
-   			//重さ（距離）を追加する文
-   			div.appendChild(document.createElement("br"));
-   			let w = document.createElement("div");
-   			w.textContent = "重さ（距離）";
-   			
-   			div.appendChild(w); 
-   			
-   			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
+   		//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
+   			weightinput.className = "krs";
+   			weightinput.placeholder = "重さ";
    			weightinput.name ="tr_weight" +count;
    			weightinput.min = 0;
    			div.appendChild(weightinput);
+   		//重さ（距離）を追加する文
+   			let w = document.createElement("span");
+   			w.textContent = "kg×";		
+   			div.appendChild(w); 
 			
-			
-			
-			
-			//回数を追加する文
-   			
-   			div.appendChild(document.createElement("br"));
-   			let k = document.createElement("div");
-   			k.textContent = "回数";
-   			
-   			div.appendChild(k); 
-   			
-   			//文字が書けるテキストボックスを入れている。
+   		//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "number";
+			countinput.className = "krs";
+			countinput.placeholder = "回数";
 			countinput.name ="counts" +count;
 			countinput.min = 0;
 			div.appendChild(countinput);
-   			
-			
-			
-   			
-   			//セット数を追加する文
-   			
-   			div.appendChild(document.createElement("br"));
-   			let s = document.createElement("div");
-   			s.textContent = "セット";
-   			
-   			div.appendChild(s); 
+			//回数を追加する文
+   			let k = document.createElement("span");
+   			k.textContent = "rep×";
+   			div.appendChild(k); 
    			
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "number";
+			setinput.className = "krs";
+			setinput.placeholder = "セット";
 			setinput.name ="sets" + count;
 			setinput.min = 0;
 			div.appendChild(setinput);
+
+   			let s = document.createElement("span");
+   			s.textContent = "set";
+   			div.appendChild(s); 
    			
-			
-			
-			
    			//メモを追加するための文
    			
    			//改行を作っている文章があり（document.createElement("br")のこと）、それをjspのitemAreaに追加している。（itemArea.appendChild(...)の文章の部分）
    			div.appendChild(document.createElement("br"));
    			//メモという文字を入れる為のdiv作っている
-   			let p = document.createElement("div");
+   			let p = document.createElement("span");
    			p.textContent = "メモ";
    			
    			//上のpとtextを入れている
    			div.appendChild(p); 
    			//文字が書けるテキストボックスを入れている。
    			div.appendChild(textarea);
+   			textarea.className = "daymemo";
    			
    			div.appendChild(document.createElement("br"));
    			
@@ -600,62 +595,44 @@ window.addEventListener("scroll", () => {
    			textarea.name  = "memo" + count;
    			
     	}else{
-    		
-    		
-    		//重さ（距離）を追加する文
-   			div.appendChild(document.createElement("br"));
-   			let w = document.createElement("div");
-   			w.textContent = "重さ（距離）";
-   			
-   			div.appendChild(w); 
-   			
    			//文字が書けるテキストボックスを入れている。inputという名前だけだとかぶりまくるので名前を付けるときはweightinputなどにする
    			let weightinput = document.createElement("input");
    			weightinput.type = "number";
+   			weightinput.className = "krs";
+   			weightinput.placeholder = "重量";
    			weightinput.name ="tr_weight"+ count;
    			weightinput.min = 0;
    			div.appendChild(weightinput);
+   			//重さ（距離）を追加する文
+   			let w = document.createElement("span");
+   			w.textContent = "kg×";
+   			div.appendChild(w); 
 			
-			
-			
-			
-			
-			//回数を追加する文
-   			
-   			div.appendChild(document.createElement("br"));
-   			let k = document.createElement("div");
-   			k.textContent = "回数";
-   			
-   			div.appendChild(k);
-   			
-   			
-   			
    			//文字が書けるテキストボックスを入れている。
    			let countinput = document.createElement("input");
 			countinput.type = "number";
+			countinput.className = "krs";
+			countinput.placeholder = "回数";
 			countinput.name ="counts" + count;
 			countinput.min = 0;
 			div.appendChild(countinput);
-   			
-   			
-			
-			
-   			
-   			//セット数を追加する文
-   			
-   			div.appendChild(document.createElement("br"));
-   			let s = document.createElement("div");
-   			s.textContent = "セット";
-   			
-   			div.appendChild(s); 
-   			
+			//回数を追加する文
+   			let k = document.createElement("span");
+   			k.textContent = "rep×";
+   			div.appendChild(k);
+
    			//文字が書けるテキストボックスを入れている。
    			let setinput = document.createElement("input");
 			setinput.type = "number";
+			setinput.className = "krs";
+			setinput.placeholder = "セット";
 			setinput.name ="sets" + count;
 			setinput.min = 0;
 			div.appendChild(setinput);
-			
+			//セット数を追加する文
+   			let s = document.createElement("span");
+   			s.textContent = "set";
+   			div.appendChild(s); 
 			
 			itemArea.appendChild(div);
 		
@@ -764,16 +741,21 @@ window.addEventListener("scroll", () => {
     //<div id="itemArea"></div>のところに追加するので取得
     let itemArea = document.getElementById("itemArea");
 
+    
+    
+    
     //divを作っている、項目は追加式なので+ countで　○○1,○○2のようにしている
     const div = document.createElement("div");
     div.id = "item" + count;
+    
+    
+    
+ 	//クラスを追加 （一時保存した後は項目やデータの入力が作り直しされているのでこっちにもタグが必要）
+	//div.classList.addでクラス追加される
+	//divが全部囲っているものなので項目、重さ、回数、セット全部入っているはず
+	//名前は適当に決めたので変えて大丈夫です◎
+    div.classList.add("item-box-save"); 
 
-    
- 	// 項目同士の間隔を作る
-    div.style.marginBottom = "30px";
-    div.style.paddingBottom = "15px";
-    div.style.borderTop = "1px solid #ccc";
-    
     // 項目
     const input = document.createElement("input");
     input.type = "text";
@@ -789,12 +771,25 @@ window.addEventListener("scroll", () => {
     div.appendChild(input); */
 
     
-    let title = document.createElement("div");
-    title.textContent = "項目";
+    let title = document.createElement("span");
+    title.textContent = "項目：";
+    input.classList.add("item-name");
 
     div.appendChild(title);
     div.appendChild(input);
-    
+    // 削除ボタン
+    const deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "削除";
+    deleteButton.className = "del-button";
+    div.appendChild(deleteButton);
+    deleteButton.onclick = function(){
+        if(confirm("削除しますか？")){
+            itemArea.removeChild(div);
+        }
+    };
+
+
     
     // 重さ
     div.appendChild(document.createElement("br"));
@@ -803,50 +798,46 @@ window.addEventListener("scroll", () => {
     weightinput.type = "number";
     weightinput.name = "tr_weight" + count;
     weightinput.value = weight;
+    weightinput.className = "krs";
+    weightinput.placeholder = "重量";
 
-    /* div.appendChild(document.createTextNode("重さ（距離）")); */
-    let w = document.createElement("div");
-	w.textContent = "重さ（距離）";
-	div.appendChild(w);
-    
-    
     div.appendChild(weightinput);
+
+    let w = document.createElement("span");
+    w.textContent = "kg×";
+    div.appendChild(w);
 
     
     
     // 回数
-    div.appendChild(document.createElement("br"));
-
     const countinput = document.createElement("input");
-    countinput.type = "number";
-    countinput.name = "counts" + count;
-    countinput.value = counts;
-
-    /* div.appendChild(document.createTextNode("回数")); */
-    
-    let c = document.createElement("div");
-	c.textContent = "回数";
+	countinput.type = "number";
+	countinput.name = "counts" + count;
+	countinput.value = counts;
+	countinput.className = "krs";
+	countinput.placeholder = "回数";
+	
+	div.appendChild(countinput);
+	
+	let c = document.createElement("span");
+	c.textContent = "rep×";
 	div.appendChild(c);
-    
-    div.appendChild(countinput);
 
     
     
     // セット
-    div.appendChild(document.createElement("br"));
-
     const setinput = document.createElement("input");
-    setinput.type = "number";
-    setinput.name = "sets" + count;
-    setinput.value = sets;
-
-    /* div.appendChild(document.createTextNode("セット")); */
-    
-    let s = document.createElement("div");
-	s.textContent = "セット";
+	setinput.type = "number";
+	setinput.name = "sets" + count;
+	setinput.value = sets;
+	setinput.className = "krs";
+	setinput.placeholder = "セット";
+	
+	div.appendChild(setinput);
+	
+	let s = document.createElement("span");
+	s.textContent = "set";
 	div.appendChild(s);
-    div.appendChild(setinput);
-
     
     
     // メモある場合とない場合で分けている
@@ -854,29 +845,18 @@ window.addEventListener("scroll", () => {
 
         div.appendChild(document.createElement("br"));
 
-        const memoTitle = document.createElement("div");
+        const memoTitle = document.createElement("span");
         memoTitle.textContent = "メモ";
         div.appendChild(memoTitle);
 
         const textarea = document.createElement("textarea");
+        textarea.className = "daymemo";
         textarea.name = "memo" + count;
         textarea.value = memo;
 
         div.appendChild(textarea);
     }
 
-    // 削除ボタン
-    const deleteButton = document.createElement("input");
-    deleteButton.type = "button";
-    deleteButton.value = "削除";
-
-    deleteButton.onclick = function(){
-        if(confirm("削除しますか？")){
-            itemArea.removeChild(div);
-        }
-    };
-
-    div.appendChild(deleteButton);
 
     itemArea.appendChild(div);
 

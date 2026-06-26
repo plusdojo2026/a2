@@ -146,7 +146,7 @@
 					<div class="friend">
 						<img  id="icon-id" class="icon-id" src='img/${f.friend.iconId}.png'> 
 					<div class="friend-info">
-						ID:<span class="friend-id">${friendUserId}</span><br>
+						ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
 					</div>	
 					<div class="friend-point">

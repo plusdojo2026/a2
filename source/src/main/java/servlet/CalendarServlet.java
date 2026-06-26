@@ -79,6 +79,7 @@ public class CalendarServlet extends HttpServlet {
         // --- ループの外で一括取得 ---
         Map<String, List<Storage>> trainingMap = dao.getTrainingByMonth(userId, yearMonth); // 1回だけSQL実行
         Map<String, Double> weightMap = dao.getWeightByMonth(userId, yearMonth);
+        Map<String, Double> fatMap = dao.getFatByMonth(userId, yearMonth);
 
         List<DayData> dayList = new ArrayList<>();
         for (int d = 1; d <= lastDay; d++) {
@@ -110,6 +111,7 @@ public class CalendarServlet extends HttpServlet {
         request.setAttribute("trainingMapJson", trainingMapJson);
         request.setAttribute("itemListJson", itemListJson);
         request.setAttribute("weightMap", weightMap);
+        request.setAttribute("fatMap", fatMap);
 
         request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp").forward(request, response);
     }
@@ -142,8 +144,11 @@ public class CalendarServlet extends HttpServlet {
             int stamp = Integer.parseInt(request.getParameter("stamp"));
             String comments = request.getParameter("comments");
             double weight = Double.parseDouble(request.getParameter("weight"));
+            // 体脂肪率の取得
+            String fatStr = request.getParameter("fat");
+            double fat = (fatStr == null || fatStr.isEmpty()) ? 0.0 : Double.parseDouble(fatStr);
             
-            dao.saveRecord(userId, date, stamp, comments, weight);
+            dao.saveRecord(userId, date, stamp, comments, weight, fat);
 
         } else if (action.equals("update")) {
             // トレーニング内容の「変更」
