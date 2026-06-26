@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>基本情報の変更</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
-<link rel="stylesheet" href="/a2/css/mypage.css">
+<link rel="stylesheet" href="/a2/css/edit_profile.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
