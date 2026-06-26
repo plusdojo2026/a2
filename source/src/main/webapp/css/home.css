@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*メイン*/
 main{
-	padding:20px;
+	padding:10px 20px 20px 20px;
 	
 }
 
@@ -55,9 +55,9 @@ main{
     /* モーダルの本体  確認表示用*/
     .modal-content-two {
       background-color: white;
-      width: 400px;
+      width: 370px;
       margin: 100px auto;
-      padding: 20px;
+      padding: 15px;
       border-radius: 10px;
       text-align: center;
       z-index: 11;
@@ -106,7 +106,6 @@ main{
 	border: 2px solid rgba(107, 175, 78, 1);
  	border-radius:40px; 
  	box-shadow: 0 0 5px gray;
- 	margin-left:100px;
  }
   .storage{/*保存ボタン*/
  	width:80px;
@@ -169,15 +168,34 @@ main{
  	border-radius:7px; 
  }
  .h2{
- font-size: 24px;
- font-weight: bold;
+ position:absolute;
+	font-size: 24px;
+	font-weight: bold;
+	left: 50%;/*親要素の真ん中に合わせる*/
+	transform: translateX(-50%);
+	margin-bottom: 30px;
+ }
+  .h3{
+ 	font-size:20px;
+ 	font-weight:bold;
+ }
+  .h4{
+ 	font-size:14px;
+ 	margin-top: 10px;
  }
  .weightfat{
 	background:#FFF8F1;
  	border: none;
  	border-radius:7px;
+ 	width:80px;
+ 	height:30px;
+ 	font-size:20px;
+ 	text-align: center;
+ 	border:solid 1px gray;
  }
- 
+ .right{
+ 	text-align: right;
+ }
  
  /*項目追加モーダル*/
  .close-btn{
@@ -200,13 +218,43 @@ main{
  .storage-btn{
  	padding:3px 5px ;
 	margin-top: 10px;
+	margin-left:5px;
 	border-radius:7px;
 	background:#8DE4A1;
+	color:#000000;
+	border:solid 1px black;
+ }
+ .add-btn{
+ 	padding:3px 5px ;
+	margin-top: 10px;
+	border-radius:7px;
+	background:#C9DFEC;
 	color:#000000;
 	border:solid 1px black;
  }
  .stamp-box{
  	width:100%;
  	text-align:center;
+ }
+ .center{
+ 	text-align:center;
+ }
+ .margin-auto{
+ 	margin:10px auto 0;
+ }
+ .right{
+ 	text-align:right;
+ }
+ .grean{
+ 	color:#2e7d32;
+ }
+ .save-button-box{
+ 	text-align:right;
+ }
+ .messaga-box{
+ 	background:#ffffff;
+ 	border:solid 1px #008000;
+ 	padding:5px 10px;
+ 	border-radius: 10px;
  }
  
