@@ -52,7 +52,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
              		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
-                    <label id ="requserid" class = "requserid">ID:${req.userId}</label>
+                    <label id ="requserid" style="font-size: 12px;" class = "requserid">ID:${req.userId}</label>
                     <span class = "reqname" style="font-size: 18px; font-weight: bold;">${req.userName}
                     <span class= "reqsan" style="font-size: 12px; color: #666;">さんから</span></span>
                 </div>
@@ -75,11 +75,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    <h2 class="apply">申請一覧</h2>
     <ul style="list-style: none; padding: 0;" class = "applyreqest">
         <c:forEach var="req" items="${fmSearch}">
-            <li class="friendapply" style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+            <li class="friendapply" style="padding: 10px 10px 10px 80px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
              		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
-                    <span style="font-size: 12px;" class="applyuser">${req.userId}</span>
+                    <span style="font-size: 12px;" class="applyuser">ID:${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;" class="applyname">${req.userName}
                     <span style="font-size: 14px; color: #666;" class="applysan">さんへ</span></span>
                     <span class ="applypara" style="background-color: #c7dc68; color: white; border: none; padding: 8px 15px; border-radius: 2px; cursor: pointer; font-weight: bold;">
