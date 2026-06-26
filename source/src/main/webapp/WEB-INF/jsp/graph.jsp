@@ -80,10 +80,10 @@ ${Sw.word_of_day}
 <!-- 表示変更 -->
 <ul id="dayschange">
 <li>
-<button id ="cbutton" onclick="updateChart(weekData)" >直近7回の記録</button>
+<button id ="wcbutton" class ="cbutton" onclick="updateChart(weekData)" >直近7回の記録</button>
 </li>
 <li>
-<button id ="cbutton" onclick="updateChart(monthData)" >直近30回の記録</button>
+<button id ="mcbutton" class ="cbutton" onclick="updateChart(monthData)" >直近30回の記録</button>
 </li>
 </ul>
 </div>
@@ -277,16 +277,14 @@ let chart = new Chart(context3, {
     	  //X軸ここから
 			x:{
 				display:true,
-				type:'time',
-				//日付のフォーマット
-				time:{
-					unit:'day',
-					displayFormats:{ day:'MM/dd'}
-				},
 				//X軸のラベル変更
 				ticks:{
 					color:"blue"
+				},
+				grid:{
+					display:false
 				}
+				
         
 			},
     	  //X軸ここまで	
@@ -329,6 +327,12 @@ let weights = Object.keys(currentData[firstKey]);
 //一覧にある最初の重量を取得
 let firstWeight = weights[0];
 
+//期間変更ボタンの色
+let weekcolor = "#ff0000";
+let moncolor = "#ffffff";
+document.getElementById("wcbutton").style.color = weekcolor;
+document.getElementById("mcbutton").style.color = moncolor;
+
 
 //項目をセッションに保存
 window.sessionStorage.setItem('gweight', firstWeight);
@@ -369,9 +373,6 @@ function changeItem() {
     
     let weightSelect = document.getElementById("weightSelect");
 
-    //  onchange を一時停止
-    weightSelect.onchange = null;
-
     // 重量リストを削除
     while (weightSelect.firstChild) {
         weightSelect.removeChild(weightSelect.firstChild);
@@ -387,14 +388,11 @@ function changeItem() {
         opt.text = weights[i] + " kg";
         weightSelect.appendChild(opt);
     }
-    // 最初の重量を選択
+    // 重量プルダウンの最初の項目を選択
     let firstWeight = weights[0];
     weightSelect.value = firstWeight;
     sessionStorage.setItem('gweight', firstWeight);
-    
-    //onchange を復活
-    weightSelect.onchange = changeWeight;
-    
+
     changeWeight();
 } 
 
@@ -434,9 +432,19 @@ function updateChart(newData) {
         sessionStorage.setItem('gweight', weight );
     }
 
-    //  onchange を一時停止
-    weightSelect.onchange = null;
-
+    //ボタン色変更
+    if (currentData == monthData){
+    	weekcolor = "#ffffff";
+    	moncolor = "#ff0000";
+    	document.getElementById("wcbutton").style.color = weekcolor;
+    	document.getElementById("mcbutton").style.color = moncolor;
+    }else if(currentData == weekData){
+    	weekcolor = "#ff0000";
+    	moncolor = "#ffffff";
+    	document.getElementById("wcbutton").style.color = weekcolor;
+    	document.getElementById("mcbutton").style.color = moncolor;
+    }
+    
     // 重量をリセット
     while (weightSelect.firstChild) {
         weightSelect.removeChild(weightSelect.firstChild);
@@ -461,8 +469,7 @@ function updateChart(newData) {
 	chart.data.datasets[0].originalcounts = changed.originalcounts;
 	chart.data.datasets[0].originalsets = changed.originalsets;
     
-    // onchange を復活
-    weightSelect.onchange = changeWeight;
+
     
     chart.update();
 }

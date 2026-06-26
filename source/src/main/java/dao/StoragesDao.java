@@ -529,8 +529,8 @@ public class StoragesDao {
 			//直近10回分の記録を取得
 			String sql = "SELECT * FROM"
 					+ "(SELECT TS.tr_id , tr_item, tr_weight,"
-					+ " counts, sets, DATE_FORMAT(TS.date, '%Y-%m-%d') AS td_date ,"
-					+ " ROW_NUMBER() OVER (PARTITION BY TS.tr_id ORDER BY TS.date DESC) AS rn "
+					+ " counts, sets, DATE_FORMAT(TS.date, '%m-%d') AS td_date ,"
+					+ " ROW_NUMBER() OVER (PARTITION BY TS.tr_id ,tr_weight ORDER BY TS.date DESC) AS rn "
 					+ " FROM tr_storages AS TS "
 					+ " INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
@@ -596,8 +596,8 @@ public class StoragesDao {
 			//直近7回分の記録を取得
 			String sql = "SELECT * FROM"
 					+ "(SELECT TS.tr_id , tr_item, tr_weight,"
-					+ " counts, sets, DATE_FORMAT(TS.date, '%Y-%m-%d') AS td_date ,"
-					+ " ROW_NUMBER() OVER (PARTITION BY TS.tr_id ORDER BY TS.date DESC) AS rn "
+					+ " counts, sets, DATE_FORMAT(TS.date, '%m-%d') AS td_date ,"
+					+ " ROW_NUMBER() OVER (PARTITION BY TS.tr_id ,tr_weight ORDER BY TS.date DESC) AS rn "
 					+ " FROM tr_storages AS TS "
 					+ " INNER JOIN tr_items AS TI "
 					+ " ON TS.tr_id = TI.tr_id "
