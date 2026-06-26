@@ -84,6 +84,7 @@ a:active {
 	align-items: center;
 	height: 50px;
 	border-radius:10px;
+	box-shadow: 0 0 5px gray;
 }
 
 .requserid{
@@ -128,7 +129,7 @@ a:active {
 	align-items: center;
 	height: 50px;
 	border-radius:10px;
-	
+	box-shadow: 0 0 5px gray;
 }
 
 .applyuser{

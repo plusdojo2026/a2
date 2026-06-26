@@ -92,7 +92,7 @@ a:active {
 .friend-icon{
 	font-size:21px;
 	background: #ffffff;
-    width: 90%;          
+    width: 94%;          
     max-width: 450px;    
     margin: 2px auto;  
     border: 2px solid #0b2434; 
@@ -106,7 +106,7 @@ a:active {
 	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
-	
+	   margin-bottom:5px;
 }
 .delete-target{
 	
@@ -123,7 +123,7 @@ a:active {
 .friend {
     display: flex;
     align-items: center; 
-    padding: 20px 25px;
+    padding: 0 10px 0 10px;
 }
 
 .friend-info {
