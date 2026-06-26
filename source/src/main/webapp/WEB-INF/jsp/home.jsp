@@ -54,7 +54,7 @@
 			体重(kg)
 		</td>
 		<td>
-			<input type="number" name="weight" value="${weight}" step="0.1" required min=0>
+			<input type="number" name="weight" class="weightfat" value="${weight}" step="0.1" required min=0>
 		</td>
 	</tr>
 	<tr>
@@ -81,31 +81,31 @@
 		</option>
 		
 		<option value="2"<c:if test="${stamp == '2'}">selected</c:if>>
-		足トレ
+		スクワット
 		</option>
 		
 		<option value="3"<c:if test="${stamp == '3'}">selected</c:if>>
-		背中トレ
+		背筋
 		</option>
 		
 	    <option value="4"<c:if test="${stamp == '4'}">selected</c:if>>
-		腕トレ
+		ダンベル
 		</option>
 	    
 	    <option value="5"<c:if test="${stamp == '5'}">selected</c:if>>
-		尻トレ
+		脚
 		</option>
 	    
 	    <option value="6"<c:if test="${stamp == '6'}">selected</c:if>>
-		腹トレ
+		腹筋
 		</option>
 		
 	    <option value="7"<c:if test="${stamp == '7'}">selected</c:if>>
-		豆トレ
+		やる気
 		</option>
 		
 	    <option value="8"<c:if test="${stamp == '8'}">selected</c:if>>
-		酒
+		ビール
 		</option>    
 	</select>
 	<div class="stamp-box">
@@ -116,7 +116,7 @@
 <div id="memoArea"></div><br>
 <button type="button" onclick="openModal()">＋項目を追加</button>
 <!-- ✧✧✧✧✧✧✧保存確認のモーダル✧✧✧✧✧✧✧ -->
-<button type="button" onclick="openSaveModal()">保存</button>
+<button type="button" class="storage-btn" onclick="openSaveModal()">保存</button>
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
 <div id="saveModal" class="modal-background">
