@@ -172,6 +172,12 @@ main{
  font-size: 24px;
  font-weight: bold;
  }
+ .weightfat{
+	background:#
+ 	border: none;
+ 	border-radius:7px;
+ }
+ 
  
  /*項目追加モーダル*/
  .close-btn{
@@ -191,6 +197,14 @@ main{
 	border:solid 1px black;
  }
  
+ .storage-btn{
+ 	padding:3px 5px ;
+	margin-top: 10px;
+	border-radius:7px;
+	background:#8DE4A1;
+	color:#000000;
+	border:solid 1px black;
+ }
  .stamp-box{
  	width:100%;
  	text-align:center;

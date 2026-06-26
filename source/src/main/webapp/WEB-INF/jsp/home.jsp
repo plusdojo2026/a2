@@ -54,7 +54,7 @@
 			体重(kg)
 		</td>
 		<td>
-			<input type="number" name="weight" value="${weight}" step="0.1" required min=0>
+			<input type="number" name="weight" class="weightfat" value="${weight}" step="0.1" required min=0>
 		</td>
 	</tr>
 	<tr>
@@ -116,7 +116,7 @@
 <div id="memoArea"></div><br>
 <button type="button" onclick="openModal()">＋項目を追加</button>
 <!-- ✧✧✧✧✧✧✧保存確認のモーダル✧✧✧✧✧✧✧ -->
-<button type="button" onclick="openSaveModal()">保存</button>
+<button type="button" class="storage-btn" onclick="openSaveModal()">保存</button>
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
 <div id="saveModal" class="modal-background">
