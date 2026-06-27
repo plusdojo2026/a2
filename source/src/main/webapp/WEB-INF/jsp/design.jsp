@@ -35,7 +35,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--　メインここから　-->
 <main>
 <c:out value="${message}"/>
-<h3>アイコンの変更</h3>
+<h2>アイコンの変更</h2>
 <form method=POST action="/a2/DesignServlet">
 	<input type="hidden" name="userId" value="${userInfo.userId}">
 	<div class="icon-box">
@@ -67,8 +67,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		
 </div>
 </form>
-<a href="/a2/MyPageServlet">戻る</a>
-
+<a href="/a2/MyPageServlet" class="back-button">戻る</a>
+<br>
+<img  id="icon-id" class="iconPng" src='img/iconPng.png'>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->

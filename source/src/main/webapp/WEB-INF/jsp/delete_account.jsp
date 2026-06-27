@@ -58,7 +58,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </form>
 
 <a href="/a2/MyPageServlet" class="back">戻る</a>
-
+<img  id="icon-id" class="deletePng" src='img/deletePng.png'>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
