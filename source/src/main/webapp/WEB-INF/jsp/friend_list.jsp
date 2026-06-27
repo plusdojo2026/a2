@@ -143,8 +143,8 @@
 					<!-- <div class="friend-info"> -->
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
-					<div class="friend"><!-- 絶対パスで指定 -->
-						<img src="${pageContext.request.contextPath}/img/${f.friendInfo.iconId}.png" class="icon-id"> 
+					<div class="friend">
+						<img  id = "icon-id" class="icon-id" src='img/${f.friendInfo.iconId}.png'>
 					<div class="friend-info">
 						ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
@@ -367,13 +367,6 @@ if( month === 6 && date === 17 ){
     document.getElementById('anniversary').textContent='豆の日';
 }
 document.getElementById('today').textContent=text;
-}
-//ログアウトアラート
-document.getElementById('logout').onclick = function(event){
-    let logout = window.confirm('ログアウトしてよろしいですか？');
-    if( logout === false){
-        event.preventDefault();
-    }
 }
 
 //スクロールに合わせたアイコンバーの変更
