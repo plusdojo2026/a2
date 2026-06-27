@@ -1,1 +1,82 @@
 @charset "UTF-8";
+
+/* ----------ユーザー情報表示部分---------- */
+.my_page_user_info{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 18px 20px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 2px solid #8be09c;
+}
+.icon-id{
+	width: 65px;
+    height: 65px;
+}
+.user_id_name{
+	font-size: 1.2rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 説明文 */
+.delete-text{
+    width: 90%;
+    margin: 0 auto 10px auto;
+    font-size: 0.95rem;
+}
+
+/* フレンド削除文 */
+.delete-note{
+    width: 90%;
+    margin: 8px auto 18px auto;
+    padding: 10px 12px;
+    background: #d8efd6;
+    border: 4px solid #66BB6A;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* 退会ボタン */
+#delete{
+    display: block;
+    width: 70%;
+    margin: 20px auto 14px auto;
+    padding: 12px 0;
+    border: none;
+    border-radius: 25px;
+    background: #ff6b6b;
+    color: #ffffff;
+    font-size: 1rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: 0.2s;
+}
+#delete:hover{
+    background: #ff5252;
+    transform: translateY(-2px);
+}
+
+/* 戻るボタン */
+.back{
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: #2f5f2f;
+    background: #d8efd6;
+    border: 2px solid #66bb6a;
+    border-radius: 25px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: 0.2s;
+}
+.back:hover{
+    background: #c6eac4;
+    transform: translateY(-2px);
+}
