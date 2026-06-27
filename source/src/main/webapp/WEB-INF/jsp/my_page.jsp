@@ -45,8 +45,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <p><c:out value="${message}"/></p>
 <c:out value="${userInfo.point}"/>:豆pt
 <div class="my_page_user_info">
-    <div class="circle">
-    </div>
+    <img  id = "icon-id" class="icon-id" src='img/${userInfo.iconId}.png'>
     <div class="user_id_name">
 		ID：<c:out value="${userInfo.userId}"/><br>
         名前：<c:out value="${userInfo.userName}"/>
