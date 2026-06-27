@@ -86,35 +86,35 @@
 <br>
 スタンプ：
 	<select id="stamp" onchange="changestamp()" name="stamp">
-    	<option value="1"<c:if test="${stamp == '1'}">selected</c:if>>
+    	<option value="0"<c:if test="${stamp == '0'}">selected</c:if>>
 		なし
 		</option>
 		
-		<option value="2"<c:if test="${stamp == '2'}">selected</c:if>>
+		<option value="1"<c:if test="${stamp == '1'}">selected</c:if>>
 		スクワット
 		</option>
 		
-		<option value="3"<c:if test="${stamp == '3'}">selected</c:if>>
+		<option value="2"<c:if test="${stamp == '2'}">selected</c:if>>
 		背筋
 		</option>
 		
-	    <option value="4"<c:if test="${stamp == '4'}">selected</c:if>>
+	    <option value="3"<c:if test="${stamp == '3'}">selected</c:if>>
 		ダンベル
 		</option>
 	    
-	    <option value="5"<c:if test="${stamp == '5'}">selected</c:if>>
+	    <option value="4"<c:if test="${stamp == '4'}">selected</c:if>>
 		脚
 		</option>
 	    
-	    <option value="6"<c:if test="${stamp == '6'}">selected</c:if>>
+	    <option value="5"<c:if test="${stamp == '5'}">selected</c:if>>
 		腹筋
 		</option>
 		
-	    <option value="7"<c:if test="${stamp == '7'}">selected</c:if>>
+	    <option value="6"<c:if test="${stamp == '6'}">selected</c:if>>
 		やる気
 		</option>
 		
-	    <option value="8"<c:if test="${stamp == '8'}">selected</c:if>>
+	    <option value="7"<c:if test="${stamp == '7'}">selected</c:if>>
 		ビール
 		</option>    
 	</select>
@@ -386,19 +386,19 @@ window.addEventListener("scroll", () => {
     	const stamp = document.getElementById("stamp").value;
 
         const image = document.getElementById("stampImage");
-        if (stamp == "2") {
+        if (stamp == "1") {
         	image.src = "img/stamp1.png";
-        }else if (stamp == "3") {
+        }else if (stamp == "2") {
         	image.src = "img/stamp2.png";
-        }else if (stamp == "4") {
+        }else if (stamp == "3") {
         	image.src = "img/stamp3.png";
-        }else if (stamp == "5") {
+        }else if (stamp == "4") {
         	image.src = "img/stamp4.png";
-        }else if (stamp == "6") {
+        }else if (stamp == "5") {
         	image.src = "img/stamp5.png";
-        }else if (stamp == "7") {
+        }else if (stamp == "6") {
         	image.src = "img/stamp6.png";
-        }else if (stamp == "8") {
+        }else if (stamp == "7") {
         	image.src = "img/stamp7.png";
         }else{
         	image.src = "";
