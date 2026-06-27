@@ -34,7 +34,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
-<c:out value="${message}"/>
 <form method=POST action="/a2/EditProfileServlet" id="form">
 <h2>基本情報の変更</h2>
 <div class="form-container">
@@ -69,12 +68,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			<td><input type="text" id="must3" class="hw" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}">kg</td>
 		<tr>
 	</table>
-
-	<div class="button">
-		<input type="button"  class="back-button" onclick="location.href='/a2/MyPageServlet'" value="戻る">
-		<input type="submit"  class="regist-button" value="登録">
-	</div>
 </div>
+<c:out value="${message}"/>
+<div class="button">
+	<a class="back-button" href="/a2/MyPageServlet">戻る</a>
+	<input type="submit"  class="regist-button" value="登録">
+</div>
+
 </form>
 </main>
 <!--　メインここまで　-->

@@ -6,12 +6,14 @@
 }
 /* 画像の「大きな角丸の箱」を作る部分 */
 .form-container {
-  max-width: 600px;         /* 横幅の最大値 */
-  border: 2px solid #333;    /* 黒い枠線 */
-  border-radius: 40px;       /* 大きな角丸（画像のように丸くする） */
-  padding: 20px 30px 80px 30px;             /* 内側の余白 */
-  background-color: #fff;
-  margin:20px
+	margin:10px auto;
+	background:#ffffff;
+	text-align:center;
+	border-radius: 20px;
+	width:90%;
+	border:solid 3px gray;
+	padding:15px 0;
+
 }
 h2{
 	text-align:center;
@@ -36,11 +38,12 @@ input{
     width: 80px;
     background-position: center;
     background-color: #98fb98;
-    color: #556b2f;
+    color: #000000;
     font-size :0.7rem;
     display: block;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius:5px;
+    text-decoration: none;
 }
 table{
 	margin:0 auto;
@@ -48,6 +51,9 @@ table{
 th{
 	
 	text-align:right;
+}
+td{
+	text-align:left;
 }
     
 .button .regist-button{
@@ -62,7 +68,7 @@ th{
     color: #FFFFFF;
     font-size :0.7rem;
     display: block;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .right{

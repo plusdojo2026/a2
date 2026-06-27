@@ -36,6 +36,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <main>
 <c:out value="${message}"/>
 <h2>アイコンの変更</h2>
+<p class="center">フレンドにも表示されるアイコンです。<br>何度でも変更できます。</p>
 <form method=POST action="/a2/DesignServlet">
 	<input type="hidden" name="userId" value="${userInfo.userId}">
 	<div class="icon-box">
