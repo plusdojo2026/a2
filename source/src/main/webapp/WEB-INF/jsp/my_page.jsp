@@ -52,7 +52,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 
 <a href="/a2/DesignServlet" class="menu-card">
-	背景・アイコンの変更
+	アイコンの変更
 </a>
 <a href="/a2/EditProfileServlet" class="menu-card">
 	基本情報の変更
