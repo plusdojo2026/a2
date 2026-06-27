@@ -34,7 +34,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <h3>アイコンの変更</h3>
 <form method=POST action="/a2/DesignServlet">
 	<input type="hidden" name="userId" value="${userInfo.userId}">
-	<div>
+	<div class="icon-box">
 		<button type="submit" value="0" name="number">
 			<img  id="icon-id" class="icon-id" src='img/0.png'>
 		</button>
@@ -47,18 +47,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		<button type="submit" value="3" name="number">
 			<img  id="icon-id" class="icon-id" src='img/3.png'>
 		</button>
+		<br>
 		<button type="submit" value="4" name="number">
 			<img  id="icon-id" class="icon-id" src='img/4.png'>
 		</button>
 		<button type="submit" value="5" name="number">
 			<img  id="icon-id" class="icon-id" src='img/5.png'>
 		</button>
+		<button type="submit" value="6" name="number">
+			<img  id="icon-id" class="icon-id" src='img/6.png'>
+		</button>
+		<button type="submit" value="7" name="number">
+			<img  id="icon-id" class="icon-id" src='img/7.png'>
+		</button>
 		
 </div>
-
-
 </form>
 <a href="/a2/MyPageServlet">戻る</a>
+
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->

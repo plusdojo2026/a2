@@ -1,10 +1,31 @@
 @charset "UTF-8";
 
-.icon-id{
-	width:70px;
-	height:70px;
-}
+
 button{
 	background:none;
 	border:none;
+	margin:3px;
+}
+.icon-id{
+	width:70px;
+	height:70px;
+	transition: transform 0.2s ease;
+}
+.icon-id:hover{
+	transform: translateY(-5px);
+
+}
+.icon-id:active{
+	filter: drop-shadow(0 0 8px #ffff00)
+            drop-shadow(0 0 15px #ffff00);
+    transform: scale(0.95);
+}
+.icon-box{
+	margin:10px auto;
+	background:#ffffff;
+	text-align:center;
+	border-radius: 10px;
+	width:90%;
+	border:solid 1px gray;
+	padding:15px 0;
 }

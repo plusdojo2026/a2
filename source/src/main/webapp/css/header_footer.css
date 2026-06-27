@@ -38,17 +38,17 @@ header{
     align-items:center;
     width: 100%;
     font-size: 14px;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    background-color: #22fc4d;
+    background-color: #66BB6A;
     border-bottom:solid 2px #000000;
     z-index: 10;
 }
 .header-left{
+	width:90px;
+	font-size:11px;
     justify-self:start;
     display:flex;
     flex-direction:column;
-    padding-left: 15px;
+    padding-left: 10px;
 
 }
 .header-left .anniversary{
@@ -56,12 +56,19 @@ header{
 }
 .logo{
     justify-self:center;
+    width:200px
+    
+}
+.info{
+	width:60px;
 }
 .bean-info{
     justify-self:end;
-    padding-right: 15px;
+    padding-right: 10px;
 }
-
+.bean-info:hover {
+  transform: translateY(-5px);
+}
 
 /*======================== メイン =========================*/
 main {
