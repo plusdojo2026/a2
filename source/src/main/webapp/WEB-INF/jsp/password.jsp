@@ -7,11 +7,12 @@
 <meta charset="UTF-8">
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>パスワード変更画面</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
 <link rel="stylesheet" href="/a2/css/password.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
 </head>
 <body>
 <div class="app-wrapper">
