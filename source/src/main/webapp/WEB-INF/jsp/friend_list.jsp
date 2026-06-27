@@ -93,16 +93,19 @@
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <!--*=====メインここから=====*-->
@@ -347,8 +350,8 @@ const year = now.getFullYear();
 const month= now.getMonth()+1;
 const date = now.getDate();
 const text = year+"年"+month+"月"+date+"日";
-if( month === 6 && date === 17 ){
-    document.getElementById('anniversary').textContent='テスト用';
+if( month === 6 && date === 30 ){
+    document.getElementById('anniversary').textContent='発表の日';
 }else if( month === 1 && date === 10 ){
     document.getElementById('anniversary').textContent='糸引き納豆の日';
 }else if( month === 2 && date === 3 ){

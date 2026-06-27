@@ -16,16 +16,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <!--　メインここから　-->

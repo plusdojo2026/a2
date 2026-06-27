@@ -9,10 +9,23 @@
   max-width: 600px;         /* 横幅の最大値 */
   border: 2px solid #333;    /* 黒い枠線 */
   border-radius: 40px;       /* 大きな角丸（画像のように丸くする） */
-  padding: 50px 50px 80px 50px;             /* 内側の余白 */
+  padding: 20px 30px 80px 30px;             /* 内側の余白 */
   background-color: #fff;
+  margin:20px
 }
-
+h2{
+	text-align:center;
+	margin-top:10px;
+}
+input{
+	border-radius: 5px;
+	padding-left:3px;
+	border:solid 1px gray;;
+	background:#fafaeb;
+}
+.hw{
+	width:70px;
+}
 
 .button .back-button{
 	position:absolute;
@@ -27,10 +40,18 @@
     font-size :0.7rem;
     display: block;
     margin-top: 20px;
+    border-radius:5px;
+}
+table{
+	margin:0 auto;
+}
+th{
+	
+	text-align:right;
 }
     
-    
 .button .regist-button{
+	border-radius:5px;
 	position:absolute;
 	right:80px;
 	border: none;
