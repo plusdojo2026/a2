@@ -21,6 +21,8 @@ html, body {
   これで画面がスマホ幅に変わると思います！
 */
 .app-wrapper {
+	display: flex;
+    flex-direction: column;
   width: 100%;
   max-width: 430px;    /* スマホの幅に固定 */
   min-height: 100vh;   /* 画面縦いっぱいの高さを確保 */
@@ -38,17 +40,19 @@ header{
     align-items:center;
     width: 100%;
     font-size: 14px;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    background-color: #22fc4d;
-    border-bottom:solid 2px #000000;
+    background-color: #66BB6A;
+    border-top:dotted 5px #D8EFD6;
+    border-bottom:dotted 5px #D8EFD6;
     z-index: 10;
 }
+
 .header-left{
+	width:90px;
+	font-size:11px;
     justify-self:start;
     display:flex;
     flex-direction:column;
-    padding-left: 15px;
+    padding-left: 10px;
 
 }
 .header-left .anniversary{
@@ -56,19 +60,30 @@ header{
 }
 .logo{
     justify-self:center;
+    width:200px
+    
+}
+.info{
+	width:60px;
 }
 .bean-info{
     justify-self:end;
-    padding-right: 15px;
+    padding-right: 10px;
 }
+.bean-info:hover {
+  transform: translateY(-5px);
+}
+.solid{
+	border-top:solid 2px #66BB6A;
 
-
+}
 /*======================== メイン =========================*/
 main {
   display: block;
   width: 100%;
   flex: 1; /* 残りの縦幅を自動で埋める */
   padding: 10px 8px 100px 8px; /* 下部バーに被らないように余白を入れる */
+  border-top:solid 2px #66BB6A;
 }
 
 /*========================フッター=========================*/

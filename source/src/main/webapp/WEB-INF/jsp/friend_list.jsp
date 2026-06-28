@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/a2/css/header_footer.css">
 <link rel="stylesheet" href="/a2/css/share.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
 <style>
 .modal-bg{
     display:none;
@@ -93,16 +93,19 @@
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <!--*=====メインここから=====*-->
@@ -138,13 +141,13 @@
 			
 			<!-- フレンド表示のループ -->
 				<c:forEach var="f" items="${friendFullList}">
-				
+
 				  <div class="deletefriend">
 					<!-- <div class="friend-info"> -->
 					<div class="friend-icon"style="cursor: pointer;" 
 					onclick="openModal('${f.friend.friendUserId}')">
 					<div class="friend">
-						<img  id="icon-id" class="icon-id" src='img/${f.friend.iconId}.png'> 
+						<img  id = "icon-id" class="icon-id" src='img/${f.friendInfo.iconId}.png'>
 					<div class="friend-info">
 						ID:<span class="friend-id">${f.friend.friendUserId}</span><br>
 						<span class="friend-name">${f.friendInfo.userName}</span><br>
@@ -347,8 +350,8 @@ const year = now.getFullYear();
 const month= now.getMonth()+1;
 const date = now.getDate();
 const text = year+"年"+month+"月"+date+"日";
-if( month === 6 && date === 17 ){
-    document.getElementById('anniversary').textContent='テスト用';
+if( month === 6 && date === 30 ){
+    document.getElementById('anniversary').textContent='発表の日';
 }else if( month === 1 && date === 10 ){
     document.getElementById('anniversary').textContent='糸引き納豆の日';
 }else if( month === 2 && date === 3 ){
@@ -367,13 +370,6 @@ if( month === 6 && date === 17 ){
     document.getElementById('anniversary').textContent='豆の日';
 }
 document.getElementById('today').textContent=text;
-}
-//ログアウトアラート
-document.getElementById('logout').onclick = function(event){
-    let logout = window.confirm('ログアウトしてよろしいですか？');
-    if( logout === false){
-        event.preventDefault();
-    }
 }
 
 //スクロールに合わせたアイコンバーの変更

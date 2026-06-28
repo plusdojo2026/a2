@@ -1,162 +1,68 @@
 @charset "UTF-8";
-
+/* ----------ユーザー情報表示部分---------- */
 .my_page_user_info{
-    border-radius:20px; 
-    width: 75%;
-    height: 90px;
-    background-color: rgb(135, 247, 163);
-    border:3px solid rgba(62, 62, 62, 0.525);
-    padding-left: 40px;
-    justify-self:center;
-    font-size: large;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 18px 20px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 2px solid #8be09c;
 }
-
+.icon-id{
+	width: 65px;
+    height: 65px;
+}
 .user_id_name{
-	padding-left: 40px;
-	padding-top: 20px;
-	justify-content: center;
+	font-size: 1.2rem;
+    color: #333;
+    line-height: 1.6;
 }
-
 #circle {
-    background: lightblue;
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-position: center;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    border: 2px solid #8be09c;
 }
 
-.kihon{
-	border-radius:20px; 
-    width: 75%;
-    height: 90px;
-    background-color: rgb(135, 247, 163);
-    border:3px solid rgba(62, 62, 62, 0.525);
-    text-align: center;
-    justify-self:center;
-    font-size: large;
-    margin-bottom: 25px;
-    padding: 30px 10px;
-    color: #333333;              /* 文字の色 */
-    text-decoration: none;       /* 下線を消す */
-}
-
-.profile{
-	color: #333333;              /* 文字の色 */
-    text-decoration: none; 	 		 /* 下線を消す */
-}
-
-
-.pass{
-	border-radius:20px; 
-    width: 75%;
-    height: 90px;
-    background-color: rgb(135, 247, 163);
-    border:3px solid rgba(62, 62, 62, 0.525);
-    text-align: center;
-    justify-self:center;
-    font-size: large;	
-    margin-bottom: 25px;
-    padding: 30px 10px;
-    color: #333333;              /* 文字の色 */
-    text-decoration: none;       /* 下線を消す */
-}
-
-.password{
-	color: #333333;              /* 文字の色 */
-    text-decoration: none; 	 		 /* 下線を消す */
-	
-}
-
-
-.logout{
-	position:absolute;
-	left:60px;
-	border-radius:30px; 
-    width: 40%;
-    height: 30px;
-    background-color: rgb(135, 247, 163);
-    border:3px solid rgba(62, 62, 62, 0.525);
-    text-align: center;
-    justify-self:center;
-    font-size: large;	
-    margin-bottom: 25px;
-    color: #333333;              /* 文字の色 */
-    text-decoration: none;       /* 下線を消す */
-    margin: 5px;
-}
-
-
-
-/* 画像の「大きな角丸の箱」を作る部分 */
-.form-container {
-  max-width: 600px;         /* 横幅の最大値 */
-  border: 2px solid #333;    /* 黒い枠線 */
-  border-radius: 40px;       /* 大きな角丸（画像のように丸くする） */
-  padding: 50px 50px 80px 50px;             /* 内側の余白 */
-  background-color: #fff;
-}
-
-
-.button .back-button{
-	position:absolute;
-	left:90px;
-	text-align: center;
-    border: none;
-    padding: 10px;
-    width: 80px;
-    background-position: center;
-    background-color: #98fb98;
-    color: #556b2f;
-    font-size :0.7rem;
+/* ----------メニューリンク部分---------- */
+.menu-card{
     display: block;
-    margin-top: 20px;
+    width: 80%;
+    margin: 14px auto;
+    padding: 18px 20px;		/* 画面いっぱいに表示 */
+    background: #ffffff;
+    border-radius: 18px;
+    border: 2px solid #8be09c;
+    font-size: 1.05rem;
+    color: #333;
+    text-decoration: none;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    transition: 0.2s;
 }
-    
-    
-.button .regist-button{
-	position:absolute;
-	right:80px;
-	border: none;
-    padding: 10px;
-    width: 80px;
-    background-position: center;
-    background-color: #008000;
-    color: #FFFFFF;
-    font-size :0.7rem;
-    display: block;
-    margin-top: 20px;
-}
-
-.right{
-	position:relative;
-	right:0px;
-	
+.menu-card:hover{
+    background: #eaffea;
+    transform: translateY(-2px);
 }
 
-.logout-div .logout-button{
-	position:absolute;
-	left:90px;
-	text-align: center;
-    border: none;
-    padding: 10px;
-    width: 80px;
-    background-position: center;
-    background-color: #98fb98;
-    color: #556b2f;
-    font-size :0.7rem;
-    display: block;
-    margin-top: 20px;
+/* ログアウト、退会手続きは色変える */
+.logout-card{
+    border-color: #ffb347;
+    background: #fff7e6;
+}
+.logout-card:hover{
+    background: #ffe8c7;
+}
+.delete-card{
+    border-color: #ff6b6b;
+    background: #ffecec;
+}
+.delete-card:hover{
+    background: #ffd4d4;
 }
 
-.logout-div .taikai-button{
-	position:absolute;
-	right:80px;
-	border: none;
-    padding: 10px;
-    width: 80px;
-    background-position: center;
-    background-color: #008000;
-    color: #FFFFFF;
-    font-size :0.7rem;
-    display: block;
-    margin-top: 20px;
-}
