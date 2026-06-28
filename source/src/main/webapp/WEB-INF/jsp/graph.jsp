@@ -328,10 +328,10 @@ let weights = Object.keys(currentData[firstKey]);
 let firstWeight = weights[0];
 
 //期間変更ボタンの色
-let weekcolor = "#ff0000";
-let moncolor = "#ffffff";
-document.getElementById("wcbutton").style.color = weekcolor;
-document.getElementById("mcbutton").style.color = moncolor;
+let weekdesign = "3px solid #400040";
+let mondesign = "1px solid #400040";
+document.getElementById("wcbutton").style.border = weekdesign;
+document.getElementById("mcbutton").style.border = mondesign;
 
 
 //項目をセッションに保存
@@ -434,15 +434,15 @@ function updateChart(newData) {
 
     //ボタン色変更
     if (currentData == monthData){
-    	weekcolor = "#ffffff";
-    	moncolor = "#ff0000";
-    	document.getElementById("wcbutton").style.color = weekcolor;
-    	document.getElementById("mcbutton").style.color = moncolor;
+    	weekdesign = "1px solid #400040";
+    	mondesign = "3px solid #400040";
+    	document.getElementById("wcbutton").style.border = weekdesign;
+    	document.getElementById("mcbutton").style.border = mondesign;
     }else if(currentData == weekData){
-    	weekcolor = "#ff0000";
-    	moncolor = "#ffffff";
-    	document.getElementById("wcbutton").style.color = weekcolor;
-    	document.getElementById("mcbutton").style.color = moncolor;
+    	weekdesign = "3px solid #400040";
+    	mondesign = "1px solid #400040";
+    	document.getElementById("wcbutton").style.border = weekdesign;
+    	document.getElementById("mcbutton").style.border = mondesign;
     }
     
     // 重量をリセット
