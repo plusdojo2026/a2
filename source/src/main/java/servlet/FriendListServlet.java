@@ -111,7 +111,11 @@ public class FriendListServlet extends HttpServlet {
 			List<Friend> frInfo = 
 					fDao.friendInfo(new Friend
 							(null, friendUserId, 0, null, 0, 0));
-			
+			System.out.println("friendLoop icon = " + friendLoop.getIconId());
+
+			if (!frInfo.isEmpty()) {
+			    System.out.println("friendInfo icon = " + frInfo.get(0).getIconId());
+			}
 			// <===一覧用DAO②===>コンソール確認用
 		    System.out.println("====="+friendUserId+"の情報=====");
 		    if (!frInfo.isEmpty()) {

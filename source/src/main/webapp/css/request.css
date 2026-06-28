@@ -82,20 +82,21 @@ a:active {
 	border-bottom: 1px solid #eee; 
 	display: flex; 
 	align-items: center;
-	height: 50px;
+	height:60px;
 	border-radius:10px;
+	box-shadow: 0 0 5px gray;
 }
 
 .requserid{
 	position: absolute;
 	top: 0;
-	left: 50px;
+	left: 60px;
 }
 
 .reqname{
 	position: absolute;
 	top: 20px;
-	left: 50px;
+	left: 60px;
 }
 
 .reqsan{
@@ -126,21 +127,21 @@ a:active {
 	border-bottom: 2px solid #eee; 
 	display: flex; 
 	align-items: center;
-	height: 50px;
+	height: 60px;
 	border-radius:10px;
-	
+	box-shadow: 0 0 5px gray;
 }
 
 .applyuser{
 	position: absolute;
 	top: 0;
-	left: 50px;
+	left: 60px;
 }
 
 .applyname{
 	position: absolute;
 	top: 20px;
-	left: 50px;
+	left: 60px;
 }
 
 .applysan{

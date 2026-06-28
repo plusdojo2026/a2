@@ -12,17 +12,24 @@
 <link rel="stylesheet" href="css/regist.css">
 <link rel="stylesheet" href="css/header_footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
 </head>
 <body>
 <div class="app-wrapper">
 
-<!--　ヘッダーここから　-->
+<!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
+    <div class="header-left">
+        <span id="today"></span>
+        <span id="anniversary" class="anniversary"></span>
+    </div>
 
+    <span class="logo">
+		<img class="logo" src='img/logo.png'>
+	</span>
 </header>
-
-<!--　ヘッダーここまで　-->
+<!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/a2/css/request.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
  <!--     <style>
             *{
                 outline: 1px solid #000000;
@@ -19,16 +20,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <main>
@@ -52,7 +56,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
              		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
-                    <label id ="requserid" class = "requserid">ID:${req.userId}</label>
+                    <label id ="requserid" style="font-size: 12px;" class = "requserid">ID:${req.userId}</label>
                     <span class = "reqname" style="font-size: 18px; font-weight: bold;">${req.userName}
                     <span class= "reqsan" style="font-size: 12px; color: #666;">さんから</span></span>
                 </div>
@@ -75,11 +79,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	    <h2 class="apply">申請一覧</h2>
     <ul style="list-style: none; padding: 0;" class = "applyreqest">
         <c:forEach var="req" items="${fmSearch}">
-            <li class="friendapply" style="padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+            <li class="friendapply" style="padding: 10px 10px 10px 80px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
              		<img  id = "icon-id" class="icon-id" src='img/${req.iconId}.png'> 
-                    <span style="font-size: 12px;" class="applyuser">${req.userId}</span>
+                    <span style="font-size: 12px;" class="applyuser">ID:${req.userId}</span>
                     <span style="font-size: 18px; font-weight: bold;" class="applyname">${req.userName}
                     <span style="font-size: 14px; color: #666;" class="applysan">さんへ</span></span>
                     <span class ="applypara" style="background-color: #c7dc68; color: white; border: none; padding: 8px 15px; border-radius: 2px; cursor: pointer; font-weight: bold;">
@@ -124,8 +128,8 @@ const year = now.getFullYear();
 const month= now.getMonth()+1;
 const date = now.getDate();
 const text = year+"年"+month+"月"+date+"日";
-if( month === 6 && date === 17 ){
-    document.getElementById('anniversary').textContent='テスト用';
+if( month === 6 && date === 30 ){
+    document.getElementById('anniversary').textContent='発表の日';
 }else if( month === 1 && date === 10 ){
     document.getElementById('anniversary').textContent='糸引き納豆の日';
 }else if( month === 2 && date === 3 ){

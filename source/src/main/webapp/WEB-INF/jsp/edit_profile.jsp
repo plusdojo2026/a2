@@ -9,64 +9,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>基本情報の変更</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
-<link rel="stylesheet" href="/a2/css/mypage.css">
+<link rel="stylesheet" href="/a2/css/edit_profile.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
 </head>
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
-<c:out value="${message}"/>
 <form method=POST action="/a2/EditProfileServlet" id="form">
-<p>　ID：<c:out value="${userInfo.userId}"/></p>
+<h2>基本情報の変更</h2>
 <div class="form-container">
 <input type="hidden" name="userId" value="${userInfo.userId}">
 
 	<table>
 		<tr>
-			<th>ユーザー名</th>
+			<th> ID：</th>
+			<td><c:out value="${userInfo.userId}"/></td>
+		<tr>
+		<tr>
+			<th>ユーザー名：</th>
 			<td><input type="text" id="must1" name="userName" value="${userInfo.userName}"></td>
 		<tr>
 		<tr>
-			<th>身長</th>
-			<td><input type="text" id="must2" name="height" id="height" value="${userInfo.height}"></td>
+			<th>身長：</th>
+			<td><input type="text" id="must2" name="height" id="height" class="hw" value="${userInfo.height}">cm</td>
 		<tr>
 		<tr>
-			<th>性別</th>
+			<th>性別：</th>
 			<td>
-				男:<input type="radio" name="gender" value="man" 
+				男:<input type="radio" name="gender" value="male" 
 				${userInfo.gender == 'male' ? 'checked' : ''} >
-				女:<input type="radio" name="gender" value="woman" 
+				女:<input type="radio" name="gender" value="female" 
 				${userInfo.gender == 'female' ? 'checked' : ''}>
 				その他:<input type="radio" name="gender" value="other" 
 				${userInfo.gender == 'other' ? 'checked' : ''}>
 			</td>
 		<tr>
 		<tr>
-			<th>目標体重</th>
-			<td><input type="text" id="must3" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}"></td>
+			<th>目標体重：</th>
+			<td><input type="text" id="must3" class="hw" name="targetWeight" id="targetWeight" value="${userInfo.targetWeight}">kg</td>
 		<tr>
 	</table>
-
-	<div class="button">
-		<input type="button"  class="back-button" onclick="location.href='/a2/MyPageServlet'" value="戻る">
-		<input type="submit"  class="regist-button" value="登録">
-	</div>
 </div>
+<c:out value="${message}"/>
+<div class="button">
+	<a class="back-button" href="/a2/MyPageServlet">戻る</a>
+	<input type="submit"  class="regist-button" value="登録">
+</div>
+
 </form>
 </main>
 <!--　メインここまで　-->

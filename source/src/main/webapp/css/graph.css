@@ -6,7 +6,7 @@
 }
 
 .canvas-container {
-    position:absolute;
+    position:relativ;
     width:  calc(100% - 20px);
     height: 350px;
     overflow: hidden;
@@ -31,17 +31,15 @@ ul{
 }
 
 #todaycomment{
-	position: absolute;
+	position: relativ;
 	top:6px;
 }
 
 #daycomment{
-	position: absolute;
+
 	background-color: #1ac16e;
 	border-radius: 5px;/* 角丸を指定する */
 	color:white;
-	top:30px;
-	left: 40px;
 	width: 340px;
 	height:50px ;
 	padding: 5px,10px,5px,10px;
@@ -50,22 +48,33 @@ ul{
 	align-items:center;
 	text-align: center;
 	font-weight: bold;
+
+}
+.comment-box{
+	display:flex;
+	position:relative;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-right:10px;
+}
+.mamegraph{
+	width:70px
 }
 
 #select{
     margin: 0;
     gap:0px;
-	position:absolute
+	position:relativ;
 }
 
 #selectitem{
-	position:absolute;
+	position:relativ;
 	top: 90px;
 	left: 20px;
 }
 
 #selectweight{
-	position:absolute;	
+	position:relativ;	
 	top: 90px;
 	left: 270px;
 }
@@ -86,7 +95,7 @@ ul{
 }
 
 #dayschange{
-	position: absolute;
+	position: relativ;
 	top: 520px;
 	left : 23px;
 }

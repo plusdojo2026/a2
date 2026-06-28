@@ -390,8 +390,8 @@ public class SavesDao {
 		        // 1. saves から storages へ移行 (このユーザーの分だけ)
 			    //一行目でstoragesに入れることを明記
 			    //二行目でsavesから引っ張っていくことを明記
-		        String sql1 = "INSERT INTO storages (user_id, date, weight, fat, comments, stamp) " +
-		                      "SELECT user_id, date, weight, fat, comments, stamp FROM saves WHERE user_id = ?";
+		        String sql1 = "INSERT INTO storages (user_id, weight, fat, comments, stamp, date) " +
+		                      "SELECT user_id, weight, fat, comments, stamp, date FROM saves WHERE user_id = ?";
 		        pStmt1 = conn.prepareStatement(sql1);
 		        pStmt1.setString(1, userId);
 		        pStmt1.executeUpdate();
@@ -401,8 +401,8 @@ public class SavesDao {
 		        //一行目でstoragesに入れることを明記
 			    //二行目でsavesから引っ張っていくことを明記
 		        //user_id = ?" で設定したユーザーID分、全部 入る
-		        String sql2 = "INSERT INTO tr_storage (user_id, date, item_id, value) " +
-		                      "SELECT user_id, date, item_id, value FROM tr_saves WHERE user_id = ?";
+		        String sql2 = "INSERT INTO tr_storages (user_id, tr_id, tr_weight, counts, sets, memo, date) " +
+		                      "SELECT user_id, tr_id, tr_weight, counts, sets, memo, date FROM tr_saves WHERE user_id = ?";
 		        pStmt2 = conn.prepareStatement(sql2);
 		        pStmt2.setString(1, userId);
 		        pStmt2.executeUpdate();

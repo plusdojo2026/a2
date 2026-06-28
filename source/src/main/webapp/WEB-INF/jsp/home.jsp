@@ -12,59 +12,75 @@
   <link rel="stylesheet" href="/a2/css/home.css">
 	<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+	<link rel="icon" href="/a2/img/mame.png" type="image/png">
 </head>
 <body>
 <div class="app-wrapper">
-<!--　ヘッダーここから　-->
+<!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
-<!--　ヘッダーここまで　-->
+<!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
 <!--ホームサーブレットにある、messageを表示させている　if文でもしメッセージが存在したらと書く-->
-<c:if test="${not empty message}">
-    <div style="color: blue;">
-        ${message}
-    </div>
+<c:if test="${not empty message||not empty message2}">
+	<div class="messaga-box">
+	<p>✧お知らせ✧</p>
+		<c:if test="${not empty message}">
+		    <div style="color: blue;">
+		        ${message}
+		    </div>
+		</c:if>
+		<c:if test="${not empty message2}">
+		    <div style="color: blue;">
+		        <a href="FriendrequestsServlet">フレンド申請</a>が来てます！
+		    </div>
+		</c:if>
+	</div>
 </c:if>
-<c:if test="${not empty message2}">
-    <div style="color: blue;">
-        <a href="FriendrequestsServlet">フレンド申請</a>が来てます！
-    </div>
-</c:if>
-<h1>今日の記録</h1>
+
+<h1 class="center">今日の記録</h1>
 <div class="input">
 <form id="homeForm" method="POST" action="/a2/HomeServlet">
 
 
 
-
+<div class="right">
 <span class="h2">基本データ</span>
 <input type="button" value="一時保存" onclick="submitTempSave()" class="save">
-<table>
+</div>
+<table class="margin-auto">
 	<tr>
-		<td>
-			体重(kg)
+		<td class="right">
+			体重
 		</td>
 		<td>
 			<input type="number" name="weight" class="weightfat" value="${weight}" step="0.1" required min=0>
+			<span>kg&emsp;&emsp;</span>	    
 		</td>
 	</tr>
 	<tr>
-		<td>
-			体脂肪率(％)
+		<td class="right">
+			体脂肪率
 		</td>
 		<td>
-			<input type="number" name="fat" value="${fat}" step="0.1" min=0>
+			<input type="number" name="fat" class="weightfat" value="${fat}" step="0.1" min=0>
+			<span>%&emsp;&emsp;</span>
 		</td>
 </table>
+
 <div id="weightEr" style="color:red;"></div>
 <!-- <div id="fatEr" style="color:red;"></div>
  -->
@@ -76,47 +92,49 @@
 <br>
 スタンプ：
 	<select id="stamp" onchange="changestamp()" name="stamp">
-    	<option value="1"<c:if test="${stamp == '1'}">selected</c:if>>
+    	<option value="0"<c:if test="${stamp == '0'}">selected</c:if>>
 		なし
 		</option>
 		
-		<option value="2"<c:if test="${stamp == '2'}">selected</c:if>>
+		<option value="1"<c:if test="${stamp == '1'}">selected</c:if>>
 		スクワット
 		</option>
 		
-		<option value="3"<c:if test="${stamp == '3'}">selected</c:if>>
+		<option value="2"<c:if test="${stamp == '2'}">selected</c:if>>
 		背筋
 		</option>
 		
-	    <option value="4"<c:if test="${stamp == '4'}">selected</c:if>>
+	    <option value="3"<c:if test="${stamp == '3'}">selected</c:if>>
 		ダンベル
 		</option>
 	    
-	    <option value="5"<c:if test="${stamp == '5'}">selected</c:if>>
+	    <option value="4"<c:if test="${stamp == '4'}">selected</c:if>>
 		脚
 		</option>
 	    
-	    <option value="6"<c:if test="${stamp == '6'}">selected</c:if>>
+	    <option value="5"<c:if test="${stamp == '5'}">selected</c:if>>
 		腹筋
 		</option>
 		
-	    <option value="7"<c:if test="${stamp == '7'}">selected</c:if>>
+	    <option value="6"<c:if test="${stamp == '6'}">selected</c:if>>
 		やる気
 		</option>
 		
-	    <option value="8"<c:if test="${stamp == '8'}">selected</c:if>>
+	    <option value="7"<c:if test="${stamp == '7'}">selected</c:if>>
 		ビール
 		</option>    
 	</select>
 	<div class="stamp-box">
 		<img id="stampImage" src="" width="200" class="stamp">
 	</div>
-<h2>カスタムデータ</h2>
+<h2 class="center">カスタムデータ</h2>
 <div id="itemArea"></div>
 <div id="memoArea"></div><br>
-<button type="button" onclick="openModal()">＋項目を追加</button>
+<div class="save-button-box">
+<button type="button" class="add-btn" onclick="openModal()">＋項目を追加</button>
 <!-- ✧✧✧✧✧✧✧保存確認のモーダル✧✧✧✧✧✧✧ -->
 <button type="button" class="storage-btn" onclick="openSaveModal()">保存</button>
+</div>
 <!-- 隠してあるけどrequest.getParameter("saveb")　でモーダルから送信してもとってくれるようにする　 -->
 <input type="hidden" name="saveb" id="saveb">
 <div id="saveModal" class="modal-background">
@@ -134,7 +152,7 @@
 <div id="memoArea"></div>
    <div id="modal" class="modal-background">
     <div class="modal-content">
-      <p>項目を追加</p>
+      <p class="grean">＋ 新しいトレーニングを追加</p>
       <!--  下の文でここに警告文が出るようになる　使用するために id="msg”をつけた-->
       <div style="color:red" id="msg"></div>
 		<nobr>
@@ -165,11 +183,11 @@
   </div>
  <div id="completeModal" class="modal-background" style="display:none;">
     <div class="modal-content-two">
-        <h2>本日の入力ありがとうございました。</h2>
+        <span class="h3">本日の入力ありがとうございました。</span>
         <br>
-        <p>
+        <p class="h4">
             カレンダーページから入力内容の変更ができます。
-        </p>   
+        </p>  
         <br>
         <c:if test="${goalAchieved}">
 	    <p style="color:red;">
@@ -326,7 +344,7 @@ window.addEventListener("scroll", () => {
 	    html += "スタンプ：" + stampText ;
 	    html +="<br>"
 	    html += "[メモ]" + "<br>"
-	    html += comments + "<br><br>";
+	    html += comments + "<br>";
 	  
 	    
 	    //追加項目繰り返し処理で回す
@@ -349,13 +367,12 @@ window.addEventListener("scroll", () => {
 	            //表示パターン１
 	        
 	            html += "[" + item.value + "]"+"<br>";
-	            html += tr_weight +" kg(km) ×";
+	            html += tr_weight +" kg ×";
 	            html += counts + " 回 ×";
 	            html += sets + " セット"+"<br>";
 	            /* html +="<br>"; */
 	            html += "[メモ]"+"<br>";
 	            html += memo + "<br>";
-	            html +="<br>";
 	        } 
 	    }
 		document.getElementById("confirmArea").innerHTML = html;
@@ -375,19 +392,19 @@ window.addEventListener("scroll", () => {
     	const stamp = document.getElementById("stamp").value;
 
         const image = document.getElementById("stampImage");
-        if (stamp == "2") {
+        if (stamp == "1") {
         	image.src = "img/stamp1.png";
-        }else if (stamp == "3") {
+        }else if (stamp == "2") {
         	image.src = "img/stamp2.png";
-        }else if (stamp == "4") {
+        }else if (stamp == "3") {
         	image.src = "img/stamp3.png";
-        }else if (stamp == "5") {
+        }else if (stamp == "4") {
         	image.src = "img/stamp4.png";
-        }else if (stamp == "6") {
+        }else if (stamp == "5") {
         	image.src = "img/stamp5.png";
-        }else if (stamp == "7") {
+        }else if (stamp == "6") {
         	image.src = "img/stamp6.png";
-        }else if (stamp == "8") {
+        }else if (stamp == "7") {
         	image.src = "img/stamp7.png";
         }else{
         	image.src = "";
@@ -676,8 +693,8 @@ window.addEventListener("scroll", () => {
 		const month= now.getMonth()+1;
 		const date = now.getDate();
 		const text = year+"年"+month+"月"+date+"日";
-		if( month === 6 && date === 17 ){
-		    document.getElementById('anniversary').textContent='テスト用';
+		if( month === 6 && date === 30 ){
+		    document.getElementById('anniversary').textContent='発表の日';
 		}else if( month === 1 && date === 10 ){
 		    document.getElementById('anniversary').textContent='糸引き納豆の日';
 		}else if( month === 2 && date === 3 ){

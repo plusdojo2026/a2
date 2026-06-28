@@ -8,56 +8,69 @@
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>アイコン着せ替え変更</title>
+<link rel="stylesheet" href="/a2/css/design.css">
 <link rel="stylesheet" href="/a2/css/header_footer.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
 </head>
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
 <c:out value="${message}"/>
-<h3>アイコンの変更</h3>
+<h2>アイコンの変更</h2>
+<p class="center">フレンドにも表示されるアイコンです。<br>何度でも変更できます。</p>
 <form method=POST action="/a2/DesignServlet">
-<input type="hidden" name="userId" value="${userInfo.userId}">
-<div>
-<input type="submit" value="0" name="number">
-<input type="submit" value="1" name="number">
-<input type="submit" value="2" name="number">
-<input type="submit" value="3" name="number"><br>
-<input type="submit" value="4" name="number">
-<input type="submit" value="5" name="number">
-<input type="submit" value="6" name="number">
-<input type="submit" value="7" name="number">
-</div>
-
-
-<h3>背景色の変更</h3>
-<div>
-<input type="submit" value="8" name="number">
-<input type="submit" value="9" name="number">
-<input type="submit" value="10" name="number">
-<input type="submit" value="11" name="number"><br>
-<input type="submit" value="12" name="number">
-<input type="submit" value="13" name="number">
-<input type="submit" value="14" name="number">
-<input type="submit" value="15" name="number">
+	<input type="hidden" name="userId" value="${userInfo.userId}">
+	<div class="icon-box">
+		<button type="submit" value="0" name="number">
+			<img  id="icon-id" class="icon-id" src='img/0.png'>
+		</button>
+		<button type="submit" value="1" name="number">
+			<img  id="icon-id" class="icon-id" src='img/1.png'>
+		</button>
+		<button type="submit" value="2" name="number">
+			<img  id="icon-id" class="icon-id" src='img/2.png'>
+		</button>
+		<button type="submit" value="3" name="number">
+			<img  id="icon-id" class="icon-id" src='img/3.png'>
+		</button>
+		<br>
+		<button type="submit" value="4" name="number">
+			<img  id="icon-id" class="icon-id" src='img/4.png'>
+		</button>
+		<button type="submit" value="5" name="number">
+			<img  id="icon-id" class="icon-id" src='img/5.png'>
+		</button>
+		<button type="submit" value="6" name="number">
+			<img  id="icon-id" class="icon-id" src='img/6.png'>
+		</button>
+		<button type="submit" value="7" name="number">
+			<img  id="icon-id" class="icon-id" src='img/7.png'>
+		</button>
+		
 </div>
 </form>
-<a href="/a2/MyPageServlet">戻る</a>
+<a href="/a2/MyPageServlet" class="back-button">戻る</a>
+<br>
+<img  id="icon-id" class="iconPng" src='img/iconPng.png'>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->

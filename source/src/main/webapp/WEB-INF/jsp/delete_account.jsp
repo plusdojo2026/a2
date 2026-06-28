@@ -8,48 +8,57 @@
 <!--デバイスの幅に合わせる-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Insert title here</title>
+<title>退会画面</title>
 <link rel="stylesheet" href="/a2/css/header_footer.css">
+<link rel="stylesheet" href="/a2/css/delete_account.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="icon" href="/a2/img/mame.png" type="image/png">
 </head>
 <body>
 <div class="app-wrapper">
 <!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
     <div class="header-left">
         <span id="today"></span>
         <span id="anniversary" class="anniversary"></span>
     </div>
 
-    <a href="/a2/HomeServlet" class="logo">rogo</a>
-    <a href="/a2/InfoServlet" class="bean-info"><i class="fa-solid fa-circle-info"></i>豆情報</a>
-
-
+    <a href="/a2/HomeServlet" class="logo">
+		<img class="logo" src='img/logo.png'>
+	</a>
+    <a href="/a2/InfoServlet" class="bean-info">
+    	<img class="info" src='img/info.png'>
+    </a>
 </header>
 <!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
 
 <div class="my_page_user_info">
-    <div class="circle">
-    </div>
+    <img class="icon-id" src='img/${userInfo.iconId}.png'>
     <div class="user_id_name">
-        ID:<c:out value="${userInfo.userId}"/><br>
-        name：<c:out value="${userInfo.userName}"/>
+		ID：<c:out value="${userInfo.userId}"/><br>
+        名前：<c:out value="${userInfo.userName}"/>
     </div>
 </div>
 
-<p>上記アカウントの退会手続きを行います。<br>
-退会後は、アカウントの利用・ログインが出来なくなります。
+<p class="delete-text">
+	上記アカウントの退会手続きを行います。<br>
+	退会後は、アカウントの利用・ログインが出来なくなります。
+</p>
+<p class="delete-note">
+    ※退会前にフレンドをすべて削除しておくと、<br>
+    フレンド側の画面からあなたの情報が見られなくなります。
 </p>
 <form method=POST action="/a2/DeleteAccountServlet">
 	<input type="hidden" name="userId" value="${userInfo.userId}">
 <input type="submit" value="退会する" id="delete">
 </form>
 
-<a href="/a2/MyPageServlet">戻る</a>
-
+<a href="/a2/MyPageServlet" class="back">戻る</a>
+<img  id="icon-id" class="deletePng" src='img/deletePng.png'>
 </main>
 <!--　メインここまで　-->
 <!--　フッターここから　-->
@@ -80,8 +89,8 @@ const year = now.getFullYear();
 const month= now.getMonth()+1;
 const date = now.getDate();
 const text = year+"年"+month+"月"+date+"日";
-if( month === 6 && date === 17 ){
-    document.getElementById('anniversary').textContent='テスト用';
+if( month === 6 && date === 30 ){
+    document.getElementById('anniversary').textContent='発表の日';
 }else if( month === 1 && date === 10 ){
     document.getElementById('anniversary').textContent='糸引き納豆の日';
 }else if( month === 2 && date === 3 ){

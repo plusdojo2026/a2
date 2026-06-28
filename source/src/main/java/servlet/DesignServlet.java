@@ -69,23 +69,16 @@ public class DesignServlet extends HttpServlet {
 		int number=Integer.parseInt(numberStr);
 		// 数字によって振り分ける
 		UsersDao bDao = new UsersDao();
-		if (number<=7) {
 			int iconId = number;
 			if (bDao.iconChange(new User
 					(0,null,0.0,null,0.0,0,userId,null,iconId,0,0,null))) { // 更新成功
 				session.setAttribute("message", "アイコンを更新しました。");
 			} else { // 更新失敗
 				session.setAttribute("message", "アイコンを更新できませんでした。");
-			}
-		} else {
-			int designId = number-8;
-			if (bDao.designChange(new User
-					(0,null,0.0,null,0.0,0,userId,null,0,designId,0,null))) { // 更新成功
-				session.setAttribute("message", "着せ替えを更新しました。");
-			} else { // 更新失敗
-				session.setAttribute("message", "着せ替えを更新しました。");
-			}
-		}
+
+		} 
+			
+
 
 		// デザインページにリダイレクト
 		response.sendRedirect("/a2/DesignServlet");

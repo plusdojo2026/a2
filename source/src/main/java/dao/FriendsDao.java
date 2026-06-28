@@ -243,7 +243,7 @@ public class FriendsDao {
 				    +" WHERE t.user_id = ? "
 				    +" AND t.date = ( SELECT MAX(st.date) "
 				    +" FROM tr_storages st "
-				    +" WHERE st.user_id = t.user_id);";
+				    +" WHERE st.user_id = t.user_id)";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
