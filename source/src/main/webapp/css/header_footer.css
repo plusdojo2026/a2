@@ -21,6 +21,8 @@ html, body {
   これで画面がスマホ幅に変わると思います！
 */
 .app-wrapper {
+	display: flex;
+    flex-direction: column;
   width: 100%;
   max-width: 430px;    /* スマホの幅に固定 */
   min-height: 100vh;   /* 画面縦いっぱいの高さを確保 */

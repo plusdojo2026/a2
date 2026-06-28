@@ -17,12 +17,19 @@
 <body>
 <div class="app-wrapper">
 
-<!--　ヘッダーここから　-->
+<!--ヘッダーここから-->
+<div class="solid"></div>
 <header>
+    <div class="header-left">
+        <span id="today"></span>
+        <span id="anniversary" class="anniversary"></span>
+    </div>
 
+    <span class="logo">
+		<img class="logo" src='img/logo.png'>
+	</span>
 </header>
-
-<!--　ヘッダーここまで　-->
+<!--ヘッダーここまで-->
 <!--　メインここから　-->
 <main>
 

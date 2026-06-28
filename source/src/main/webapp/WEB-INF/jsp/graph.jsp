@@ -48,12 +48,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <nav id = "todaycomment">
 豆のひとこと
 </nav>
+<div class="comment-box">
+<img class="mamegraph" src='img/graph.png'>
 <nav class="daycomment" id= "daycomment">
 <c:forEach var="Sw" items="${SelectWord}">
 ${Sw.word_of_day}
 </c:forEach>
 </nav>
-
+</div>
 
 <ul id = "select">
 <li>
