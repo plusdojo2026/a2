@@ -64,7 +64,17 @@ public class HomeServlet extends HttpServlet {
        
         // セッションから「前回チェックした日付」を取得
         LocalDate lastCheckDate = (LocalDate) session.getAttribute("lastCheckDate");
-      //今日もう一時データを本保存に移したかどうか ストッパーになる
+        
+        
+        //日付が変わったときにtrueをfalseに変える
+        //lastCheckDate は前回の日付が保存されているか
+        //!lastCheckDate.equals(today) は今日と日付が違うなら
+        if (lastCheckDate != null&& !lastCheckDate.equals(today)) {
+            session.setAttribute("migratedToday", false);
+        }
+        
+        
+        //今日もう一時データを本保存に移したかどうか ストッパーになる
         Boolean migratedToday = (Boolean) session.getAttribute("migratedToday");
 
         
