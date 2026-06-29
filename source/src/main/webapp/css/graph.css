@@ -96,7 +96,6 @@ ul{
 .cbutton:hover {
     color: white;
     transition: all 0.5s;
-    transform: scale(5px,5px);   
     padding: 5px 12px 5px 12px;
     text-align:center;
 	font-weight:bolder;
