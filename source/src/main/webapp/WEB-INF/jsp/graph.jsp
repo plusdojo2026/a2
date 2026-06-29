@@ -60,7 +60,7 @@ ${Sw.word_of_day}
 <ul id = "select">
 <li>
 <div id ="selectitem">
-	<label for="itemSelect">トレーニング項目</label><select id="itemSelect"  onchange="changeItem()">
+	<label for="itemSelect">トレーニング項目</label><select id="itemSelect" class="pullitem" onchange="changeItem()">
 		 <c:forEach var="gi" items="${WeekGraph}">
 		<option value="${gi.key}"><c:out value="${gi.key}"/>
 		 </option>
@@ -70,12 +70,11 @@ ${Sw.word_of_day}
 </li>
 <li>
 <div id = "selectweight">
-<label for="weightSelect">重量</label><select id="weightSelect" onchange="changeWeight()">
+<label for="weightSelect">重量</label><select id="weightSelect" class="pullweight" onchange="changeWeight()">
 </select><br>
 </div>
 </li>
 </ul>
-
 
 <!-- グラフを表示する場所 -->
 <div class = "canvas-container">
@@ -316,7 +315,6 @@ let chart = new Chart(context3, {
 	}  //オプションここまで
 });
 
-
 //------ 初期表示 -------
 function convertToChartJs(dataObj) {
     return dataObj; 
@@ -338,7 +336,6 @@ let weekdesign = "3px solid #400040";
 let mondesign = "1px solid #400040";
 document.getElementById("wcbutton").style.border = weekdesign;
 document.getElementById("mcbutton").style.border = mondesign;
-
 
 //項目をセッションに保存
 window.sessionStorage.setItem('gweight', firstWeight);
